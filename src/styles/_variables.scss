@@ -1,0 +1,183 @@
+// Couleurs du thème
+$theme-colors: (
+  "blue": #515DE2,
+  "beige": #FFF6ED,
+  "pink": #FFEDF6,
+  "purple": #EDEDFF,
+  "green": #EDFFF6,
+  "light-green": #EDFFED,
+  "light-green-2": #F6FFED,
+  "yellow": #FFFFED,
+  "light-pink": #FFEDFF,
+  "white": #FDFDFD,
+);
+
+// Tailles des bordures
+$border-size: (
+  "1": 1px,
+  "2": 2px,
+  "3": 3px,
+  "4": 4px,
+  "5": 5px,
+  "6": 6px,
+  "7": 7px,
+  "8": 8px,
+  "9": 9px,
+  "10": 10px,
+);
+
+// Tailles de police
+$font-size: (
+  "10": 0.75rem, // 12px
+  "20": 0.875rem, // 14px
+  "30": 1rem, // 16px
+  "40": 1.25rem, // 20px
+  "50": 1.5rem, // 24px
+  "60": 1.75rem, // 28px
+  "70": 2rem, // 32px
+  "80": 2.25rem, // 36px
+);
+
+// Poids des polices
+$font-weight: (
+  "bold": 700,
+  "regular": 400,
+);
+
+// Points de rupture pour les réponses
+$breakpoints: (
+  "xs": 375px,  // Extra small devices (portrait phones)
+  "sm": 425px,  // Small devices (landscape phones)
+  "md": 768px,  // Medium devices (tablets)
+  "lg": 1024px, // Large devices (desktops)
+  "xl": 1440px, // Extra large devices (large desktops)
+  "xxl": 1980px // Extra extra large devices (very large desktops)
+);
+
+// _variables.scss
+$breakpoint-xs: 375px;
+$breakpoint-sm: 425px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1440px;
+$breakpoint-xxl: 1980px;
+
+
+// Espacements
+$spacers: (
+  "0": 0rem,
+  // 0px
+  "1": 0.125rem,
+  // 2px
+  "2": 0.25rem,
+  // 4px
+  "3": 0.5rem,
+  // 8px
+  "4": 0.75rem,
+  // 12px
+  "5": 1rem,
+  // 16px
+  "6": 1.5rem,
+  // 24px
+  "7": 2rem,
+  // 32px
+  "8": 2.5rem,
+  // 40px
+  "9": 3.5rem,
+  // 56px
+  "10": 4rem,
+  // 64px
+  "11": 4.5rem,
+  // 72px
+  "12": 5rem,
+  // 80px
+  "13": 6rem,
+  // 96px
+  "14": 8rem,
+  // 128px
+  "15": 11rem,
+  // 176px
+  "16": 12rem,
+  // 192px
+  "17": 13rem,
+  // 208px
+  "18": 14rem,
+  // 224px
+  "19": 15rem,
+  // 240px
+  "20": 16rem,
+  // 256px
+  "21": 17rem,
+  // 272px
+  "22": 18rem,
+  // 288px
+  "23": 19rem,
+  // 304px
+  "24": 20rem,
+  // 320px
+  "25": 21rem,
+  // 336px
+  "26": 22rem,
+  // 352px
+  "27": 23rem,
+  // 368px
+  "28": 24rem,
+  // 384px
+  "29": 25rem,
+  // 400px
+);
+
+// Génération dynamique des classes de couleur, de taille de police et de poids de police
+@each $name, $value in $theme-colors {
+  .bg-#{$name} {
+    background-color: $value;
+  }
+  .text-#{$name} {
+    color: $value;
+  }
+}
+
+@each $name, $value in $font-size {
+  .text-fs-#{$name} {
+    font-size: $value;
+  }
+}
+
+@each $name, $value in $font-weight {
+  .text-fw-#{$name} {
+    font-weight: $value;
+  }
+}
+
+// Utilisation dans les média queries
+@each $breakpoint-name, $breakpoint-value in $breakpoints {
+  @media (min-width: $breakpoint-value) {
+    @each $spacer-name, $spacer-value in $spacers {
+      // Génération dynamique des classes pour padding et margin pour chaque breakpoint
+      .p-#{$spacer-name}-#{$breakpoint-name} { padding: $spacer-value; }
+      .pt-#{$spacer-name}-#{$breakpoint-name} { padding-top: $spacer-value; }
+      .pb-#{$spacer-name}-#{$breakpoint-name} { padding-bottom: $spacer-value; }
+      .pl-#{$spacer-name}-#{$breakpoint-name} { padding-left: $spacer-value; }
+      .pr-#{$spacer-name}-#{$breakpoint-name} { padding-right: $spacer-value; }
+      .px-#{$spacer-name}-#{$breakpoint-name} { padding-left: $spacer-value; padding-right: $spacer-value; }
+      .py-#{$spacer-name}-#{$breakpoint-name} { padding-top: $spacer-value; padding-bottom: $spacer-value; }
+      .m-#{$spacer-name}-#{$breakpoint-name} { margin: $spacer-value; }
+      .mt-#{$spacer-name}-#{$breakpoint-name} { margin-top: $spacer-value; }
+      .mb-#{$spacer-name}-#{$breakpoint-name} { margin-bottom: $spacer-value; }
+      .ml-#{$spacer-name}-#{$breakpoint-name} { margin-left: $spacer-value; }
+      .mr-#{$spacer-name}-#{$breakpoint-name} { margin-right: $spacer-value; }
+      .mx-#{$spacer-name}-#{$breakpoint-name} { margin-left: $spacer-value; margin-right: $spacer-value; }
+      .my-#{$spacer-name}-#{$breakpoint-name} { margin-top: $spacer-value; margin-bottom: $spacer-value; }
+    }
+  }
+}
+
+$icon-sizes: (
+  small: map-get($font-size, "10"),
+  medium: map-get($font-size, "30"),
+  large: map-get($font-size, "40"),
+);
+
+@each $name, $value in $icon-sizes {
+  .icon-#{$name} { font-size: $value; }
+}
