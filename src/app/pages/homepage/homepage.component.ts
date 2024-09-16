@@ -54,14 +54,15 @@ export class HomepageComponent implements OnInit, AfterViewInit {
       const timeline = anime.timeline({ loop: false });
       timeline
         .add({
-          targets: '.ml11 .first-line',  
+          targets: '.ml11 .first-line',
           scaleY: [0, 1],
           opacity: [0.5, 1],
           easing: "easeOutExpo",
-          duration: 500
+          duration: 1500,
+          delay: 1500,
         })
         .add({
-          targets: '.ml11 .first-line',  
+          targets: '.ml11 .first-line',
           translateX: [0, (() => {
             const letters1 = document.querySelector('.ml11 .letters-1');
             if (letters1) {
@@ -70,67 +71,73 @@ export class HomepageComponent implements OnInit, AfterViewInit {
             return 0;
           })()],
           easing: "easeOutExpo",
-          duration: 500,
+          duration: 400,
         })        
         .add({
-          targets: '.ml11 .letters-1 .letter',  
+          targets: '.ml11 .letters-1 .letter',
           opacity: [0, 1],
           easing: "easeOutExpo",
-          duration: 600,
+          duration: 800,
           delay: (el: HTMLElement, i: number) => 50 * (i + 1)
         })
         .add({
-          targets: '.ml11 .first-line', 
+          targets: '.ml11 .first-line',
           opacity: 0,
-          duration: 1000,
+          duration: 800,
           easing: "easeOutExpo",
           complete: () => {
-            const lineElement = document.querySelector('.ml11 .second-line') as HTMLElement; 
+            const lineElement = document.querySelector('.ml11 .second-line') as HTMLElement;
             if (lineElement) {
               lineElement.style.transform = 'translateX(0px)';
             }
   
             anime.timeline({ loop: false })
               .add({
-                targets: '.ml11 .second-line', 
+                targets: '.ml11 .second-line',
                 scaleY: [0, 1],
                 opacity: [0.5, 1],
                 easing: "easeOutExpo",
-                duration: 500
+                duration: 800
               })
               .add({
-                targets: '.ml11 .second-line',  
+                targets: '.ml11 .second-line',
                 translateX: [0, (() => {
                   const letters2 = document.querySelector('.ml11 .letters-2');
                   if (letters2) {
-                    return letters2.getBoundingClientRect().width -45;
+                    return letters2.getBoundingClientRect().width - 1;
                   }
                   return 0;
                 })()],
                 easing: "easeOutExpo",
-                duration: 500,
+                duration: 400,
               })
               .add({
-                targets: '.ml11 .letters-2', 
-                opacity: 1,  
-                duration: 0, 
+                targets: '.ml11 .letters-2',
+                opacity: 1,
+                duration: 0,
               })
               .add({
-                targets: '.ml11 .letters-2 .letter',  
+                targets: '.ml11 .letters-2 .letter',
                 opacity: [0, 1],
                 easing: "easeOutExpo",
-                duration: 600,
+                duration: 800,
                 delay: (el: HTMLElement, i: number) => 50 * (i + 1)
               })
               .add({
-                targets: '.ml11 .second-line',  
+                targets: '.ml11 .second-line',
                 opacity: 0,
                 easing: "easeOutExpo"
               });
           }
         });
+  
+      setTimeout(() => {
+        const dotElement = document.querySelector('.dot') as HTMLElement;
+        if (dotElement) {
+          dotElement.style.left = '0'; 
+        }
+      }, 3500); 
     }
   }
-  
   
 }

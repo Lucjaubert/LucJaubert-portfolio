@@ -58,7 +58,15 @@
         bottom: 10px;
         left: 0;
         height: 150px;
+        margin-left: 3px;
       }
+    }
+
+    .dot {
+      opacity: 1;
+      position: relative;
+      left: -35.7rem; 
+      transition: left 0.6s ease; 
     }
   }
 
