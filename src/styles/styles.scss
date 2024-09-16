@@ -1,4 +1,6 @@
 @import "./_variables.scss";
+@import '../../node_modules/bootstrap/scss/bootstrap.scss'; 
+@import '../assets/fonts/fonts.scss';
 
 #app-container {
     position: relative;
@@ -10,3 +12,35 @@
 #page {
     flex: 1;
 }
+
+.app-root {
+    font-family: 'Open Sans';
+    font-weight: normal;
+    font-style: normal;
+    color: map-get($theme-colors, "blue");
+    background-color: map-get($theme-colors, "beige");
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+
+    h1 {
+        font-family: 'Trap';
+        font-weight: 600;
+        font-style: normal;
+        font-size: 11rem;
+        line-height: 8rem;
+        color: map-get($theme-colors, "blue");
+    }
+
+    h2 {
+        font-family: 'Open Sans';
+        font-weight: 300;
+        font-style: normal;
+        font-size: 2.7rem;
+        color: map-get($theme-colors, "blue");
+        margin-top: -1rem;
+    }
+}
+
+
