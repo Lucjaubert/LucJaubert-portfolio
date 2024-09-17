@@ -1,67 +1,61 @@
 {
-  "hash": "53447a1c",
-  "configHash": "a579f4ce",
+  "hash": "4c437ade",
+  "configHash": "4b32dcf8",
   "lockfileHash": "95a4b8bf",
-  "browserHash": "7e4e4650",
+  "browserHash": "d1063e6b",
   "optimized": {
     "@angular/common": {
       "src": "../../../../../node_modules/@angular/common/fesm2022/common.mjs",
       "file": "@angular_common.js",
-      "fileHash": "7c9236e3",
+      "fileHash": "6e96910d",
       "needsInterop": false
     },
     "@angular/common/http": {
       "src": "../../../../../node_modules/@angular/common/fesm2022/http.mjs",
       "file": "@angular_common_http.js",
-      "fileHash": "16762ce0",
+      "fileHash": "2c6dcfb4",
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "0a8d7b5b",
+      "fileHash": "8ff35ef8",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "2d424bc5",
+      "fileHash": "65db2cf5",
       "needsInterop": false
     },
     "@angular/platform-server": {
       "src": "../../../../../node_modules/@angular/platform-server/fesm2022/platform-server.mjs",
       "file": "@angular_platform-server.js",
-      "fileHash": "07f12d5c",
+      "fileHash": "f5a83960",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "34f893ce",
+      "fileHash": "0a07dd34",
       "needsInterop": false
     },
     "animejs/lib/anime.es.js": {
       "src": "../../../../../node_modules/animejs/lib/anime.es.js",
       "file": "animejs_lib_anime__es__js.js",
-      "fileHash": "f9ea29df",
+      "fileHash": "bf9704eb",
       "needsInterop": false
     },
     "gsap": {
       "src": "../../../../../node_modules/gsap/index.js",
       "file": "gsap.js",
-      "fileHash": "6b508cfd",
-      "needsInterop": false
-    },
-    "gsap/ScrollTrigger": {
-      "src": "../../../../../node_modules/gsap/ScrollTrigger.js",
-      "file": "gsap_ScrollTrigger.js",
-      "fileHash": "5ce61e4e",
+      "fileHash": "face3081",
       "needsInterop": false
     },
     "rxjs": {
       "src": "../../../../../node_modules/rxjs/dist/cjs/index.js",
       "file": "rxjs.js",
-      "fileHash": "b98f754c",
+      "fileHash": "9ae32a05",
       "needsInterop": true
     }
   },
