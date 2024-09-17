@@ -136,8 +136,7 @@ export class HomepageComponent implements OnInit, AfterViewInit {
         if (dotElement) {
           dotElement.style.left = '0'; 
         }
-      }, 3500); 
+      }, 5000); 
     }
   }
-  
 }
