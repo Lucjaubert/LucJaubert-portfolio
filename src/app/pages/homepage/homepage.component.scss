@@ -1,6 +1,8 @@
 @import "../../../styles/_variables.scss";
 
 .container {
+    max-width: 1400px;
+
   .logo-letter {
     width: 5.3rem;
     height: auto;
@@ -57,7 +59,7 @@
       &.line1 {
         bottom: 10px;
         left: 0;
-        height: 150px;
+        height: 140px;
         margin-left: 3px;
       }
     }
@@ -71,8 +73,6 @@
   }
 
   .ml13 {
-    font-weight: 400;
-    font-size: 2.5rem;
     line-height: 1.2;
     color: map-get($theme-colors, "blue");
   
