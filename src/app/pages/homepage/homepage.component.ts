@@ -21,6 +21,7 @@ import { gsap } from 'gsap';
 export class HomepageComponent implements OnInit, AfterViewInit {
 
   homepageData$!: Observable<HomepageData[] | null>;
+  isAnimating = false;
 
   constructor(
     private wordpressService: WordpressService,
@@ -107,7 +108,7 @@ export class HomepageComponent implements OnInit, AfterViewInit {
     if (lineElement) {
       lineElement.style.transform = 'translateX(0px)';
     }
-
+  
     anime.timeline({ loop: false })
       .add({
         targets: '.ml11 .second-line',
@@ -141,8 +142,21 @@ export class HomepageComponent implements OnInit, AfterViewInit {
         targets: '.ml11 .second-line',
         opacity: 0,
         easing: 'easeOutExpo',
+        complete: () => {
+          // Lancer l'animation des lettres de "Développeur Web Freelance"
+          this.animateDeveloperTitle();
+        },
       });
   }
+  
+  animateDeveloperTitle(): void {
+    gsap.to('.ml13 .letters-3', {
+      opacity: 1,
+      duration: 0.5,
+      stagger: 0.05, 
+      ease: "power1.out", 
+    });
+  }  
 
   initGSAP(): void {
     let scrollDirection = 'down'; 
