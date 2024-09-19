@@ -3,6 +3,7 @@
 .container {
     max-width: 1400px;
 
+  // Name Section
   .name-presentation {
     .logo-letter {
       width: 5.3rem;
@@ -92,42 +93,89 @@
       position: relative;  
     }
   }
-    
-  .project-presentation {
-    p {
-      font-weight: 300;
-    }
 
-    .custom-line {
+// Project Section
+.project-presentation {
+  p {
+    font-weight: 300;
+  }
+
+  .custom-line {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 1.5px;
+    background-color: map-get($theme-colors, "light-blue");
+    width: 0%;
+    transition: width 2s ease-out;
+  }
+
+  .short-line {
+    height: 1.5px;
+    background-color: map-get($theme-colors, "light-blue");
+    width: 50%;
+    margin: 0;
+  }
+
+  .long-line {
+    height: 1.5px;
+    background-color: map-get($theme-colors, "light-blue");
+    width: 58%;
+    margin: 0;
+  }
+
+  .animate-line {
+    width: 100%; 
+  }
+
+  .project-hover-container {
+    display: flex;
+    flex-direction: column;
+
+    .laiterie-container,
+    .limago-container,
+    .anglais-container,
+    .maison-container {
       position: relative;
-      top: 0;
-      left: 0;
-      height: 1.5px;
-      background-color: map-get($theme-colors, "light-blue");
-      width: 0%; 
-      transition: width 2s ease-out; 
+      display: flex;
+
+      .video-box {
+        height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: height 1s ease, opacity 0.8s ease;
+      }
+
+      &:hover .video-box {
+        height: 400px;
+        opacity: 1;
+      }
+
+      &:hover {
+        background-color: map-get($theme-colors, "pink"); /* Changez pour chaque projet si besoin */
+        transition: background-color 0.3s ease;
+      }
     }
 
-    .short-line {
-      top: 0;
-      left: 0;
-      height: 2px;
-      background-color: map-get($theme-colors, "light-blue");
-    }
-  
-    .long-line {
-      top: 0;
-      left: 0;
-      height: 1.5px;
-      max-width: 34vw;
-      background-color: map-get($theme-colors, "light-blue");
+    .limago-container:hover {
+      background-color: map-get($theme-colors, "light-pink");
     }
 
-    .animate-line {
-      width: 100%; 
+    .anglais-container:hover {
+      background-color: map-get($theme-colors, "second-blue");
+    }
+
+    .maison-container:hover {
+      background-color: map-get($theme-colors, "yellow");
     }
   }
 
+  .past-projects {
+    background-color: transparent;
+  }
+}
+
+  // Studio Web Section
   .studio-web {
     .custom-line {
       position: relative;
@@ -142,8 +190,13 @@
     .animate-line {
       width: 100%; 
     }
+
+    &:hover {
+      background-color: map-get($theme-colors, "green");
+    }
   }
 
+  // Bio Section
   .bio-section {
     .custom-line {
       position: relative;
@@ -164,8 +217,13 @@
         font-weight: 500;
       }
     }
+
+    &:hover {
+      background-color: map-get($theme-colors, "yellow");
+    }
   }
 
+  // Contact Section
   .contact-section {
     .custom-line {
       position: relative;
@@ -194,6 +252,10 @@
           font-weight: 500;
         }
       }
+    }
+
+    &:hover {
+      background-color: map-get($theme-colors, "light-green");
     }
   } 
 }
