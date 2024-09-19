@@ -15,7 +15,7 @@
       height: 1.5px;
       background-color: map-get($theme-colors, "blue");
       width: 0%; 
-      animation: drawLine 3s forwards ease-out;
+      animation: drawLine 2s forwards ease-out;
     }
     
     .navbar-nav {
@@ -33,7 +33,6 @@
         color: map-get($theme-colors, "blue");
         text-transform: uppercase;
         padding-bottom: 0.5rem;
-        text-decoration: none;
         position: relative;
         z-index: 2;
       }

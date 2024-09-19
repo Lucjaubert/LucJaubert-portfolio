@@ -41,6 +41,7 @@ export class HomepageComponent implements OnInit, AfterViewInit {
     if (isPlatformBrowser(this.platformId)) {
       this.initAnimeJS(); 
       this.initGSAP(); 
+      this.observeCustomLines();
     }
   }
 
@@ -143,7 +144,6 @@ export class HomepageComponent implements OnInit, AfterViewInit {
         opacity: 0,
         easing: 'easeOutExpo',
         complete: () => {
-          // Lancer l'animation des lettres de "Développeur Web Freelance"
           this.animateDeveloperTitle();
         },
       });
@@ -232,5 +232,29 @@ export class HomepageComponent implements OnInit, AfterViewInit {
         });
       }           
     });
+  }
+
+  observeCustomLines(): void {
+    const lines = document.querySelectorAll('.custom-line');
+    if (lines.length === 0) {
+      console.log("No custom lines found!");
+      return;
+    }
+  
+    const options = {
+      root: null,
+      threshold: 0.5,
+    };
+  
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          console.log("Line is visible:", entry.target);
+          entry.target.classList.add('animate-line');
+        }
+      });
+    }, options);
+  
+    lines.forEach(line => observer.observe(line));
   }  
 }

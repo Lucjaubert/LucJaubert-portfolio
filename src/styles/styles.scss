@@ -29,7 +29,7 @@
         font-family: 'Trap';
         font-weight: 600;
         font-style: normal;
-        font-size: 11rem;
+        font-size: map-get($font-size, "370");
         line-height: 8rem;
         color: map-get($theme-colors, "blue");
     }
@@ -38,23 +38,48 @@
         font-family: 'Open Sans';
         font-weight: 300;
         font-style: normal;
-        font-size: 2.7rem;
+        font-size: map-get($font-size, "90");
         color: map-get($theme-colors, "blue");
         margin-top: -1rem;
     }
 
     h3 {
         font-family: 'Open Sans';
-        font-weight: 300;
+        font-weight: 600;
         font-style: normal;
-        font-size: 2rem;
+        font-size: map-get($font-size, "30");
+        text-transform: uppercase;
         color: map-get($theme-colors, "blue");
-        margin-top: -1rem;
     }
 
-    ul, li {
+    h4 {
         font-family: 'Open Sans';
-        font-weight: 400;
+        font-weight: 600;
+        font-style: normal;
+        font-size: map-get($font-size, "30");
+        color: map-get($theme-colors, "blue");
+    }
+
+    h5 {
+        font-family: 'Open Sans';
+        font-weight: 600;
+        font-style: normal;
+        font-size: map-get($font-size, "30");
+        color: map-get($theme-colors, "blue");
+    }
+
+    h6 {
+        font-family: 'Open Sans';
+        font-weight: normal;
+        font-style: normal;
+        font-size: map-get($font-size, "20");
+        color: map-get($theme-colors, "blue");
+    }
+
+    ul, li, a, p {
+        font-family: 'Open Sans';
+        font-weight: 300;
+        font-size: map-get($font-size, "20");
         font-style: normal;
         list-style-type: none;
         padding: 0;
