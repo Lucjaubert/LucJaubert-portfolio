@@ -125,13 +125,14 @@
   }
 
   .animate-line {
-    width: 100%; 
+    width: 100%;
   }
 
   .project-hover-container {
     display: flex;
     flex-direction: column;
 
+    // Projets individuels
     .laiterie-container,
     .limago-container,
     .anglais-container,
@@ -150,30 +151,62 @@
         height: 400px;
         opacity: 1;
       }
+    }
 
-      &:hover {
-        background-color: map-get($theme-colors, "pink"); /* Changez pour chaque projet si besoin */
-        transition: background-color 0.3s ease;
-      }
+    // Couleurs spécifiques aux projets individuels
+    .laiterie-container:hover {
+      background-color: map-get($theme-colors, "light-pink");
+      transition: background-color 0.3s ease;
     }
 
     .limago-container:hover {
-      background-color: map-get($theme-colors, "light-pink");
+      background-color: map-get($theme-colors, "red");
+      transition: background-color 0.3s ease;
     }
 
     .anglais-container:hover {
-      background-color: map-get($theme-colors, "second-blue");
+      background-color: map-get($theme-colors, "yellow");
+      transition: background-color 0.3s ease;
     }
 
     .maison-container:hover {
-      background-color: map-get($theme-colors, "yellow");
+      background-color: map-get($theme-colors, "orange");
+      transition: background-color 0.3s ease;
     }
   }
 
+  // Section "current-projects" avec priorité aux projets
+  .current-projects {
+    background-color: transparent;
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+      background-color: map-get($theme-colors, "light-green");
+    }
+
+    // Priorité au projet en survol
+    &:hover .project-hover-container > *:hover {
+      background-color: unset;
+    }
+  }
+
+  // Section "past-projects" avec priorité aux projets
   .past-projects {
     background-color: transparent;
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+      background-color: map-get($theme-colors, "purple");
+    }
+
+    // Priorité au projet en survol
+    &:hover .project-hover-container > *:hover {
+      background-color: unset;
+    }
   }
 }
+
+
 
   // Studio Web Section
   .studio-web {
