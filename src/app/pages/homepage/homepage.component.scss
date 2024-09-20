@@ -3,7 +3,6 @@
 .container {
     max-width: 1400px;
 
-  // Name Section
   .name-presentation {
     .logo-letter {
       width: 5.3rem;
@@ -94,39 +93,42 @@
     }
   }
 
-// Project Section
-.project-presentation {
-  p {
-    font-weight: 300;
-  }
+  // Project Section
+  .project-presentation {
+    p {
+      font-weight: 300;
+    }
 
-  .custom-line {
-    position: relative;
-    top: 0;
-    left: 0;
-    height: 1.5px;
-    background-color: map-get($theme-colors, "light-blue");
-    width: 0%;
-    transition: width 2s ease-out;
-  }
+    .custom-line {
+      position: relative;
+      top: 0;
+      left: 0;
+      height: 1.5px;
+      background-color: map-get($theme-colors, "light-blue");
+      width: 0%; 
+      transition: width 2s ease-out; 
+    }
 
-  .short-line {
+    .short-line {
     height: 1.5px;
-    background-color: map-get($theme-colors, "light-blue");
+      background-color: map-get($theme-colors, "light-blue");
     width: 50%;
     margin: 0;
-  }
-
-  .long-line {
-    height: 1.5px;
-    background-color: map-get($theme-colors, "light-blue");
+    }
+  
+    .long-line {
+      top: 0;
+      left: 0;
+      height: 1.5px;
+      max-width: 34vw;
+      background-color: map-get($theme-colors, "light-blue");
     width: 58%;
     margin: 0;
-  }
+    }
 
-  .animate-line {
-    width: 100%;
-  }
+    .animate-line {
+      width: 100%; 
+    }
 
   .project-hover-container {
     display: flex;
@@ -198,15 +200,7 @@
     &:hover {
       background-color: map-get($theme-colors, "purple");
     }
-
-    // Priorité au projet en survol
-    &:hover .project-hover-container > *:hover {
-      background-color: unset;
-    }
   }
-}
-
-
 
   // Studio Web Section
   .studio-web {
@@ -291,4 +285,5 @@
       background-color: map-get($theme-colors, "light-green");
     }
   } 
+}
 }
