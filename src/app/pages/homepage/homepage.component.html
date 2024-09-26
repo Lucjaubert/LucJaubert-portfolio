@@ -1,133 +1,201 @@
-<section class="container name-presentation mt-20">
-  <div class="row">
-    <div class="col text-left">
-      <div class="first-name ml11">
-        <span class="text-wrapper d-flex align-items-baseline">
-          <img src="assets/img/letter-L.png" alt="L" class="logo-letter">
-          <h1>
-            <span class="first-line line1"></span>
-            <span class="letters-1">uc</span>
-          </h1>
-        </span>
-      </div>
+<div class="container">
+  <section class="name-presentation mt-20">
+    <div class="row">
+      <div class="col text-left">
+        <div class="first-name ml11">
+          <span class="text-wrapper d-flex align-items-baseline">
+            <img src="assets/img/letter-L.png" alt="L" class="logo-letter">
+            <h1>
+              <span class="first-line line1"></span>
+              <span class="letters-1">uc</span>
+            </h1>
+          </span>
+        </div>
 
-      <div class="ml11">
-        <span class="text-wrapper d-flex align-items-baseline">
-          <h1 class="last-name">
-            <span>J</span> 
-          </h1>
-          <h1>
-            <span class="second-line line1"></span>
-            <span class="letters-2">aubert</span> 
-          </h1>
-          <h1>
-            <span class="dot">.</span>
-          </h1>
-        </span>
-      </div>
+        <div class="ml11">
+          <span class="text-wrapper d-flex align-items-baseline">
+            <h1 class="last-name">
+              <span>J</span> 
+            </h1>
+            <h1>
+              <span class="second-line line1"></span>
+              <span class="letters-2">aubert</span> 
+            </h1>
+            <h1>
+              <span class="dot">.</span>
+            </h1>
+          </span>
+        </div>
 
-      <h2 class="ml13">
-        <span class="letters-3">D</span><span class="letters-3">é</span><span class="letters-3">v</span><span class="letters-3">e</span><span class="letters-3">l</span><span class="letters-3">o</span><span class="letters-3">p</span><span class="letters-3">p</span><span class="letters-3">e</span><span class="letters-3">u</span><span class="letters-3">r</span>
-        <span class="space"> </span>
-        <span class="letters-3">W</span><span class="letters-3">e</span><span class="letters-3">b</span>
-        <span class="space"> </span>
-        <span class="letters-3">F</span><span class="letters-3">r</span><span class="letters-3">e</span><span class="letters-3">e</span><span class="letters-3">l</span><span class="letters-3">a</span><span class="letters-3">n</span><span class="letters-3">c</span><span class="letters-3">e</span>
-      </h2>      
+        <h2 class="ml13">
+          <span class="letters-3">D</span><span class="letters-3">é</span><span class="letters-3">v</span><span class="letters-3">e</span><span class="letters-3">l</span><span class="letters-3">o</span><span class="letters-3">p</span><span class="letters-3">p</span><span class="letters-3">e</span><span class="letters-3">u</span><span class="letters-3">r</span>
+          <span class="space"> </span>
+          <span class="letters-3">W</span><span class="letters-3">e</span><span class="letters-3">b</span>
+          <span class="space"> </span>
+          <span class="letters-3">F</span><span class="letters-3">r</span><span class="letters-3">e</span><span class="letters-3">e</span><span class="letters-3">l</span><span class="letters-3">a</span><span class="letters-3">n</span><span class="letters-3">c</span><span class="letters-3">e</span>
+        </h2>      
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="projects" class="project-presentation mt-md-14 py-10">
+  <div class="row project-hover-container">
+    <div class="col-md-6 projects-list text-center px-10">
+      <div class="current-projects">
+        <div class="projects-2024">
+          <div class="project-container laiterie-container d-flex align-items-baseline">
+            <h3 data-video="assets/videos/laiterie.mp4">Laiterie Burdigala</h3>
+            <span class="date px-3">2024</span>
+          </div>
+          <div class="project-container limago-container d-flex align-items-baseline">
+            <h3 data-video="assets/videos/limago.mp4">Limago Reflexo</h3>
+            <span class="date px-3">2024</span>
+          </div>
+          <div class="project-container anglais-container d-flex align-items-baseline">
+            <h3 data-video="assets/videos/anglais.mp4">Anglais Du Vin</h3>
+            <span class="date px-3">2024</span>
+          </div>
+        </div>
+
+        <div class="projects-2023">
+          <div class="project-container maison-container d-flex align-items-baseline">
+            <h3 data-video="assets/videos/maison.mp4">Maison Ah-Rong</h3>
+            <span class="date px-3">2023</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Colonne droite : Aperçu vidéo -->
+    <div class="col-md-6 video-preview">
+      <div class="d-flex flex-column">
+        <div class="video-box">
+          <video controls class="img-fluid" id="videoPlayer">
+            <source src="assets/videos/laiterie.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="project-details" id="projectDetails">
+          <p><strong>Projet :</strong> Fromagerie aux Capucins - Bordeaux</p>
+          <p><strong>Rôle :</strong> Maquettes - Développement front-end</p>
+          <p><strong>Stacks :</strong> Wordpress Headless - Angular</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="projects" class="container mt-5">
-  <h4 class="text-left">Projets</h4>
-  <div class="line"></div>
-  <div class="row">
-      <div class="col-md-6">
-        <div class="d-flex current-projects">
-          <div class="col-md-3">
-            <h5>2024</h5>
-          </div>
-          <div class="col-md-p d-flex flex-column">
-              <h5>Laiterie Burdigala</h5>
-              <h5>Limago Reflexo</h5>
-              <h5>Anglais Du Vin</h5>
-          </div>
-        </div>
-        <div class="d-flex current-projects">
-          <div class="col-md-3">
-            <h5>2023</h5>
-          </div>
-          <div class="col-md-p d-flex flex-column">
-              <h5>Maison Ah-Rong</h5>
-          </div>
+
+<section id="studio-web" class="studio-web mt-md-14">
+  <h3 class="text-left px-5 py-2">Studio Web</h3>
+  <div class="custom-line"></div>
+  <div class="row mt-7 px-5">
+    <div class="col-md-6 col-12 d-flex">
+      <div class="conception-box">
+        <h4 class="mb-3">Conception et Design Web</h4>
+        <ul>
+          <li>Webdesign</li>
+          <li>UI Design</li>
+          <li>UX Design</li>
+          <li>Responsive Design</li>
+          <li>Identité Visuelle</li>
+          <li>Charte Graphique</li>
+          <li>Création de Logo</li>
+        </ul>
       </div>
-            
+    </div>
+    <div class="col-md-6 col-12 d-flex flex-column">
+      <div class="optimisation-box">
+        <h4 class="mb-3">Optimisation et Marketing Digital</h4>
+        <ul>
+          <li>SEO</li>
+          <li>Community Management</li>
+          <li>Réseaux Sociaux</li>
+          <li>Emailing</li>
+          <li>Adaptation Mobile</li>
+          <li>Intégration HTML/CSS</li>
+        </ul>
       </div>
-      
-      <div class="col-md-6">
-          <!--<img src="" alt="Image du projet" class="img-fluid">-->
-      </div>
+    </div>
   </div>
-</section>
-<section id="projects" class="container mt-5">
-  <h4 class="text-left">Projets</h4>
-  <div class="line"></div>
-  <div class="row">
-      <div class="col-md-6">
-        <div class="d-flex current-projects">
-          <div class="col-md-3">
-            <h5>2024</h5>
-          </div>
-          <div class="col-md-p d-flex flex-column">
-              <h5>Laiterie Burdigala</h5>
-              <h5>Limago Reflexo</h5>
-              <h5>Anglais Du Vin</h5>
-          </div>
-        </div>
-        <div class="d-flex current-projects">
-          <div class="col-md-3">
-            <h5>2023</h5>
-          </div>
-          <div class="col-md-p d-flex flex-column">
-              <h5>Maison Ah-Rong</h5>
-          </div>
+  <div class="d-flex row mt-12 px-5">
+    <div class="col-md-6 col-12">
+      <div class="development-box">
+        <h4 class="mb-3">Développement Web et Mobile</h4>
+        <ul>
+          <li>Sites Vitrine</li>
+          <li>Sites Institutionnels</li>
+          <li>E-Commerce</li>
+          <li>Développement Sur-mesure</li>
+          <li>Angular 18</li>
+          <li>WordPress Headless</li>
+          <li>WordPress Personnalisé</li>
+          <li>Shopify</li>
+          <li>Applications Web & Mobile</li>
+        </ul>
       </div>
-            
+    </div>
+    <div class="col-md-6 col-12 d-flex flex-column">
+      <div class="processus-box">
+        <h4 class="mb-3">Processus de Création et Lancement</h4>
+        <ul>
+          <li>Brief</li>
+          <li>Arborescence</li>
+          <li>Ergonomie</li>
+          <li>Zoning</li>
+          <li>Maquettes Figma</li>
+          <li>Récupération de Contenus</li>
+          <li>Développement & Intégration</li>
+          <li>SEO</li>
+          <li>Hébergement</li>
+          <li>Déploiement - mise en ligne</li>
+        </ul>
       </div>
-      
-      <div class="col-md-6">
-          <!--<img src="" alt="Image du projet" class="img-fluid">-->
-      </div>
+    </div>
   </div>
 </section>
 
-<section id="projects" class="container mt-5">
-  <h4 class="text-left">Projets</h4>
-  <div class="line"></div>
-  <div class="row">
-      <div class="col-md-6">
-        <div class="d-flex current-projects">
-          <div class="col-md-3">
-            <h5>2024</h5>
-          </div>
-          <div class="col-md-p d-flex flex-column">
-              <h5>Laiterie Burdigala</h5>
-              <h5>Limago Reflexo</h5>
-              <h5>Anglais Du Vin</h5>
-          </div>
-        </div>
-        <div class="d-flex current-projects">
-          <div class="col-md-3">
-            <h5>2023</h5>
-          </div>
-          <div class="col-md-p d-flex flex-column">
-              <h5>Maison Ah-Rong</h5>
-          </div>
-      </div>
-            
-      </div>
-      
-      <div class="col-md-6">
-          <!--<img src="" alt="Image du projet" class="img-fluid">-->
-      </div>
+<section id="bio" class="bio-section mt-md-14">
+  <div class="col-md-6 col-12">
+    <h3 class="text-left px-5 py-2">Bio</h3>
+    <div class="custom-line"></div> 
+    <div class="bio-content mt-7 px-5">
+      <p>Je suis développeur web freelance basé à Bordeaux. Je me spécialise dans le développement front-end tout en possédant des compétences solides en back-end.</p>
+      <p>Depuis la création de Wanted Community, une plateforme d'entraide sur Facebook forte de plus de 1,3 million de membres, jusqu'au lancement du Wanted Café, mon parcours a été guidé par un désir de bâtir des espaces qui favorisent la connexion, l'entraide et la collaboration.</p>
+      <p>Aujourd'hui, mon métier est de concevoir des sites web.</p>
+      <p>Mon expertise en développement web s'étend de la conception de maquettes à l'optimisation SEO, en passant par le développement et la maintenance de sites.</p>
+      <p>Je travaille aussi en collaboration avec des agences de communication, je développe des sites qui non seulement répondent aux besoins spécifiques des clients, mais qui sont également robustes sur le plan technique et attrayants visuellement.</p>
+      <p>Vous avez un projet ? Contactez-moi pour discuter de comment nous pouvons travailler ensemble pour développer une solution web adaptée à vos besoins.</p>
+    </div>
   </div>
 </section>
+
+<section id="contact" class="contact-section mt-md-14">
+  <div class="col-md-6 col-12">
+    <h3 class="text-left px-5 py-2">Contact</h3>
+    <div class="custom-line"></div>
+    <div class="contact-content mt-4 px-5">
+      <p class="py-1">
+        <img src="assets/img/mail.png" alt="Mail Icon" class="icon-envelope">
+        <a href="mailto:lucjaubert@gmail.com">lucjaubert&#64;gmail.com</a>
+      </p>
+      <p class="py-1">
+        <img src="assets/img/phone.png" alt="Phone Icon" class="icon-phone">
+        <a href="tel:+33760227855">+33 7 60 22 78 55</a>
+      </p>
+    </div>
+  </div>
+</section>  
+
+<footer class="text-left mt-12 mb-4 px-5">
+  <h6>&copy; 2024</h6>
+</footer>
+  
+
+  
+
+
+
+
+

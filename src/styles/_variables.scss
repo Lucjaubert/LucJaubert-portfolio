@@ -1,14 +1,17 @@
 // Couleurs du thème
 $theme-colors: (
   "blue": #515DE2,
+  "light-blue": #8c95f0b2,
   "beige": #FFF6ED,
-  "pink": #FFEDF6,
   "purple": #EDEDFF,
   "green": #EDFFF6,
-  "light-green": #EDFFED,
-  "light-green-2": #F6FFED,
+  "pink": #FFEDF6,
+  "light-green": #edffed,
+  "red": #ffe6e6b9,
   "yellow": #FFFFED,
-  "light-pink": #FFEDFF,
+  "orange": #fff5dc,
+  "light-pink": #fff4ff,
+  "second-blue": #EDFFFF,
   "white": #FDFDFD,
 );
 
@@ -36,6 +39,9 @@ $font-size: (
   "60": 1.75rem, // 28px
   "70": 2rem, // 32px
   "80": 2.25rem, // 36px
+  "90": 2.5rem, // 40px
+  "100": 3rem, // 48px
+  "370": 11rem
 );
 
 // Poids des polices
