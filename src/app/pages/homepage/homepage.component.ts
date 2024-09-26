@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { WordpressService } from '../../services/wordpress.service';
 import { catchError, Observable, of } from 'rxjs';
@@ -19,9 +19,19 @@ import { gsap } from 'gsap';
   ],
 })
 export class HomepageComponent implements OnInit, AfterViewInit {
+  @ViewChild('videoPlayer') videoPlayer!: ElementRef;
+  @ViewChild('videoPreview') videoPreview!: ElementRef;
 
   homepageData$!: Observable<HomepageData[] | null>;
   isAnimating = false;
+
+  // Projet par défaut
+  currentProject = {
+    project: 'Fromagerie aux Capucins - Bordeaux',
+    role: 'Maquettes - Développement front-end',
+    stacks: 'WordPress Headless - Angular',
+    video: 'assets/videos/laiterie.mp4',
+  };
 
   constructor(
     private wordpressService: WordpressService,
@@ -43,6 +53,43 @@ export class HomepageComponent implements OnInit, AfterViewInit {
       this.initGSAP(); 
       this.observeCustomLines();
     }
+  }
+
+  // Méthode appelée lorsque l'utilisateur survole un projet
+  onProjectHover(event: any): void {
+    const target = event.currentTarget as HTMLElement;
+
+    // Mise à jour des informations du projet en fonction des attributs `data-*`
+    this.currentProject = {
+      project: target.getAttribute('data-project') || '',
+      role: target.getAttribute('data-role') || '',
+      stacks: target.getAttribute('data-stacks') || '',
+      video: target.getAttribute('data-video') || '',
+    };
+
+    // Charger la nouvelle vidéo
+    if (this.videoPlayer && this.videoPlayer.nativeElement) {
+      this.videoPlayer.nativeElement.load();
+    }
+
+    // Calculer la position du projet survolé
+    if (this.videoPreview && this.videoPreview.nativeElement) {
+      const rect = target.getBoundingClientRect();
+      const videoPreviewHeight = this.videoPreview.nativeElement.offsetHeight;
+      const topPosition = rect.top + (rect.height / 2) - (videoPreviewHeight / 2);
+
+      // S'assurer que la vidéo reste dans les limites de la fenêtre
+      const maxTop = window.innerHeight - videoPreviewHeight;
+      const adjustedTop = Math.max(0, Math.min(topPosition, maxTop));
+
+      this.videoPreview.nativeElement.style.top = `${adjustedTop}px`;
+    }
+  }
+
+  // Méthode appelée lorsque l'utilisateur quitte le projet (modifiée pour garder le dernier projet survolé)
+  onProjectOut(): void {
+    // Ne rien faire ici pour maintenir l'affichage du dernier projet survolé
+    // Vous pouvez ajouter une logique si vous souhaitez réinitialiser l'affichage après un certain délai, etc.
   }
 
   initAnimeJS(): void {
@@ -132,8 +179,7 @@ export class HomepageComponent implements OnInit, AfterViewInit {
         },
       });
   }
-  
-  
+
   animateDeveloperTitle(): void {
     gsap.to('.ml13 .letters-3', {
       opacity: 1,

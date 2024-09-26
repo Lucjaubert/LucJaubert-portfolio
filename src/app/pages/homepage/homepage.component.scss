@@ -1,7 +1,7 @@
 @import "../../../styles/_variables.scss";
 
 .container {
-    max-width: 1400px;
+  max-width: 1400px;
 
   .name-presentation {
     .logo-letter {
@@ -100,21 +100,28 @@
   padding: 0;
   width: 100%;
   background-color: map-get($theme-colors, "blue");
+  display: flex;
+  align-items: flex-start; 
+  flex-wrap: wrap; 
 
   .project-hover-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    width: 100%;
+    flex: 1; 
 
     .projects-list {
+      flex: 1;
       padding: 20px;
     }
 
     .video-preview {
+      flex: 1;
+      padding: 20px;
+      top: 0; 
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
 
       video {
         max-width: 100%;
@@ -124,34 +131,40 @@
 
     .project-container {
       display: flex;
-      justify-content: space-between;
       align-items: center;
       padding: 1rem 0;
       cursor: pointer;
       transition: transform 0.3s ease, color 0.3s ease;
+      color: map-get($theme-colors, "grey");
 
       &:hover {
-        transform: scale(1.05); // Animation lors du hover
-      }
-
-      // Couleur par défaut pour la date
-      .date {
-        color: map-get($theme-colors, "beige"); // Applique la couleur beige
-        transition: color 0.3s ease;
-      }
-
-      // Effet hover sur la date
-      &:hover .date {
-        color: map-get($theme-colors, "yellow"); // Change la couleur de la date au hover
-      }
-
-      // Effet hover sur le titre h3
-      &:hover h3 {
-        color: map-get($theme-colors, "light-pink");
+        transform: scale(1.05);
+        color: map-get($theme-colors, "white");
       }
     }
   }
+
+  .project-details {
+    color: map-get($theme-colors, "white");
+  
+    p,
+    span {
+      color: map-get($theme-colors, "white");
+    }
+  
+    .col-4 {
+      text-align: center;
+      padding: 5px 0;
+    }
+  
+    span {
+      font-family: 'Open Sans';
+      margin-top: 5px;
+      white-space: normal;
+      font-weight: 300;
+      font-style: normal;
+      font-size: map-get($font-size, "10");
+    }
+  }
+  
 }
-
-
-

@@ -63,7 +63,7 @@
         font-style: normal;
         font-size: map-get($font-size, "90");
         text-transform: uppercase;
-        color: map-get($theme-colors, "beige");
+        color: map-get($theme-colors, "blue");
     }
 
     h4 {
@@ -76,11 +76,15 @@
 
     h5 {
         font-family: 'Open Sans';
-        font-weight: 600;
+        font-weight: 100;
         font-style: normal;
-        font-size: map-get($font-size, "30");
-        color: map-get($theme-colors, "blue");
-    }
+        font-size: map-get($font-size, "100");
+        color: map-get($theme-colors, "grey");
+
+            &:hover {
+                color: map-get($theme-colors, "white");
+            }
+        }
 
     h6 {
         font-family: 'Open Sans';
