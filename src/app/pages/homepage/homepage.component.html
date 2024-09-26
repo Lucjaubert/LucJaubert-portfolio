@@ -37,84 +37,55 @@
       </div>
     </div>
   </section>
+</div>
 
-  <section id="projects" class="container project-presentation mt-md-14">
-    <h3 class="text-left px-5 py-2">Projets</h3>
-    <div class="custom-line"></div>
-    <div class="row px-5">
-      <div class="project-hover-container d-flex row"> 
-        <div class="px-0">
-          <div class="d-flex current-projects px-3 pb-3 pt-7">
-            <div class="col-md-2">
-              <h4>2024</h4>
-            </div>
-            <div class="d-flex flex-column projects-2024">
-              
-              <div class="laiterie-container row">
-                <div class="laiterie col-md-6 px-4 pb-3">
-                  <h5>Laiterie Burdigala</h5>
-                  <p>Fromagerie aux Capucins - Bordeaux</p>
-                  <p>Site E-Commerce</p>
-                </div>
-                <div class="video-box laiterie-video col-md-6 py-5 px-0">
-                  <img src="assets/img/limago.png" alt="Image du projet" class="img-fluid">
-                </div>
-              </div> 
-              
-              <div class="short-line"></div>
-              
-              <div class="limago-container row">
-                <div class="limago col-md-6 px-4 py-3">
-                  <h5>Limago Reflexo</h5>
-                  <p>Cabinet de réflexologie plantaire et palmaire</p>
-                  <p>Site de bien-être et santé</p>
-                </div>
-                <div class="video-box limago-video col-md-6 py-5 px-0">
-                  <img src="assets/img/limago.png" alt="Image du projet" class="img-fluid">
-                </div>
-              </div>
-              
-              <div class="short-line"></div>
-              
-              <div class="anglais-container row">
-                <div class="anglais col-md-6 px-4 py-3">
-                  <h5>Anglais Du Vin</h5>
-                  <p>Par Kathryn Walton Ward</p>
-                  <p>Site de promotion d’un manuel d’anglais</p>
-                </div>
-                <div class="video-box anglais-video col-md-6 py-5 px-0">
-                  <img src="assets/img/limago.png" alt="Image du projet" class="img-fluid">
-                </div>
-              </div>
-              
-            </div>
+<section id="projects" class="project-presentation mt-md-14 py-10">
+  <div class="row project-hover-container">
+    <div class="col-md-6 projects-list text-center px-10">
+      <div class="current-projects">
+        <div class="projects-2024">
+          <div class="project-container laiterie-container d-flex align-items-baseline">
+            <h3 data-video="assets/videos/laiterie.mp4">Laiterie Burdigala</h3>
+            <span class="date px-3">2024</span>
           </div>
-          
-          <div class="long-line"></div>
-          
-          <div class="d-flex past-projects px-3 pb-3 pt-7">
-            <div class="col-md-2">
-              <h4>2023</h4>
-            </div>
-            <div class="col-md-10 d-flex flex-column projects-2023">
-              <div class="maison-container row">
-                <div class="maison col-md-6 px-4 pb-3">
-                  <h5>Maison Ah-Rong</h5>
-                  <p>Massages Coréens à Bordeaux</p>
-                  <p>Site de bien-être et santé</p>
-                </div>
-                <div class="video-box maison-video col-md-6 py-5 px-0">
-                  <img src="assets/img/limago.png" alt="Image du projet" class="img-fluid">
-                </div>
-              </div>
-            </div>
+          <div class="project-container limago-container d-flex align-items-baseline">
+            <h3 data-video="assets/videos/limago.mp4">Limago Reflexo</h3>
+            <span class="date px-3">2024</span>
           </div>
-          
+          <div class="project-container anglais-container d-flex align-items-baseline">
+            <h3 data-video="assets/videos/anglais.mp4">Anglais Du Vin</h3>
+            <span class="date px-3">2024</span>
+          </div>
+        </div>
+
+        <div class="projects-2023">
+          <div class="project-container maison-container d-flex align-items-baseline">
+            <h3 data-video="assets/videos/maison.mp4">Maison Ah-Rong</h3>
+            <span class="date px-3">2023</span>
+          </div>
         </div>
       </div>
     </div>
-  </section>
-  
+
+    <!-- Colonne droite : Aperçu vidéo -->
+    <div class="col-md-6 video-preview">
+      <div class="d-flex flex-column">
+        <div class="video-box">
+          <video controls class="img-fluid" id="videoPlayer">
+            <source src="assets/videos/laiterie.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="project-details" id="projectDetails">
+          <p><strong>Projet :</strong> Fromagerie aux Capucins - Bordeaux</p>
+          <p><strong>Rôle :</strong> Maquettes - Développement front-end</p>
+          <p><strong>Stacks :</strong> Wordpress Headless - Angular</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <section id="studio-web" class="studio-web mt-md-14">
   <h3 class="text-left px-5 py-2">Studio Web</h3>
@@ -221,7 +192,7 @@
   <h6>&copy; 2024</h6>
 </footer>
   
-</div>
+
   
 
 

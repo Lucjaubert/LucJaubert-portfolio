@@ -14,6 +14,12 @@
     flex: 1;
 }
 
+.container,
+.container-fluid {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
 .app-root {
     font-family: 'Open Sans';
     font-weight: normal;
@@ -22,8 +28,16 @@
     background-color: map-get($theme-colors, "beige");
     margin: 0;
     padding: 0;
-    width: 100%;
+    width: 100vw;
     min-height: 100%;
+    overflow-x: hidden;
+
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; 
+        width: 100vw; 
+    }
 
     h1 {
         font-family: 'Trap';
@@ -45,11 +59,11 @@
 
     h3 {
         font-family: 'Open Sans';
-        font-weight: 600;
+        font-weight: 500;
         font-style: normal;
-        font-size: map-get($font-size, "30");
+        font-size: map-get($font-size, "90");
         text-transform: uppercase;
-        color: map-get($theme-colors, "blue");
+        color: map-get($theme-colors, "beige");
     }
 
     h4 {
