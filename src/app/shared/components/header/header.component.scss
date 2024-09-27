@@ -15,7 +15,7 @@
       height: 1.5px;
       background-color: map-get($theme-colors, "blue");
       width: 0%; 
-      animation: drawLine 5.8s forwards ease-out;
+      animation: drawLine 3s forwards ease-out;
     }
     
     .navbar-nav {
@@ -41,10 +41,10 @@
         animation: showTextProjets 1s forwards 0.1s; 
       }
       .nav-item:nth-child(2) {
-        animation: showTextBio 1s forwards 1.8s; 
+        animation: showTextBio 1s forwards 1.4s; 
       }
       .nav-item:nth-child(3) {
-        animation: showTextContact 1s forwards 4.8s; 
+        animation: showTextContact 1s forwards 2.8s; 
       }
     }
   }

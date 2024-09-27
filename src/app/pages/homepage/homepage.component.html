@@ -50,29 +50,34 @@
                data-stacks="WordPress Headless - Angular" 
                data-video="assets/videos/laiterie.mp4"
                (mouseenter)="onProjectHover($event)"
-               (mouseleave)="onProjectOut()">
-            <h5 class="mb-0">Laiterie Burdigala</h5>
-            <span class="date ms-2">2024</span>
+               (mouseleave)="onProjectOut()"
+               #projectContainer>
+            <h5 class="text-slide mb-0">Laiterie Burdigala</h5>
+            <span class="text-slide date ms-2">2024</span>
           </div>
+
           <div class="project-container limago-container d-flex justify-content-end align-items-baseline"
                data-project="Réflexologie Limago" 
                data-role="UX/UI - Développement front-end" 
                data-stacks="React - Node.js" 
                data-video="assets/videos/limago.mp4"
                (mouseenter)="onProjectHover($event)"
-               (mouseleave)="onProjectOut()">
-            <h5 class="mb-0">Limago Reflexo</h5>
-            <span class="date ms-2">2024</span>
+               (mouseleave)="onProjectOut()"
+               #projectContainer>
+            <h5 class="text-slide mb-0">Limago Reflexo</h5>
+            <span class="text-slide date ms-2">2024</span>
           </div>
+
           <div class="project-container anglais-container d-flex justify-content-end align-items-baseline"
                data-project="Cours d'anglais pour professionnels du vin" 
                data-role="Conception - Développement full stack" 
                data-stacks="Angular - Firebase" 
                data-video="assets/videos/anglais.mp4"
                (mouseenter)="onProjectHover($event)"
-               (mouseleave)="onProjectOut()">
-            <h5 class="mb-0">Anglais Du Vin</h5>
-            <span class="date ms-2">2024</span>
+               (mouseleave)="onProjectOut()"
+               #projectContainer>
+            <h5 class="text-slide mb-0">Anglais Du Vin</h5>
+            <span class="text-slide date ms-2">2024</span>
           </div>
         </div>
 
@@ -83,9 +88,10 @@
                data-stacks="Vue.js - Laravel" 
                data-video="assets/videos/maison.mp4"
                (mouseenter)="onProjectHover($event)"
-               (mouseleave)="onProjectOut()">
-            <h5 class="mb-0">Maison Ah-Rong</h5>
-            <span class="date ms-2">2023</span>
+               (mouseleave)="onProjectOut()"
+               #projectContainer>
+            <h5 class="text-slide mb-0">Maison Ah-Rong</h5>
+            <span class="text-slide date ms-2">2023</span>
           </div>
         </div>
       </div>
@@ -122,7 +128,6 @@
     </div>
   </div>
 </section>
-
 
 <section id="bio" class="bio-section mt-md-14">
   <div class="col-md-6 col-12">

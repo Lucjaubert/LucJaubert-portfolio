@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, OnInit, AfterViewInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Inject, ViewChild, ElementRef, ViewChildren, QueryList, OnDestroy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { WordpressService } from '../../services/wordpress.service';
 import { catchError, Observable, of } from 'rxjs';
@@ -7,6 +7,9 @@ import { HomepageData } from '../../models/homepage-data.model';
 import anime from 'animejs/lib/anime.es.js';
 import { PLATFORM_ID } from '@angular/core';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 @Component({
   selector: 'app-homepage',
@@ -18,9 +21,12 @@ import { gsap } from 'gsap';
     RouterOutlet,
   ],
 })
-export class HomepageComponent implements OnInit, AfterViewInit {
+export class HomepageComponent implements OnInit, AfterViewInit, OnDestroy  {
   @ViewChild('videoPlayer') videoPlayer!: ElementRef;
   @ViewChild('videoPreview') videoPreview!: ElementRef;
+  
+  @ViewChildren('projectContainer') projectContainers!: QueryList<ElementRef>;
+  private gsapContext: gsap.Context | undefined;
 
   homepageData$!: Observable<HomepageData[] | null>;
   isAnimating = false;
@@ -51,8 +57,16 @@ export class HomepageComponent implements OnInit, AfterViewInit {
       this.initAnimeJS(); 
       this.initGSAP(); 
       this.observeCustomLines();
+      this.initProjectAnimations();
     }
   }
+
+  ngOnDestroy(): void {
+    if (this.gsapContext) {
+      this.gsapContext.revert();
+    }
+  }
+
 
   onProjectHover(event: any): void {
     const target = event.currentTarget as HTMLElement;
@@ -275,4 +289,28 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   
     lines.forEach(line => observer.observe(line));
   }  
+
+  private initProjectAnimations(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.gsapContext = gsap.context(() => {
+        const elements = this.projectContainers.toArray().map(c => c.nativeElement);
+
+        // Sélectionne tous les éléments de texte (tu peux adapter en fonction de ta structure)
+        gsap.from(".text-slide", {
+          opacity: 0,            // Texte commence invisible
+          y: 100, 
+          delay: 0.2,               // Décalé de 100px vers le bas
+          duration: 1,           // Durée de l'animation (1 seconde)
+          ease: "power4.out",    // Animation fluide et naturelle
+          stagger: 0.3,          // Ajoute un décalage entre chaque texte pour un effet en cascade
+          scrollTrigger: {
+            trigger: "#projects", // L'ID de la section qui déclenche l'animation
+            start: "top 80%",     // Déclenche l'animation lorsque 80% de la section est visible
+            end: "bottom top",    // Fin de l'animation lorsque le bas de la section touche le haut de l'écran
+            toggleActions: "play none none none", // Animation ne se joue qu'une fois
+          },
+        });
+      });
+    }
+  }
 }

@@ -143,7 +143,7 @@
       color: map-get($theme-colors, "grey");
 
       &:hover {
-        transform: scale(1.05);
+        transform: scale(1.01);
         color: map-get($theme-colors, "white");
 
         ~ .video-preview {
