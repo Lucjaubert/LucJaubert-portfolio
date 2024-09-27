@@ -25,7 +25,6 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   homepageData$!: Observable<HomepageData[] | null>;
   isAnimating = false;
 
-  // Projet par défaut
   currentProject = {
     project: 'Fromagerie aux Capucins - Bordeaux',
     role: 'Maquettes - Développement front-end',
@@ -55,42 +54,34 @@ export class HomepageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // Méthode appelée lorsque l'utilisateur survole un projet
   onProjectHover(event: any): void {
     const target = event.currentTarget as HTMLElement;
-
-    // Mise à jour des informations du projet en fonction des attributs `data-*`
+  
+    // Mise à jour du projet courant
     this.currentProject = {
       project: target.getAttribute('data-project') || '',
       role: target.getAttribute('data-role') || '',
       stacks: target.getAttribute('data-stacks') || '',
       video: target.getAttribute('data-video') || '',
     };
-
+  
     // Charger la nouvelle vidéo
     if (this.videoPlayer && this.videoPlayer.nativeElement) {
       this.videoPlayer.nativeElement.load();
     }
-
-    // Calculer la position du projet survolé
+  
+    // Afficher la vidéo
     if (this.videoPreview && this.videoPreview.nativeElement) {
-      const rect = target.getBoundingClientRect();
-      const videoPreviewHeight = this.videoPreview.nativeElement.offsetHeight;
-      const topPosition = rect.top + (rect.height / 2) - (videoPreviewHeight / 2);
-
-      // S'assurer que la vidéo reste dans les limites de la fenêtre
-      const maxTop = window.innerHeight - videoPreviewHeight;
-      const adjustedTop = Math.max(0, Math.min(topPosition, maxTop));
-
-      this.videoPreview.nativeElement.style.top = `${adjustedTop}px`;
+      this.videoPreview.nativeElement.classList.add('visible');
     }
   }
-
-  // Méthode appelée lorsque l'utilisateur quitte le projet (modifiée pour garder le dernier projet survolé)
+  
   onProjectOut(): void {
-    // Ne rien faire ici pour maintenir l'affichage du dernier projet survolé
-    // Vous pouvez ajouter une logique si vous souhaitez réinitialiser l'affichage après un certain délai, etc.
-  }
+    // Masquer la vidéo lorsqu'on quitte le hover
+    if (this.videoPreview && this.videoPreview.nativeElement) {
+      this.videoPreview.nativeElement.classList.remove('visible');
+    }
+  }  
 
   initAnimeJS(): void {
     const textWrappers1 = document.querySelectorAll('.ml11 .letters-1');

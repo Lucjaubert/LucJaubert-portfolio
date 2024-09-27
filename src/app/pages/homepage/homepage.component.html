@@ -41,7 +41,7 @@
 
 <section id="projects" class="project-presentation mt-md-14 py-10">
   <div class="row project-hover-container">
-    <div class="col-md-6 projects-list">
+    <div class="col-md-7 projects-list">
       <div class="current-projects">
         <div class="projects-2024">
           <div class="project-container laiterie-container d-flex justify-content-end align-items-baseline"
@@ -91,11 +91,10 @@
       </div>
     </div>
 
-    <!-- Colonne droite : Aperçu vidéo -->
-    <div class="col-md-5 video-preview px-md-5" #videoPreview>
+    <div class="col-md-5 video-preview" #videoPreview>
       <div class="col-12 d-flex flex-column">
         
-        <div class="col-12 video-box d-flex justify-content-center py-md-5">
+        <div class="col-10 video-box d-flex justify-content-center py-md-5">
           <video controls class="img-fluid px-10" id="videoPlayer" #videoPlayer>
             <source [src]="currentProject.video" type="video/mp4" />
             Votre navigateur ne supporte pas la balise vidéo.
@@ -103,17 +102,17 @@
         </div>
 
         <div class="col-12 project-details row text-center px-md-5" id="projectDetails">
-          <div class="col-4 d-flex flex-column align-items-start px-md-2">
+          <div class="col-4 d-flex flex-column align-items-start px-md-4">
             <p class="mb-0"><strong>Projet</strong></p>
             <span id="projectText" class="mt-1 text-start">{{ currentProject.project }}</span>
           </div>
           
-          <div class="col-4 d-flex flex-column align-items-start px-md-2">
+          <div class="col-4 d-flex flex-column align-items-start px-md-4">
             <p class="mb-0"><strong>Rôle</strong></p>
             <span id="roleText" class="mt-1 text-start">{{ currentProject.role }}</span>
           </div>
           
-          <div class="col-4 d-flex flex-column align-items-start px-md-2">
+          <div class="col-4 d-flex flex-column align-items-start px-md-4">
             <p class="mb-0"><strong>Stacks</strong></p>
             <span id="stacksText" class="mt-1 text-start">{{ currentProject.stacks }}</span>
           </div>
@@ -121,8 +120,6 @@
         </div>
       </div>
     </div>
-
-
   </div>
 </section>
 

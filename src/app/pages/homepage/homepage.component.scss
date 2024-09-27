@@ -116,12 +116,17 @@
     }
 
     .video-preview {
+      visibility: hidden; 
       flex: 1;
       padding: 20px;
       top: 0; 
       display: flex;
       align-items: center;
       justify-content: center;
+
+      &.visible {
+        visibility: visible;
+      }
 
       video {
         max-width: 100%;
@@ -140,6 +145,10 @@
       &:hover {
         transform: scale(1.05);
         color: map-get($theme-colors, "white");
+
+        ~ .video-preview {
+          visibility: visible;
+        }
       }
     }
   }
@@ -166,5 +175,5 @@
       font-size: map-get($font-size, "10");
     }
   }
-  
 }
+
