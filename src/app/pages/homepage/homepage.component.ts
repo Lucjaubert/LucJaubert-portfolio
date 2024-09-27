@@ -57,7 +57,6 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   onProjectHover(event: any): void {
     const target = event.currentTarget as HTMLElement;
   
-    // Mise à jour du projet courant
     this.currentProject = {
       project: target.getAttribute('data-project') || '',
       role: target.getAttribute('data-role') || '',
@@ -65,19 +64,16 @@ export class HomepageComponent implements OnInit, AfterViewInit {
       video: target.getAttribute('data-video') || '',
     };
   
-    // Charger la nouvelle vidéo
     if (this.videoPlayer && this.videoPlayer.nativeElement) {
       this.videoPlayer.nativeElement.load();
     }
   
-    // Afficher la vidéo
     if (this.videoPreview && this.videoPreview.nativeElement) {
       this.videoPreview.nativeElement.classList.add('visible');
     }
   }
   
   onProjectOut(): void {
-    // Masquer la vidéo lorsqu'on quitte le hover
     if (this.videoPreview && this.videoPreview.nativeElement) {
       this.videoPreview.nativeElement.classList.remove('visible');
     }
