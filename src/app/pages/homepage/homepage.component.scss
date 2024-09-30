@@ -241,14 +241,14 @@
 
   .contact-links {
     text-align: center;
-    position: relative; // Pour que les liens apparaissent au-dessus du fond noir animé
+    position: relative; 
 
     .contact-item {
       font-size: 4rem; 
       color: map-get($theme-colors, "blue"); 
       font-weight: 300;
       margin: 1rem 0; 
-      opacity: 0; // Commence invisible
+      opacity: 0; 
       transform: translateY(20px); 
       transition: transform 0.8s ease-out, opacity 0.8s ease-out; 
       z-index: 1;
@@ -263,23 +263,27 @@
         }
       }
     }
+  }
+}
 
+// Footer
+.footer-section {
+  background-color: map-get($theme-colors, "black");
+  .copyright {
+    font-size: 1rem;
+    color: map-get($theme-colors, "blue");
+    font-weight: 300;
+    margin-top: 2rem;
+    opacity: 0; 
+    transform: translateY(20px);
+    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+  }
+
+  &.animate {
+    .contact-item,
     .copyright {
-      font-size: 1rem;
-      color: map-get($theme-colors, "blue");
-      font-weight: 300;
-      margin-top: 2rem;
-      opacity: 0; // Commence invisible
-      transform: translateY(20px);
-      transition: transform 0.8s ease-out, opacity 0.8s ease-out;
-    }
-
-    &.animate {
-      .contact-item,
-      .copyright {
-        opacity: 1; // Rendre visible après l'animation du fond
-        transform: translateY(0); // Ramener à sa place
-      }
+      opacity: 1;
+      transform: translateY(0); 
     }
   }
 }
