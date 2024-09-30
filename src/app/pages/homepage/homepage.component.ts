@@ -295,19 +295,18 @@ export class HomepageComponent implements OnInit, AfterViewInit, OnDestroy  {
       this.gsapContext = gsap.context(() => {
         const elements = this.projectContainers.toArray().map(c => c.nativeElement);
 
-        // Sélectionne tous les éléments de texte (tu peux adapter en fonction de ta structure)
         gsap.from(".text-slide", {
-          opacity: 0,            // Texte commence invisible
+          opacity: 0,            
           y: 100, 
-          delay: 0.2,               // Décalé de 100px vers le bas
-          duration: 1,           // Durée de l'animation (1 seconde)
-          ease: "power4.out",    // Animation fluide et naturelle
-          stagger: 0.3,          // Ajoute un décalage entre chaque texte pour un effet en cascade
+          delay: 0.2,               
+          duration: 1,          
+          ease: "power4.out",    
+          stagger: 0.3,          
           scrollTrigger: {
-            trigger: "#projects", // L'ID de la section qui déclenche l'animation
-            start: "top 80%",     // Déclenche l'animation lorsque 80% de la section est visible
-            end: "bottom top",    // Fin de l'animation lorsque le bas de la section touche le haut de l'écran
-            toggleActions: "play none none none", // Animation ne se joue qu'une fois
+            trigger: "#projects", 
+            start: "top 80%",     
+            end: "bottom top",    
+            toggleActions: "play none none none", 
           },
         });
       });
