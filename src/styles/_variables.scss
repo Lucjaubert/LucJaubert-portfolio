@@ -13,6 +13,7 @@ $theme-colors: (
   "orange": #fff5dc,
   "light-pink": #fff4ff,
   "second-blue": #EDFFFF,
+  "black": #000000,
   "white": #FDFDFD,
 );
 
@@ -132,6 +133,18 @@ $spacers: (
   // 384px
   "29": 25rem,
   // 400px
+  "30": 26rem,
+  // 416px
+  "31": 27rem,
+  // 432px
+  "32": 28rem,
+  // 448px
+  "33": 29rem,
+  // 464px
+  "34": 30rem,
+  // 480px
+  "35": 31rem,  
+  // 496px
 );
 
 // Génération dynamique des classes de couleur, de taille de police et de poids de police

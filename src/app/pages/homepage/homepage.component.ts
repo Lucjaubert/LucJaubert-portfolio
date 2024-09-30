@@ -58,6 +58,7 @@ export class HomepageComponent implements OnInit, AfterViewInit, OnDestroy  {
       this.initGSAP(); 
       this.observeCustomLines();
       this.initProjectAnimations();
+      this.initBioAnimations();
     }
   }
 
@@ -326,4 +327,43 @@ export class HomepageComponent implements OnInit, AfterViewInit, OnDestroy  {
       projectPresentation.style.pointerEvents = 'auto'; 
     }
   }
+
+  private initBioAnimations(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.gsapContext = gsap.context(() => {
+        // Sélectionner tous les paragraphes dans la section bio
+        const paragraphs = document.querySelectorAll('.bio-content p');
+  
+        paragraphs.forEach((paragraph) => {
+          gsap.to(paragraph, {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: paragraph,
+              start: "top center", 
+              toggleActions: "play none none none",
+              onEnter: () => {
+                console.log(`ScrollTrigger activé : Animation du paragraphe commence pour ${paragraph.textContent}`);
+              },
+            },
+          });
+  
+          // Ajouter l'effet de zoom léger une fois au centre
+          gsap.to(paragraph, {
+            scale: 1.05, // Zoom léger
+            duration: 1,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: paragraph,
+              start: "center center", // Commence l'effet lorsque le paragraphe est au centre de l'écran
+              toggleActions: "play none none none",
+            },
+          });
+        });
+      });
+    }
+  }
+  
 }
