@@ -156,11 +156,11 @@
       padding: 1rem 0;
       cursor: pointer;
       transition: transform 0.3s ease, color 0.3s ease;
-      color: map-get($theme-colors, "grey");
+      color: map-get($theme-colors, "blue");
 
       &:hover {
         transform: scale(1.01);
-        color: map-get($theme-colors, "white");
+        color: map-get($theme-colors, "light-blue");
 
         ~ .video-preview {
           visibility: visible;
@@ -170,11 +170,11 @@
   }
 
   .project-details {
-    color: map-get($theme-colors, "white");
+    color: map-get($theme-colors, "light-blue");
 
     p,
     span {
-      color: map-get($theme-colors, "white");
+      color: map-get($theme-colors, "light-blue");
     }
 
     .col-4 {
@@ -189,6 +189,7 @@
       font-weight: 300;
       font-style: normal;
       font-size: map-get($font-size, "10");
+      color: map-get($theme-colors, "light-blue");
     }
   }
 
@@ -212,6 +213,78 @@
     }
   }
 }
+
+// Contact Section
+.contact-section {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  height: 100vh; 
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+
+  .background-contact {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    background-color: map-get($theme-colors, "black");
+    z-index: 0; 
+    transform-origin: bottom; 
+    visibility: visible; 
+  }
+
+  .contact-links {
+    text-align: center;
+    position: relative; // Pour que les liens apparaissent au-dessus du fond noir animé
+
+    .contact-item {
+      font-size: 4rem; 
+      color: map-get($theme-colors, "blue"); 
+      font-weight: 300;
+      margin: 1rem 0; 
+      opacity: 0; // Commence invisible
+      transform: translateY(20px); 
+      transition: transform 0.8s ease-out, opacity 0.8s ease-out; 
+      z-index: 1;
+
+      a {
+        color: inherit; 
+        font-size: map-get($font-size, "100");
+        text-decoration: none; 
+
+        &:hover {
+          color: map-get($theme-colors, "light-blue"); 
+        }
+      }
+    }
+
+    .copyright {
+      font-size: 1rem;
+      color: map-get($theme-colors, "blue");
+      font-weight: 300;
+      margin-top: 2rem;
+      opacity: 0; // Commence invisible
+      transform: translateY(20px);
+      transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+    }
+
+    &.animate {
+      .contact-item,
+      .copyright {
+        opacity: 1; // Rendre visible après l'animation du fond
+        transform: translateY(0); // Ramener à sa place
+      }
+    }
+  }
+}
+
+
 
 
 

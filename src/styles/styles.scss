@@ -79,10 +79,10 @@
         font-weight: 100;
         font-style: normal;
         font-size: map-get($font-size, "100");
-        color: map-get($theme-colors, "grey");
+        color: map-get($theme-colors, "blue");
 
             &:hover {
-                color: map-get($theme-colors, "white");
+                color: map-get($theme-colors, "light-blue");
             }
         }
 
