@@ -269,7 +269,6 @@ export class HomepageComponent implements OnInit, AfterViewInit, OnDestroy  {
   observeCustomLines(): void {
     const lines = document.querySelectorAll('.custom-line');
     if (lines.length === 0) {
-      console.log("No custom lines found!");
       return;
     }
   
@@ -281,7 +280,6 @@ export class HomepageComponent implements OnInit, AfterViewInit, OnDestroy  {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          console.log("Line is visible:", entry.target);
           entry.target.classList.add('animate-line');
         }
       });
@@ -289,27 +287,43 @@ export class HomepageComponent implements OnInit, AfterViewInit, OnDestroy  {
   
     lines.forEach(line => observer.observe(line));
   }  
-
+  
   private initProjectAnimations(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.gsapContext = gsap.context(() => {
-        const elements = this.projectContainers.toArray().map(c => c.nativeElement);
-
-        gsap.from(".text-slide", {
-          opacity: 0,            
-          y: 100, 
-          delay: 0.2,               
-          duration: 1,          
-          ease: "power4.out",    
-          stagger: 0.3,          
+        gsap.to(".background-sides", {
+          height: '100%', 
+          duration: 1.3,
+          ease: 'expoScale',
           scrollTrigger: {
-            trigger: "#projects", 
-            start: "top 80%",     
-            end: "bottom top",    
-            toggleActions: "play none none none", 
+            trigger: "#projects",
           },
+          onComplete: () => {
+            this.animateTextSlides();
+          }
         });
       });
+    }
+  }
+  
+  private animateTextSlides(): void {
+    gsap.to(".text-slide", {
+      opacity: 1, 
+      y: 0, 
+      delay: 0.1,
+      duration: 0.8,
+      ease: "power4.out",
+      stagger: 0.2,
+      onComplete: () => {
+        this.enableInteractions();
+      }
+    });
+  }
+  
+  private enableInteractions(): void {
+    const projectPresentation = document.querySelector('.project-presentation') as HTMLElement;
+    if (projectPresentation) {
+      projectPresentation.style.pointerEvents = 'auto'; 
     }
   }
 }
