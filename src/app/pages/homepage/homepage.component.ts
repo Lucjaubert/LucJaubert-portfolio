@@ -59,6 +59,7 @@ export class HomepageComponent implements OnInit, AfterViewInit, OnDestroy  {
       this.observeCustomLines();
       this.initProjectAnimations();
       this.initBioAnimations();
+      this.initContactAnimations();
     }
   }
 
@@ -331,7 +332,6 @@ export class HomepageComponent implements OnInit, AfterViewInit, OnDestroy  {
   private initBioAnimations(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.gsapContext = gsap.context(() => {
-        // Sélectionner tous les paragraphes dans la section bio
         const paragraphs = document.querySelectorAll('.bio-content p');
   
         paragraphs.forEach((paragraph) => {
@@ -342,7 +342,7 @@ export class HomepageComponent implements OnInit, AfterViewInit, OnDestroy  {
             ease: "power4.out",
             scrollTrigger: {
               trigger: paragraph,
-              start: "top center", 
+              start: "80px 70%", 
               toggleActions: "play none none none",
               onEnter: () => {
                 console.log(`ScrollTrigger activé : Animation du paragraphe commence pour ${paragraph.textContent}`);
@@ -350,20 +350,50 @@ export class HomepageComponent implements OnInit, AfterViewInit, OnDestroy  {
             },
           });
   
-          // Ajouter l'effet de zoom léger une fois au centre
           gsap.to(paragraph, {
-            scale: 1.05, // Zoom léger
+            scale: 1.05, 
             duration: 1,
             ease: "power4.out",
             scrollTrigger: {
               trigger: paragraph,
-              start: "center center", // Commence l'effet lorsque le paragraphe est au centre de l'écran
+              start: "center center", 
               toggleActions: "play none none none",
             },
           });
         });
       });
     }
+  }
+
+  private initContactAnimations(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.gsapContext = gsap.context(() => {
+        gsap.to(".background-contact", {
+          height: '100%', 
+          duration: 1.3,
+          ease: 'expoScale',
+          scrollTrigger: {
+            trigger: "#contact", 
+            start: "top 80%",
+            toggleActions: "play none none none"
+          },
+          onComplete: () => {
+            this.animateContactText();
+          }
+        });
+      });
+    }
+  }
+  
+  private animateContactText(): void {
+    gsap.to(".contact-item, .copyright", {
+      opacity: 1,
+      y: 0,
+      delay: 0.1,
+      duration: 0.8,
+      ease: "power4.out",
+      stagger: 0.2
+    });
   }
   
 }
