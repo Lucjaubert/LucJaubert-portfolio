@@ -1,0 +1,38 @@
+@import "../../../../styles/_variables.scss";
+
+.studio-web-section {
+  .section-container {
+    padding: 1rem 0;
+    height: auto;
+  }
+
+  .design-section {
+    background-color: #fce5cd; 
+    height: auto;
+
+    &:hover {
+      background-color: map-get($theme-colors, "second-blue");
+    }
+  }
+
+  .development-section {
+    background-color: #cfe2f3; 
+    height: auto;
+  }
+
+  .marketing-section {
+    background-color: #ffd966; 
+    height: auto;
+  }
+
+  .process-section {
+    background-color: #d9ead3; 
+    height: auto;
+    margin-bottom: 5rem;
+  }
+
+  .mask-wrapper {
+    position: relative;
+    overflow: hidden; 
+  }
+}

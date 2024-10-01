@@ -58,10 +58,10 @@
     }
 
     h3 {
-        font-family: 'Open Sans';
-        font-weight: 500;
+        font-family: 'Trap';
+        font-weight: 600;
         font-style: normal;
-        font-size: map-get($font-size, "90");
+        font-size: map-get($font-size, "110");
         text-transform: uppercase;
         color: map-get($theme-colors, "blue");
     }
@@ -75,7 +75,7 @@
     }
 
     h5 {
-        font-family: 'Open Sans';
+        font-family: 'Trap';
         font-weight: 100;
         font-style: normal;
         font-size: map-get($font-size, "100");

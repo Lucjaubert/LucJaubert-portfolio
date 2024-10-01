@@ -1,15 +1,17 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, OnInit, AfterViewInit, Inject, ViewChild, ElementRef, ViewChildren, QueryList, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit, Inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { WordpressService } from '../../services/wordpress.service';
 import { catchError, Observable, of } from 'rxjs';
 import { HomepageData } from '../../models/homepage-data.model';
-import anime from 'animejs/lib/anime.es.js';
 import { PLATFORM_ID } from '@angular/core';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { BioComponent } from '../../shared/components/bio/bio.component';
+import { ContactComponent } from '../../shared/components/contact/contact.component';
+import { NamePresentationComponent } from '../../shared/components/name-presentation/name-presentation.component';
+import { ProjectsComponent } from '../../shared/components/projects/projects.component';
+import { StudioWebComponent } from '../../shared/components/studio-web/studio-web.component';
+import { HeaderComponent } from '../../shared/components/header/header.component';
+import { FooterComponent } from '../../shared/components/footer/footer.component';
 
 @Component({
   selector: 'app-homepage',
@@ -19,381 +21,29 @@ gsap.registerPlugin(ScrollTrigger);
   imports: [
     CommonModule,
     RouterOutlet,
+    BioComponent,
+    ContactComponent,
+    NamePresentationComponent,
+    ProjectsComponent,
+    StudioWebComponent,
+    HeaderComponent,
+    FooterComponent
   ],
 })
-export class HomepageComponent implements OnInit, AfterViewInit, OnDestroy  {
-  @ViewChild('videoPlayer') videoPlayer!: ElementRef;
-  @ViewChild('videoPreview') videoPreview!: ElementRef;
-  
-  @ViewChildren('projectContainer') projectContainers!: QueryList<ElementRef>;
-  private gsapContext: gsap.Context | undefined;
-
+export class HomepageComponent implements OnInit {
   homepageData$!: Observable<HomepageData[] | null>;
-  isAnimating = false;
-
-  currentProject = {
-    project: 'Fromagerie aux Capucins - Bordeaux',
-    role: 'Maquettes - Développement front-end',
-    stacks: 'WordPress Headless - Angular',
-    video: 'assets/videos/laiterie.mp4',
-  };
 
   constructor(
     private wordpressService: WordpressService,
-    @Inject(PLATFORM_ID) private platformId: Object 
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
     this.homepageData$ = this.wordpressService.getHomepageData().pipe(
       catchError(error => {
         console.error('Error retrieving homepage data:', error);
-        return of(null); 
+        return of(null);
       })
     );
   }
-
-  ngAfterViewInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.initAnimeJS(); 
-      this.initGSAP(); 
-      this.observeCustomLines();
-      this.initProjectAnimations();
-      this.initBioAnimations();
-      this.initContactAnimations();
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (this.gsapContext) {
-      this.gsapContext.revert();
-    }
-  }
-
-
-  onProjectHover(event: any): void {
-    const target = event.currentTarget as HTMLElement;
-  
-    this.currentProject = {
-      project: target.getAttribute('data-project') || '',
-      role: target.getAttribute('data-role') || '',
-      stacks: target.getAttribute('data-stacks') || '',
-      video: target.getAttribute('data-video') || '',
-    };
-  
-    if (this.videoPlayer && this.videoPlayer.nativeElement) {
-      this.videoPlayer.nativeElement.load();
-    }
-  
-    if (this.videoPreview && this.videoPreview.nativeElement) {
-      this.videoPreview.nativeElement.classList.add('visible');
-    }
-  }
-  
-  onProjectOut(): void {
-    if (this.videoPreview && this.videoPreview.nativeElement) {
-      this.videoPreview.nativeElement.classList.remove('visible');
-    }
-  }  
-
-  initAnimeJS(): void {
-    const textWrappers1 = document.querySelectorAll('.ml11 .letters-1');
-    textWrappers1.forEach((textWrapper) => {
-      if (textWrapper && textWrapper.textContent) {
-        textWrapper.innerHTML = textWrapper.textContent.replace(
-          /([^\x00-\x80]|\w)/g,
-          "<span class='letter'>$&</span>"
-        );
-      }
-    });
-  
-    const textWrappers2 = document.querySelectorAll('.ml11 .letters-2');
-    textWrappers2.forEach((textWrapper) => {
-      if (textWrapper && textWrapper.textContent) {
-        textWrapper.innerHTML = textWrapper.textContent.replace(
-          /([^\x00-\x80]|\w)/g,
-          "<span class='letter'>$&</span>"
-        );
-      }
-    });
-  
-    const timeline = anime.timeline({ loop: false });
-    timeline
-      .add({
-        targets: '.ml11 .first-line',
-        translateX: [
-          0,
-          (() => {
-            const letters1 = document.querySelector('.ml11 .letters-1');
-            return letters1 ? letters1.getBoundingClientRect().width + 5 : 0;
-          })(),
-        ],
-        easing: 'easeOutExpo',
-        duration: 800,
-      })
-      .add({
-        targets: '.ml11 .letters-1 .letter',
-        opacity: [0, 1],
-        easing: 'easeOutExpo',
-        duration: 800,
-        delay: (el: HTMLElement, i: number) => 180 * (i + 1),
-      })
-      .add({
-        targets: '.ml11 .first-line',
-        opacity: 0,
-        duration: 800,
-        easing: 'easeOutExpo',
-        complete: () => {
-          this.triggerSecondLine(); 
-        },
-      });
-  }
-  
-  triggerSecondLine(): void {
-    const dotElement = document.querySelector('.dot') as HTMLElement;
-    if (dotElement) {
-      dotElement.style.left = '0';
-    }
-  
-    const lineElement = document.querySelector('.ml11 .second-line') as HTMLElement;
-    if (lineElement) {
-      lineElement.style.transform = 'translateX(0px)';
-    }
-  
-    anime.timeline({ loop: false })
-      .add({
-        targets: '.ml11 .letters-2',
-        opacity: 1,
-        duration: 800,
-      })
-      .add({
-        targets: '.ml11 .letters-2 .letter',
-        opacity: [0, 1],
-        easing: 'easeOutExpo',
-        duration: 800,
-        delay: (el: HTMLElement, i: number) => 180 * (i + 1),
-      })
-      .add({
-        targets: '.ml11 .second-line',
-        opacity: 0,
-        duration: 800,
-        easing: 'easeOutExpo',
-        complete: () => {
-          this.animateDeveloperTitle();
-        },
-      });
-  }
-
-  animateDeveloperTitle(): void {
-    gsap.to('.ml13 .letters-3', {
-      opacity: 1,
-      duration: 0.5,
-      stagger: 0.05, 
-      ease: "power1.out", 
-    });
-  }  
-
-  initGSAP(): void {
-    let scrollDirection = 'down'; 
-    let lastScroll = 0;
-  
-    window.addEventListener('scroll', () => {
-      const scrollPosition = window.scrollY;
-      scrollDirection = scrollPosition > lastScroll ? 'down' : 'up';
-      lastScroll = scrollPosition;
-  
-      if (scrollDirection === 'down' && scrollPosition > 100) {
-        gsap.to('.ml11 .letters-1 .letter', {
-          y: (i: number) => -20 * Math.sin(i * 0.5), 
-          duration: 0.6,
-          stagger: 0.05,
-          ease: "power1.inOut",
-          opacity: 0, 
-        });
-        
-        gsap.to('.ml11 .letters-2 .letter', {
-          y: (i: number) => -20 * Math.sin(i * 0.7), 
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "power1.inOut",
-          opacity: 0, 
-          onComplete: () => {
-            gsap.to('.ml11 .logo-letter, .ml11 .letters-1', {
-              opacity: 1,
-              duration: 0.5,
-            });
-  
-            const dotElement = document.querySelector('.dot') as HTMLElement;
-            if (dotElement) {
-              gsap.to(dotElement, {
-                duration: 0.5,
-                left: '-35.7rem',
-              });
-            }
-          }
-        });
-      } else if (scrollDirection === 'up' && scrollPosition < 100) {
-    
-        gsap.to('.ml11 .letters-2 .letter', {
-          y: 0, 
-          opacity: 1,
-          duration: 0.4,
-          stagger: 0.2,
-          ease: "power1.inOut",
-          onUpdate: () => {
-            const letters2Width = document.querySelector('.ml11 .letters-2')?.getBoundingClientRect().width || 0;
-            const jElementWidth = document.querySelector('.ml11 .last-name span')?.getBoundingClientRect().width || 0;
-            const totalWidth = letters2Width + jElementWidth;
-      
-            const dotElement = document.querySelector('.dot') as HTMLElement;
-            if (dotElement) {
-              gsap.to(dotElement, {
-                x: totalWidth, 
-                left: '0',
-                duration: 0.1,
-                stagger: 0.3,
-                ease: "power1.inOut",
-              });
-            }
-          }
-        });
-      
-        gsap.to('.ml11 .letters-1 .letter', {
-          y: 0,
-          opacity: 1,
-          duration: 0.9,
-          stagger: 0.05,
-          ease: "power1.inOut",
-        });
-      }           
-    });
-  }
-
-  observeCustomLines(): void {
-    const lines = document.querySelectorAll('.custom-line');
-    if (lines.length === 0) {
-      return;
-    }
-  
-    const options = {
-      root: null,
-      threshold: 0.5,
-    };
-  
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-line');
-        }
-      });
-    }, options);
-  
-    lines.forEach(line => observer.observe(line));
-  }  
-  
-  private initProjectAnimations(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.gsapContext = gsap.context(() => {
-        gsap.to(".background-sides", {
-          height: '100%', 
-          duration: 1.3,
-          ease: 'expoScale',
-          scrollTrigger: {
-            trigger: "#projects",
-          },
-          onComplete: () => {
-            this.animateTextSlides();
-          }
-        });
-      });
-    }
-  }
-  
-  private animateTextSlides(): void {
-    gsap.to(".text-slide", {
-      opacity: 1, 
-      y: 0, 
-      delay: 0.1,
-      duration: 0.8,
-      ease: "power4.out",
-      stagger: 0.2,
-      onComplete: () => {
-        this.enableInteractions();
-      }
-    });
-  }
-  
-  private enableInteractions(): void {
-    const projectPresentation = document.querySelector('.project-presentation') as HTMLElement;
-    if (projectPresentation) {
-      projectPresentation.style.pointerEvents = 'auto'; 
-    }
-  }
-
-  private initBioAnimations(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.gsapContext = gsap.context(() => {
-        const paragraphs = document.querySelectorAll('.bio-content p');
-  
-        paragraphs.forEach((paragraph) => {
-          gsap.to(paragraph, {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power4.out",
-            scrollTrigger: {
-              trigger: paragraph,
-              start: "80px 70%", 
-              toggleActions: "play none none none",
-              onEnter: () => {
-                console.log(`ScrollTrigger activé : Animation du paragraphe commence pour ${paragraph.textContent}`);
-              },
-            },
-          });
-  
-          gsap.to(paragraph, {
-            scale: 1.05, 
-            duration: 1,
-            ease: "power4.out",
-            scrollTrigger: {
-              trigger: paragraph,
-              start: "center center", 
-              toggleActions: "play none none none",
-            },
-          });
-        });
-      });
-    }
-  }
-
-  private initContactAnimations(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.gsapContext = gsap.context(() => {
-        gsap.to(".background-contact", {
-          height: '100%', 
-          duration: 1.3,
-          ease: 'expoScale',
-          scrollTrigger: {
-            trigger: "#contact", 
-            start: "top 80%",
-            toggleActions: "play none none none"
-          },
-          onComplete: () => {
-            this.animateContactText();
-          }
-        });
-      });
-    }
-  }
-  
-  private animateContactText(): void {
-    gsap.to(".contact-item, .copyright", {
-      opacity: 1,
-      y: 0,
-      delay: 0.1,
-      duration: 0.8,
-      ease: "power4.out",
-      stagger: 0.2
-    });
-  }
-  
 }

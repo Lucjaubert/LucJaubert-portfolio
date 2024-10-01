@@ -1,0 +1,17 @@
+@import "../../../../styles/_variables.scss";
+
+.bio-section {
+  .bio-content {
+    p {
+      font-size: map-get($font-size, "80");
+      font-weight: 300;
+      opacity: 0; 
+      transform: translateY(10px);
+      transition: transform 0.8s ease-out, opacity 0.8s ease-out; 
+    }
+
+    strong {
+      font-weight: 600;
+    }
+  }
+}

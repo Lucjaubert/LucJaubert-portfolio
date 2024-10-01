@@ -1,0 +1,104 @@
+@import "../../../../styles/_variables.scss";
+
+.project-presentation {
+  position: relative;
+  overflow: hidden; 
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  pointer-events: none;
+
+  .background-sides {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    background-color: map-get($theme-colors, "black");
+    z-index: 0; 
+    transform-origin: bottom; 
+    visibility: visible; 
+  }
+
+  .project-hover-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex: 1;
+    z-index: 1;
+
+    .projects-list {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .video-preview {
+      visibility: hidden;
+      flex: 1;
+      padding: 20px;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.visible {
+        visibility: visible;
+      }
+
+      video {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+
+    .project-container {
+      display: flex;
+      align-items: center;
+      padding: 1rem 0;
+      cursor: pointer;
+      transition: transform 0.3s ease, color 0.3s ease;
+      color: map-get($theme-colors, "blue");
+
+      &:hover {
+        transform: scale(1.01);
+        color: map-get($theme-colors, "light-blue");
+
+        ~ .video-preview {
+          visibility: visible;
+        }
+      }
+    }
+  }
+
+  .project-details {
+    color: map-get($theme-colors, "light-blue");
+
+    p,
+    span {
+      color: map-get($theme-colors, "light-blue");
+    }
+
+    .col-4 {
+      text-align: center;
+      padding: 5px 0;
+    }
+
+    span {
+      font-family: 'Open Sans';
+      margin-top: 5px;
+      white-space: normal;
+      font-weight: 300;
+      font-style: normal;
+      font-size: map-get($font-size, "10");
+      color: map-get($theme-colors, "light-blue");
+    }
+  }
+
+  .text-slide {
+    opacity: 0; 
+  }
+}
