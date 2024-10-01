@@ -1,0 +1,32 @@
+@import "../../../../styles/_variables.scss";
+
+.studio-web-section {
+  .section-container {
+    padding: 1rem 0;
+  }
+
+  .design-section {
+    background-color: #fce5cd;
+
+    &:hover {
+      background-color: map-get($theme-colors, "second-blue");
+    }
+  }
+
+  .development-section {
+    background-color: #cfe2f3; 
+  }
+
+  .marketing-section {
+    background-color: #ffd966; 
+  }
+
+  .process-section {
+    background-color: #d9ead3; 
+  }
+
+  .section-details {
+    opacity: 1;  
+    transform: translateY(0);
+  }
+}
