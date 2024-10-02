@@ -39,12 +39,19 @@ export class StudioWebComponent implements AfterViewInit {
                 const detailsText = sectionElement.querySelector('span');
                 const video = sectionElement.querySelector('.section-details-preview');
 
+                let endValue: string | (() => string);
+                if (sectionElement.classList.contains('process-section')) {
+                    endValue = () => `+=${sectionElement.clientHeight - 600}`; 
+                } else {
+                    endValue = () => `+=${sectionElement.clientHeight}`; 
+                }
+
                 ScrollTrigger.create({
                     trigger: sectionElement,
-                    start: "top down",
-                    end: "bottom top", 
+                    start: "top top", 
+                    end: endValue,
                     pin: true, 
-                    pinSpacing: true,
+                    pinSpacing: false, 
                     scrub: true 
                 });
 
@@ -57,7 +64,7 @@ export class StudioWebComponent implements AfterViewInit {
                         scrollTrigger: {
                             trigger: sectionElement,
                             start: "top center", 
-                            end: "bottom top", 
+                            end: endValue, 
                             scrub: true,
                         }
                     });
