@@ -44,7 +44,7 @@ export class StudioWebComponent implements AfterViewInit {
                     start: "top down",
                     end: "bottom top", 
                     pin: true, 
-                    pinSpacing: false,
+                    pinSpacing: true,
                     scrub: true 
                 });
 
@@ -76,7 +76,7 @@ export class StudioWebComponent implements AfterViewInit {
                     tl.from(title, {
                         opacity: 0,
                         y: 100,
-                        duration: 1.5,
+                        duration: 2,
                         ease: "power4.out"
                     }, 0); 
                 }
@@ -85,7 +85,7 @@ export class StudioWebComponent implements AfterViewInit {
                     tl.from(detailsText, {
                         opacity: 0,
                         y: 100,
-                        duration: 1.75,
+                        duration: 2.2,
                         ease: "power4.out"
                     }, 0.2); 
                 }
@@ -94,7 +94,7 @@ export class StudioWebComponent implements AfterViewInit {
                     tl.from(video, {
                         opacity: 0,
                         x: 200,
-                        duration: 1.75,
+                        duration: 2.1,
                         ease: "power4.out"
                     }, 0.4); 
                 }
