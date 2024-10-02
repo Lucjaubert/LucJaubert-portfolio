@@ -39,12 +39,19 @@ export class StudioWebComponent implements AfterViewInit {
                 const detailsText = sectionElement.querySelector('span');
                 const video = sectionElement.querySelector('.section-details-preview');
 
+                let endValue: string | (() => string);
+                if (sectionElement.classList.contains('process-section')) {
+                    endValue = () => `+=${sectionElement.clientHeight - 600}`; 
+                } else {
+                    endValue = () => `+=${sectionElement.clientHeight}`; 
+                }
+
                 ScrollTrigger.create({
                     trigger: sectionElement,
-                    start: "top down",
-                    end: "bottom top", 
+                    start: "top top", 
+                    end: endValue,
                     pin: true, 
-                    pinSpacing: false,
+                    pinSpacing: false, 
                     scrub: true 
                 });
 
@@ -57,7 +64,7 @@ export class StudioWebComponent implements AfterViewInit {
                         scrollTrigger: {
                             trigger: sectionElement,
                             start: "top center", 
-                            end: "bottom top", 
+                            end: endValue, 
                             scrub: true,
                         }
                     });
@@ -76,7 +83,7 @@ export class StudioWebComponent implements AfterViewInit {
                     tl.from(title, {
                         opacity: 0,
                         y: 100,
-                        duration: 1.5,
+                        duration: 2,
                         ease: "power4.out"
                     }, 0); 
                 }
@@ -85,7 +92,7 @@ export class StudioWebComponent implements AfterViewInit {
                     tl.from(detailsText, {
                         opacity: 0,
                         y: 100,
-                        duration: 1.75,
+                        duration: 2.2,
                         ease: "power4.out"
                     }, 0.2); 
                 }
@@ -94,7 +101,7 @@ export class StudioWebComponent implements AfterViewInit {
                     tl.from(video, {
                         opacity: 0,
                         x: 200,
-                        duration: 1.75,
+                        duration: 2.1,
                         ease: "power4.out"
                     }, 0.4); 
                 }

@@ -1,11 +1,14 @@
+
+<ng-container *ngComponentOutlet="headerComponent"></ng-container>
 <div class="container">
-  <app-name-presentation></app-name-presentation>
+  <ng-container *ngComponentOutlet="namePresentationComponent"></ng-container>
 </div>
-<app-projects></app-projects>
-<app-studio-web></app-studio-web>
-<app-bio></app-bio>
-<app-contact></app-contact>
-<app-footer></app-footer>
+<ng-container *ngComponentOutlet="projectsComponent"></ng-container>
+<ng-container *ngComponentOutlet="studioWebComponent"></ng-container>
+<ng-container *ngComponentOutlet="bioComponent"></ng-container>
+<ng-container *ngComponentOutlet="contactComponent"></ng-container>
+<ng-container *ngComponentOutlet="footerComponent"></ng-container>
+
 
 
 
