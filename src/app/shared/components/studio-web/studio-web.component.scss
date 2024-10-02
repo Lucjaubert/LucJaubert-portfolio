@@ -9,10 +9,6 @@
   .design-section {
     background-color: #fce5cd; 
     height: auto;
-
-    &:hover {
-      background-color: map-get($theme-colors, "second-blue");
-    }
   }
 
   .development-section {
