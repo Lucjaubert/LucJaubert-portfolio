@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Laiterie Burdigala",
+    "year": "2024",
+    "project": "Fromagerie aux Capucins - Bordeaux",
+    "role": "Maquettes - Développement front-end",
+    "stacks": "WordPress Headless - Angular",
+    "images": [
+      "assets/img/anglais/images/laiterie-desktop-1.webp",
+      "assets/img/anglais/images/laiterie-desktop-2.webp",
+      "assets/img/anglais/images/laiterie-desktop-3.webp",
+      "assets/img/anglais/images/laiterie-desktop-4.webp",
+      "assets/img/anglais/images/laiterie-desktop-5.webp",
+      "assets/img/anglais/images/laiterie-tablette-1.webp",
+      "assets/img/anglais/images/laiterie-tablette-2.webp",
+      "assets/img/anglais/images/laiterie-smartphone-1.webp",
+      "assets/img/anglais/images/laiterie-smartphone-2.webp"
+    ],
+    "videos": [
+      "assets/img/anglais/videos/Laiterie-Video-Desktop-1.mp4",
+      "assets/img/anglais/videos/Laiterie-Video-Desktop-2.mp4",
+      "assets/img/anglais/videos/Laiterie-Video-Desktop-3.mp4",
+      "assets/img/anglais/videos/Laiterie-Video-Mobile.mp4",
+      "assets/img/anglais/videos/Laiterie-Video-Smartphone-1.mp4",
+      "assets/img/anglais/videos/Laiterie-Video-Smartphone-2.mp4"
+    ],
+    "animationType": "laiterieAnimation"
+  }
+]

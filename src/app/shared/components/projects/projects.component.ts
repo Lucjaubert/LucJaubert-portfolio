@@ -1,11 +1,22 @@
-import { Component, AfterViewInit, ViewChild, ViewChildren, ElementRef, QueryList, Inject } from '@angular/core';
+import { Component, AfterViewInit, AfterViewChecked, ViewChildren, ElementRef, QueryList, Inject, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { PLATFORM_ID } from '@angular/core';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap, CSSPlugin, ScrollTrigger } from 'gsap/all'; 
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(CSSPlugin, ScrollTrigger); 
+
+interface Project {
+  name: string;
+  year: string;
+  project: string;
+  role: string;
+  stacks: string;
+  images: string[];
+  videos: string[];
+  animationType: string; 
+}
 
 @Component({
   selector: 'app-projects',
@@ -17,20 +28,39 @@ gsap.registerPlugin(ScrollTrigger);
     CommonModule
   ]
 })
-export class ProjectsComponent implements AfterViewInit {
-  @ViewChild('videoPlayer') videoPlayer!: ElementRef;
-  @ViewChild('videoPreview') videoPreview!: ElementRef;
-  @ViewChildren('projectContainer') projectContainers!: QueryList<ElementRef>;
+
+export class ProjectsComponent implements AfterViewInit, AfterViewChecked, OnInit, OnDestroy {
+  @ViewChildren('mediaElement') mediaElements!: QueryList<ElementRef>;
   private gsapContext: gsap.Context | undefined;
+  private animationInitialized: boolean = false;
 
-  currentProject = {
-    project: '',
-    role: '',
-    stacks: '',
-    video: '',
-  };
+  projects: Project[] = [];
+  currentProject: Project | null = null;
+  isHovered: boolean = false;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  private animations: { [key: string]: { in: () => void; out: () => void } } = {};
+
+  private isVideoPlaying: boolean = false;
+
+
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private http: HttpClient,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {}
+
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadProjects();
+
+      this.animations = {
+        laiterieAnimation: {
+          in: () => this.initLaiterieAnimation(),
+          out: () => this.animateLaiterieMediaOut()
+        }
+      };
+    }
+  }
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -38,28 +68,20 @@ export class ProjectsComponent implements AfterViewInit {
     }
   }
 
-  onProjectHover(event: any): void {
-    const target = event.currentTarget as HTMLElement;
-
-    this.currentProject = {
-      project: target.getAttribute('data-project') || '',
-      role: target.getAttribute('data-role') || '',
-      stacks: target.getAttribute('data-stacks') || '',
-      video: target.getAttribute('data-video') || '',
-    };
-
-    if (this.videoPlayer && this.videoPlayer.nativeElement) {
-      this.videoPlayer.nativeElement.load();
-    }
-
-    if (this.videoPreview && this.videoPreview.nativeElement) {
-      this.videoPreview.nativeElement.classList.add('visible');
+  ngAfterViewChecked(): void {
+    if (this.isHovered && !this.animationInitialized && this.mediaElements.length > 0 && this.currentProject) {
+      this.animationInitialized = true;
+      const animation = this.animations[this.currentProject.animationType || ''];
+      if (animation && animation.in) {
+        console.log('Lancement de l\'animation pour le projet:', this.currentProject?.name);
+        animation.in();
+      }
     }
   }
 
-  onProjectOut(): void {
-    if (this.videoPreview && this.videoPreview.nativeElement) {
-      this.videoPreview.nativeElement.classList.remove('visible');
+  ngOnDestroy(): void {
+    if (this.gsapContext) {
+      this.gsapContext.revert();
     }
   }
 
@@ -101,4 +123,124 @@ export class ProjectsComponent implements AfterViewInit {
       projectPresentation.style.pointerEvents = 'auto';
     }
   }
+
+  private loadProjects(): void {
+    this.http.get<Project[]>('assets/data/projects.json').subscribe((data: Project[]) => {
+      this.projects = data;
+    });
+  }
+
+  onProjectHover(project: Project): void {
+    console.log('onProjectHover appelé avec le projet:', project.name);
+    this.currentProject = project;
+    this.isHovered = true;
+    this.animationInitialized = false;
+
+    this.changeDetectorRef.detectChanges();
+  }
+
+  onProjectOut(): void {
+    console.log('onProjectOut appelé');
+  
+    if (this.isVideoPlaying) {
+      return;
+    }
+  
+    this.isHovered = false;
+  
+    const animation = this.animations[this.currentProject?.animationType || ''];
+    if (animation && animation.out) {
+      console.log('Appel de animation.out pour le projet:', this.currentProject?.name);
+      animation.out();
+    }
+  
+    this.currentProject = null;
+  }
+  
+  getAllMedia(project: Project | null): { type: 'image' | 'video'; src: string }[] {
+    if (!project) {
+      return [];
+    }
+
+    const mediaSequence: { type: 'image' | 'video'; src: string }[] = [];
+
+    const maxLength = Math.max(project.images.length, project.videos.length);
+    for (let i = 0; i < maxLength; i++) {
+      if (project.images[i]) {
+        mediaSequence.push({ type: 'image', src: project.images[i] });
+      }
+      if (project.videos[i]) {
+        mediaSequence.push({ type: 'video', src: project.videos[i] });
+      }
+    }
+
+    return mediaSequence;
+  }
+
+  private initLaiterieAnimation(): void {
+    if (this.mediaElements) {
+      const timeline = gsap.timeline();
+  
+      this.mediaElements.forEach((elementRef, index) => {
+        const element = elementRef.nativeElement;
+  
+        if (element.tagName.toLowerCase() === 'video') {
+          element.load();
+          element.play();
+          this.isVideoPlaying = true;
+  
+          element.addEventListener('ended', () => {
+            this.isVideoPlaying = false;
+            gsap.to(element, {
+              opacity: 0,
+              duration: 0.5,
+              onComplete: () => {
+                element.style.display = 'none';
+              }
+            });
+            this.currentProject = null;
+          });
+        }
+  
+        timeline.fromTo(
+          element,
+          {
+            opacity: 0,
+            display: 'block',
+          },
+          {
+            opacity: 1,
+            duration: 1.5,
+            ease: 'power2.out'
+          },
+          index * 1.5
+        );
+      });
+    }
+  }
+  
+  
+  private animateLaiterieMediaOut(): void {
+    if (this.mediaElements) {
+      const timeline = gsap.timeline();
+  
+      this.mediaElements.forEach((elementRef, index) => {
+        const element = elementRef.nativeElement;
+  
+        timeline.to(
+          element,
+          {
+            opacity: 0,
+            duration: 0.1,
+            ease: 'power2.in',
+            onComplete: () => {
+              element.style.display = 'none';
+            }
+          },
+          index * 0.1 
+        );
+      });
+    }
+  }
+  
 }
