@@ -1,11 +1,11 @@
-import { Component, AfterViewInit, AfterViewChecked, ViewChildren, ElementRef, QueryList, Inject, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, AfterViewInit, ViewChildren, ElementRef, QueryList, Inject, OnDestroy, OnInit, ChangeDetectorRef, Renderer2 } from '@angular/core';
 import { PLATFORM_ID } from '@angular/core';
 import { gsap, CSSPlugin, ScrollTrigger } from 'gsap/all'; 
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
-gsap.registerPlugin(CSSPlugin, ScrollTrigger); 
+gsap.registerPlugin(CSSPlugin, ScrollTrigger);
 
 interface Project {
   name: string;
@@ -28,8 +28,7 @@ interface Project {
     CommonModule
   ]
 })
-
-export class ProjectsComponent implements AfterViewInit, AfterViewChecked, OnInit, OnDestroy {
+export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
   @ViewChildren('mediaElement') mediaElements!: QueryList<ElementRef>;
   private gsapContext: gsap.Context | undefined;
   private animationInitialized: boolean = false;
@@ -38,25 +37,24 @@ export class ProjectsComponent implements AfterViewInit, AfterViewChecked, OnIni
   currentProject: Project | null = null;
   isHovered: boolean = false;
 
+  mediaSequence: { type: 'image' | 'video'; src: string }[] = [];
+  private laiterieTimeline: gsap.core.Timeline | null = null;
   private animations: { [key: string]: { in: () => void; out: () => void } } = {};
-
-  private isVideoPlaying: boolean = false;
-
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private http: HttpClient,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.loadProjects();
-
       this.animations = {
         laiterieAnimation: {
           in: () => this.initLaiterieAnimation(),
-          out: () => this.animateLaiterieMediaOut()
+          out: () => {}
         }
       };
     }
@@ -68,20 +66,13 @@ export class ProjectsComponent implements AfterViewInit, AfterViewChecked, OnIni
     }
   }
 
-  ngAfterViewChecked(): void {
-    if (this.isHovered && !this.animationInitialized && this.mediaElements.length > 0 && this.currentProject) {
-      this.animationInitialized = true;
-      const animation = this.animations[this.currentProject.animationType || ''];
-      if (animation && animation.in) {
-        console.log('Lancement de l\'animation pour le projet:', this.currentProject?.name);
-        animation.in();
-      }
-    }
-  }
-
   ngOnDestroy(): void {
     if (this.gsapContext) {
       this.gsapContext.revert();
+    }
+    if (this.laiterieTimeline) {
+      this.laiterieTimeline.kill();
+      this.laiterieTimeline = null;
     }
   }
 
@@ -130,41 +121,97 @@ export class ProjectsComponent implements AfterViewInit, AfterViewChecked, OnIni
     });
   }
 
-  onProjectHover(project: Project): void {
-    console.log('onProjectHover appelé avec le projet:', project.name);
+  onProjectHover(project: Project, event: MouseEvent): void {
+    if (this.currentProject && this.currentProject !== project) {
+      if (this.currentProject.animationType === 'laiterieAnimation') {
+        if (this.laiterieTimeline) {
+          this.laiterieTimeline.kill();
+          this.laiterieTimeline = null;
+        }
+        this.mediaSequence.forEach((media, index) => {
+          const element = this.mediaElements.toArray()[index]?.nativeElement;
+          if (element) {
+            gsap.set(element, { opacity: 0, display: 'none' });
+            if (element.tagName.toLowerCase() === 'video') {
+              element.pause();
+              element.currentTime = 0;
+            }
+          }
+        });
+      } else {
+        const previousAnimation = this.animations[this.currentProject.animationType || ''];
+        if (previousAnimation && previousAnimation.out) {
+          previousAnimation.out();
+        }
+      }
+    }
+
     this.currentProject = project;
     this.isHovered = true;
     this.animationInitialized = false;
 
+    this.mediaSequence = this.getAllMedia(project);
+    this.mediaSequence = this.mediaSequence.sort(() => Math.random() - 0.5);
+
     this.changeDetectorRef.detectChanges();
+
+    setTimeout(() => {
+      this.initAnimationForCurrentProject();
+    }, 0);
   }
 
-  onProjectOut(): void {
-    console.log('onProjectOut appelé');
-  
-    if (this.isVideoPlaying) {
+  onProjectOut(event: MouseEvent): void {
+    const relatedTarget = event.relatedTarget as HTMLElement;
+    if (relatedTarget && (relatedTarget.closest('.project-container') || relatedTarget.closest('.media-preview'))) {
       return;
     }
-  
+
     this.isHovered = false;
-  
-    const animation = this.animations[this.currentProject?.animationType || ''];
-    if (animation && animation.out) {
-      console.log('Appel de animation.out pour le projet:', this.currentProject?.name);
-      animation.out();
+
+    if (this.currentProject?.animationType === 'laiterieAnimation') {
+      if (this.laiterieTimeline) {
+        this.laiterieTimeline.kill();
+        this.laiterieTimeline = null;
+      }
+      this.mediaSequence.forEach((media, index) => {
+        const element = this.mediaElements.toArray()[index]?.nativeElement;
+        if (element) {
+          gsap.set(element, { opacity: 0, display: 'none' });
+          if (element.tagName.toLowerCase() === 'video') {
+            element.pause();
+            element.currentTime = 0;
+          }
+        }
+      });
+    } else {
+      const animation = this.animations[this.currentProject?.animationType || ''];
+      if (animation && animation.out) {
+        animation.out();
+      }
     }
-  
+
     this.currentProject = null;
+    this.mediaSequence = [];
   }
-  
+
+  private initAnimationForCurrentProject(): void {
+    if (this.isHovered && !this.animationInitialized && this.mediaElements.length > 0 && this.currentProject) {
+      this.animationInitialized = true;
+      const animation = this.animations[this.currentProject.animationType || ''];
+      if (animation && animation.in) {
+        animation.in();
+      }
+    }
+  }
+
   getAllMedia(project: Project | null): { type: 'image' | 'video'; src: string }[] {
     if (!project) {
       return [];
     }
 
     const mediaSequence: { type: 'image' | 'video'; src: string }[] = [];
-
     const maxLength = Math.max(project.images.length, project.videos.length);
+
     for (let i = 0; i < maxLength; i++) {
       if (project.images[i]) {
         mediaSequence.push({ type: 'image', src: project.images[i] });
@@ -179,68 +226,70 @@ export class ProjectsComponent implements AfterViewInit, AfterViewChecked, OnIni
 
   private initLaiterieAnimation(): void {
     if (this.mediaElements) {
-      const timeline = gsap.timeline();
-  
-      this.mediaElements.forEach((elementRef, index) => {
+      if (this.laiterieTimeline) {
+        this.laiterieTimeline.kill();
+        this.laiterieTimeline = null;
+      }
+
+      const shuffledMediaElements = this.mediaElements.toArray();
+
+      this.laiterieTimeline = gsap.timeline({ repeat: -1 });
+      const fadeInDuration = 0.25; 
+      const fadeOutDuration = 0.25; 
+      let totalDuration = 0;
+
+      shuffledMediaElements.forEach((elementRef, index) => {
         const element = elementRef.nativeElement;
-  
+        let displayDuration = 2; 
+
+        gsap.set(element, { opacity: 0, display: 'none' });
+
         if (element.tagName.toLowerCase() === 'video') {
-          element.load();
-          element.play();
-          this.isVideoPlaying = true;
-  
-          element.addEventListener('ended', () => {
-            this.isVideoPlaying = false;
-            gsap.to(element, {
-              opacity: 0,
-              duration: 0.5,
-              onComplete: () => {
-                element.style.display = 'none';
-              }
-            });
-            this.currentProject = null;
-          });
+          element.muted = true;
+          element.playsInline = true;
+          element.pause();
+          element.currentTime = 0;
+
+          displayDuration = 3; 
         }
-  
-        timeline.fromTo(
+
+        this.laiterieTimeline?.to(
           element,
           {
-            opacity: 0,
             display: 'block',
-          },
-          {
             opacity: 1,
-            duration: 1.5,
-            ease: 'power2.out'
+            duration: fadeInDuration,
+            ease: 'power2.out',
+            onStart: () => {
+              if (element.tagName.toLowerCase() === 'video') {
+                element.play();
+              }
+            }
           },
-          index * 1.5
+          totalDuration
         );
-      });
-    }
-  }
-  
-  
-  private animateLaiterieMediaOut(): void {
-    if (this.mediaElements) {
-      const timeline = gsap.timeline();
-  
-      this.mediaElements.forEach((elementRef, index) => {
-        const element = elementRef.nativeElement;
-  
-        timeline.to(
+
+        totalDuration += displayDuration - fadeOutDuration;
+
+        this.laiterieTimeline?.to(
           element,
           {
             opacity: 0,
-            duration: 0.1,
+            duration: fadeOutDuration,
             ease: 'power2.in',
             onComplete: () => {
               element.style.display = 'none';
+              if (element.tagName.toLowerCase() === 'video') {
+                element.pause();
+                element.currentTime = 0;
+              }
             }
           },
-          index * 0.1 
+          totalDuration
         );
+
+        totalDuration += fadeOutDuration;
       });
     }
   }
-  
 }

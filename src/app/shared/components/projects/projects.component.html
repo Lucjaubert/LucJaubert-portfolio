@@ -5,36 +5,38 @@
     <div class="col-md-6 projects-list">
       <div class="current-projects">
         <div class="projects-2024">
-          <div *ngFor="let project of projects" class="project-container d-flex justify-content-end align-items-baseline py-4"
-               (mouseenter)="onProjectHover(project)"
-               (mouseleave)="onProjectOut()">
+          <div *ngFor="let project of projects"
+               class="project-container d-flex justify-content-end align-items-baseline py-4"
+               (mouseover)="onProjectHover(project, $event)"
+               (mouseout)="onProjectOut($event)">
             <h5 class="text-slide mb-0">{{ project.name }}</h5>
             <span class="text-slide date ms-2">{{ project.year }}</span>
           </div>
         </div>
       </div>
     </div>
-
+  
     <div class="col-md-6 media-preview">
       <div class="col-12 d-flex flex-column" [ngClass]="{ 'invisible': !isHovered }">
         <div class="col-10 media-box d-flex flex-wrap flex-column align-items-center py-md-14 media-gallery">
-          <div *ngFor="let media of getAllMedia(currentProject); let i = index" #mediaElement class="media-element">
+          <div *ngFor="let media of mediaSequence; let i = index" #mediaElement class="media-element">
             <img
               *ngIf="media.type === 'image'"
               [src]="media.src"
-              class="img-fluid px-2 py-2"
+              class="img-fluid"
               alt="Image du projet"
             />
             <video
-            *ngIf="media.type === 'video'"
-            autoplay
-            muted
-            class="img-fluid px-2 py-2"
-          >
-            <source [src]="media.src" type="video/mp4" />
-            Votre navigateur ne supporte pas la balise vidéo.
-          </video>
-
+              *ngIf="media.type === 'video'"
+              autoplay
+              muted
+              playsinline
+              loop
+              class="img-fluid"
+            >
+              <source [src]="media.src" type="video/mp4" />
+              Votre navigateur ne supporte pas la balise vidéo.
+            </video>
           </div>
         </div>
 

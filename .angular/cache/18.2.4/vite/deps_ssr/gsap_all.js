@@ -1,5 +1,18 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
+  Observer,
+  ScrollTrigger,
+  _getProxyProp,
+  _getScrollFunc,
+  _getTarget,
+  _getVelocityProp,
+  _horizontal,
+  _isViewport,
+  _proxies,
+  _scrollers,
+  _vertical
+} from "./chunk-5LDKCFLA.js";
+import {
   Back,
   Bounce,
   CSSPlugin,
@@ -39,19 +52,6 @@ import {
   wrap,
   wrapYoyo
 } from "./chunk-GC3DDRE7.js";
-import {
-  Observer,
-  ScrollTrigger,
-  _getProxyProp,
-  _getScrollFunc,
-  _getTarget,
-  _getVelocityProp,
-  _horizontal,
-  _isViewport,
-  _proxies,
-  _scrollers,
-  _vertical
-} from "./chunk-5LDKCFLA.js";
 import "./chunk-NQ4HTGF6.js";
 
 // node_modules/gsap/utils/paths.js
