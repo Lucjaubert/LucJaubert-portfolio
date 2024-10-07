@@ -76,6 +76,12 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
     }
   }
 
+  onProjectClick(project: Project): void {
+    if (project.name === 'Laiterie Burdigala') {
+      window.open('https://www.laiterieburdigala.fr', '_blank');
+    }
+  }
+
   private initProjectAnimations(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.gsapContext = gsap.context(() => {

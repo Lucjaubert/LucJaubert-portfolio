@@ -9,7 +9,7 @@
                class="project-container d-flex justify-content-end align-items-baseline py-4"
                (mouseover)="onProjectHover(project, $event)"
                (mouseout)="onProjectOut($event)">
-            <h5 class="text-slide mb-0">{{ project.name }}</h5>
+            <h5 class="text-slide mb-0" (click)="onProjectClick(project)">{{ project.name }}</h5>
             <span class="text-slide date ms-2">{{ project.year }}</span>
           </div>
         </div>
