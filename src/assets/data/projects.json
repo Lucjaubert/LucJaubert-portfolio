@@ -6,24 +6,94 @@
     "role": "Maquettes - Développement front-end",
     "stacks": "WordPress Headless - Angular",
     "images": [
-      "assets/img/anglais/images/laiterie-desktop-1.webp",
-      "assets/img/anglais/images/laiterie-desktop-2.webp",
-      "assets/img/anglais/images/laiterie-desktop-3.webp",
-      "assets/img/anglais/images/laiterie-desktop-4.webp",
-      "assets/img/anglais/images/laiterie-desktop-5.webp",
-      "assets/img/anglais/images/laiterie-tablette-1.webp",
-      "assets/img/anglais/images/laiterie-tablette-2.webp",
-      "assets/img/anglais/images/laiterie-smartphone-1.webp",
-      "assets/img/anglais/images/laiterie-smartphone-2.webp"
+      "assets/img/laiterie/images/laiterie-desktop-1.webp",
+      "assets/img/laiterie/images/laiterie-desktop-2.webp",
+      "assets/img/laiterie/images/laiterie-desktop-3.webp",
+      "assets/img/laiterie/images/laiterie-desktop-4.webp",
+      "assets/img/laiterie/images/laiterie-desktop-5.webp",
+      "assets/img/laiterie/images/laiterie-tablette-1.webp",
+      "assets/img/laiterie/images/laiterie-tablette-2.webp",
+      "assets/img/laiterie/images/laiterie-smartphone-1.webp",
+      "assets/img/laiterie/images/laiterie-smartphone-2.webp"
     ],
     "videos": [
-      "assets/img/anglais/videos/Laiterie-Video-Desktop-1.mp4",
-      "assets/img/anglais/videos/Laiterie-Video-Desktop-2.mp4",
-      "assets/img/anglais/videos/Laiterie-Video-Desktop-3.mp4",
-      "assets/img/anglais/videos/Laiterie-Video-Mobile.mp4",
-      "assets/img/anglais/videos/Laiterie-Video-Smartphone-1.mp4",
-      "assets/img/anglais/videos/Laiterie-Video-Smartphone-2.mp4"
+      "assets/img/laiterie/videos/Laiterie-Video-Desktop-1.mp4",
+      "assets/img/laiterie/videos/Laiterie-Video-Desktop-2.mp4",
+      "assets/img/laiterie/videos/Laiterie-Video-Desktop-3.mp4",
+      "assets/img/laiterie/videos/Laiterie-Video-Mobile.mp4",
+      "assets/img/laiterie/videos/Laiterie-Video-Smartphone-1.mp4",
+      "assets/img/laiterie/videos/Laiterie-Video-Smartphone-2.mp4"
     ],
     "animationType": "laiterieAnimation"
+  },
+  {
+    "name": "Anglais Du Vin",
+    "year": "2024",
+    "project": "Promotion manuel d'anglais pour les professionnels du vin",
+    "role": "Maquettes - Développement front-end",
+    "stacks": "WordPress Headless - Angular",
+    "images": [
+      "assets/img/anglais/images/anglais-du-vin-desktop-1.webp",
+      "assets/img/anglais/images/anglais-du-vin-desktop-2.webp",
+      "assets/img/anglais/images/anglais-du-vin-desktop-3.webp",
+      "assets/img/anglais/images/anglais-du-vin-smartphone-1.webp",
+      "assets/img/anglais/images/anglais-du-vin-smartphone-2.webp",
+      "assets/img/anglais/images/anglais-du-vin-smartphone-4.webp"
+    ],
+    "videos": [
+      "assets/img/anglais/videos/Anglais-Video-Desktop-1.mp4",
+      "assets/img/anglais/videos/Anglais-Video-Desktop-2.mp4",
+      "assets/img/anglais/videos/Anglais-Video-Smartphone-1.mp4",
+      "assets/img/anglais/videos/Anglais-Video-Smartphone-2.mp4"
+    ],
+    "animationType": "anglaisAnimation"
+  },
+  {
+    "name": "Limago Reflexo",
+    "year": "2024",
+    "project": "Projet de réaménagement de Limago",
+    "role": "Maquettes - Développement front-end",
+    "stacks": "WordPress Headless - Angular",
+    "images": [
+      "assets/img/limago/images/limago-desktop-1.webp",
+      "assets/img/limago/images/limago-desktop-2.webp",
+      "assets/img/limago/images/limago-desktop-3.webp",
+      "assets/img/limago/images/limago-desktop-4.webp",
+      "assets/img/limago/images/limago-desktop-5.webp",
+      "assets/img/limago/images/limago-desktop-6.webp",
+      "assets/img/limago/images/limago-mobile-1.webp",
+      "assets/img/limago/images/limago-mobile-2.webp",
+      "assets/img/limago/images/limago-smartphone-1.webp",
+      "assets/img/limago/images/limago-smartphone-2.webp",
+      "assets/img/limago/images/limago-smartphone-3.webp"
+    ],
+    "videos": [
+      "assets/img/limago/videos/Limago-Video-Desktop-1.mp4",
+      "assets/img/limago/videos/Limago-Video-Desktop-2.mp4",
+      "assets/img/limago/videos/Limago-Video-Smartphone-1.mp4"
+    ],
+    "animationType": "limagoAnimation"
+  },
+  {
+    "name": "Maison Ah-Rong",
+    "year": "2023",
+    "project": "Projet de rénovation de Maison Ah-Rong",
+    "role": "Maquettes - Développement front-end",
+    "stacks": "WordPress Headless - Angular",
+    "images": [
+      "assets/img/maison/images/maison-desktop-1.webp",
+      "assets/img/maison/images/maison-desktop-2.webp",
+      "assets/img/maison/images/maison-desktop-3.webp",
+      "assets/img/maison/images/maison-desktop-4.webp"
+    ],
+    "videos": [
+      "assets/img/maison/videos/Maison-Video-2.mp4",
+      "assets/img/maison/videos/Maison-Video-Desktop-1.mp4",
+      "assets/img/maison/videos/Maison-Video-Desktop-2.mp4",
+      "assets/img/maison/videos/Maison-Video-Smartphone-1.mp4",
+      "assets/img/maison/videos/Maison-Video-Smartphone-2.mp4",
+      "assets/img/maison/videos/Maison-Video-Smartphone-3.mp4"
+    ],
+    "animationType": "maisonAnimation"
   }
 ]
