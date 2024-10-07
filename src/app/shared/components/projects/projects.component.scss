@@ -2,7 +2,7 @@
 
 .project-presentation {
   position: relative;
-  overflow: hidden; 
+  overflow: hidden;
   margin: 0;
   padding: 0;
   width: 100%;
@@ -19,9 +19,9 @@
     width: 100%;
     height: 0%;
     background-color: map-get($theme-colors, "black");
-    z-index: 0; 
-    transform-origin: bottom; 
-    visibility: visible; 
+    z-index: 0;
+    transform-origin: bottom;
+    visibility: visible;
   }
 
   .project-hover-container {
@@ -99,6 +99,49 @@
   }
 
   .text-slide {
-    opacity: 0; 
+    opacity: 0;
   }
+
+  .invisible {
+    visibility: hidden;
+    height: 0;
+  }
+
+  .media-box {
+    position: relative;
+    width: 45vw;
+    height: 55vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .media-element {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  .media-element {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    display: none;
+  
+    img,
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+    }
+  }
+  
 }
