@@ -230,483 +230,157 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
     return mediaSequence;
   }
 
-  private initLaiterieAnimation(): void {
+  private initProjectAnimation(timeline: gsap.core.Timeline | null, timelineName: string): void {
     if (this.mediaElements) {
-      if (this.laiterieTimeline) {
-        this.laiterieTimeline.kill();
-        this.laiterieTimeline = null;
-      }
-  
-      const shuffledMediaElements = this.mediaElements.toArray();
-      this.laiterieTimeline = gsap.timeline({ repeat: -1, defaults: { ease: 'power2.inOut' } });
-  
-      let totalDuration = 0;
-      const transitionDuration = 1; 
-      const displayDuration = 2; 
-  
-      const directionOptionsX = ['-100%', '0%', '100%']; 
-      const directionOptionsY = ['-100%', '0%', '100%']; 
-  
-      shuffledMediaElements.forEach((elementRef, index) => {
-        const element = elementRef.nativeElement;
-  
-        const xStart = directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
-        const yStart = directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
-  
-        gsap.set(element, { opacity: 0, display: 'none', x: xStart, y: yStart });
-  
-        if (element.tagName.toLowerCase() === 'video') {
-          element.muted = true;
-          element.playsInline = true;
-          element.pause();
-          element.currentTime = 0;
+        // Supprimer la timeline existante si elle existe
+        if (timeline) {
+            timeline.kill();
+            timeline = null;
         }
-  
-        if (this.laiterieTimeline) {
-          this.laiterieTimeline.to(
-            element,
-            {
-              display: 'block',
-              opacity: 1,
-              x: '0%',
-              y: '0%',
-              duration: transitionDuration,
-              onStart: () => {
-                if (element.tagName.toLowerCase() === 'video') {
-                  element.play();
+
+        // Créer une nouvelle timeline
+        const shuffledMediaElements = this.mediaElements.toArray();
+        timeline = gsap.timeline({ repeat: -1, defaults: { ease: 'power2.inOut' } });
+
+        let totalDuration = 0;
+        const transitionDuration = 1;
+        const displayDuration = 2;
+
+        const directionOptionsX = ['-100%', '0%', '100%'];
+        const directionOptionsY = ['-100%', '0%', '100%'];
+
+        shuffledMediaElements.forEach((elementRef, index) => {
+            const element = elementRef.nativeElement;
+
+            const xStart = directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
+            const yStart = directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
+
+            gsap.set(element, { opacity: 0, display: 'none', x: xStart, y: yStart });
+
+            if (element.tagName.toLowerCase() === 'video') {
+                element.muted = true;
+                element.playsInline = true;
+                element.pause();
+                element.currentTime = 0;
+            }
+
+            if (timeline) {  // Vérification que timeline n'est pas null
+                timeline.to(
+                    element,
+                    {
+                        display: 'block',
+                        opacity: 1,
+                        x: '0%',
+                        y: '0%',
+                        duration: transitionDuration,
+                        onStart: () => {
+                            if (element.tagName.toLowerCase() === 'video') {
+                                element.play();
+                            }
+                        },
+                    },
+                    totalDuration
+                );
+
+                if (index > 0) {
+                    const previousElement = shuffledMediaElements[index - 1].nativeElement;
+                    timeline.to(
+                        previousElement,
+                        {
+                            opacity: 0,
+                            x: directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)],
+                            y: directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)],
+                            duration: transitionDuration,
+                            onComplete: () => {
+                                previousElement.style.display = 'none';
+                                if (previousElement.tagName.toLowerCase() === 'video') {
+                                    previousElement.pause();
+                                    previousElement.currentTime = 0;
+                                }
+                            }
+                        },
+                        totalDuration
+                    );
                 }
-              },
-            },
-            totalDuration
-          );
-  
-          if (index > 0) {
-            const previousElement = shuffledMediaElements[index - 1].nativeElement;
-            this.laiterieTimeline.to(
-              previousElement,
-              {
-                opacity: 0,
-                x: directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)], 
-                y: directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)], 
-                duration: transitionDuration,
-                onComplete: () => {
-                  previousElement.style.display = 'none';
-                  if (previousElement.tagName.toLowerCase() === 'video') {
-                    previousElement.pause();
-                    previousElement.currentTime = 0;
-                  }
-                }
-              },
-              totalDuration 
+            }
+
+            totalDuration += transitionDuration + displayDuration;
+        });
+
+        if (shuffledMediaElements.length > 1 && timeline) {
+            const lastElement = shuffledMediaElements[shuffledMediaElements.length - 1].nativeElement;
+            const firstElement = shuffledMediaElements[0].nativeElement;
+
+            const xStart = directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
+            const yStart = directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
+
+            timeline.to(
+                lastElement,
+                {
+                    opacity: 0,
+                    x: xStart,
+                    y: yStart,
+                    duration: transitionDuration,
+                    onComplete: () => {
+                        lastElement.style.display = 'none';
+                        if (lastElement.tagName.toLowerCase() === 'video') {
+                            lastElement.pause();
+                            lastElement.currentTime = 0;
+                        }
+                    }
+                },
+                totalDuration
             );
-          }
+
+            timeline.to(
+                firstElement,
+                {
+                    display: 'block',
+                    opacity: 1,
+                    x: '0%',
+                    y: '0%',
+                    duration: transitionDuration,
+                    onStart: () => {
+                        if (firstElement.tagName.toLowerCase() === 'video') {
+                            firstElement.play();
+                        }
+                    }
+                },
+                totalDuration
+            );
         }
-  
-        totalDuration += transitionDuration + displayDuration; 
-      });
-  
-      if (shuffledMediaElements.length > 1 && this.laiterieTimeline) {
-        const lastElement = shuffledMediaElements[shuffledMediaElements.length - 1].nativeElement;
-        const firstElement = shuffledMediaElements[0].nativeElement;
-  
-        const xStart = directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
-        const yStart = directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
-  
-        this.laiterieTimeline.to(
-          lastElement,
-          {
-            opacity: 0,
-            x: xStart,
-            y: yStart,
-            duration: transitionDuration,
-            onComplete: () => {
-              lastElement.style.display = 'none';
-              if (lastElement.tagName.toLowerCase() === 'video') {
-                lastElement.pause();
-                lastElement.currentTime = 0;
-              }
-            }
-          },
-          totalDuration
-        );
-  
-        this.laiterieTimeline.to(
-          firstElement,
-          {
-            display: 'block',
-            opacity: 1,
-            x: '0%',
-            y: '0%',
-            duration: transitionDuration,
-            onStart: () => {
-              if (firstElement.tagName.toLowerCase() === 'video') {
-                firstElement.play();
-              }
-            }
-          },
-          totalDuration
-        );
-      }
+
+        // Assigner la nouvelle timeline au bon endroit (cela permet de la mettre à jour)
+        switch (timelineName) {
+            case 'laiterie':
+                this.laiterieTimeline = timeline;
+                break;
+            case 'anglais':
+                this.anglaisTimeline = timeline;
+                break;
+            case 'limago':
+                this.limagoTimeline = timeline;
+                break;
+            case 'maison':
+                this.maisonTimeline = timeline;
+                break;
+        }
     }
+  }
+
+  private initLaiterieAnimation(): void {
+    this.initProjectAnimation(this.laiterieTimeline, 'laiterie');
   }
 
   private initAnglaisAnimation(): void {
-    if (this.mediaElements) {
-        if (this.anglaisTimeline) {
-            this.anglaisTimeline.kill();
-            this.anglaisTimeline = null;
-        }
-
-        const shuffledMediaElements = this.mediaElements.toArray();
-        this.anglaisTimeline = gsap.timeline({ repeat: -1, defaults: { ease: 'power2.inOut' } });
-
-        let totalDuration = 0;
-        const transitionDuration = 1;
-        const displayDuration = 2;
-
-        const directionOptionsX = ['-100%', '0%', '100%'];
-        const directionOptionsY = ['-100%', '0%', '100%'];
-
-        shuffledMediaElements.forEach((elementRef, index) => {
-            const element = elementRef.nativeElement;
-
-            const xStart = directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
-            const yStart = directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
-
-            gsap.set(element, { opacity: 0, display: 'none', x: xStart, y: yStart });
-
-            if (element.tagName.toLowerCase() === 'video') {
-                element.muted = true;
-                element.playsInline = true;
-                element.pause();
-                element.currentTime = 0;
-            }
-
-            if (this.anglaisTimeline) {
-                this.anglaisTimeline.to(
-                    element,
-                    {
-                        display: 'block',
-                        opacity: 1,
-                        x: '0%',
-                        y: '0%',
-                        duration: transitionDuration,
-                        onStart: () => {
-                            if (element.tagName.toLowerCase() === 'video') {
-                                element.play();
-                            }
-                        },
-                    },
-                    totalDuration
-                );
-
-                if (index > 0) {
-                    const previousElement = shuffledMediaElements[index - 1].nativeElement;
-                    this.anglaisTimeline.to(
-                        previousElement,
-                        {
-                            opacity: 0,
-                            x: directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)],
-                            y: directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)],
-                            duration: transitionDuration,
-                            onComplete: () => {
-                                previousElement.style.display = 'none';
-                                if (previousElement.tagName.toLowerCase() === 'video') {
-                                    previousElement.pause();
-                                    previousElement.currentTime = 0;
-                                }
-                            }
-                        },
-                        totalDuration
-                    );
-                }
-            }
-
-            totalDuration += transitionDuration + displayDuration;
-        });
-
-        if (shuffledMediaElements.length > 1 && this.anglaisTimeline) {
-            const lastElement = shuffledMediaElements[shuffledMediaElements.length - 1].nativeElement;
-            const firstElement = shuffledMediaElements[0].nativeElement;
-
-            const xStart = directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
-            const yStart = directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
-
-            this.anglaisTimeline.to(
-                lastElement,
-                {
-                    opacity: 0,
-                    x: xStart,
-                    y: yStart,
-                    duration: transitionDuration,
-                    onComplete: () => {
-                        lastElement.style.display = 'none';
-                        if (lastElement.tagName.toLowerCase() === 'video') {
-                            lastElement.pause();
-                            lastElement.currentTime = 0;
-                        }
-                    }
-                },
-                totalDuration
-            );
-
-            this.anglaisTimeline.to(
-                firstElement,
-                {
-                    display: 'block',
-                    opacity: 1,
-                    x: '0%',
-                    y: '0%',
-                    duration: transitionDuration,
-                    onStart: () => {
-                        if (firstElement.tagName.toLowerCase() === 'video') {
-                            firstElement.play();
-                        }
-                    }
-                },
-                totalDuration
-            );
-        }
-    }
+      this.initProjectAnimation(this.anglaisTimeline, 'anglais');
   }
-  
+
   private initLimagoAnimation(): void {
-    if (this.mediaElements) {
-        if (this.limagoTimeline) {
-            this.limagoTimeline.kill();
-            this.limagoTimeline = null;
-        }
-
-        const shuffledMediaElements = this.mediaElements.toArray();
-        this.limagoTimeline = gsap.timeline({ repeat: -1, defaults: { ease: 'power2.inOut' } });
-
-        let totalDuration = 0;
-        const transitionDuration = 1;
-        const displayDuration = 2;
-
-        const directionOptionsX = ['-100%', '0%', '100%'];
-        const directionOptionsY = ['-100%', '0%', '100%'];
-
-        shuffledMediaElements.forEach((elementRef, index) => {
-            const element = elementRef.nativeElement;
-
-            const xStart = directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
-            const yStart = directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
-
-            gsap.set(element, { opacity: 0, display: 'none', x: xStart, y: yStart });
-
-            if (element.tagName.toLowerCase() === 'video') {
-                element.muted = true;
-                element.playsInline = true;
-                element.pause();
-                element.currentTime = 0;
-            }
-
-            if (this.limagoTimeline) {
-                this.limagoTimeline.to(
-                    element,
-                    {
-                        display: 'block',
-                        opacity: 1,
-                        x: '0%',
-                        y: '0%',
-                        duration: transitionDuration,
-                        onStart: () => {
-                            if (element.tagName.toLowerCase() === 'video') {
-                                element.play();
-                            }
-                        },
-                    },
-                    totalDuration
-                );
-
-                if (index > 0) {
-                    const previousElement = shuffledMediaElements[index - 1].nativeElement;
-                    this.limagoTimeline.to(
-                        previousElement,
-                        {
-                            opacity: 0,
-                            x: directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)],
-                            y: directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)],
-                            duration: transitionDuration,
-                            onComplete: () => {
-                                previousElement.style.display = 'none';
-                                if (previousElement.tagName.toLowerCase() === 'video') {
-                                    previousElement.pause();
-                                    previousElement.currentTime = 0;
-                                }
-                            }
-                        },
-                        totalDuration
-                    );
-                }
-            }
-
-            totalDuration += transitionDuration + displayDuration;
-        });
-
-        if (shuffledMediaElements.length > 1 && this.limagoTimeline) {
-            const lastElement = shuffledMediaElements[shuffledMediaElements.length - 1].nativeElement;
-            const firstElement = shuffledMediaElements[0].nativeElement;
-
-            const xStart = directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
-            const yStart = directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
-
-            this.limagoTimeline.to(
-                lastElement,
-                {
-                    opacity: 0,
-                    x: xStart,
-                    y: yStart,
-                    duration: transitionDuration,
-                    onComplete: () => {
-                        lastElement.style.display = 'none';
-                        if (lastElement.tagName.toLowerCase() === 'video') {
-                            lastElement.pause();
-                            lastElement.currentTime = 0;
-                        }
-                    }
-                },
-                totalDuration
-            );
-
-            this.limagoTimeline.to(
-                firstElement,
-                {
-                    display: 'block',
-                    opacity: 1,
-                    x: '0%',
-                    y: '0%',
-                    duration: transitionDuration,
-                    onStart: () => {
-                        if (firstElement.tagName.toLowerCase() === 'video') {
-                            firstElement.play();
-                        }
-                    }
-                },
-                totalDuration
-            );
-        }
-    }
+      this.initProjectAnimation(this.limagoTimeline, 'limago');
   }
 
   private initMaisonAnimation(): void {
-    if (this.mediaElements) {
-        if (this.maisonTimeline) {
-            this.maisonTimeline.kill();
-            this.maisonTimeline = null;
-        }
-
-        const shuffledMediaElements = this.mediaElements.toArray();
-        this.maisonTimeline = gsap.timeline({ repeat: -1, defaults: { ease: 'power2.inOut' } });
-
-        let totalDuration = 0;
-        const transitionDuration = 1;
-        const displayDuration = 2;
-
-        const directionOptionsX = ['-100%', '0%', '100%'];
-        const directionOptionsY = ['-100%', '0%', '100%'];
-
-        shuffledMediaElements.forEach((elementRef, index) => {
-            const element = elementRef.nativeElement;
-
-            const xStart = directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
-            const yStart = directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
-
-            gsap.set(element, { opacity: 0, display: 'none', x: xStart, y: yStart });
-
-            if (element.tagName.toLowerCase() === 'video') {
-                element.muted = true;
-                element.playsInline = true;
-                element.pause();
-                element.currentTime = 0;
-            }
-
-            if (this.maisonTimeline) {
-                this.maisonTimeline.to(
-                    element,
-                    {
-                        display: 'block',
-                        opacity: 1,
-                        x: '0%',
-                        y: '0%',
-                        duration: transitionDuration,
-                        onStart: () => {
-                            if (element.tagName.toLowerCase() === 'video') {
-                                element.play();
-                            }
-                        },
-                    },
-                    totalDuration
-                );
-
-                if (index > 0) {
-                    const previousElement = shuffledMediaElements[index - 1].nativeElement;
-                    this.maisonTimeline.to(
-                        previousElement,
-                        {
-                            opacity: 0,
-                            x: directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)],
-                            y: directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)],
-                            duration: transitionDuration,
-                            onComplete: () => {
-                                previousElement.style.display = 'none';
-                                if (previousElement.tagName.toLowerCase() === 'video') {
-                                    previousElement.pause();
-                                    previousElement.currentTime = 0;
-                                }
-                            }
-                        },
-                        totalDuration
-                    );
-                }
-            }
-
-            totalDuration += transitionDuration + displayDuration;
-        });
-
-        if (shuffledMediaElements.length > 1 && this.maisonTimeline) {
-            const lastElement = shuffledMediaElements[shuffledMediaElements.length - 1].nativeElement;
-            const firstElement = shuffledMediaElements[0].nativeElement;
-
-            const xStart = directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
-            const yStart = directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
-
-            this.maisonTimeline.to(
-                lastElement,
-                {
-                    opacity: 0,
-                    x: xStart,
-                    y: yStart,
-                    duration: transitionDuration,
-                    onComplete: () => {
-                        lastElement.style.display = 'none';
-                        if (lastElement.tagName.toLowerCase() === 'video') {
-                            lastElement.pause();
-                            lastElement.currentTime = 0;
-                        }
-                    }
-                },
-                totalDuration
-            );
-
-            this.maisonTimeline.to(
-                firstElement,
-                {
-                    display: 'block',
-                    opacity: 1,
-                    x: '0%',
-                    y: '0%',
-                    duration: transitionDuration,
-                    onStart: () => {
-                        if (firstElement.tagName.toLowerCase() === 'video') {
-                            firstElement.play();
-                        }
-                    }
-                },
-                totalDuration
-            );
-        }
-    }
+      this.initProjectAnimation(this.maisonTimeline, 'maison');
   }
 }
