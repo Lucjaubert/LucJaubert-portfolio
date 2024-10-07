@@ -235,17 +235,15 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
       this.laiterieTimeline = gsap.timeline({ repeat: -1, defaults: { ease: 'power2.inOut' } });
   
       let totalDuration = 0;
-      const transitionDuration = 1; // Durée de la transition plus lente pour une transition fluide
-      const displayDuration = 2; // Temps pendant lequel chaque élément reste visible
+      const transitionDuration = 1; 
+      const displayDuration = 2; 
   
-      // Créer des options pour les directions X et Y
-      const directionOptionsX = ['-100%', '0%', '100%']; // Gauche, centre, droite
-      const directionOptionsY = ['-100%', '0%', '100%']; // Haut, centre, bas
+      const directionOptionsX = ['-100%', '0%', '100%']; 
+      const directionOptionsY = ['-100%', '0%', '100%']; 
   
       shuffledMediaElements.forEach((elementRef, index) => {
         const element = elementRef.nativeElement;
   
-        // Choisir une direction aléatoire pour X et Y
         const xStart = directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
         const yStart = directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
   
@@ -258,7 +256,6 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
           element.currentTime = 0;
         }
   
-        // Animation d'entrée pour l'élément courant
         if (this.laiterieTimeline) {
           this.laiterieTimeline.to(
             element,
@@ -277,15 +274,14 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
             totalDuration
           );
   
-          // Animation de sortie de l'élément précédent, qui commence lorsque l'élément courant est bien au centre
           if (index > 0) {
             const previousElement = shuffledMediaElements[index - 1].nativeElement;
             this.laiterieTimeline.to(
               previousElement,
               {
                 opacity: 0,
-                x: directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)], // Direction aléatoire
-                y: directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)], // Direction aléatoire
+                x: directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)], 
+                y: directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)], 
                 duration: transitionDuration,
                 onComplete: () => {
                   previousElement.style.display = 'none';
@@ -295,15 +291,14 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
                   }
                 }
               },
-              totalDuration // Commence en même temps que l'animation d'entrée de l'élément courant
+              totalDuration 
             );
           }
         }
   
-        totalDuration += transitionDuration + displayDuration; // Ajuster le temps pour l'animation suivante
+        totalDuration += transitionDuration + displayDuration; 
       });
   
-      // Traiter la transition entre le dernier élément et le premier pour boucler
       if (shuffledMediaElements.length > 1 && this.laiterieTimeline) {
         const lastElement = shuffledMediaElements[shuffledMediaElements.length - 1].nativeElement;
         const firstElement = shuffledMediaElements[0].nativeElement;
