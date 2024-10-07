@@ -230,66 +230,123 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
         this.laiterieTimeline.kill();
         this.laiterieTimeline = null;
       }
-
+  
       const shuffledMediaElements = this.mediaElements.toArray();
-
-      this.laiterieTimeline = gsap.timeline({ repeat: -1 });
-      const fadeInDuration = 0.25; 
-      const fadeOutDuration = 0.25; 
+      this.laiterieTimeline = gsap.timeline({ repeat: -1, defaults: { ease: 'power2.inOut' } });
+  
       let totalDuration = 0;
-
+      const transitionDuration = 1; // Durée de la transition plus lente pour une transition fluide
+      const displayDuration = 2; // Temps pendant lequel chaque élément reste visible
+  
+      // Créer des options pour les directions X et Y
+      const directionOptionsX = ['-100%', '0%', '100%']; // Gauche, centre, droite
+      const directionOptionsY = ['-100%', '0%', '100%']; // Haut, centre, bas
+  
       shuffledMediaElements.forEach((elementRef, index) => {
         const element = elementRef.nativeElement;
-        let displayDuration = 2; 
-
-        gsap.set(element, { opacity: 0, display: 'none' });
-
+  
+        // Choisir une direction aléatoire pour X et Y
+        const xStart = directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
+        const yStart = directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
+  
+        gsap.set(element, { opacity: 0, display: 'none', x: xStart, y: yStart });
+  
         if (element.tagName.toLowerCase() === 'video') {
           element.muted = true;
           element.playsInline = true;
           element.pause();
           element.currentTime = 0;
-
-          displayDuration = 3; 
         }
-
-        this.laiterieTimeline?.to(
-          element,
+  
+        // Animation d'entrée pour l'élément courant
+        if (this.laiterieTimeline) {
+          this.laiterieTimeline.to(
+            element,
+            {
+              display: 'block',
+              opacity: 1,
+              x: '0%',
+              y: '0%',
+              duration: transitionDuration,
+              onStart: () => {
+                if (element.tagName.toLowerCase() === 'video') {
+                  element.play();
+                }
+              },
+            },
+            totalDuration
+          );
+  
+          // Animation de sortie de l'élément précédent, qui commence lorsque l'élément courant est bien au centre
+          if (index > 0) {
+            const previousElement = shuffledMediaElements[index - 1].nativeElement;
+            this.laiterieTimeline.to(
+              previousElement,
+              {
+                opacity: 0,
+                x: directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)], // Direction aléatoire
+                y: directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)], // Direction aléatoire
+                duration: transitionDuration,
+                onComplete: () => {
+                  previousElement.style.display = 'none';
+                  if (previousElement.tagName.toLowerCase() === 'video') {
+                    previousElement.pause();
+                    previousElement.currentTime = 0;
+                  }
+                }
+              },
+              totalDuration // Commence en même temps que l'animation d'entrée de l'élément courant
+            );
+          }
+        }
+  
+        totalDuration += transitionDuration + displayDuration; // Ajuster le temps pour l'animation suivante
+      });
+  
+      // Traiter la transition entre le dernier élément et le premier pour boucler
+      if (shuffledMediaElements.length > 1 && this.laiterieTimeline) {
+        const lastElement = shuffledMediaElements[shuffledMediaElements.length - 1].nativeElement;
+        const firstElement = shuffledMediaElements[0].nativeElement;
+  
+        const xStart = directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
+        const yStart = directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
+  
+        this.laiterieTimeline.to(
+          lastElement,
+          {
+            opacity: 0,
+            x: xStart,
+            y: yStart,
+            duration: transitionDuration,
+            onComplete: () => {
+              lastElement.style.display = 'none';
+              if (lastElement.tagName.toLowerCase() === 'video') {
+                lastElement.pause();
+                lastElement.currentTime = 0;
+              }
+            }
+          },
+          totalDuration
+        );
+  
+        this.laiterieTimeline.to(
+          firstElement,
           {
             display: 'block',
             opacity: 1,
-            duration: fadeInDuration,
-            ease: 'power2.out',
+            x: '0%',
+            y: '0%',
+            duration: transitionDuration,
             onStart: () => {
-              if (element.tagName.toLowerCase() === 'video') {
-                element.play();
+              if (firstElement.tagName.toLowerCase() === 'video') {
+                firstElement.play();
               }
             }
           },
           totalDuration
         );
-
-        totalDuration += displayDuration - fadeOutDuration;
-
-        this.laiterieTimeline?.to(
-          element,
-          {
-            opacity: 0,
-            duration: fadeOutDuration,
-            ease: 'power2.in',
-            onComplete: () => {
-              element.style.display = 'none';
-              if (element.tagName.toLowerCase() === 'video') {
-                element.pause();
-                element.currentTime = 0;
-              }
-            }
-          },
-          totalDuration
-        );
-
-        totalDuration += fadeOutDuration;
-      });
+      }
     }
   }
+  
 }
