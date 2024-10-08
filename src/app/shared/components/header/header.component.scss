@@ -41,10 +41,13 @@
         animation: showTextProjets 1s forwards 0.1s; 
       }
       .nav-item:nth-child(2) {
-        animation: showTextBio 1s forwards 1.4s; 
+        animation: showTextSW 1s forwards 0.7s; 
       }
       .nav-item:nth-child(3) {
-        animation: showTextContact 1s forwards 2.8s; 
+        animation: showTextBio 1s forwards 1.3s; 
+      }
+      .nav-item:nth-child(4) {
+        animation: showTextContact 1s forwards 2.5s; 
       }
     }
   }
@@ -60,6 +63,15 @@
 }
 
 @keyframes showTextProjets {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes showTextSW {
   0% {
     opacity: 0;
   }
