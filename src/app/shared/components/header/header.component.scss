@@ -1,12 +1,12 @@
 @import "../../../../styles/_variables.scss";
 
 .custom-container {
-  max-width: 1400px;
-  
+  max-width: 330px;
+
   .custom-navbar {
     position: relative;
     margin: 0 auto;
-    
+
     &::before {
       content: "";
       position: absolute;
@@ -14,19 +14,24 @@
       left: 0;
       height: 1.5px;
       background-color: map-get($theme-colors, "blue");
-      width: 0%; 
+      width: 0%;
       animation: drawLine 3s forwards ease-out;
     }
-    
+
     .navbar-nav {
       position: relative;
       width: 100%;
       display: flex;
+      flex-direction: row;
       justify-content: space-between;
       align-items: center;
 
       .nav-item {
-        opacity: 0; 
+        opacity: 0;
+      }
+
+      .nav-item-bio {
+        display: none; 
       }
 
       .nav-link {
@@ -37,19 +42,43 @@
         z-index: 2;
       }
 
-      .nav-item:nth-child(1) {
-        animation: showTextProjets 1s forwards 0.1s; 
+      .nav-item-projects {
+        animation: showTextProjets 1s forwards 0.1s;
       }
-      .nav-item:nth-child(2) {
-        animation: showTextSW 1s forwards 0.7s; 
+      .nav-item-studio {
+        animation: showTextSW 1s forwards 0.7s;
       }
-      .nav-item:nth-child(3) {
-        animation: showTextBio 1s forwards 1.3s; 
-      }
-      .nav-item:nth-child(4) {
-        animation: showTextContact 1s forwards 2.5s; 
+      .nav-item-contact {
+        animation: showTextContact 1s forwards 2.5s;
       }
     }
+  }
+
+  @media (min-width: map-get($breakpoints, "sm")) {
+    max-width: 390px;
+
+    .navbar-nav {
+      flex-direction: row;
+    }
+  }
+
+  @media (min-width: map-get($breakpoints, "md")) {
+    max-width: 740px;
+    .navbar-nav .nav-item-bio {
+      display: block !important;
+      opacity: 0;
+      animation: showTextBio 1s forwards 1.3s;
+    }
+  }
+
+  @media (min-width: map-get($breakpoints, "lg")) {
+    max-width: 1000px;
+
+  }
+
+  @media (min-width: map-get($breakpoints, "xl")) {
+    max-width: 1390px;
+
   }
 }
 
