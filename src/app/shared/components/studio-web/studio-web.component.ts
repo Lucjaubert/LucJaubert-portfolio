@@ -87,37 +87,31 @@ export class StudioWebComponent implements AfterViewInit, OnInit, OnDestroy {
       this.gsapContext = gsap.context(() => {
         this.studioSectionContainers.forEach((section: ElementRef, index: number) => {
           const sectionElement = section.nativeElement as HTMLElement;
-          const currentSectionData = this.sections[index];
-
           const title = sectionElement.querySelector('h3.text-slide') as HTMLElement | null;
+          const horizontalLine = sectionElement.querySelector('.horizontal-line') as HTMLElement | null;
+          const verticalLine = sectionElement.querySelector('.vertical-line') as HTMLElement | null;
           const detailsText = sectionElement.querySelector('.stacks-slide') as HTMLElement | null;
-          const mediaGallery = sectionElement.querySelector('.media-gallery') as HTMLElement | null;
-
-          let endValue: string | (() => string);
-          if (sectionElement.classList.contains('process-section')) {
-            endValue = () => `+=${sectionElement.clientHeight - 600}`;
-          } else {
-            endValue = () => `+=${sectionElement.clientHeight}`;
-          }
-
+  
+          const totalAnimationDuration = 2; 
+  
           ScrollTrigger.create({
             trigger: sectionElement,
             start: "top top",
-            end: endValue,
+            end: () => `+=${totalAnimationDuration * 1000}`, 
             pin: true,
-            pinSpacing: false,
-            scrub: true,
+            pinSpacing: false, 
+            scrub: false,
           });
-
+  
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: sectionElement,
-              start: "top 80%",
-              end: "bottom 20%",
-              toggleActions: "play none none reverse",
+              start: "top top",
+              end: () => `+=${totalAnimationDuration * 1000}`,
+              scrub: false,
             }
           });
-
+  
           if (title) {
             tl.fromTo(title, {
               opacity: 0,
@@ -127,19 +121,40 @@ export class StudioWebComponent implements AfterViewInit, OnInit, OnDestroy {
               y: 0,
               duration: 1,
               ease: "power4.out"
-            }, 0.1);
+            });
           }
-
+  
+          if (horizontalLine) {
+            tl.fromTo(horizontalLine, {
+              width: '0%',
+            }, {
+              width: '100%',
+              duration: 1,
+              ease: 'none'
+            }, "-=0.5");
+          }
+  
+          if (verticalLine) {
+            tl.fromTo(verticalLine, {
+              height: '0%',
+            }, {
+              height: '100%',
+              duration: 1,
+              ease: 'none'
+            }, "-=0.5");
+          }
+  
           if (detailsText) {
             tl.from(detailsText, {
               opacity: 0,
               x: 100,
-              duration: 1.5,
+              duration: 1,
               ease: "power4.out"
-            }, 0.5);
+            }, "-=0.5");
           }
         });
       });
     }
   }
+  
 }

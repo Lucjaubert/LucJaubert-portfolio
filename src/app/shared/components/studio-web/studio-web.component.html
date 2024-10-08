@@ -3,14 +3,15 @@
     <div class="studio-web-list">
       <div class="current-sections">
 
-        <!-- Boucle sur les sections -->
         <div *ngFor="let section of sections; let i = index" [attr.id]="section.name | slugify" [ngClass]="getSectionClass(i)" #studioSectionContainer>
           <div class="background-sides"></div>
-          <div class="col-md-7 section-container d-flex flex-column text-center justify-content-start align-items-center mask-wrapper">
-            <h3 class="text-slide mb-0">{{ section.name }}</h3>
+          <div class="col-md-7 px-5 section-container d-flex flex-column justify-content-top align-items-start mask-wrapper">
+            <h3 class="text-slide mb-0 text-center">{{ section.name }}</h3>
+            <div class="horizontal-line mt-3"></div>
           </div>
-          <div class="section-details-preview col-5 d-flex justify-content-center align-items-center mask-wrapper">
-            <div class="col-md-5 stacks-slide d-flex flex-column align-items-start px-md-4 py-md-5">
+          <div class="vertical-line"></div>
+          <div class="section-details-preview col-5 d-flex justify-content-center align-items-top mask-wrapper">
+            <div class="col-md-5 stacks-slide d-flex flex-column align-items-start px-md-2 py-md-5">
               <span *ngFor="let stack of section.stacks.split(',')" class="mt-1 text-start">{{ stack.trim() }}</span>
             </div>
           </div>
