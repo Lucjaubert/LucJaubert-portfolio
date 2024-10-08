@@ -31,4 +31,19 @@
     position: relative;
     overflow: hidden; 
   }
+
+  .text-slide {
+    transition: none; 
+  }
+
+  .stacks-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  
+    span {
+      margin-top: 0.5rem; 
+      text-align: left;
+    }
+  }  
 }

@@ -1,66 +1,17 @@
-<section id="studio-web" class="studio-web-presentation mt-md-7 py-md-12">
-  <div class="background-sides"></div>
-
+<section *ngIf="sections.length > 0" id="studio-web" class="studio-web-presentation mt-md-7 py-md-12">
   <div class="row studio-web-section">
     <div class="studio-web-list">
       <div class="current-sections">
 
-        <!-- Conception et design web -->
-        <div class="design-section d-flex col-md-12 py-md-10" #studioSectionContainer>
-          <div class="col-md-7 section-container design-container d-flex flex-column text-center justify-content-center align-items-center mask-wrapper">
-            <h3 class="text-slide mb-0">Conception et Design Web</h3>
-            <div class="col-3 d-flex flex-column align-items-start px-md-4 py-md-5">
-              <span class="mt-1 text-start">Webdesign - UI Design - UX Design - Responsive Design - Identité Visuelle - Charte Graphique - Création de Logo</span>
-            </div>
+        <!-- Boucle sur les sections -->
+        <div *ngFor="let section of sections; let i = index" [attr.id]="section.name | slugify" [ngClass]="getSectionClass(i)" #studioSectionContainer>
+          <div class="background-sides"></div>
+          <div class="col-md-7 section-container d-flex flex-column text-center justify-content-start align-items-center mask-wrapper">
+            <h3 class="text-slide mb-0">{{ section.name }}</h3>
           </div>
           <div class="section-details-preview col-5 d-flex justify-content-center align-items-center mask-wrapper">
-            <div class="px-md-5" id="sectionDetails">
-              Video
-            </div>
-          </div>
-        </div>
-
-        <!-- Développement Web et Mobile -->
-        <div class="development-section d-flex col-md-12 py-md-10" #studioSectionContainer>
-          <div class="col-md-7 section-container development-container d-flex flex-column text-center justify-content-center align-items-center mask-wrapper">
-            <h3 class="text-slide mb-0">Developpement Web et Mobile</h3>
-            <div class="col-3 d-flex flex-column align-items-start px-md-4 py-md-5">
-              <span class="mt-1 text-start">Sites Vitrine - Sites Institutionnels - E-commerce - Développement Sur-mesure - Angular 18 - WordPress Headless - WordPress Personnalisé - Shopify - HTML5/CSS3 - PHP/MySQL - JavaScript/TypeScript - API GoogleMaps, Facebook, Twitter, YouTube</span>
-            </div>
-          </div>
-          <div class="section-details-preview col-5 d-flex justify-content-center align-items-center mask-wrapper">
-            <div class="px-md-5" id="sectionDetails">
-              Video
-            </div>
-          </div>
-        </div>
-
-        <!-- Optimisation et Marketing Digital -->
-        <div class="marketing-section d-flex col-md-12 py-md-10" #studioSectionContainer>
-          <div class="col-md-7 section-container marketing-container d-flex flex-column text-center justify-content-center align-items-center mask-wrapper">
-            <h3 class="text-slide mb-0">Optimisation et Marketing Digital</h3>
-            <div class="col-3 d-flex flex-column align-items-start px-md-4 py-md-5">
-              <span class="mt-1 text-start">SEO - Community Management - Réseaux Sociaux - Emailing - Adaptation Mobile - Intégration HTML/CSS</span>
-            </div>
-          </div>
-          <div class="section-details-preview col-5 d-flex justify-content-center align-items-center mask-wrapper">
-            <div class="px-md-5" id="sectionDetails">
-              Video
-            </div>
-          </div>
-        </div>
-
-        <!-- Processus de Création et Lancement -->
-        <div class="process-section d-flex col-md-12 py-md-10" #studioSectionContainer>
-          <div class="col-md-7 section-container process-container d-flex flex-column text-center justify-content-center align-items-center mask-wrapper">
-            <h3 class="text-slide mb-0">Processus de Creation et Lancement</h3>
-            <div class="col-3 d-flex flex-column align-items-start px-md-4 py-md-5">
-              <span class="mt-1 text-start">Brief - Méthodologie - Ergonomie - Zoning - Maquettes Figma - Récupération de Contenus - Développement & Intégration - SEO - Tests de Serveur - Hébergement - Déploiement - mise en ligne</span>
-            </div>
-          </div>
-          <div class="section-details-preview col-5 d-flex justify-content-center align-items-center mask-wrapper">
-            <div class="px-md-5" id="sectionDetails">
-              Video
+            <div class="col-md-5 stacks-slide d-flex flex-column align-items-start px-md-4 py-md-5">
+              <span *ngFor="let stack of section.stacks.split(',')" class="mt-1 text-start">{{ stack.trim() }}</span>
             </div>
           </div>
         </div>
