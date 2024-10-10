@@ -232,13 +232,11 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
 
   private initProjectAnimation(timeline: gsap.core.Timeline | null, timelineName: string): void {
     if (this.mediaElements) {
-        // Supprimer la timeline existante si elle existe
         if (timeline) {
             timeline.kill();
             timeline = null;
         }
 
-        // Créer une nouvelle timeline
         const shuffledMediaElements = this.mediaElements.toArray();
         timeline = gsap.timeline({ repeat: -1, defaults: { ease: 'power2.inOut' } });
 
@@ -264,7 +262,7 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
                 element.currentTime = 0;
             }
 
-            if (timeline) {  // Vérification que timeline n'est pas null
+            if (timeline) { 
                 timeline.to(
                     element,
                     {
