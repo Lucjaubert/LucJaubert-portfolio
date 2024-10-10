@@ -2,11 +2,11 @@
   <div class="background-sides"></div>
 
   <div class="row project-hover-container">
-    <div class="col-md-6 projects-list">
+    <div class="col-md-6 projects-list p-lg-4 p-5">
       <div class="current-projects">
         <div class="projects-2024">
           <div *ngFor="let project of projects"
-               class="project-container d-flex justify-content-end align-items-baseline py-4"
+               class="project-container d-flex justify-content-lg-end justify-content-center align-items-baseline py-4"
                (mouseover)="onProjectHover(project, $event)"
                (mouseout)="onProjectOut($event)">
             <h5 class="text-slide mb-0" (click)="onProjectClick(project)">{{ project.name }}</h5>
@@ -16,7 +16,7 @@
       </div>
     </div>
   
-    <div class="col-md-6 media-preview">
+    <div class="col-md-6 d-lg-block d-none media-preview">
       <div class="col-12 d-flex flex-column" [ngClass]="{ 'invisible': !isHovered }">
         <div class="col-10 media-box d-flex flex-wrap flex-column align-items-center py-md-14 media-gallery">
           <div *ngFor="let media of mediaSequence; let i = index" #mediaElement class="media-element">

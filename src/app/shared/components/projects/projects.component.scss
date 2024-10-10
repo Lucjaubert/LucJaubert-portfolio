@@ -33,7 +33,6 @@
 
     .projects-list {
       flex: 1;
-      padding: 20px;
     }
 
     .video-preview {
@@ -141,6 +140,18 @@
       object-fit: contain;
       object-position: center;
       display: block;
+    }
+  }
+
+  @media (max-width: map-get($breakpoints, "sm")) {
+    h5 {
+      font-size: map-get($font-size, "60") !important;
+    }
+  }
+
+  @media (max-width: map-get($breakpoints, "md")) {
+    h5 {
+      font-size: map-get($font-size, "90");
     }
   }
   
