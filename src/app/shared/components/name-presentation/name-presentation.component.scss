@@ -2,7 +2,7 @@
 
 .name-presentation {
   .logo-letter {
-    width: 5.3rem;
+    width: 2.4rem;
     height: auto;
     margin-right: 0.2rem;
     display: inline-block;
@@ -10,19 +10,15 @@
   }
 
   .first-name {
-    margin-left: 3.4rem;
+    margin-left: 1.5rem;
   }
 
   .ml11 {
-    font-weight: 600;
-    font-size: 6rem;
-    line-height: 1.1;
-    color: map-get($theme-colors, "blue");
-
     .text-wrapper {
       position: relative;
       display: inline-block;
       padding-top: 0.1em;
+      margin-bottom: -2.5rem;
     }
 
     .letter {
@@ -32,15 +28,15 @@
     }
 
     .letters-1 .letter {
-      opacity: 0; 
+      opacity: 0;
     }
 
     .letters-2 {
-      opacity: 0; 
+      opacity: 0;
     }
 
     .letters-2 .letter {
-      opacity: 0; 
+      opacity: 0;
     }
 
     .first-line,
@@ -51,7 +47,7 @@
       height: 100%;
       width: 3px;
       background-color: map-get($theme-colors, "blue");
-      transform-origin: 0 50%; 
+      transform-origin: 0 50%;
 
       &.line1 {
         bottom: 10px;
@@ -64,28 +60,140 @@
     .dot {
       opacity: 1;
       position: relative;
-      left: -35.7rem; 
-      transition: left 0.6s ease; 
+      left: -35.7rem;
+      transition: left 0.6s ease;
     }
   }
 
   .ml13 {
-    line-height: 1.2;
+    line-height: 3rem;
     color: map-get($theme-colors, "blue");
 
     .letters-3 {
       display: inline-block;
-      opacity: 0; 
+      opacity: 0;
     }
 
     .space {
       display: inline-block;
-      width: 0.5rem; 
+      width: 0.5rem;
     }
-  }  
+  }
 
   h1 {
     display: inline-block;
-    position: relative;  
+    position: relative;
+    font-size: map-get($font-size, "140");
+  }
+
+  h2 {
+    font-size: map-get($font-size, "40");
+  }
+
+  @media (min-width: map-get($breakpoints, "md")) {
+    .logo-letter {
+      width: 4.7rem;
+      height: auto;
+      margin-right: 0.2rem;
+      display: inline-block;
+      vertical-align: baseline;
+    }
+
+    .first-name {
+      margin-left: 3.1rem;
+    }
+
+    .ml11 {
+
+      .text-wrapper {
+        margin-bottom: -0.5rem;
+      }
+
+      .first-line,
+      .second-line {
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        height: 100%;
+        width: 3px;
+        background-color: map-get($theme-colors, "blue");
+        transform-origin: 0 50%;
+
+        &.line1 {
+          bottom: 10px;
+          left: 0;
+          height: 140px;
+          margin-left: 3px;
+        }
+      }
+
+      .dot {
+        left: -31.7rem;
+      }
+    }
+
+    h1 {
+      display: inline-block;
+      position: relative;
+      line-height: 8rem;
+      font-size: map-get($font-size, "240");
+    }
+
+    h2 {
+      font-size: map-get($font-size, "70");
+    }
+  }
+
+  @media (min-width: map-get($breakpoints, "lg")) {
+    .logo-letter {
+      width: 5.3rem;
+      height: auto;
+      margin-right: 0.2rem;
+      display: inline-block;
+      vertical-align: baseline;
+    }
+
+    .first-name {
+      margin-left: 3.4rem;
+    }
+
+    .ml11 {
+      .text-wrapper {
+        margin-bottom: 0.5rem;
+      }
+
+      .first-line,
+      .second-line {
+        opacity: 0;
+        position: absolute;
+        left: 0;
+        height: 100%;
+        width: 3px;
+        background-color: map-get($theme-colors, "blue");
+        transform-origin: 0 50%;
+
+        &.line1 {
+          bottom: 10px;
+          left: 0;
+          height: 140px;
+          margin-left: 3px;
+        }
+      }
+
+      .dot {
+        left: -35.7rem;
+      }
+    }
+
+    h1 {
+      display: inline-block;
+      position: relative;
+      line-height: 8rem;
+      font-size: map-get($font-size, "260");
+    }
+
+    h2 {
+      font-size: map-get($font-size, "90");
+    }
   }
 }

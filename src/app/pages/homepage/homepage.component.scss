@@ -3,7 +3,7 @@
 .container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 0 30px !important;
 
   .homepage-wrapper {
     display: flex;
@@ -14,5 +14,25 @@
 
 .spacer {
   height: 280vh; 
+}
+
+
+
+@media (min-width: map-get($breakpoints, "sm")) {
+  .container {
+    padding: 0 15px;
+  }
+}
+
+@media (min-width: map-get($breakpoints, "md")) {
+  .container {
+    padding: 0 15px;
+  }
+}
+
+@media (min-width: map-get($breakpoints, "lg")) {
+  .container {
+    padding: 0 15px;
+  }
 }
 
