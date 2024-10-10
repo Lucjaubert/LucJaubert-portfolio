@@ -30,7 +30,6 @@ export class NamePresentationComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // TITLE ANIMATIONS SECTION
   private initAnimeJS(): void {
     const textWrappers1 = document.querySelectorAll('.ml11 .letters-1');
     textWrappers1.forEach((textWrapper) => {
@@ -128,7 +127,6 @@ export class NamePresentationComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // GSAP SCROLL EFFECTS SECTION
   private initDotReturn(): void {
     if (isPlatformBrowser(this.platformId)) {
       let scrollDirection = 'down';

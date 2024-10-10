@@ -43,8 +43,6 @@
         font-family: 'Trap';
         font-weight: 600;
         font-style: normal;
-        font-size: map-get($font-size, "370");
-        line-height: 8rem;
         color: map-get($theme-colors, "blue");
     }
 
@@ -52,7 +50,6 @@
         font-family: 'Open Sans';
         font-weight: 300;
         font-style: normal;
-        font-size: map-get($font-size, "90");
         color: map-get($theme-colors, "blue");
         margin-top: -1rem;
     }
@@ -104,5 +101,7 @@
         margin: 0;
     }
 }
+
+
 
 
