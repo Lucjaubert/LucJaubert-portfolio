@@ -1,22 +1,28 @@
-<section *ngIf="sections.length > 0" id="studio-web" class="studio-web-presentation mt-md-7 py-md-12">
+<section *ngIf="sections.length > 0" id="studio-web" class="studio-web-presentation mt-md-13 py-md-14 py-10">
   <div class="row studio-web-section">
     <div class="studio-web-list">
       <div class="current-sections">
-
-        <div *ngFor="let section of sections; let i = index" [attr.id]="section.name | slugify" [ngClass]="getSectionClass(i)" #studioSectionContainer>
+        <div
+          *ngFor="let section of sections; let i = index"
+          [attr.id]="section.name | slugify"
+          [ngClass]="getSectionClass(i)"
+          #studioSectionContainer
+        >
           <div class="background-sides"></div>
-          <div class="col-md-7 px-5 section-container d-flex flex-column justify-content-top align-items-start mask-wrapper">
-            <h3 class="text-slide mb-0 text-center">{{ section.name }}</h3>
+
+          <div class="section-container col-md-8 col-12 px-5 py-4 d-flex flex-column justify-content-top align-items-start mask-wrapper">
+            <h3 class="text-slide mb-0">{{ section.name }}</h3>
             <div class="horizontal-line mt-3"></div>
           </div>
-          <div class="vertical-line"></div>
-          <div class="section-details-preview col-5 d-flex justify-content-center align-items-top mask-wrapper">
-            <div class="col-md-5 stacks-slide d-flex flex-column align-items-start px-md-2 py-md-5">
+
+          <div class="vertical-line d-none d-md-block"></div>
+
+          <div class="section-details-preview col-md-4 col-12 px-5 pt-2 d-flex justify-content-start align-items-top mask-wrapper">
+            <div class="stacks-slide d-flex flex-column align-items-start px-md-2 py-md-5">
               <span *ngFor="let stack of section.stacks.split(',')" class="mt-1 text-start">{{ stack.trim() }}</span>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>

@@ -6,6 +6,7 @@ $theme-colors: (
   "purple": #EDEDFF,
   "green": #EDFFF6,
   "grey": #c0b8b0,
+  "dark-grey": #302f2f,
   "pink": #FFEDF6,
   "light-green": #edffed,
   "red": #ffe6e6b9,
@@ -184,7 +185,6 @@ $spacers: (
   // 672px
 );
 
-// Génération dynamique des classes de couleur, de taille de police et de poids de police
 @each $name, $value in $theme-colors {
   .bg-#{$name} {
     background-color: $value;

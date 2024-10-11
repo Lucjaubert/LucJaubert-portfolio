@@ -8,59 +8,106 @@
   .marketing-section,
   .process-section {
     height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 60vh;
 
-    &.design-section { background-color: #fce5cd; }
-    &.development-section { background-color: #cfe2f3; }
-    &.marketing-section { background-color: #ffd966; }
+    &.design-section { background-color: map-get($theme-colors, "orange"); }
+    &.development-section { background-color: map-get($theme-colors, "second-blue"); }
+    &.marketing-section { background-color: map-get($theme-colors, "pink"); }
     &.process-section {
-      background-color: #d9ead3;
-      margin-bottom: 5rem;
+      background-color: map-get($theme-colors, "light-green");
+      margin-bottom: map-get($spacers, "5");
+    }
+
+    @media (min-width: map-get($breakpoints, "md")) {
+      flex-direction: row;
+      align-items: flex-start;
     }
   }
 
   .section-container {
-    padding: 1rem 0;
+    padding: 0;  
     height: auto;
-    min-height: 100vh; 
+    min-height: auto;
+
+    h3.text-slide {
+      font-size: map-get($font-size, "50");
+      transition: none;
+      text-align: left;
+      margin: 0;  
+    }
 
     .horizontal-line {
       position: relative;
-      width: 0%; 
+      width: 0%;
       height: 1.5px;
       background-color: map-get($theme-colors, "blue");
-      margin-top: 0.5rem;
-      transform-origin: left; 
+      margin-top: map-get($spacers, "3");
+      transform-origin: left;
+    }
+
+    @media (min-width: map-get($breakpoints, "md")) {
+      min-height: 100vh;
+      padding: 0;
+
+      h3.text-slide {
+        font-size: map-get($font-size, "90");
+        text-align: left;
+      }
+    }
+
+    @media (min-width: map-get($breakpoints, "lg")) {
+      h3.text-slide {
+        font-size: map-get($font-size, "100");
+      }
     }
   }
 
   .vertical-line {
-    position: absolute;
-    left: calc(67.3333% - 1px); 
-    top: 0;
-    width: 1.5px;
-    height: 0%; 
-    background-color: map-get($theme-colors, "blue");
-    transform-origin: top; 
-    z-index: 1; 
-  }
+    display: none;
 
-  .mask-wrapper {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .text-slide {
-    transition: none;
+    @media (min-width: map-get($breakpoints, "md")) {
+      display: block;
+      position: absolute;
+      left: calc(66.3333% - 1px);
+      top: 0;
+      width: 1.5px;
+      height: 0%;
+      background-color: map-get($theme-colors, "blue");
+      transform-origin: top;
+      z-index: 1;
+    }
   }
 
   .stacks-slide {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    padding: 0;  
 
     span {
-      margin-top: 0.5rem;
+      margin-top: 0; 
       text-align: left;
+      font-size: map-get($font-size, "30");
     }
+
+    @media (min-width: map-get($breakpoints, "md")) {
+      span {
+        font-size: map-get($font-size, "30");
+      }
+    }
+
+    @media (min-width: map-get($breakpoints, "lg")) {
+      span {
+        font-size: map-get($font-size, "30");
+      }
+    }
+  }
+
+  .mask-wrapper {
+    position: relative;
+    overflow: hidden;
   }
 }

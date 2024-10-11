@@ -41,9 +41,6 @@ export class BioComponent implements AfterViewInit {
               trigger: paragraph,
               start: "80px 70%",
               toggleActions: "play none none none",
-              onEnter: () => {
-                console.log(`ScrollTrigger activé : Animation du paragraphe commence pour ${paragraph.textContent}`);
-              },
             },
           });
 

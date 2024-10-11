@@ -76,7 +76,6 @@ export class StudioWebComponent implements AfterViewInit, OnInit, OnDestroy {
   private loadStudioSections(): void {
     this.http.get<StudioSection[]>('assets/data/studio-web.json').subscribe((data: StudioSection[]) => {
       this.sections = data;
-      console.log('Sections chargées:', this.sections);
       this.changeDetectorRef.detectChanges();
       this.initStudioSectionAnimations();
     });
@@ -156,5 +155,4 @@ export class StudioWebComponent implements AfterViewInit, OnInit, OnDestroy {
       });
     }
   }
-  
 }
