@@ -16,7 +16,7 @@
             </span>
           </div>
 
-          <div *ngIf="isMediaPreviewVisible(i)" class="media-preview-mobile" [ngClass]="{'active': isMediaPreviewVisible(i)}">
+          <div *ngIf="isMediaPreviewVisible(i)" class="media-preview-mobile" [ngClass]="{'active': isMediaPreviewVisible(i)}" (click)="toggleMediaPreview(i)">
               <div class="col-12 d-flex flex-column">
                 <div class="col-12 media-box d-flex flex-wrap flex-column align-items-center media-gallery">
                   <div *ngFor="let media of getMediaSequence(project); let j = index" #mediaElement class="media-element">

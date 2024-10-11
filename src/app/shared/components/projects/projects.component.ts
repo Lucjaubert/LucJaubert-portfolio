@@ -90,16 +90,29 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
 
   toggleMediaPreview(index: number): void {
     if (this.activeMediaIndex === index) {
-      this.activeMediaIndex = null;
-      this.currentProject = null;
-      this.mediaSequence = [];
+      gsap.to(`.media-preview-mobile-${index}`, {
+        opacity: 0,
+        scale: 0.8,
+        duration: 0.4,
+        ease: "power2.out",
+        onComplete: () => {
+          this.activeMediaIndex = null;
+          this.currentProject = null;
+          this.mediaSequence = [];
+          this.changeDetectorRef.detectChanges();
+        }
+      });
     } else {
       this.activeMediaIndex = index;
       this.currentProject = this.projects[index];
       this.mediaSequence = this.getAllMedia(this.currentProject).sort(() => Math.random() - 0.5);
       this.changeDetectorRef.detectChanges();
-  
+      
       setTimeout(() => {
+        gsap.fromTo(`.media-preview-mobile-${index}`, 
+          { opacity: 0, scale: 0.8 }, 
+          { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" }
+        );
         this.initAnimationForCurrentProject();
       }, 0);
     }
@@ -121,7 +134,7 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
         mediaSequence.push({ type: 'video', src: project.videos[i] });
       }
     }
-  
+    console.log('Media sequence for project', project.name, mediaSequence);
     return mediaSequence.sort(() => Math.random() - 0.5);
   }
 
