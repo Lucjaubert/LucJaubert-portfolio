@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChildren, ElementRef, QueryList, Inject, OnDestroy, OnInit, ChangeDetectorRef, Renderer2 } from '@angular/core';
+import { Component, AfterViewInit, ViewChildren, ElementRef, QueryList, Inject, OnDestroy, OnInit, ChangeDetectorRef, Renderer2, AfterViewChecked } from '@angular/core';
 import { PLATFORM_ID } from '@angular/core';
 import { gsap, CSSPlugin, ScrollTrigger } from 'gsap/all'; 
 import { CommonModule, isPlatformBrowser } from '@angular/common';
@@ -28,15 +28,15 @@ interface Project {
     CommonModule
   ]
 })
-export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
-  @ViewChildren('mediaElement') mediaElements!: QueryList<ElementRef>;
-  private gsapContext: gsap.Context | undefined;
-  private animationInitialized: boolean = false;
+export class ProjectsComponent implements OnInit, AfterViewChecked, OnDestroy {
+  @ViewChildren('desktopMediaElement') desktopMediaElements!: QueryList<ElementRef>;
+  @ViewChildren('mobileMediaElement') mobileMediaElements!: QueryList<ElementRef>;
+  mediaElements!: QueryList<ElementRef>;
 
   projects: Project[] = [];
   currentProject: Project | null = null;
   isHovered: boolean = false;
-  activeMediaIndex: number | null = null; 
+  activeMediaIndex: number | null = null;
 
   mediaSequence: { type: 'image' | 'video'; src: string }[] = [];
   private laiterieTimeline: gsap.core.Timeline | null = null;
@@ -44,12 +44,19 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
   private limagoTimeline: gsap.core.Timeline | null = null;
   private maisonTimeline: gsap.core.Timeline | null = null;
   private animations: { [key: string]: { in: () => void; out: () => void } } = {};
+  private isMobile: boolean = false;
+  private animationInitialized: boolean = false;
+  private gsapContext: gsap.Context | undefined;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private http: HttpClient,
-    private changeDetectorRef: ChangeDetectorRef,
-  ) {}
+    private changeDetectorRef: ChangeDetectorRef
+  ) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.isMobile = window.innerWidth < 768;
+    }
+  }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -57,27 +64,29 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
       this.animations = {
         laiterieAnimation: {
           in: () => this.initLaiterieAnimation(),
-          out: () => {}
+          out: () => {},
         },
         anglaisAnimation: {
           in: () => this.initAnglaisAnimation(),
-          out: () => {}
+          out: () => {},
         },
         limagoAnimation: {
           in: () => this.initLimagoAnimation(),
-          out: () => {}
+          out: () => {},
         },
         maisonAnimation: {
           in: () => this.initMaisonAnimation(),
-          out: () => {}
-        }
+          out: () => {},
+        },
       };
     }
-  } 
+  }
 
-  ngAfterViewInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.initProjectAnimations();
+  ngAfterViewChecked(): void {
+    if (this.isMobile) {
+      this.mediaElements = this.mobileMediaElements;
+    } else {
+      this.mediaElements = this.desktopMediaElements;
     }
   }
 
@@ -90,34 +99,39 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
 
   toggleMediaPreview(index: number): void {
     if (this.activeMediaIndex === index) {
+      // Close the media preview
       gsap.to(`.media-preview-mobile-${index}`, {
         opacity: 0,
         scale: 0.8,
         duration: 0.4,
-        ease: "power2.out",
+        ease: 'power2.out',
         onComplete: () => {
           this.activeMediaIndex = null;
           this.currentProject = null;
           this.mediaSequence = [];
           this.changeDetectorRef.detectChanges();
-        }
+          this.killTimelines(); // Kill any running animations
+        },
       });
     } else {
+      // Open the media preview
       this.activeMediaIndex = index;
       this.currentProject = this.projects[index];
       this.mediaSequence = this.getAllMedia(this.currentProject).sort(() => Math.random() - 0.5);
       this.changeDetectorRef.detectChanges();
-      
+
       setTimeout(() => {
-        gsap.fromTo(`.media-preview-mobile-${index}`, 
-          { opacity: 0, scale: 0.8 }, 
-          { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" }
+        this.mediaElements = this.mobileMediaElements;
+        gsap.fromTo(
+          `.media-preview-mobile-${index}`,
+          { opacity: 0, scale: 0.8 },
+          { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out' }
         );
-        this.initAnimationForCurrentProject();
+        this.initAnimationForCurrentProject(); // Initialize animations
       }, 0);
     }
   }
-  
+
   isMediaPreviewVisible(index: number): boolean {
     return this.activeMediaIndex === index;
   }
@@ -125,7 +139,7 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
   getMediaSequence(project: Project): { type: 'image' | 'video'; src: string }[] {
     const mediaSequence: { type: 'image' | 'video'; src: string }[] = [];
     const maxLength = Math.max(project.images.length, project.videos.length);
-  
+
     for (let i = 0; i < maxLength; i++) {
       if (project.images[i]) {
         mediaSequence.push({ type: 'image', src: project.images[i] });
@@ -143,7 +157,7 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
 
   openProjectLink(project: Project | null): void {
     if (!project) return;
-  
+
     let url: string;
     switch (project.name) {
       case 'Laiterie Burdigala':
@@ -167,32 +181,32 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
   private initProjectAnimations(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.gsapContext = gsap.context(() => {
-        gsap.to(".background-sides", {
+        gsap.to('.background-sides', {
           height: '100%',
           duration: 1.3,
           ease: 'expoScale',
           scrollTrigger: {
-            trigger: "#projects",
+            trigger: '#projects',
           },
           onComplete: () => {
             this.animateTextSlides();
-          }
+          },
         });
       });
     }
   }
 
   private animateTextSlides(): void {
-    gsap.to(".text-slide", {
+    gsap.to('.text-slide', {
       opacity: 1,
       y: 0,
       delay: 0.1,
       duration: 0.8,
-      ease: "power4.out",
+      ease: 'power4.out',
       stagger: 0.2,
       onComplete: () => {
         this.enableInteractions();
-      }
+      },
     });
   }
 
@@ -238,6 +252,7 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
     }
 
     this.isHovered = false;
+    this.animationInitialized = false;
 
     const animation = this.animations[this.currentProject?.animationType || ''];
     if (animation && animation.out) {
@@ -249,7 +264,7 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   private initAnimationForCurrentProject(): void {
-    if (this.isHovered && !this.animationInitialized && this.mediaElements.length > 0 && this.currentProject) {
+    if (!this.animationInitialized && this.mediaElements.length > 0 && this.currentProject) {
       this.animationInitialized = true;
       const animation = this.animations[this.currentProject.animationType || ''];
       if (animation && animation.in) {
@@ -279,33 +294,59 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   private killTimelines(): void {
-    if (this.laiterieTimeline) this.laiterieTimeline.kill();
-    if (this.anglaisTimeline) this.anglaisTimeline.kill();
-    if (this.limagoTimeline) this.limagoTimeline.kill();
-    if (this.maisonTimeline) this.maisonTimeline.kill();
+    [this.laiterieTimeline, this.anglaisTimeline, this.limagoTimeline, this.maisonTimeline].forEach((timeline) => {
+      if (timeline) {
+        timeline.kill();
+      }
+    });
+    this.animationInitialized = false;
   }
 
   private initLaiterieAnimation(): void {
-    this.initProjectAnimation(this.laiterieTimeline, 'laiterie');
+    this.initProjectAnimation('laiterie');
   }
 
   private initAnglaisAnimation(): void {
-    this.initProjectAnimation(this.anglaisTimeline, 'anglais');
+    this.initProjectAnimation('anglais');
   }
 
   private initLimagoAnimation(): void {
-    this.initProjectAnimation(this.limagoTimeline, 'limago');
+    this.initProjectAnimation('limago');
   }
 
   private initMaisonAnimation(): void {
-    this.initProjectAnimation(this.maisonTimeline, 'maison');
+    this.initProjectAnimation('maison');
   }
 
-  private initProjectAnimation(timeline: gsap.core.Timeline | null, timelineName: string): void {
+  private initProjectAnimation(timelineName: string): void {
     if (this.mediaElements) {
-      if (timeline) {
-        timeline.kill();
-        timeline = null;
+      let timeline: gsap.core.Timeline | null = null;
+
+      switch (timelineName) {
+        case 'laiterie':
+          if (this.laiterieTimeline) {
+            this.laiterieTimeline.kill();
+            this.laiterieTimeline = null;
+          }
+          break;
+        case 'anglais':
+          if (this.anglaisTimeline) {
+            this.anglaisTimeline.kill();
+            this.anglaisTimeline = null;
+          }
+          break;
+        case 'limago':
+          if (this.limagoTimeline) {
+            this.limagoTimeline.kill();
+            this.limagoTimeline = null;
+          }
+          break;
+        case 'maison':
+          if (this.maisonTimeline) {
+            this.maisonTimeline.kill();
+            this.maisonTimeline = null;
+          }
+          break;
       }
 
       const shuffledMediaElements = this.mediaElements.toArray();
@@ -366,7 +407,7 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
                     previousElement.pause();
                     previousElement.currentTime = 0;
                   }
-                }
+                },
               },
               totalDuration
             );
@@ -396,7 +437,7 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
                 lastElement.pause();
                 lastElement.currentTime = 0;
               }
-            }
+            },
           },
           totalDuration
         );
@@ -413,7 +454,7 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
               if (firstElement.tagName.toLowerCase() === 'video') {
                 firstElement.play();
               }
-            }
+            },
           },
           totalDuration
         );
