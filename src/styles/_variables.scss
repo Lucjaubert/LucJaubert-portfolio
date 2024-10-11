@@ -185,7 +185,6 @@ $spacers: (
   // 672px
 );
 
-// Génération dynamique des classes de couleur, de taille de police et de poids de police
 @each $name, $value in $theme-colors {
   .bg-#{$name} {
     background-color: $value;

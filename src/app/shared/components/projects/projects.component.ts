@@ -134,7 +134,6 @@ export class ProjectsComponent implements AfterViewInit, OnInit, OnDestroy {
         mediaSequence.push({ type: 'video', src: project.videos[i] });
       }
     }
-    console.log('Media sequence for project', project.name, mediaSequence);
     return mediaSequence.sort(() => Math.random() - 0.5);
   }
 

@@ -55,7 +55,6 @@ export class HomepageComponent implements OnInit {
       (m) => m.FooterComponent
     );
 
-    // Charger les données de la page d'accueil
     this.homepageData$ = this.wordpressService.getHomepageData().pipe(
       catchError((error) => {
         console.error('Error retrieving homepage data:', error);
