@@ -2,23 +2,35 @@
   <div class="background-sides"></div>
 
   <div class="row project-hover-container">
-    <div class="col-md-6 projects-list p-lg-4 p-5">
+    <div class="col-12 col-md-6 projects-list p-lg-4 p-5">
       <div class="current-projects">
         <div class="projects-2024">
           <div *ngFor="let project of projects; let i = index">
-            <div class="project-container d-flex justify-content-lg-end justify-content-center align-items-center py-4"
-              (mouseover)="onProjectHover(project, $event)"
-              (mouseout)="onProjectOut($event)">
-            <h5 class="text-slide mb-0" (click)="onProjectClick(project)">{{ project.name }}</h5>
-            <span class="text-slide date ms-2">{{ project.year }}</span>
-            <span class="text-slide material-symbols-outlined d-lg-none ms-2" (click)="toggleMediaPreview(i)">
+            <div
+              class="project-container d-flex justify-content-lg-end justify-content-center align-items-center py-4"
+              (click)="onProjectClick(project)"
+              (mouseenter)="onProjectHover(project, $event)"
+              (mouseleave)="onProjectOut($event)"
+            >
+              <h5 class="text-slide mb-0">{{ project.name }}</h5>
+              <span class="text-slide date ms-2">{{ project.year }}</span>
+              <span
+              *ngIf="!isDesktop"
+              class="text-slide material-symbols-outlined ms-2"
+              (click)="toggleMediaPreview(i); $event.stopPropagation();"
+            >
               keyboard_arrow_down
             </span>
-          </div>
+            </div>
 
-          <div *ngIf="isMediaPreviewVisible(i)" class="media-preview-mobile" [ngClass]="{'active': isMediaPreviewVisible(i)}" (click)="toggleMediaPreview(i)">
-              <div class="col-12 d-flex flex-column">
-                <div class="col-12 media-box d-flex flex-wrap flex-column align-items-center media-gallery">
+            <div
+              *ngIf="isMediaPreviewVisible(i)"
+              class="media-preview-mobile media-preview-mobile-{{ i }}"
+              [ngClass]="{ active: isMediaPreviewVisible(i) }"
+              (click)="toggleMediaPreview(i)"
+            >
+              <div class="col-12 d-flex flex-column h-100">
+                <div class="col-12 media-box d-flex flex-wrap flex-column align-items-center media-gallery flex-grow-1">
                   <div *ngFor="let media of getMediaSequence(project); let j = index" #mediaElement class="media-element">
                     <img
                       *ngIf="media.type === 'image'"
@@ -40,7 +52,7 @@
                   </div>
                 </div>
 
-                <div class="project-container d-flex flex-column position-relative">
+                <div class="project-details-container">
                   <div class="col-12 project-details row text-center mt-4">
                     <div class="col-12 col-sm-4 d-flex flex-column align-items-start px-sm-4">
                       <p class="mb-0"><strong>Projet</strong></p>
@@ -55,12 +67,11 @@
                       <span class="mt-1 text-start">{{ project.stacks }}</span>
                     </div>
                   </div>
-                  
+
                   <button class="btn align-self-end open-project-button py-0" (click)="openProjectLink(project)">
                     <span class="material-symbols-outlined">open_in_new</span>
                   </button>
                 </div>
-                
               </div>
             </div>
           </div>
@@ -68,9 +79,9 @@
       </div>
     </div>
 
-    <div class="col-md-6 d-none d-lg-block media-preview">
-      <div class="col-12 d-flex flex-column" [ngClass]="{ 'invisible': !isHovered }">
-        <div class="col-10 media-box d-flex flex-wrap flex-column align-items-center py-md-14 media-gallery">
+    <div class="col-12 col-md-6 media-preview">
+      <div class="col-12 d-flex flex-column" [ngClass]="{ invisible: !isHovered }">
+        <div class="col-12 media-box d-flex flex-wrap flex-column align-items-center py-md-14 media-gallery">
           <div *ngFor="let media of mediaSequence; let j = index" #mediaElement class="media-element">
             <img
               *ngIf="media.type === 'image'"
@@ -92,7 +103,6 @@
           </div>
         </div>
 
-        <!-- Détails du projet -->
         <div class="col-12 project-details row text-center mt-md-8">
           <div class="col-12 col-md-4 d-flex flex-column align-items-start px-md-4">
             <p class="mb-0"><strong>Projet</strong></p>

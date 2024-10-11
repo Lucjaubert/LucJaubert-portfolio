@@ -1,9 +1,20 @@
-import { Component, AfterViewInit, ViewChildren, ElementRef, QueryList, Inject, OnDestroy, OnInit, ChangeDetectorRef, Renderer2, AfterViewChecked } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChildren,
+  ElementRef,
+  QueryList,
+  Inject,
+  ChangeDetectorRef,
+  AfterViewInit,
+} from '@angular/core';
 import { PLATFORM_ID } from '@angular/core';
-import { gsap, CSSPlugin, ScrollTrigger } from 'gsap/all'; 
+import { gsap, CSSPlugin, ScrollTrigger } from 'gsap/all';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 gsap.registerPlugin(CSSPlugin, ScrollTrigger);
 
@@ -15,7 +26,7 @@ interface Project {
   stacks: string;
   images: string[];
   videos: string[];
-  animationType: string; 
+  animationType: string;
 }
 
 @Component({
@@ -23,15 +34,10 @@ interface Project {
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss'],
   standalone: true,
-  imports: [
-    RouterOutlet,
-    CommonModule
-  ]
+  imports: [RouterOutlet, CommonModule],
 })
-export class ProjectsComponent implements OnInit, AfterViewChecked, OnDestroy {
-  @ViewChildren('desktopMediaElement') desktopMediaElements!: QueryList<ElementRef>;
-  @ViewChildren('mobileMediaElement') mobileMediaElements!: QueryList<ElementRef>;
-  mediaElements!: QueryList<ElementRef>;
+export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChildren('mediaElement') mediaElements!: QueryList<ElementRef>;
 
   projects: Project[] = [];
   currentProject: Project | null = null;
@@ -44,49 +50,55 @@ export class ProjectsComponent implements OnInit, AfterViewChecked, OnDestroy {
   private limagoTimeline: gsap.core.Timeline | null = null;
   private maisonTimeline: gsap.core.Timeline | null = null;
   private animations: { [key: string]: { in: () => void; out: () => void } } = {};
-  private isMobile: boolean = false;
   private animationInitialized: boolean = false;
   private gsapContext: gsap.Context | undefined;
+
+  isDesktop: boolean = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private http: HttpClient,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {
-    if (isPlatformBrowser(this.platformId)) {
-      this.isMobile = window.innerWidth < 768;
-    }
-  }
+    private changeDetectorRef: ChangeDetectorRef,
+    private breakpointObserver: BreakpointObserver
+  ) {}
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.loadProjects();
       this.animations = {
         laiterieAnimation: {
-          in: () => this.initLaiterieAnimation(),
+          in: () => this.initProjectAnimation('laiterie'),
           out: () => {},
         },
         anglaisAnimation: {
-          in: () => this.initAnglaisAnimation(),
+          in: () => this.initProjectAnimation('anglais'),
           out: () => {},
         },
         limagoAnimation: {
-          in: () => this.initLimagoAnimation(),
+          in: () => this.initProjectAnimation('limago'),
           out: () => {},
         },
         maisonAnimation: {
-          in: () => this.initMaisonAnimation(),
+          in: () => this.initProjectAnimation('maison'),
           out: () => {},
         },
       };
+
+      this.breakpointObserver.observe(['(min-width: 768px)']).subscribe((state) => {
+        this.isDesktop = state.matches;
+      });
     }
   }
 
-  ngAfterViewChecked(): void {
-    if (this.isMobile) {
-      this.mediaElements = this.mobileMediaElements;
-    } else {
-      this.mediaElements = this.desktopMediaElements;
+  ngAfterViewInit(): void {
+    this.mediaElements.changes.subscribe(() => {
+      if (this.mediaElements.length > 0 && this.currentProject) {
+        this.initAnimationForCurrentProject();
+      }
+    });
+
+    if (isPlatformBrowser(this.platformId)) {
+      this.initProjectAnimations();
     }
   }
 
@@ -98,39 +110,46 @@ export class ProjectsComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   toggleMediaPreview(index: number): void {
-    if (this.activeMediaIndex === index) {
-      // Close the media preview
-      gsap.to(`.media-preview-mobile-${index}`, {
-        opacity: 0,
-        scale: 0.8,
-        duration: 0.4,
-        ease: 'power2.out',
-        onComplete: () => {
-          this.activeMediaIndex = null;
-          this.currentProject = null;
-          this.mediaSequence = [];
-          this.changeDetectorRef.detectChanges();
-          this.killTimelines(); // Kill any running animations
-        },
-      });
-    } else {
-      // Open the media preview
-      this.activeMediaIndex = index;
-      this.currentProject = this.projects[index];
-      this.mediaSequence = this.getAllMedia(this.currentProject).sort(() => Math.random() - 0.5);
-      this.changeDetectorRef.detectChanges();
 
-      setTimeout(() => {
-        this.mediaElements = this.mobileMediaElements;
-        gsap.fromTo(
-          `.media-preview-mobile-${index}`,
-          { opacity: 0, scale: 0.8 },
-          { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out' }
-        );
-        this.initAnimationForCurrentProject(); // Initialize animations
-      }, 0);
+    if (this.activeMediaIndex === index) {
+        gsap.to(`.media-preview-mobile-${index}`, {
+            opacity: 0,
+            scale: 0.8,
+            duration: 0.4,
+            ease: 'power2.out',
+            onComplete: () => {
+                this.activeMediaIndex = null;
+                this.currentProject = null;
+                this.mediaSequence = [];
+                this.changeDetectorRef.detectChanges();
+                this.killTimelines();
+            },
+        });
+    } else {
+        this.activeMediaIndex = index;
+        this.currentProject = this.projects[index];
+
+        this.mediaSequence = this.getAllMedia(this.currentProject).sort(() => Math.random() - 0.5);
+
+        this.animationInitialized = false;
+        this.changeDetectorRef.detectChanges();
+
+        setTimeout(() => {
+            gsap.fromTo(
+                `.media-preview-mobile-${index}`,
+                { opacity: 0, scale: 0.8 },
+                { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out' }
+            );
+
+            this.changeDetectorRef.detectChanges();
+
+            if (this.mediaElements.length > 0 && this.currentProject) {
+                this.initAnimationForCurrentProject();
+            }
+        }, 0);
     }
-  }
+}
+
 
   isMediaPreviewVisible(index: number): boolean {
     return this.activeMediaIndex === index;
@@ -224,6 +243,8 @@ export class ProjectsComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   onProjectHover(project: Project, event: MouseEvent): void {
+    if (!this.isDesktop) return; 
+
     if (this.currentProject && this.currentProject !== project) {
       const previousAnimation = this.animations[this.currentProject.animationType || ''];
       if (previousAnimation && previousAnimation.out) {
@@ -241,11 +262,15 @@ export class ProjectsComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.changeDetectorRef.detectChanges();
 
     setTimeout(() => {
-      this.initAnimationForCurrentProject();
+      if (this.mediaElements.length > 0) {
+        this.initAnimationForCurrentProject();
+      }
     }, 0);
   }
 
   onProjectOut(event: MouseEvent): void {
+    if (!this.isDesktop) return; 
+
     const relatedTarget = event.relatedTarget as HTMLElement;
     if (relatedTarget && (relatedTarget.closest('.project-container') || relatedTarget.closest('.media-preview'))) {
       return;
@@ -269,10 +294,12 @@ export class ProjectsComponent implements OnInit, AfterViewChecked, OnDestroy {
       const animation = this.animations[this.currentProject.animationType || ''];
       if (animation && animation.in) {
         animation.in();
+      } else {
+        console.warn('No animation found for:', this.currentProject.animationType);
       }
     }
   }
-
+  
   getAllMedia(project: Project | null): { type: 'image' | 'video'; src: string }[] {
     if (!project) {
       return [];
@@ -300,22 +327,6 @@ export class ProjectsComponent implements OnInit, AfterViewChecked, OnDestroy {
       }
     });
     this.animationInitialized = false;
-  }
-
-  private initLaiterieAnimation(): void {
-    this.initProjectAnimation('laiterie');
-  }
-
-  private initAnglaisAnimation(): void {
-    this.initProjectAnimation('anglais');
-  }
-
-  private initLimagoAnimation(): void {
-    this.initProjectAnimation('limago');
-  }
-
-  private initMaisonAnimation(): void {
-    this.initProjectAnimation('maison');
   }
 
   private initProjectAnimation(timelineName: string): void {
