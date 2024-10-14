@@ -8,19 +8,12 @@
           <div *ngFor="let project of projects; let i = index">
             <div
               class="project-container d-flex justify-content-lg-end justify-content-center align-items-center py-4"
-              (click)="onProjectClick(project)"
+              (click)="onProjectContainerClick(i)"
               (mouseenter)="onProjectHover(project, $event)"
               (mouseleave)="onProjectOut($event)"
             >
               <h5 class="text-slide mb-0">{{ project.name }}</h5>
               <span class="text-slide date ms-2">{{ project.year }}</span>
-              <span
-              *ngIf="!isDesktop"
-              class="text-slide material-symbols-outlined ms-2"
-              (click)="toggleMediaPreview(i); $event.stopPropagation();"
-            >
-              keyboard_arrow_down
-            </span>
             </div>
 
             <div
@@ -55,15 +48,15 @@
                 <div class="project-details-container">
                   <div class="col-12 project-details row text-center mt-4">
                     <div class="col-12 col-sm-4 d-flex flex-column align-items-start px-sm-4">
-                      <p class="mb-0"><strong>Projet</strong></p>
+                      <p class="mb-0"><strong>Le Projet</strong></p>
                       <span class="mt-1 text-start">{{ project.project }}</span>
                     </div>
                     <div class="col-12 col-sm-4 d-flex flex-column align-items-start px-sm-4">
-                      <p class="mb-0"><strong>Rôle</strong></p>
+                      <p class="mb-0"><strong>Mes Missions</strong></p>
                       <span class="mt-1 text-start">{{ project.role }}</span>
                     </div>
                     <div class="col-12 col-sm-4 d-flex flex-column align-items-start px-sm-4">
-                      <p class="mb-0"><strong>Stacks</strong></p>
+                      <p class="mb-0"><strong>Les Stacks</strong></p>
                       <span class="mt-1 text-start">{{ project.stacks }}</span>
                     </div>
                   </div>
@@ -105,15 +98,15 @@
 
         <div class="col-12 project-details row text-center mt-md-8">
           <div class="col-12 col-md-4 d-flex flex-column align-items-start px-md-4">
-            <p class="mb-0"><strong>Projet</strong></p>
+            <p class="mb-0"><strong>Le Projet</strong></p>
             <span class="mt-1 text-start">{{ currentProject?.project }}</span>
           </div>
           <div class="col-12 col-md-4 d-flex flex-column align-items-start px-md-4">
-            <p class="mb-0"><strong>Rôle</strong></p>
+            <p class="mb-0"><strong>Mes Missions</strong></p>
             <span class="mt-1 text-start">{{ currentProject?.role }}</span>
           </div>
           <div class="col-12 col-md-4 d-flex flex-column align-items-start px-md-4">
-            <p class="mb-0"><strong>Stacks</strong></p>
+            <p class="mb-0"><strong>Les Stacks</strong></p>
             <span class="mt-1 text-start">{{ currentProject?.stacks }}</span>
           </div>
         </div>

@@ -110,46 +110,40 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   toggleMediaPreview(index: number): void {
-
     if (this.activeMediaIndex === index) {
-        gsap.to(`.media-preview-mobile-${index}`, {
-            opacity: 0,
-            scale: 0.8,
-            duration: 0.4,
-            ease: 'power2.out',
-            onComplete: () => {
-                this.activeMediaIndex = null;
-                this.currentProject = null;
-                this.mediaSequence = [];
-                this.changeDetectorRef.detectChanges();
-                this.killTimelines();
-            },
-        });
+      // Fermer l'aperçu
+      this.activeMediaIndex = null;
+      this.currentProject = null;
+      this.mediaSequence = [];
+      this.animationInitialized = false;
+      this.changeDetectorRef.detectChanges();
     } else {
-        this.activeMediaIndex = index;
-        this.currentProject = this.projects[index];
+      this.activeMediaIndex = index;
+      this.currentProject = this.projects[index];
 
-        this.mediaSequence = this.getAllMedia(this.currentProject).sort(() => Math.random() - 0.5);
+      this.mediaSequence = this.getAllMedia(this.currentProject).sort(() => Math.random() - 0.5);
 
-        this.animationInitialized = false;
+      this.animationInitialized = false;
+      this.changeDetectorRef.detectChanges();
+
+      // Attendre que les éléments soient rendus
+      setTimeout(() => {
         this.changeDetectorRef.detectChanges();
 
-        setTimeout(() => {
-            gsap.fromTo(
-                `.media-preview-mobile-${index}`,
-                { opacity: 0, scale: 0.8 },
-                { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out' }
-            );
+        // S'abonner aux changements des mediaElements
+        this.mediaElements.changes.subscribe(() => {
+          if (this.mediaElements.length > 0 && this.currentProject) {
+            this.initAnimationForCurrentProject();
+          }
+        });
 
-            this.changeDetectorRef.detectChanges();
-
-            if (this.mediaElements.length > 0 && this.currentProject) {
-                this.initAnimationForCurrentProject();
-            }
-        }, 0);
+        // Vérifier si les mediaElements sont déjà disponibles
+        if (this.mediaElements.length > 0 && this.currentProject) {
+          this.initAnimationForCurrentProject();
+        }
+      }, 0);
     }
-}
-
+  }
 
   isMediaPreviewVisible(index: number): boolean {
     return this.activeMediaIndex === index;
@@ -170,8 +164,14 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     return mediaSequence.sort(() => Math.random() - 0.5);
   }
 
-  onProjectClick(project: Project): void {
-    this.openProjectLink(project);
+  onProjectContainerClick(index: number): void {
+    if (!this.isDesktop) {
+      // Sur mobile, afficher l'aperçu du projet
+      this.toggleMediaPreview(index);
+    } else {
+      // Sur desktop, ouvrir le lien du projet
+      this.openProjectLink(this.projects[index]);
+    }
   }
 
   openProjectLink(project: Project | null): void {
@@ -243,7 +243,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onProjectHover(project: Project, event: MouseEvent): void {
-    if (!this.isDesktop) return; 
+    if (!this.isDesktop) return;
 
     if (this.currentProject && this.currentProject !== project) {
       const previousAnimation = this.animations[this.currentProject.animationType || ''];
@@ -269,10 +269,13 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onProjectOut(event: MouseEvent): void {
-    if (!this.isDesktop) return; 
+    if (!this.isDesktop) return;
 
     const relatedTarget = event.relatedTarget as HTMLElement;
-    if (relatedTarget && (relatedTarget.closest('.project-container') || relatedTarget.closest('.media-preview'))) {
+    if (
+      relatedTarget &&
+      (relatedTarget.closest('.project-container') || relatedTarget.closest('.media-preview'))
+    ) {
       return;
     }
 
@@ -299,7 +302,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
   }
-  
+
   getAllMedia(project: Project | null): { type: 'image' | 'video'; src: string }[] {
     if (!project) {
       return [];
@@ -321,16 +324,18 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private killTimelines(): void {
-    [this.laiterieTimeline, this.anglaisTimeline, this.limagoTimeline, this.maisonTimeline].forEach((timeline) => {
-      if (timeline) {
-        timeline.kill();
+    [this.laiterieTimeline, this.anglaisTimeline, this.limagoTimeline, this.maisonTimeline].forEach(
+      (timeline) => {
+        if (timeline) {
+          timeline.kill();
+        }
       }
-    });
+    );
     this.animationInitialized = false;
   }
 
   private initProjectAnimation(timelineName: string): void {
-    if (this.mediaElements) {
+    if (this.mediaElements && this.mediaElements.length > 0) {
       let timeline: gsap.core.Timeline | null = null;
 
       switch (timelineName) {
@@ -363,20 +368,24 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
       const shuffledMediaElements = this.mediaElements.toArray();
       timeline = gsap.timeline({ repeat: -1, defaults: { ease: 'power2.inOut' } });
 
-      let totalDuration = 0;
       const transitionDuration = 1;
       const displayDuration = 1.5;
 
       const directionOptionsX = ['-100%', '0%', '100%'];
       const directionOptionsY = ['-100%', '0%', '100%'];
 
-      shuffledMediaElements.forEach((elementRef, index) => {
+      shuffledMediaElements.forEach((elementRef) => {
         const element = elementRef.nativeElement;
-
-        const xStart = directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
-        const yStart = directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
-
-        gsap.set(element, { opacity: 0, display: 'none', x: xStart, y: yStart });
+        const xStart =
+          directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
+        const yStart =
+          directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
+        gsap.set(element, {
+          opacity: 0,
+          display: 'none',
+          x: xStart,
+          y: yStart,
+        });
 
         if (element.tagName.toLowerCase() === 'video') {
           element.muted = true;
@@ -384,77 +393,17 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
           element.pause();
           element.currentTime = 0;
         }
-
-        if (timeline) {
-          timeline.to(
-            element,
-            {
-              display: 'block',
-              opacity: 1,
-              x: '0%',
-              y: '0%',
-              duration: transitionDuration,
-              onStart: () => {
-                if (element.tagName.toLowerCase() === 'video') {
-                  element.play();
-                }
-              },
-            },
-            totalDuration
-          );
-
-          if (index > 0) {
-            const previousElement = shuffledMediaElements[index - 1].nativeElement;
-            timeline.to(
-              previousElement,
-              {
-                opacity: 0,
-                x: directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)],
-                y: directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)],
-                duration: transitionDuration,
-                onComplete: () => {
-                  previousElement.style.display = 'none';
-                  if (previousElement.tagName.toLowerCase() === 'video') {
-                    previousElement.pause();
-                    previousElement.currentTime = 0;
-                  }
-                },
-              },
-              totalDuration
-            );
-          }
-        }
-
-        totalDuration += transitionDuration + displayDuration;
       });
 
-      if (shuffledMediaElements.length > 1 && timeline) {
-        const lastElement = shuffledMediaElements[shuffledMediaElements.length - 1].nativeElement;
-        const firstElement = shuffledMediaElements[0].nativeElement;
-
-        const xStart = directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
-        const yStart = directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
-
-        timeline.to(
-          lastElement,
-          {
-            opacity: 0,
-            x: xStart,
-            y: yStart,
-            duration: transitionDuration,
-            onComplete: () => {
-              lastElement.style.display = 'none';
-              if (lastElement.tagName.toLowerCase() === 'video') {
-                lastElement.pause();
-                lastElement.currentTime = 0;
-              }
-            },
-          },
-          totalDuration
-        );
+      shuffledMediaElements.forEach((elementRef, index) => {
+        const element = elementRef.nativeElement;
+        const xStart =
+          directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
+        const yStart =
+          directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
 
         timeline.to(
-          firstElement,
+          element,
           {
             display: 'block',
             opacity: 1,
@@ -462,14 +411,32 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
             y: '0%',
             duration: transitionDuration,
             onStart: () => {
-              if (firstElement.tagName.toLowerCase() === 'video') {
-                firstElement.play();
+              if (element.tagName.toLowerCase() === 'video') {
+                element.play();
               }
             },
           },
-          totalDuration
+          index * (transitionDuration + displayDuration)
         );
-      }
+
+        timeline.to(
+          element,
+          {
+            opacity: 0,
+            x: xStart,
+            y: yStart,
+            duration: transitionDuration,
+            onComplete: () => {
+              element.style.display = 'none';
+              if (element.tagName.toLowerCase() === 'video') {
+                element.pause();
+                element.currentTime = 0;
+              }
+            },
+          },
+          index * (transitionDuration + displayDuration) + displayDuration
+        );
+      });
 
       switch (timelineName) {
         case 'laiterie':

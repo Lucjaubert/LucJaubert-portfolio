@@ -10,12 +10,15 @@
     &::before {
       content: "";
       position: absolute;
-      top: 0;
+      top: 0%; 
       left: 0;
       height: 1.5px;
       background-color: map-get($theme-colors, "blue");
       width: 0%;
       animation: drawLine 3s forwards ease-out;
+      z-index: 2; 
+      transform: translateY(-50%); 
+      will-change: width; 
     }
 
     .navbar-nav {
@@ -39,7 +42,7 @@
         text-transform: uppercase;
         padding-bottom: 0.5rem;
         position: relative;
-        z-index: 2;
+        z-index: 1;
       }
 
       .nav-item-projects {

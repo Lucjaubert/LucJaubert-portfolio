@@ -79,9 +79,9 @@
     font-size: map-get($font-size, "10");
   }
 
-  .text-slide {
-    opacity: 0;
-  }
+  //.text-slide {
+  //  opacity: 0;
+  //}
 
   .invisible {
     visibility: hidden;
@@ -211,15 +211,18 @@
 
       .media-box {
         width: 100%;
-        height: auto;
-        max-height: none;
+        height: 100%;
         flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
       }
 
       .media-element {
         position: relative;
         width: 100%;
-        height: auto;
+        height: 100%;
         top: 0;
         left: 0;
         opacity: 1 !important;
@@ -234,6 +237,10 @@
           object-position: center;
           display: block;
         }
+      }
+
+      .project-container {
+        cursor: pointer;
       }
 
       .project-details-container {

@@ -1,18 +1,18 @@
 [
     {
-        "name": "Conception et Design Web",
-        "stacks": "Webdesign, UI Design, UX Design, Responsive Design, Identité Visuelle, Charte Graphique, Création de Logo"
+        "name": "Developpement Web et Mobile",
+        "stacks": "Sites Vitrine, Sites Institutionnels, E-commerce, Développement Sur-mesure, Angular 18, WordPress Headless, WordPress Personnalisé, Shopify, HTML5/CSS3, PHP/MySQL, JavaScript - TypeScript, API GoogleMaps"
     },
     {
-        "name": "Développement Web et Mobile",
-        "stacks": "Sites Vitrine, Sites Institutionnels, E-commerce, Développement Sur-mesure, Angular 18, WordPress Headless, WordPress Personnalisé, Shopify, HTML5/CSS3, PHP/MySQL, JavaScript - TypeScript, API GoogleMaps"
+        "name": "Conception et Design Web",
+        "stacks": "Webdesign, UI Design, UX Design, Responsive Design, Identité Visuelle, Charte Graphique, Création de Logo"
     },
     {
         "name": "Optimisation et Marketing Digital",
         "stacks": "SEO, Community Management, Réseaux Sociaux, Emailing, Adaptation Mobile, Intégration HTML-CSS"
     },
     {
-        "name": "Processus de Création et Lancement",
+        "name": "Processus de Creation et Lancement",
         "stacks": "Brief, Méthodologie, Ergonomie, Zoning, Maquettes Figma, Récupération de Contenus, Développement & Intégration, SEO, Tests de Serveur, Hébergement, Déploiement - Mise en ligne"
     }
 ]
