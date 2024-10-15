@@ -10,6 +10,7 @@ gsap.registerPlugin(CSSPlugin, ScrollTrigger);
 
 interface StudioSection {
   name: string;
+  mission :string;
   stacks: string;
 }
 
@@ -87,18 +88,18 @@ export class StudioWebComponent implements AfterViewInit, OnInit, OnDestroy {
         this.studioSectionContainers.forEach((section: ElementRef, index: number) => {
           const sectionElement = section.nativeElement as HTMLElement;
           const title = sectionElement.querySelector('h3.text-slide') as HTMLElement | null;
+          const mission = sectionElement.querySelector('.mission-slide') as HTMLElement | null;
           const horizontalLine = sectionElement.querySelector('.horizontal-line') as HTMLElement | null;
           const verticalLine = sectionElement.querySelector('.vertical-line') as HTMLElement | null;
           const detailsText = sectionElement.querySelector('.stacks-slide') as HTMLElement | null;
   
-          const totalAnimationDuration = 2; 
   
           ScrollTrigger.create({
             trigger: sectionElement,
             start: "top top",
-            end: () => `+=${totalAnimationDuration * 1000}`, 
+            end: "bottom top",
             pin: true,
-            pinSpacing: false, 
+            pinSpacing: true, 
             scrub: false,
           });
   
@@ -106,7 +107,7 @@ export class StudioWebComponent implements AfterViewInit, OnInit, OnDestroy {
             scrollTrigger: {
               trigger: sectionElement,
               start: "top top",
-              end: () => `+=${totalAnimationDuration * 1000}`,
+              end: "bottom top",
               scrub: false,
             }
           });
@@ -130,6 +131,18 @@ export class StudioWebComponent implements AfterViewInit, OnInit, OnDestroy {
               width: '100%',
               duration: 1,
               ease: 'none'
+            }, "-=0.5");
+          }
+
+          if (mission) {
+            tl.fromTo(mission, {
+                opacity: 0,
+                y: 50,
+              }, {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "power4.out"
             }, "-=0.5");
           }
   

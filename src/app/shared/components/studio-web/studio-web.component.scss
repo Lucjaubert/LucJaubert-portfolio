@@ -11,7 +11,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    min-height: 60vh;
+    min-height: 100vh;
 
     &.design-section { background-color: map-get($theme-colors, "orange"); }
     &.development-section { background-color: map-get($theme-colors, "second-blue"); }
@@ -27,16 +27,33 @@
     }
   }
 
+  .design-section,
+  .development-section,
+  .marketing-section,
+  .process-section {
+    min-height: 110vh;
+
+    @media (min-width: map-get($breakpoints, "md")) {
+      min-height: 100vh;
+    }
+
+  }
+
+
   .section-container {
     padding: 0;  
     height: auto;
     min-height: auto;
 
     h3.text-slide {
-      font-size: map-get($font-size, "50");
+      font-size: map-get($font-size, "40");
       transition: none;
       text-align: left;
       margin: 0;  
+
+      @media (min-width: map-get($breakpoints, "md")) {
+        font-size: map-get($font-size, "50");
+      }
     }
 
     .horizontal-line {
@@ -46,6 +63,16 @@
       background-color: map-get($theme-colors, "blue");
       margin-top: map-get($spacers, "3");
       transform-origin: left;
+    }
+
+    p {
+      font-size: map-get($font-size, "20");
+      text-align: left;
+      margin: 0;
+
+      @media (min-width: map-get($breakpoints, "md")) {
+        font-size: map-get($font-size, "30");
+      }
     }
 
     @media (min-width: map-get($breakpoints, "md")) {
@@ -90,7 +117,7 @@
     span {
       margin-top: 0; 
       text-align: left;
-      font-size: map-get($font-size, "30");
+      font-size: map-get($font-size, "20");
     }
 
     @media (min-width: map-get($breakpoints, "md")) {

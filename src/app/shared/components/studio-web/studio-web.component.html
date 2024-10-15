@@ -1,4 +1,4 @@
-<section *ngIf="sections.length > 0" id="studio-web" class="studio-web-presentation mt-md-13 py-md-14 py-10">
+<section *ngIf="sections.length > 0" id="studio-web" class="studio-web-presentation py-md-10 py-10">
   <div class="row studio-web-section">
     <div class="studio-web-list">
       <div class="current-sections">
@@ -8,11 +8,10 @@
           [ngClass]="getSectionClass(i)"
           #studioSectionContainer
         >
-          <div class="background-sides"></div>
-
           <div class="section-container col-md-8 col-12 px-5 py-4 d-flex flex-column justify-content-top align-items-start mask-wrapper">
             <h3 class="text-slide mb-0">{{ section.name }}</h3>
             <div class="horizontal-line mt-3"></div>
+            <p class="mission-slide mt-md-5 mt-3 pe-md-15">{{ section.mission }}</p>
           </div>
 
           <div class="vertical-line d-none d-md-block"></div>

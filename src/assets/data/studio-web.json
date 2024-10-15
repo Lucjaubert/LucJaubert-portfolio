@@ -1,18 +1,22 @@
 [
     {
+        "name": "Developpement Web et Mobile",
+        "mission": "Je conçois et développe des sites web pour tous les types d'appareils, adaptés à vos besoins. Grâce aux technologies les plus récentes, je conçois des solutions fiables, rapides et évolutives qui répondent à vos objectifs. Vous avez la main sur votre site grâce à des outils de gestion de contenu intuitifs et faciles à utiliser.",
+        "stacks": "Sites Vitrine, Sites Institutionnels, E-commerce, Développement Sur-mesure, Angular 18, WordPress Headless, WordPress Personnalisé, Shopify, HTML5/CSS3, JavaScript - TypeScript, API GoogleMaps"
+    },
+    {
         "name": "Conception et Design Web",
+        "mission": "J'accompagne mes clients dans la création d'interfaces intuitives et esthétiques. Mon objectif est de proposer des designs modernes, tout en veillant à l'ergonomie et à l'expérience utilisateur. J'assure avec vous une cohérence visuelle qui reflète l'identité de votre marque. Je collabore avec des agences de communication en transformant leurs maquettes en sites web fonctionnels, en restant fidèle aux designs fournis et en intégrant des fonctionnalités qui respectent l’expérience utilisateur définie par l’agence.",
         "stacks": "Webdesign, UI Design, UX Design, Responsive Design, Identité Visuelle, Charte Graphique, Création de Logo"
     },
     {
-        "name": "Développement Web et Mobile",
-        "stacks": "Sites Vitrine, Sites Institutionnels, E-commerce, Développement Sur-mesure, Angular 18, WordPress Headless, WordPress Personnalisé, Shopify, HTML5/CSS3, PHP/MySQL, JavaScript - TypeScript, API GoogleMaps"
-    },
-    {
         "name": "Optimisation et Marketing Digital",
-        "stacks": "SEO, Community Management, Réseaux Sociaux, Emailing, Adaptation Mobile, Intégration HTML-CSS"
+        "mission": "Je propose des services de SEO et de marketing digital pour maximiser la visibilité de votre projet J'optimise vos contenus pour les moteurs de recherche.",
+        "stacks": "SEO, Community Management, Réseaux Sociaux, Adaptation Mobile, Intégration HTML-CSS"
     },
     {
-        "name": "Processus de Création et Lancement",
+        "name": "Processus de Creation et Lancement",
+        "mission": "Je gère l'ensemble du processus de création, du brief initial jusqu'à la mise en ligne. Chaque étape est soigneusement planifiée pour garantir un déploiement fluide et une qualité optimale.",
         "stacks": "Brief, Méthodologie, Ergonomie, Zoning, Maquettes Figma, Récupération de Contenus, Développement & Intégration, SEO, Tests de Serveur, Hébergement, Déploiement - Mise en ligne"
     }
 ]
