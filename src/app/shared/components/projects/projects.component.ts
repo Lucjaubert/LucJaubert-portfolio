@@ -8,8 +8,10 @@ import {
   Inject,
   ChangeDetectorRef,
   AfterViewInit,
+  PLATFORM_ID,
+  NgZone,
+  ChangeDetectionStrategy,
 } from '@angular/core';
-import { PLATFORM_ID } from '@angular/core';
 import { gsap, CSSPlugin, ScrollTrigger } from 'gsap/all';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
@@ -24,9 +26,11 @@ interface Project {
   project: string;
   role: string;
   stacks: string;
+  url: string;
   images: string[];
   videos: string[];
   animationType: string;
+  mediaSequence?: { type: 'image' | 'video'; src: string }[];
 }
 
 @Component({
@@ -35,6 +39,7 @@ interface Project {
   styleUrls: ['./projects.component.scss'],
   standalone: true,
   imports: [RouterOutlet, CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush, 
 })
 export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChildren('mediaElement') mediaElements!: QueryList<ElementRef>;
@@ -55,11 +60,14 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   isDesktop: boolean = false;
 
+  private mobileSlideshowInterval: any; 
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private http: HttpClient,
     private changeDetectorRef: ChangeDetectorRef,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private ngZone: NgZone 
   ) {}
 
   ngOnInit(): void {
@@ -86,6 +94,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.breakpointObserver.observe(['(min-width: 768px)']).subscribe((state) => {
         this.isDesktop = state.matches;
+        this.changeDetectorRef.markForCheck(); 
       });
     }
   }
@@ -107,43 +116,48 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.gsapContext.revert();
     }
     this.killTimelines();
+
+    if (this.mobileSlideshowInterval) {
+      clearInterval(this.mobileSlideshowInterval);
+    }
   }
 
   toggleMediaPreview(index: number): void {
     if (this.activeMediaIndex === index) {
-      // Fermer l'aperçu
       this.activeMediaIndex = null;
       this.currentProject = null;
       this.mediaSequence = [];
       this.animationInitialized = false;
       this.changeDetectorRef.detectChanges();
+  
+      if (this.mobileSlideshowInterval) {
+        clearInterval(this.mobileSlideshowInterval);
+        this.mobileSlideshowInterval = null;
+      }
     } else {
       this.activeMediaIndex = index;
       this.currentProject = this.projects[index];
-
-      this.mediaSequence = this.getAllMedia(this.currentProject).sort(() => Math.random() - 0.5);
-
+  
+      this.mediaSequence = this.currentProject.mediaSequence || [];
+  
       this.animationInitialized = false;
       this.changeDetectorRef.detectChanges();
-
-      // Attendre que les éléments soient rendus
+  
       setTimeout(() => {
         this.changeDetectorRef.detectChanges();
-
-        // S'abonner aux changements des mediaElements
+  
         this.mediaElements.changes.subscribe(() => {
           if (this.mediaElements.length > 0 && this.currentProject) {
             this.initAnimationForCurrentProject();
           }
         });
-
-        // Vérifier si les mediaElements sont déjà disponibles
+  
         if (this.mediaElements.length > 0 && this.currentProject) {
           this.initAnimationForCurrentProject();
         }
       }, 0);
     }
-  }
+  }  
 
   isMediaPreviewVisible(index: number): boolean {
     return this.activeMediaIndex === index;
@@ -166,10 +180,8 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onProjectContainerClick(index: number): void {
     if (!this.isDesktop) {
-      // Sur mobile, afficher l'aperçu du projet
       this.toggleMediaPreview(index);
     } else {
-      // Sur desktop, ouvrir le lien du projet
       this.openProjectLink(this.projects[index]);
     }
   }
@@ -199,33 +211,37 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private initProjectAnimations(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.gsapContext = gsap.context(() => {
-        gsap.to('.background-sides', {
-          height: '100%',
-          duration: 1.3,
-          ease: 'expoScale',
-          scrollTrigger: {
-            trigger: '#projects',
-          },
-          onComplete: () => {
-            this.animateTextSlides();
-          },
+      this.ngZone.runOutsideAngular(() => {
+        this.gsapContext = gsap.context(() => {
+          gsap.to('.background-sides', {
+            height: '100%',
+            duration: 1.3,
+            ease: 'expoScale',
+            scrollTrigger: {
+              trigger: '#projects',
+            },
+            onComplete: () => {
+              this.animateTextSlides();
+            },
+          });
         });
       });
     }
-  }
+  }  
 
   private animateTextSlides(): void {
-    gsap.to('.text-slide', {
-      opacity: 1,
-      y: 0,
-      delay: 0.1,
-      duration: 0.8,
-      ease: 'power4.out',
-      stagger: 0.2,
-      onComplete: () => {
-        this.enableInteractions();
-      },
+    this.ngZone.runOutsideAngular(() => {
+      gsap.to('.text-slide', {
+        opacity: 1,
+        y: 0,
+        delay: 0.1,
+        duration: 0.8,
+        ease: 'power4.out',
+        stagger: 0.2,
+        onComplete: () => {
+          this.enableInteractions();
+        },
+      });
     });
   }
 
@@ -238,9 +254,17 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private loadProjects(): void {
     this.http.get<Project[]>('assets/data/projects.json').subscribe((data: Project[]) => {
-      this.projects = data;
+      this.projects = data.map((project) => {
+        const mediaSequence = this.getAllMedia(project);
+        const shuffledMediaSequence = mediaSequence.sort(() => Math.random() - 0.5);
+        return {
+          ...project,
+          mediaSequence: shuffledMediaSequence,
+        };
+      });
+      this.changeDetectorRef.detectChanges();
     });
-  }
+  }  
 
   onProjectHover(project: Project, event: MouseEvent): void {
     if (!this.isDesktop) return;
@@ -289,19 +313,81 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.currentProject = null;
     this.mediaSequence = [];
+    this.changeDetectorRef.detectChanges();
+
+    if (this.mobileSlideshowInterval) {
+      clearInterval(this.mobileSlideshowInterval);
+      this.mobileSlideshowInterval = null;
+    }
   }
 
   private initAnimationForCurrentProject(): void {
-    if (!this.animationInitialized && this.mediaElements.length > 0 && this.currentProject) {
-      this.animationInitialized = true;
+    if (this.animationInitialized || this.mediaElements.length === 0 || !this.currentProject) {
+      return;
+    }
+
+    this.animationInitialized = true;
+
+    if (this.isDesktop) {
       const animation = this.animations[this.currentProject.animationType || ''];
       if (animation && animation.in) {
-        animation.in();
+        this.ngZone.runOutsideAngular(() => {
+          animation.in();
+        });
       } else {
         console.warn('No animation found for:', this.currentProject.animationType);
       }
+    } else {
+      this.initMobileSlideshow();
     }
   }
+
+  private initMobileSlideshow(): void {
+    if (this.mobileSlideshowInterval) {
+      clearInterval(this.mobileSlideshowInterval);
+    }
+  
+    const elements = this.mediaElements.toArray();
+    let currentIndex = 0;
+  
+    elements.forEach((elementRef, index) => {
+      const element = elementRef.nativeElement;
+      element.style.display = index === 0 ? 'block' : 'none';
+  
+      if (element.tagName.toLowerCase() === 'video') {
+        element.pause();
+        element.currentTime = 0;
+      }
+    });
+  
+    const firstElement = elements[0].nativeElement;
+    if (firstElement.tagName.toLowerCase() === 'video') {
+      firstElement.play();
+    }
+  
+    this.mobileSlideshowInterval = setInterval(() => {
+      const previousElement = elements[currentIndex].nativeElement;
+  
+      previousElement.style.display = 'none';
+  
+      if (previousElement.tagName.toLowerCase() === 'video') {
+        previousElement.pause();
+        previousElement.currentTime = 0;
+      }
+  
+      currentIndex = (currentIndex + 1) % elements.length;
+      const currentElement = elements[currentIndex].nativeElement;
+  
+      currentElement.style.display = 'block';
+  
+      if (currentElement.tagName.toLowerCase() === 'video') {
+        currentElement.play();
+      }
+  
+      this.changeDetectorRef.detectChanges();
+    }, 1500); 
+  }
+  
 
   getAllMedia(project: Project | null): { type: 'image' | 'video'; src: string }[] {
     if (!project) {
@@ -366,10 +452,12 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
       }
 
       const shuffledMediaElements = this.mediaElements.toArray();
-      timeline = gsap.timeline({ repeat: -1, defaults: { ease: 'power2.inOut' } });
+      const repeatValue = this.isDesktop ? -1 : 0; 
 
-      const transitionDuration = 1;
-      const displayDuration = 1.5;
+      timeline = gsap.timeline({ repeat: repeatValue, defaults: { ease: 'power2.inOut' } });
+
+      const transitionDuration = this.isDesktop ? 1 : 0.5;
+      const displayDuration = this.isDesktop ? 1.5 : 2; 
 
       const directionOptionsX = ['-100%', '0%', '100%'];
       const directionOptionsY = ['-100%', '0%', '100%'];
@@ -455,3 +543,8 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 }
+
+
+
+
+  

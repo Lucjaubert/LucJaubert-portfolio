@@ -5,6 +5,7 @@
     "project": "Fromagerie aux Capucins - Bordeaux",
     "role": "Maquettes - Développement front-end",
     "stacks": "WordPress Headless - Angular",
+    "url": "www.laiterie-burdigala.com",
     "images": [
       "assets/img/laiterie/images/laiterie-desktop-1.webp",
       "assets/img/laiterie/images/laiterie-desktop-2.webp",
@@ -32,6 +33,7 @@
     "project": "Promotion manuel d'anglais pour les professionnels du vin",
     "role": "Maquettes - Développement front-end",
     "stacks": "WordPress Headless - Angular",
+    "url": "www.anglaisduvin.com",
     "images": [
       "assets/img/anglais/images/anglais-du-vin-desktop-1.webp",
       "assets/img/anglais/images/anglais-du-vin-desktop-2.webp",
@@ -54,6 +56,7 @@
     "project": "Projet de réaménagement de Limago",
     "role": "Maquettes - Développement front-end",
     "stacks": "WordPress Headless - Angular",
+    "url": "www.limago-reflexo.com",
     "images": [
       "assets/img/limago/images/limago-desktop-1.webp",
       "assets/img/limago/images/limago-desktop-2.webp",
@@ -80,6 +83,7 @@
     "project": "Projet de rénovation de Maison Ah-Rong",
     "role": "Maquettes - Développement front-end",
     "stacks": "WordPress Headless - Angular",
+    "url": "www.maison-ah-rong.com",
     "images": [
       "assets/img/maison/images/maison-desktop-1.webp",
       "assets/img/maison/images/maison-desktop-2.webp",

@@ -2,6 +2,20 @@
 @import '../../node_modules/bootstrap/scss/bootstrap.scss'; 
 @import '../assets/fonts/fonts.scss';
 
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;  
+    -ms-overflow-style: none;    
+    scrollbar-width: none;   
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
 
 #app-container {
     position: relative;
@@ -12,6 +26,10 @@
 
 #page {
     flex: 1;
+}
+
+.page-content {
+    overflow: hidden;
 }
 
 .container,
@@ -28,16 +46,8 @@
     background-color: map-get($theme-colors, "beige");
     margin: 0;
     padding: 0;
-    width: 100vw;
     min-height: 100%;
     overflow-x: hidden;
-
-    body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden; 
-        width: 100vw; 
-    }
 
     h1 {
         font-family: 'Trap';
@@ -78,10 +88,10 @@
         font-size: map-get($font-size, "100");
         color: map-get($theme-colors, "blue");
 
-            &:hover {
-                color: map-get($theme-colors, "light-blue");
-            }
+        &:hover {
+            color: map-get($theme-colors, "light-blue");
         }
+    }
 
     h6 {
         font-family: 'Open Sans';
@@ -101,7 +111,3 @@
         margin: 0;
     }
 }
-
-
-
-

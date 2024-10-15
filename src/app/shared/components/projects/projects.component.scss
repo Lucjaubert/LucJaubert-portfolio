@@ -24,6 +24,16 @@
     visibility: visible;
   }
 
+  .text-slide {
+    opacity: 0;
+    transform: translateY(20px); 
+  }
+
+  .project-details-container {
+    opacity: 1;
+    transform: translateY(20px); 
+  }
+
   .project-hover-container {
     display: flex;
     flex-direction: row;
@@ -79,10 +89,6 @@
     font-size: map-get($font-size, "10");
   }
 
-  //.text-slide {
-  //  opacity: 0;
-  //}
-
   .invisible {
     visibility: hidden;
     height: 0;
@@ -117,11 +123,25 @@
     }
   }
 
+  .open-project-button {
+    margin-top: auto;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .url {
+    color: map-get($theme-colors, "light-blue");
+    
+    &:hover {
+      color: map-get($theme-colors, "blue");
+    }
+  }
+
   .material-symbols-outlined {
     font-family: 'Material Symbols Outlined';
     font-weight: normal;
     font-style: normal;
-    font-size: 24px;
+    font-size: 18px;
     display: inline-block;
     line-height: 1;
     text-transform: none;
@@ -129,7 +149,7 @@
     white-space: nowrap;
     word-wrap: normal;
     direction: ltr;
-    color: map-get($theme-colors, "blue");
+    color: map-get($theme-colors, "light-blue");
   }
 
   .media-preview-mobile {
@@ -203,6 +223,8 @@
         padding: 0;
         border-radius: 0;
         flex-direction: column;
+        opacity: 1;
+        visibility: visible;
       }
 
       &.active {
@@ -222,11 +244,10 @@
       .media-element {
         position: relative;
         width: 100%;
-        height: 100%;
+        height: auto;
         top: 0;
         left: 0;
-        opacity: 1 !important;
-        display: block !important;
+        display: none;
 
         img,
         video {
@@ -255,11 +276,68 @@
     h5 {
       font-size: map-get($font-size, "50") !important;
     }
+
+    .media-box {
+      width: 100%;
+      height: auto;
+    }
+
+    .media-element {
+      position: relative;
+      width: 100%;
+      height: auto;
+      opacity: 1 !important;
+      display: block !important;
+
+      img,
+      video {
+        width: 100%;
+        height: auto;
+        max-height: 100%;
+        object-fit: contain;
+        object-position: center;
+        display: block;
+      }
+    }
+
+    .project-details {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1rem;
+
+    }
+
+    .project-details .col-12 {
+      margin-bottom: 1rem;
+    }
   }
 
   @media (max-width: map-get($breakpoints, "md")) {
     h5 {
       font-size: map-get($font-size, "90");
+    }
+
+    .media-box {
+      width: 100%;
+      height: auto;
+    }
+
+    .media-element {
+      position: relative;
+      width: 100%;
+      height: auto;
+      opacity: 1 !important;
+      display: block !important;
+
+      img,
+      video {
+        width: 100%;
+        height: auto;
+        max-height: 100%;
+        object-fit: contain;
+        object-position: center;
+        display: block;
+      }
     }
   }
 }

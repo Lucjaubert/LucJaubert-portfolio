@@ -60,10 +60,12 @@
                       <span class="mt-1 text-start">{{ project.stacks }}</span>
                     </div>
                   </div>
-
-                  <button class="btn align-self-end open-project-button py-0" (click)="openProjectLink(project)">
-                    <span class="material-symbols-outlined">open_in_new</span>
-                  </button>
+                  <div class="d-flex px-3 align-items-baseline">
+                    <p class="url mt-0 text-start">{{ project.url }}</p>
+                    <button class="btn align-self-baseline open-project-button" (click)="openProjectLink(project)">
+                        <span class="material-symbols-outlined">open_in_new</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
