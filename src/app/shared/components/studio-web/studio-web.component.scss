@@ -3,6 +3,10 @@
 .studio-web-section {
   position: relative;
 
+  h3, p, span {
+    color: map-get($theme-colors, "beige")
+  }
+
   .design-section,
   .development-section,
   .marketing-section,
@@ -13,11 +17,11 @@
     align-items: flex-start;
     min-height: 100vh;
 
-    &.design-section { background-color: map-get($theme-colors, "orange"); }
-    &.development-section { background-color: map-get($theme-colors, "second-blue"); }
-    &.marketing-section { background-color: map-get($theme-colors, "pink"); }
+    &.design-section { background-color: map-get($theme-colors, "yellow"); }
+    &.development-section { background-color: map-get($theme-colors, "green"); }
+    &.marketing-section { background-color: map-get($theme-colors, "fushia"); }
     &.process-section {
-      background-color: map-get($theme-colors, "light-green");
+      background-color: map-get($theme-colors, "dark-blue");
       margin-bottom: map-get($spacers, "5");
     }
 
@@ -36,9 +40,12 @@
     @media (min-width: map-get($breakpoints, "md")) {
       min-height: 100vh;
     }
-
   }
 
+  .text-slide {
+    opacity: 0;
+    transform: translateY(50px);
+  }  
 
   .section-container {
     padding: 0;  
@@ -60,7 +67,7 @@
       position: relative;
       width: 0%;
       height: 1.5px;
-      background-color: map-get($theme-colors, "blue");
+      background-color: map-get($theme-colors, "beige");
       margin-top: map-get($spacers, "3");
       transform-origin: left;
     }
@@ -102,7 +109,7 @@
       top: 0;
       width: 1.5px;
       height: 0%;
-      background-color: map-get($theme-colors, "blue");
+      background-color: map-get($theme-colors, "beige");
       transform-origin: top;
       z-index: 1;
     }

@@ -113,16 +113,20 @@ export class StudioWebComponent implements AfterViewInit, OnInit, OnDestroy {
           });
   
           if (title) {
-            tl.fromTo(title, {
-              opacity: 0,
-              y: 50,
-            }, {
-              opacity: 1,
-              y: 0,
-              duration: 1,
-              ease: "power4.out"
-            });
-          }
+            tl.fromTo(
+              title,
+              {
+                opacity: 0,
+                y: 50,
+              },
+              {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "power4.out",
+              }
+            );
+          }          
   
           if (horizontalLine) {
             tl.fromTo(horizontalLine, {
@@ -133,6 +137,7 @@ export class StudioWebComponent implements AfterViewInit, OnInit, OnDestroy {
               ease: 'none'
             }, "-=0.5");
           }
+
 
           if (mission) {
             tl.fromTo(mission, {

@@ -1,4 +1,4 @@
-<section id="projects" class="project-presentation mt-md-13 py-md-14">
+<section id="projects" class="project-presentation mt-md-9 py-md-14">
   <div class="background-sides"></div>
 
   <div class="row project-hover-container">
@@ -7,13 +7,13 @@
         <div class="projects-2024">
           <div *ngFor="let project of projects; let i = index">
             <div
-              class="project-container d-flex justify-content-lg-end justify-content-center align-items-center py-4"
+              class="project-container text-slide d-flex justify-content-lg-end justify-content-center align-items-center py-4"
               (click)="onProjectContainerClick(i)"
               (mouseenter)="onProjectHover(project, $event)"
               (mouseleave)="onProjectOut($event)"
             >
-              <h5 class="text-slide mb-0">{{ project.name }}</h5>
-              <span class="text-slide date ms-2">{{ project.year }}</span>
+              <h5 class="mb-0">{{ project.name }}</h5>
+              <span class="date ms-2">{{ project.year }}</span>
             </div>
 
             <div
