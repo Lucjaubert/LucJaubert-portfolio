@@ -1,0 +1,25 @@
+{
+  "name": "Luc Jaubert - Développeur Web Freelance",
+  "short_name": "LucJaubert",
+  "description": "Développeur web freelance basé à Bordeaux, création ou refonte de site internet, intégration, référencement.",
+  "icons": [
+    {
+      "src": "assets/icons/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icons/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#515DE2",
+  "background_color": "#FFF6ED",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "orientation": "portrait"
+}

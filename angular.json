@@ -20,53 +20,43 @@
             "outputPath": "dist/lucjaubert",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              {
-                "glob": "**/*",
-                "input": "src/assets",
-                "output": "assets/"
-              },
-              {
-                "glob": "**/*",
-                "input": "public",
-                "output": "./"
-              }
+              { "glob": "**/*", "input": "src/assets", "output": "assets/" },
+              { "glob": "**/*", "input": "public", "output": "./" }
             ],
-
-            "styles": [
-              "src/styles/styles.scss",
-              "node_modules/bootstrap/scss/bootstrap.scss"
-            ],
-            "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-            ],
+            "styles": ["src/styles/styles.scss", "node_modules/bootstrap/scss/bootstrap.scss"],
+            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"],
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {
               "entry": "server.ts"
-            }
+            },
+            "allowedCommonJsDependencies": ["compression"]
           },
           "configurations": {
             "production": {
+              
               "budgets": [
-                {
+              {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
-                },
-                {
+                  "maximumWarning": "2MB",
+                  "maximumError": "3MB"
+              },
+              {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kB",
-                  "maximumError": "4kB"
-                }
-              ],
-              "outputHashing": "all"
+                  "maximumWarning": "150kB",
+                  "maximumError": "200kB"
+              }
+            ],
+              "outputHashing": "all",
+              "optimization": {
+                "scripts": true,
+                "styles": true
+              }
             },
             "development": {
               "optimization": false,

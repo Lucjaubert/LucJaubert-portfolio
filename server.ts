@@ -4,6 +4,8 @@ import express from 'express';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import bootstrap from './src/main.server';
+import compression from 'compression';
+import expressStaticGzip from 'express-static-gzip';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -14,17 +16,28 @@ export function app(): express.Express {
 
   const commonEngine = new CommonEngine();
 
+  // Use compression middleware
+  server.use(compression());
+
+  // Use expressStaticGzip for serving pre-compressed assets
+  server.use('/', expressStaticGzip(browserDistFolder, {
+    enableBrotli: true,
+    orderPreference: ['br', 'gz']
+  }));  
+
+  // Setting cache headers for static files
+  server.use('/', express.static(browserDistFolder, {
+    setHeaders: (res) => {
+      res.setHeader("Cache-Control", "public, max-age=31536000"); 
+    }
+  }));
+
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
 
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
-  // Serve static files from /browser
-  server.get('**', express.static(browserDistFolder, {
-    maxAge: '1y',
-    index: 'index.html',
-  }));
-
+  
   // All regular routes use the Angular engine
   server.get('**', (req, res, next) => {
     const { protocol, originalUrl, baseUrl, headers } = req;
