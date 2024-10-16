@@ -1,0 +1,13 @@
+@import "../../../styles/_variables.scss";
+
+.back-to-home {
+    color: map-get($theme-colors, "blue");
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.back-to-home:hover {
+    text-decoration: underline;
+}

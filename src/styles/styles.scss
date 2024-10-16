@@ -84,10 +84,10 @@ body::-webkit-scrollbar {
         font-weight: 100;
         font-style: normal;
         font-size: map-get($font-size, "100");
-        color: map-get($theme-colors, "blue");
+        color: map-get($theme-colors, "grey") !important;
 
         &:hover {
-            color: map-get($theme-colors, "light-blue");
+            color: map-get($theme-colors, "beige") !important;
         }
     }
 

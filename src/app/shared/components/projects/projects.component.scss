@@ -18,7 +18,7 @@
     left: 0;
     width: 100%;
     height: 0%;
-    background-color: map-get($theme-colors, "black");
+    background-color: map-get($theme-colors, "magenta");
     z-index: 0;
     transform-origin: bottom;
     visibility: visible;
@@ -27,6 +27,11 @@
   .text-slide {
     opacity: 0;
     transform: translateY(20px); 
+    color : map-get($theme-colors, "grey");
+
+      &:hover {
+        color: map-get($theme-colors, "beige") !important;
+    }
   }
 
   .project-details-container {
@@ -52,11 +57,10 @@
       padding: 1rem 0;
       cursor: pointer;
       transition: transform 0.3s ease, color 0.3s ease;
-      color: map-get($theme-colors, "blue");
 
       &:hover {
         transform: scale(1.01);
-        color: map-get($theme-colors, "light-blue");
+        
       }
 
       .open-project-button {
@@ -73,7 +77,7 @@
   .project-details,
   .project-details p,
   .project-details span {
-    color: map-get($theme-colors, "light-blue");
+    color: map-get($theme-colors, "beige");
   }
 
   .project-details .col-4 {
@@ -130,10 +134,10 @@
   }
 
   .url {
-    color: map-get($theme-colors, "light-blue");
+    color: map-get($theme-colors, "beige");
     
     &:hover {
-      color: map-get($theme-colors, "blue");
+      color: map-get($theme-colors, "dark-grey");
     }
   }
 
@@ -149,7 +153,7 @@
     white-space: nowrap;
     word-wrap: normal;
     direction: ltr;
-    color: map-get($theme-colors, "light-blue");
+    color: map-get($theme-colors, "beige");
   }
 
   .media-preview-mobile {

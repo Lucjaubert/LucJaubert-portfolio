@@ -10,11 +10,11 @@
       transition: transform 0.8s ease-out, opacity 0.8s ease-out; 
 
       @media (min-width: map-get($breakpoints, "md")) {
-        font-size: map-get($font-size, "60");
+        font-size: map-get($font-size, "50");
       }
 
       @media (min-width: map-get($breakpoints, "lg")) {
-        font-size: map-get($font-size, "80");
+        font-size: map-get($font-size, "70");
       }
     }
 
