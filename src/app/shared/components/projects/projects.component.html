@@ -61,7 +61,7 @@
                     </div>
                   </div>
                   <div class="d-flex px-3 align-items-baseline">
-                    <p class="url mt-0 text-start">{{ project.url }}</p>
+                    <p class="url mt-0 text-start" (click)="openProjectLink(project)">{{ project.url }}</p>
                     <button class="btn align-self-baseline open-project-button" (click)="openProjectLink(project)">
                         <span class="material-symbols-outlined">open_in_new</span>
                     </button>
