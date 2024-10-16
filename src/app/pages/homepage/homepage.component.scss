@@ -12,12 +12,6 @@
   }
 }
 
-.spacer {
-  height: 280vh; 
-}
-
-
-
 @media (min-width: map-get($breakpoints, "sm")) {
   .container {
     padding: 0 15px;
