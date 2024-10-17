@@ -423,7 +423,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
   private initProjectAnimation(timelineName: string): void {
     if (this.mediaElements && this.mediaElements.length > 0) {
       let timeline: gsap.core.Timeline | null = null;
-
+  
       switch (timelineName) {
         case 'laiterie':
           if (this.laiterieTimeline) {
@@ -450,31 +450,31 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
           }
           break;
       }
-
+  
       const shuffledMediaElements = this.mediaElements.toArray();
-      const repeatValue = this.isDesktop ? -1 : 0; 
-
-      timeline = gsap.timeline({ repeat: repeatValue, defaults: { ease: 'power2.inOut' } });
-
-      const transitionDuration = this.isDesktop ? 1 : 0.5;
-      const displayDuration = this.isDesktop ? 1.5 : 2; 
-
+      const repeatValue = -1;
+  
+      timeline = gsap.timeline({ repeat: repeatValue, defaults: { ease: 'power1.inOut' } });
+  
+      const transitionDuration = 0.8; 
+      const displayDuration = 2.2;   
+      const overlap = 0.2;         
+      const timeBetweenElements = displayDuration - overlap;
+  
       const directionOptionsX = ['-100%', '0%', '100%'];
       const directionOptionsY = ['-100%', '0%', '100%'];
-
+  
       shuffledMediaElements.forEach((elementRef) => {
         const element = elementRef.nativeElement;
-        const xStart =
-          directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
-        const yStart =
-          directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
+        const xStart = directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
+        const yStart = directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
         gsap.set(element, {
           opacity: 0,
           display: 'none',
           x: xStart,
           y: yStart,
         });
-
+  
         if (element.tagName.toLowerCase() === 'video') {
           element.muted = true;
           element.playsInline = true;
@@ -482,14 +482,15 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
           element.currentTime = 0;
         }
       });
-
+  
       shuffledMediaElements.forEach((elementRef, index) => {
         const element = elementRef.nativeElement;
-        const xStart =
-          directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
-        const yStart =
-          directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
-
+        const xStart = directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
+        const yStart = directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
+  
+        const showStartTime = index * timeBetweenElements;
+        const hideStartTime = showStartTime + displayDuration;
+  
         timeline.to(
           element,
           {
@@ -504,9 +505,9 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
               }
             },
           },
-          index * (transitionDuration + displayDuration)
+          showStartTime
         );
-
+  
         timeline.to(
           element,
           {
@@ -522,10 +523,10 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
               }
             },
           },
-          index * (transitionDuration + displayDuration) + displayDuration
+          hideStartTime
         );
       });
-
+  
       switch (timelineName) {
         case 'laiterie':
           this.laiterieTimeline = timeline;
@@ -542,6 +543,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
   }
+  
 }
 
 

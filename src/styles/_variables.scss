@@ -187,6 +187,14 @@ $spacers: (
   // 656px
   "46": 42rem,
   // 672px
+  "47": 43rem,
+  // 688px
+  "48": 44rem,
+  // 704px
+  "49": 45rem,
+  // 720px
+  "50": 46rem,
+  // 736px
 );
 
 @each $name, $value in $theme-colors {

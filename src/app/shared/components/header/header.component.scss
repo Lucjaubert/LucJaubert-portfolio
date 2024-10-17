@@ -1,7 +1,9 @@
 @import "../../../../styles/_variables.scss";
 
 .custom-container {
-  max-width: 330px;
+  width: 100%;
+  padding-left: 10px !important;
+  padding-right: 10px  !important;
 
   .custom-navbar {
     position: relative;
@@ -55,33 +57,6 @@
         animation: showTextContact 1s forwards 2.5s;
       }
     }
-  }
-
-  @media (min-width: map-get($breakpoints, "sm")) {
-    max-width: 390px;
-
-    .navbar-nav {
-      flex-direction: row;
-    }
-  }
-
-  @media (min-width: map-get($breakpoints, "md")) {
-    max-width: 740px;
-    .navbar-nav .nav-item-bio {
-      display: block !important;
-      opacity: 0;
-      animation: showTextBio 1s forwards 1.3s;
-    }
-  }
-
-  @media (min-width: map-get($breakpoints, "lg")) {
-    max-width: 1000px;
-
-  }
-
-  @media (min-width: map-get($breakpoints, "xl")) {
-    max-width: 1390px;
-
   }
 }
 
