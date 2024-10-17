@@ -137,7 +137,7 @@
     color: map-get($theme-colors, "beige");
     
     &:hover {
-      color: map-get($theme-colors, "dark-grey");
+      color: map-get($theme-colors, "grey");
     }
   }
 
@@ -145,7 +145,7 @@
     font-family: 'Material Symbols Outlined';
     font-weight: normal;
     font-style: normal;
-    font-size: 18px;
+    font-size: 15px;
     display: inline-block;
     line-height: 1;
     text-transform: none;
@@ -273,6 +273,10 @@
         padding: 1rem;
         width: 100%;
       }
+
+      .material-symbols-outlined {
+        font-size: 18px;
+      }
     }
   }
 
@@ -314,6 +318,10 @@
     .project-details .col-12 {
       margin-bottom: 1rem;
     }
+
+    .material-symbols-outlined {
+      font-size: 18px;
+    }
   }
 
   @media (max-width: map-get($breakpoints, "md")) {
@@ -342,6 +350,10 @@
         object-position: center;
         display: block;
       }
+    }
+
+    .material-symbols-outlined {
+      font-size: 24px;
     }
   }
 }

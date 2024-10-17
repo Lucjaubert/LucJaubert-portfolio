@@ -1,9 +1,23 @@
 @import "../../../styles/_variables.scss";
 
+.full-screen-container {
+  height: 100vh; 
+  display: flex;
+  flex-direction: column;
+}
+
+.header-wrapper {
+  flex: 0 0 auto; 
+}
+
 .container {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 30px !important;
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  justify-content: start; 
 
   .homepage-wrapper {
     display: flex;
