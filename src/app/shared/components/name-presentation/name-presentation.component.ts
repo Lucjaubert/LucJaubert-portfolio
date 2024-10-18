@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
 import { PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import anime from 'animejs/lib/anime.es.js';
@@ -12,11 +11,6 @@ gsap.registerPlugin(ScrollTrigger);
   selector: 'app-name-presentation',
   templateUrl: './name-presentation.component.html',
   styleUrls: ['./name-presentation.component.scss'],
-  standalone: true,
-  imports: [
-    RouterOutlet,
-    CommonModule
-  ]
 })
 export class NamePresentationComponent implements OnInit, AfterViewInit {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
@@ -27,6 +21,27 @@ export class NamePresentationComponent implements OnInit, AfterViewInit {
     if (isPlatformBrowser(this.platformId)) {
       this.initAnimeJS();
       this.initDotReturn(); 
+      this.setDotPositionOnLoad(); // Assure que le dot est bien positionné dès le chargement
+    }
+  }
+
+  private setDotPositionOnLoad(): void {
+    const dotElement = document.querySelector('.dot') as HTMLElement;
+    const letters2Width = document.querySelector('.ml11 .letters-2')?.getBoundingClientRect().width || 0;
+    const jElementWidth = document.querySelector('.ml11 .last-name span')?.getBoundingClientRect().width || 0;
+    const totalWidth = letters2Width + jElementWidth;
+
+    if (dotElement) {
+      if (window.matchMedia("(min-width: 769px)").matches) {
+        gsap.set(dotElement, {
+          left: '-35.7rem',
+        });
+      } else {
+        gsap.set(dotElement, {
+          x: totalWidth,
+          left: '-16.2rem',
+        });
+      }
     }
   }
 
@@ -172,7 +187,6 @@ export class NamePresentationComponent implements OnInit, AfterViewInit {
                   });
                 }
               }
-
             }
           });
         } else if (scrollDirection === 'up' && scrollPosition < 100) {
