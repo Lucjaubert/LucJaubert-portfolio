@@ -18,7 +18,7 @@
     left: 0;
     width: 100%;
     height: 0%;
-    background-color: map-get($theme-colors, "magenta");
+    background-color: map-get($theme-colors, "blue");
     z-index: 0;
     transform-origin: bottom;
     visibility: visible;
@@ -27,10 +27,14 @@
   .text-slide {
     opacity: 0;
     transform: translateY(20px); 
-    color : map-get($theme-colors, "grey");
+    color : map-get($theme-colors, "light-blue-2");
 
       &:hover {
         color: map-get($theme-colors, "beige") !important;
+    }
+
+    @media (max-width: map-get($breakpoints, "md")) {
+      color: map-get($theme-colors, "beige") !important;
     }
   }
 
@@ -53,14 +57,18 @@
     .project-container {
       padding-bottom: 5rem;
       display: flex;
-      align-items: center;
+      align-items: baseline;
       padding: 1rem 0;
       cursor: pointer;
       transition: transform 0.3s ease, color 0.3s ease;
 
       &:hover {
         transform: scale(1.01);
-        
+      }
+
+      .date {
+        cursor: none !important;
+        font-weight: 300;
       }
 
       .open-project-button {
@@ -78,6 +86,10 @@
   .project-details p,
   .project-details span {
     color: map-get($theme-colors, "beige");
+
+    @media (max-width: map-get($breakpoints, "md")) {
+      color: map-get($theme-colors, "light-blue");
+    }
   }
 
   .project-details .col-4 {
@@ -134,7 +146,7 @@
   }
 
   .url {
-    color: map-get($theme-colors, "beige");
+    color: map-get($theme-colors, "light-blue");
     
     &:hover {
       color: map-get($theme-colors, "grey");
@@ -153,7 +165,7 @@
     white-space: nowrap;
     word-wrap: normal;
     direction: ltr;
-    color: map-get($theme-colors, "beige");
+    color: map-get($theme-colors, "light-blue");
   }
 
   .media-preview-mobile {
@@ -164,7 +176,7 @@
     width: 90vw;
     max-height: 90vh;
     padding: 1rem;
-    background-color: map-get($theme-colors, "dark-grey");
+    background-color: map-get($theme-colors, "blue-7");
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     z-index: 1000;
@@ -269,7 +281,7 @@
       }
 
       .project-details-container {
-        background-color: map-get($theme-colors, "dark-grey");
+        background-color: map-get($theme-colors, "blue-7");
         padding: 1rem;
         width: 100%;
       }
@@ -326,7 +338,7 @@
 
   @media (max-width: map-get($breakpoints, "md")) {
     h5 {
-      font-size: map-get($font-size, "90");
+      font-size: map-get($font-size, "70");
     }
 
     .media-box {

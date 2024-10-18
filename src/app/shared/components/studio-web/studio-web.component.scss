@@ -17,11 +17,11 @@
     align-items: flex-start;
     min-height: 100vh;
 
-    &.design-section { background-color: map-get($theme-colors, "yellow"); }
-    &.development-section { background-color: map-get($theme-colors, "green"); }
-    &.marketing-section { background-color: map-get($theme-colors, "fushia"); }
+    &.design-section { background-color: map-get($theme-colors, "blue-3"); }
+    &.development-section { background-color: map-get($theme-colors, "blue-4"); }
+    &.marketing-section { background-color: map-get($theme-colors, "blue-5"); }
     &.process-section {
-      background-color: map-get($theme-colors, "dark-blue");
+      background-color: map-get($theme-colors, "blue-6");
       margin-bottom: map-get($spacers, "5");
     }
 
@@ -87,14 +87,14 @@
       padding: 0;
 
       h3.text-slide {
-        font-size: map-get($font-size, "90");
+        font-size: map-get($font-size, "80");
         text-align: left;
       }
     }
 
     @media (min-width: map-get($breakpoints, "lg")) {
       h3.text-slide {
-        font-size: map-get($font-size, "100");
+        font-size: map-get($font-size, "90");
       }
     }
   }

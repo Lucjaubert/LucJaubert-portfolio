@@ -1,9 +1,15 @@
 @import "../../../../styles/_variables.scss";
 
+
 .custom-container {
   width: 100%;
-  padding-left: 10px !important;
-  padding-right: 10px  !important;
+  padding-left: 5vw !important;
+  padding-right: 5vw !important;
+
+  @media (min-width: map-get($breakpoints, "md")) {
+    padding-left: 5vw !important;
+    padding-right: 5vw !important;
+  }
 
   .custom-navbar {
     position: relative;
@@ -36,8 +42,13 @@
       }
 
       .nav-item-bio {
-        display: none; 
+        display: none !important;
+      
+        @media (min-width: map-get($breakpoints, "md")) {
+          display: block !important;
+        }
       }
+      
 
       .nav-link {
         color: map-get($theme-colors, "blue");
@@ -52,6 +63,9 @@
       }
       .nav-item-studio {
         animation: showTextSW 1s forwards 0.7s;
+      }
+      .nav-item-bio {
+        animation: showTextBio 1s forwards 1.5s;
       }
       .nav-item-contact {
         animation: showTextContact 1s forwards 2.5s;

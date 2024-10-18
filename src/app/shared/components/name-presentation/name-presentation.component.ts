@@ -160,18 +160,15 @@ export class NamePresentationComponent implements OnInit, AfterViewInit {
 
               const dotElement = document.querySelector('.dot') as HTMLElement;
               if (dotElement) {
-                // Vérifier la largeur de l'écran
                 if (window.matchMedia("(min-width: 769px)").matches) {
-                  // Écran de plus de 768 pixels
                   gsap.to(dotElement, {
                     duration: 0.5,
                     left: '-35.7rem',
                   });
                 } else {
-                  // Écran de moins de 768 pixels
                   gsap.to(dotElement, {
                     duration: 0.5,
-                    left: '-16.2rem', // Ajustez cette valeur selon vos besoins
+                    left: '-16.2rem', 
                   });
                 }
               }
