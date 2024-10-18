@@ -1,17 +1,17 @@
 [
     {
         "name": "Developpement Web et Mobile",
-        "mission": "Je conçois et développe des sites web pour tous les types d'appareils, adaptés à vos besoins. Grâce aux technologies les plus récentes, je conçois des solutions fiables, rapides et évolutives qui répondent à vos objectifs. Vous avez la main sur votre site grâce à des outils de gestion de contenu intuitifs et faciles à utiliser.",
+        "mission": "Conception et développement de sites web pour tous types d'appareils, adaptés aux besoins spécifiques. Utilisation des technologies les plus récentes pour créer des solutions fiables, rapides et évolutives qui répondent aux objectifs définis. Les sites sont livrés avec des outils de gestion de contenu intuitifs et faciles à utiliser.",
         "stacks": "Sites Vitrine, Sites Institutionnels, E-commerce, Développement Sur-mesure, Angular 18, WordPress Headless, WordPress Personnalisé, Shopify, HTML5/CSS3, JavaScript - TypeScript, API GoogleMaps"
     },
     {
         "name": "Conception et Design Web",
-        "mission": "J'accompagne mes clients dans la création d'interfaces intuitives et esthétiques. Mon objectif est de proposer des designs modernes, tout en veillant à l'ergonomie et à l'expérience utilisateur. J'assure avec vous une cohérence visuelle qui reflète l'identité de votre marque. Je collabore avec des agences de communication en transformant leurs maquettes en sites web fonctionnels, en restant fidèle aux designs fournis et en intégrant des fonctionnalités qui respectent l’expérience utilisateur définie par l’agence.",
+        "mission": "J'accompagne mes clients dans la création d'interfaces intuitives et esthétiques. Mon objectif est de proposer des designs modernes, tout en veillant à l'ergonomie, à l'expérience utilisateur et à la cohérence visuelle qui refléte l'identité de la marque. Je collabore avec des agences de communication en transformant leurs maquettes en sites web fonctionnels, en restant fidèle aux designs fournis et en intégrant des fonctionnalités qui respectent l’expérience utilisateur définie par l’agence.",
         "stacks": "Webdesign, UI Design, UX Design, Responsive Design, Identité Visuelle, Charte Graphique, Création de Logo"
     },
     {
         "name": "Optimisation et Marketing Digital",
-        "mission": "Je propose des services de SEO et de marketing digital pour maximiser la visibilité de votre projet J'optimise vos contenus pour les moteurs de recherche.",
+        "mission": "Services d'optimisation SEO et de marketing digital pour maximiser la visibilité des projets. Les contenus sont optimisés pour les moteurs de recherche, augmentant ainsi la visibilité en ligne.",
         "stacks": "SEO, Community Management, Réseaux Sociaux, Adaptation Mobile, Intégration HTML-CSS"
     },
     {

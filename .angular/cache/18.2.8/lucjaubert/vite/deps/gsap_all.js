@@ -1,4 +1,17 @@
 import {
+  Observer,
+  ScrollTrigger,
+  _getProxyProp,
+  _getScrollFunc,
+  _getTarget,
+  _getVelocityProp,
+  _horizontal,
+  _isViewport,
+  _proxies,
+  _scrollers,
+  _vertical
+} from "./chunk-PNSPIQNP.js";
+import {
   Back,
   Bounce,
   CSSPlugin,
@@ -38,19 +51,6 @@ import {
   wrap,
   wrapYoyo
 } from "./chunk-Q74R7WWM.js";
-import {
-  Observer,
-  ScrollTrigger,
-  _getProxyProp,
-  _getScrollFunc,
-  _getTarget,
-  _getVelocityProp,
-  _horizontal,
-  _isViewport,
-  _proxies,
-  _scrollers,
-  _vertical
-} from "./chunk-PNSPIQNP.js";
 import "./chunk-WDMUDEB6.js";
 
 // node_modules/gsap/utils/paths.js

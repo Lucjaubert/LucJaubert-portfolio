@@ -66,7 +66,7 @@ body::-webkit-scrollbar {
         font-family: 'Trap';
         font-weight: 600;
         font-style: normal;
-        font-size: map-get($font-size, "100");
+        font-size: map-get($font-size, "90");
         text-transform: uppercase;
         color: map-get($theme-colors, "blue");
     }
@@ -81,12 +81,16 @@ body::-webkit-scrollbar {
 
     h5 {
         font-family: 'Trap';
-        font-weight: 100;
+        font-weight: 500;
         font-style: normal;
-        font-size: map-get($font-size, "100");
-        color: map-get($theme-colors, "grey") !important;
+        font-size: map-get($font-size, "90");
+        color: map-get($theme-colors, "light-blue-2") !important;
 
         &:hover {
+            color: map-get($theme-colors, "beige") !important;
+        }
+
+        @media (max-width: map-get($breakpoints, "md")) {
             color: map-get($theme-colors, "beige") !important;
         }
     }

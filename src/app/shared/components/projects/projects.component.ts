@@ -457,7 +457,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
       timeline = gsap.timeline({ repeat: repeatValue, defaults: { ease: 'power1.inOut' } });
   
       const transitionDuration = 0.8; 
-      const displayDuration = 2.2;   
+      const displayDuration = 1.8;   
       const overlap = 0.2;         
       const timeBetweenElements = displayDuration - overlap;
   

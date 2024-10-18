@@ -1,13 +1,13 @@
-<section id="projects" class="project-presentation mt-md-9 py-md-14">
+<section id="projects" class="project-presentation mt-md-2 py-md-12">
   <div class="background-sides"></div>
 
   <div class="row project-hover-container">
-    <div class="col-12 col-md-6 projects-list p-lg-4 p-5">
+    <div class="col-12 col-md-6 projects-list ps-lg-20 py-lg-5 d-flex justify-content-center py-10">
       <div class="current-projects">
         <div class="projects-2024">
           <div *ngFor="let project of projects; let i = index">
             <div
-              class="project-container text-slide d-flex justify-content-lg-end justify-content-center align-items-center py-4"
+              class="project-container text-slide d-flex justify-content-lg-end justify-content-sm-start align-items-center py-4"
               (click)="onProjectContainerClick(i)"
               (mouseenter)="onProjectHover(project, $event)"
               (mouseleave)="onProjectOut($event)"
@@ -45,8 +45,8 @@
                   </div>
                 </div>
 
-                <div class="project-details-container">
-                  <div class="col-12 project-details row text-center mt-5">
+                <div class="project-details-container py-0">
+                  <div class="col-12 project-details row text-center py-0">
                     <div class="col-12 col-sm-4 d-flex flex-column align-items-start px-sm-4">
                       <p class="mb-0"><strong>Le Projet</strong></p>
                       <span class="mt-1 text-start">{{ project.project }}</span>
@@ -60,8 +60,8 @@
                       <span class="mt-1 text-start">{{ project.stacks }}</span>
                     </div>
                   </div>
-                  <div class="d-flex px-3 align-items-baseline">
-                    <p class="url mt-0 text-start" (click)="openProjectLink(project)">{{ project.url }}</p>
+                  <div class="d-flex px-3 align-items-baseline mt-2">
+                    <p class="url text-start" (click)="openProjectLink(project)">{{ project.url }}</p>
                     <button class="btn align-self-baseline open-project-button" (click)="openProjectLink(project)">
                         <span class="material-symbols-outlined">open_in_new</span>
                     </button>
@@ -98,7 +98,7 @@
           </div>
         </div>
 
-        <div class="col-12 project-details row text-center mt-md-8">
+        <div class="col-12 project-details row text-center mt-md-9">
           <div class="col-12 col-md-4 d-flex flex-column align-items-start px-md-4">
             <p class="mb-0"><strong>Le Projet</strong></p>
             <span class="mt-1 text-start">{{ currentProject?.project }}</span>

@@ -126,7 +126,8 @@ export class StudioWebComponent implements AfterViewInit, OnInit, OnDestroy {
                 ease: "power4.out",
               }
             );
-          }          
+          }
+          
   
           if (horizontalLine) {
             tl.fromTo(horizontalLine, {

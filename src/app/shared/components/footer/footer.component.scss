@@ -1,11 +1,11 @@
 @import "../../../../styles/_variables.scss";
 
 .footer-section {
-  background-color: map-get($theme-colors, "black");
+  background-color: map-get($theme-colors, "blue-2");
 
   .copyright {
     font-size: 1rem;
-    color: map-get($theme-colors, "blue");
+    color: map-get($theme-colors, "light-blue");
     font-weight: 300;
     margin-top: 2rem;
     opacity: 0; 
