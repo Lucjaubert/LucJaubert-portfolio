@@ -21,7 +21,7 @@ export class NamePresentationComponent implements OnInit, AfterViewInit {
     if (isPlatformBrowser(this.platformId)) {
       this.initAnimeJS();
       this.initDotReturn(); 
-      this.setDotPositionOnLoad(); // Assure que le dot est bien positionné dès le chargement
+      this.setDotPositionOnLoad(); 
     }
   }
 

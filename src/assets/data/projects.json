@@ -1,11 +1,12 @@
 [
   {
-    "name": "Laiterie Burdigala .",
+    "name": "LAITERIE BURDIGALA .",
     "year": "2024",
-    "project": "Fromagerie aux Capucins - Bordeaux",
-    "role": "Maquettes - Développement front-end",
-    "stacks": "WordPress Headless - Angular",
-    "url": "www.laiterie-burdigala.com",
+    "project": "Laiterie aux Capucins - Bordeaux",
+    "role": "Maquettes - Développement front-end - API",
+    "stacks": "WordPress Headless, Angular, API REST, Figma",
+    "url": "www.laiterieburdigala.fr",
+    "description": "Site e-commerce avec WordPress Headless et Angular, intégration API REST, commande en ligne et click&collect.",
     "images": [
       "assets/img/laiterie/images/laiterie-desktop-1.webp",
       "assets/img/laiterie/images/laiterie-desktop-2.webp",
@@ -28,12 +29,13 @@
     "animationType": "laiterieAnimation"
   },
   {
-    "name": "Anglais Du Vin .",
+    "name": "ANGLAIS DU VIN .",
     "year": "2024",
-    "project": "Promotion manuel d'anglais pour les professionnels du vin",
+    "project": "Manuel d'anglais pour les professionnels du vin",
     "role": "Maquettes - Développement front-end",
-    "stacks": "WordPress Headless - Angular",
-    "url": "www.anglaisduvin.com",
+    "stacks": "Angular, Figma",
+    "url": "www.kathrynwaltonward.com",
+    "description": "Site de promotion pour un manuel d'anglais dédié aux professionnels du vin.",
     "images": [
       "assets/img/anglais/images/anglais-du-vin-desktop-1.webp",
       "assets/img/anglais/images/anglais-du-vin-desktop-2.webp",
@@ -51,12 +53,13 @@
     "animationType": "anglaisAnimation"
   },
   {
-    "name": "Limago Reflexo .",
+    "name": "LIMAGO REFLEXO .",
     "year": "2024",
-    "project": "Projet de réaménagement de Limago",
-    "role": "Maquettes - Développement front-end",
-    "stacks": "WordPress Headless - Angular",
-    "url": "www.limago-reflexo.com",
+    "project": "Site de Limago Reflexo - Réflexologie plantaire et palmaire",
+    "role": "Logo - Maquettes - Développement front-end",
+    "stacks": "WordPress Headless, Angular, API REST, Figma",
+    "url": "www.limago-reflexo.fr",
+    "description": "Site vitrine pour des services de réflexologie plantaire et palmaire",
     "images": [
       "assets/img/limago/images/limago-desktop-1.webp",
       "assets/img/limago/images/limago-desktop-2.webp",
@@ -77,12 +80,13 @@
     "animationType": "limagoAnimation"
   },
   {
-    "name": "Maison Ah-Rong .",
+    "name": "MAISON AH-RONG .",
     "year": "2024",
-    "project": "Projet de rénovation de Maison Ah-Rong",
+    "project": "Institut de massages coréens - Bordeaux",
     "role": "Maquettes - Développement front-end",
     "stacks": "WordPress Headless - Angular",
-    "url": "www.maison-ah-rong.com",
+    "url": "www.maisonahrong.com",
+    "description": "Site vitrine pour un institut de massages coréens à Bordeaux",
     "images": [
       "assets/img/maison/images/maison-desktop-1.webp",
       "assets/img/maison/images/maison-desktop-2.webp",
@@ -94,8 +98,7 @@
       "assets/img/maison/videos/Maison-Video-Desktop-1.mp4",
       "assets/img/maison/videos/Maison-Video-Desktop-2.mp4",
       "assets/img/maison/videos/Maison-Video-Smartphone-1.mp4",
-      "assets/img/maison/videos/Maison-Video-Smartphone-2.mp4",
-      "assets/img/maison/videos/Maison-Video-Smartphone-3.mp4"
+      "assets/img/maison/videos/Maison-Video-Smartphone-2.mp4"
     ],
     "animationType": "maisonAnimation"
   }

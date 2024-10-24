@@ -88,7 +88,7 @@
     color: map-get($theme-colors, "beige");
 
     @media (max-width: map-get($breakpoints, "md")) {
-      color: map-get($theme-colors, "light-blue");
+      color: map-get($theme-colors, "beige");
     }
   }
 
@@ -113,7 +113,7 @@
   .media-box {
     position: relative;
     width: 45vw;
-    height: 55vh;
+    height: 45vh;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -146,7 +146,7 @@
   }
 
   .url {
-    color: map-get($theme-colors, "light-blue");
+    color: map-get($theme-colors, "beige");
     
     &:hover {
       color: map-get($theme-colors, "grey");
@@ -157,7 +157,7 @@
     font-family: 'Material Symbols Outlined';
     font-weight: normal;
     font-style: normal;
-    font-size: 15px;
+    font-size: 12px;
     display: inline-block;
     line-height: 1;
     text-transform: none;
@@ -165,7 +165,7 @@
     white-space: nowrap;
     word-wrap: normal;
     direction: ltr;
-    color: map-get($theme-colors, "light-blue");
+    color: map-get($theme-colors, "beige");
   }
 
   .media-preview-mobile {

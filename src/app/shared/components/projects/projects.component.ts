@@ -27,6 +27,7 @@ interface Project {
   role: string;
   stacks: string;
   url: string;
+  description: string;
   images: string[];
   videos: string[];
   animationType: string;
@@ -188,26 +189,31 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   openProjectLink(project: Project | null): void {
     if (!project) return;
-
+  
     let url: string;
     switch (project.name) {
-      case 'Laiterie Burdigala':
-        url = 'https://www.laiterieburdigala.fr';
+      case 'LAITERIE BURDIGALA .':
+        url = 'www.laiterieburdigala.fr';
         break;
-      case 'Anglais Du Vin':
-        url = 'https://kathrynwaltonward.com/';
+      case 'ANGLAIS DU VIN .':
+        url = 'www.kathrynwaltonward.com';
         break;
-      case 'Limago Reflexo':
-        url = 'https://limago-reflexo.fr/';
+      case 'LIMAGO REFLEXO .':
+        url = 'www.limago-reflexo.fr';
         break;
-      case 'Maison Ah-Rong':
-        url = 'https://maisonahrong.com/';
+      case 'MAISON AH-RONG .':
+        url = 'www.maisonahrong.com';
         break;
       default:
         url = '#';
     }
+  
+    if (!/^https?:\/\//i.test(url)) {
+      url = 'https://' + url;
+    }
+  
     window.open(url, '_blank');
-  }
+  }  
 
   private initProjectAnimations(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -456,9 +462,9 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
   
       timeline = gsap.timeline({ repeat: repeatValue, defaults: { ease: 'power1.inOut' } });
   
-      const transitionDuration = 0.8; 
-      const displayDuration = 1.8;   
-      const overlap = 0.2;         
+      const transitionDuration = 0.8;
+      const displayDuration = 1.8;
+      const overlap = 0.2;
       const timeBetweenElements = displayDuration - overlap;
   
       const directionOptionsX = ['-100%', '0%', '100%'];
@@ -478,8 +484,9 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
         if (element.tagName.toLowerCase() === 'video') {
           element.muted = true;
           element.playsInline = true;
-          element.pause();
-          element.currentTime = 0;
+          element.autoplay = true;
+          element.preload = 'auto';
+          element.load();
         }
       });
   
@@ -501,7 +508,12 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
             duration: transitionDuration,
             onStart: () => {
               if (element.tagName.toLowerCase() === 'video') {
-                element.play();
+                const playPromise = element.play();
+                if (playPromise !== undefined) {
+                  playPromise.catch((error: any) => {
+                    console.error('Erreur lors de la lecture de la vidéo :', error);
+                  });
+                }
               }
             },
           },
@@ -527,6 +539,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
         );
       });
   
+      // Affectation de la timeline appropriée
       switch (timelineName) {
         case 'laiterie':
           this.laiterieTimeline = timeline;

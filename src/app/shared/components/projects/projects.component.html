@@ -22,26 +22,27 @@
               [ngClass]="{ active: isMediaPreviewVisible(i) }"
               (click)="toggleMediaPreview(i)"
             >
-              <div class="col-12 d-flex flex-column h-100">
-                <div class="col-12 media-box d-flex flex-wrap flex-column align-items-center media-gallery flex-grow-1">
+              <div class="col-12 d-flex flex-column">
+                <div class="col-12 media-box d-flex flex-wrap flex-column align-items-center media-gallery">
                   <div *ngFor="let media of getMediaSequence(project); let j = index" #mediaElement class="media-element">
                     <img
                       *ngIf="media.type === 'image'"
                       [src]="media.src"
                       class="img-fluid"
                       alt="Image du projet"
-                    />
-                    <video
+                      />
+                      <video
                       *ngIf="media.type === 'video'"
                       autoplay
                       muted
                       playsinline
                       loop
+                      preload="auto"
                       class="img-fluid"
-                    >
+                      >
                       <source [src]="media.src" type="video/mp4" />
                       Votre navigateur ne supporte pas la balise vidéo.
-                    </video>
+                  </video>
                   </div>
                 </div>
 
@@ -60,7 +61,15 @@
                       <span class="mt-1 text-start">{{ project.stacks }}</span>
                     </div>
                   </div>
-                  <div class="d-flex px-3 align-items-baseline mt-2">
+
+                  <div class="col-12 project-details row text-center py-2-md py-0">
+                    <div class="col-12 d-flex flex-column align-items-start px-sm-4">
+                      <p class="mb-0"><strong>Description</strong></p>
+                      <span class="mt-1 text-start">{{ project.description }}</span>
+                    </div>
+                  </div>
+
+                  <div class="d-flex px-3 align-items-baseline py-3">
                     <p class="url text-start" (click)="openProjectLink(project)">{{ project.url }}</p>
                     <button class="btn align-self-baseline open-project-button" (click)="openProjectLink(project)">
                         <span class="material-symbols-outlined">open_in_new</span>
@@ -90,8 +99,9 @@
               muted
               playsinline
               loop
+              preload="auto"
               class="img-fluid"
-            >
+              >
               <source [src]="media.src" type="video/mp4" />
               Votre navigateur ne supporte pas la balise vidéo.
             </video>
@@ -110,6 +120,13 @@
           <div class="col-12 col-md-4 d-flex flex-column align-items-start px-md-4">
             <p class="mb-0"><strong>Les Stacks</strong></p>
             <span class="mt-1 text-start">{{ currentProject?.stacks }}</span>
+          </div>
+        </div>
+        
+        <div class="col-12 project-details row text-center py-3">
+          <div class="col-12 d-flex flex-column align-items-start px-sm-4">
+            <p class="mb-0"><strong>Description</strong></p>
+            <span class="mt-1 text-start">{{ currentProject?.description }}</span>
           </div>
         </div>
       </div>
