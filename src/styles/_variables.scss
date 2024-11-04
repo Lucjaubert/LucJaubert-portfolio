@@ -13,7 +13,6 @@ $theme-colors: (
   "orange": #fff5dc,
   "light-pink": #fff4ff,
   "second-blue": #EDFFFF,
-  "black": #353535,
   "white": #FDFDFD,
 
   "magenta": #FF6F61,
@@ -28,6 +27,8 @@ $theme-colors: (
   "blue-5": #2E3576,
   "blue-6": #282E67,
   "blue-7": #161a4d,
+
+  "black": #303030,
 );
 
 // Tailles des bordures
@@ -87,7 +88,8 @@ $breakpoints: (
   "md": 768px,  // Medium devices (tablets)
   "lg": 1024px, // Large devices (desktops)
   "xl": 1440px, // Extra large devices (large desktops)
-  "xxl": 1980px // Extra extra large devices (very large desktops)
+  "xxl": 1980px, // Extra extra large devices (very large desktops)
+  "3xl": 2560px // Extra extra extra large devices (4k monitors)
 );
 
 // _variables.scss
@@ -97,6 +99,7 @@ $breakpoint-md: 768px;
 $breakpoint-lg: 1024px;
 $breakpoint-xl: 1440px;
 $breakpoint-xxl: 1980px;
+$breakpoint-3xl: 2560px;
 
 
 // Espacements

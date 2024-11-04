@@ -1,9 +1,10 @@
 import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
 import { PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import anime from 'animejs/lib/anime.es.js';
+import { RouterOutlet } from '@angular/router';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,11 +12,27 @@ gsap.registerPlugin(ScrollTrigger);
   selector: 'app-name-presentation',
   templateUrl: './name-presentation.component.html',
   styleUrls: ['./name-presentation.component.scss'],
+  standalone: true,
+  imports: [
+    RouterOutlet,
+    CommonModule
+  ]
 })
 export class NamePresentationComponent implements OnInit, AfterViewInit {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-  ngOnInit(): void {}
+  colors = [
+    { name: 'red', image: 'letter-L-red.png', hex: '#FF0000' },
+    { name: 'green', image: 'letter-L-green.png', hex: '#00FF00' },
+    { name: 'blue', image: 'letter-L-blue.png', hex: '#0000FF' },
+    { name: 'orange', image: 'letter-L-orange.png', hex: '#FFA500' }
+  ];
+
+  selectedColor: any;
+
+  ngOnInit(): void {
+    this.selectedColor = this.colors[Math.floor(Math.random() * this.colors.length)];
+  }
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {

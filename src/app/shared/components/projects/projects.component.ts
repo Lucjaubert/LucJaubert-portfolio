@@ -462,10 +462,9 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
   
       timeline = gsap.timeline({ repeat: repeatValue, defaults: { ease: 'power1.inOut' } });
   
-      const transitionDuration = 0.8;
-      const displayDuration = 1.8;
-      const overlap = 0.2;
-      const timeBetweenElements = displayDuration - overlap;
+      const transitionDuration = 0.4;
+      const displayDuration = 1.2;
+      const timeBetweenElements = displayDuration;
   
       const directionOptionsX = ['-100%', '0%', '100%'];
       const directionOptionsY = ['-100%', '0%', '100%'];
@@ -539,7 +538,6 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
         );
       });
   
-      // Affectation de la timeline appropriée
       switch (timelineName) {
         case 'laiterie':
           this.laiterieTimeline = timeline;

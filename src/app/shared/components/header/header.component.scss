@@ -23,8 +23,8 @@
       position: absolute;
       top: 0%; 
       left: 0;
-      height: 1.5px;
-      background-color: map-get($theme-colors, "blue");
+      height: 1px;
+      background-color: map-get($theme-colors, "black");
       width: 0%;
       animation: drawLine 3s forwards ease-out;
       z-index: 2; 
@@ -54,11 +54,12 @@
       
 
       .nav-link {
-        color: map-get($theme-colors, "blue");
+        color: map-get($theme-colors, "black-2");
         text-transform: uppercase;
         padding-bottom: 0.5rem;
         position: relative;
         z-index: 1;
+        font-weight: 400;
       }
 
       .nav-item-projects {

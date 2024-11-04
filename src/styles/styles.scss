@@ -51,7 +51,7 @@ body::-webkit-scrollbar {
         font-family: 'Trap';
         font-weight: 600;
         font-style: normal;
-        color: map-get($theme-colors, "blue");
+        color: map-get($theme-colors, "black");
     }
 
     h2 {
@@ -64,7 +64,7 @@ body::-webkit-scrollbar {
 
     h3 {
         font-family: 'Trap';
-        font-weight: 600;
+        font-weight: 400;
         font-style: normal;
         font-size: map-get($font-size, "90");
         text-transform: uppercase;
@@ -81,17 +81,37 @@ body::-webkit-scrollbar {
 
     h5 {
         font-family: 'Trap';
-        font-weight: 400;
+        font-weight: 100;
         font-style: normal;
-        font-size: map-get($font-size, "90");
         color: map-get($theme-colors, "light-blue-2") !important;
 
         &:hover {
             color: map-get($theme-colors, "beige") !important;
         }
 
+        @media (max-width: map-get($breakpoints, "3xl")) {
+            color: map-get($theme-colors, "beige") !important;
+            font-size: map-get($font-size, "110");
+        }
+
+        @media (max-width: map-get($breakpoints, "xl")) {
+            color: map-get($theme-colors, "beige") !important;
+            font-size: map-get($font-size, "110");
+        }
+
+        @media (max-width: map-get($breakpoints, "lg")) {
+            color: map-get($theme-colors, "beige") !important;
+            font-size: map-get($font-size, "90");
+        }
+
         @media (max-width: map-get($breakpoints, "md")) {
             color: map-get($theme-colors, "beige") !important;
+            font-size: map-get($font-size, "70") !important;
+        }
+
+        @media (max-width: map-get($breakpoints, "md")) {
+            color: map-get($theme-colors, "beige") !important;
+            font-size: map-get($font-size, "50") !important;
         }
     }
 
@@ -113,3 +133,36 @@ body::-webkit-scrollbar {
         margin: 0;
     }
 }
+
+#back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: none; 
+    width: 50px;
+    height: 50px;
+    background-color: map-get($theme-colors, "blue-2");
+    color: map-get($theme-colors, "beige");
+    border: none;
+    border-radius: 50%;
+    font-size: 2rem;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  #back-to-top.show {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  #back-to-top:hover {
+    background-color: map-get($theme-colors, "light-blue");
+  }
+  

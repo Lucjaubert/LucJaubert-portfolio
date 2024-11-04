@@ -2,18 +2,20 @@
   <div class="background-sides"></div>
 
   <div class="row project-hover-container">
-    <div class="col-12 col-md-6 projects-list ps-lg-20 py-lg-5 d-flex justify-content-center py-10">
+    <div class="col-12 col-md-7 projects-list ps-lg-5 ps-sm-5 py-lg-5 py-10">
       <div class="current-projects">
-        <div class="projects-2024">
+        <div class="projects-2024 d-flex flex-column align-items-center justify-content-center">
           <div *ngFor="let project of projects; let i = index">
             <div
-              class="project-container text-slide d-flex justify-content-lg-end justify-content-sm-start align-items-center py-4"
+              class="project-container text-slide d-flex justify-content-lg-end justify-content-sm-start align-items-center py-2"
               (click)="onProjectContainerClick(i)"
               (mouseenter)="onProjectHover(project, $event)"
               (mouseleave)="onProjectOut($event)"
             >
-              <h5 class="mb-0">{{ project.name }}</h5>
-              <span class="date ms-2">{{ project.year }}</span>
+              <div class="project-item">
+                <h5 [ngClass]="'offset-' + i" class="mb-0">{{ project.name }}</h5>
+                <span [ngClass]="'offset-' + i" class="date ms-2">{{ project.year }}</span>
+              </div>
             </div>
 
             <div
@@ -30,8 +32,8 @@
                       [src]="media.src"
                       class="img-fluid"
                       alt="Image du projet"
-                      />
-                      <video
+                    />
+                    <video
                       *ngIf="media.type === 'video'"
                       autoplay
                       muted
@@ -39,10 +41,10 @@
                       loop
                       preload="auto"
                       class="img-fluid"
-                      >
+                    >
                       <source [src]="media.src" type="video/mp4" />
                       Votre navigateur ne supporte pas la balise vidéo.
-                  </video>
+                    </video>
                   </div>
                 </div>
 
@@ -83,7 +85,7 @@
       </div>
     </div>
 
-    <div class="col-12 col-md-6 media-preview">
+    <div class="col-12 col-md-5 media-preview">
       <div class="col-12 d-flex flex-column" [ngClass]="{ invisible: !isHovered }">
         <div class="col-12 media-box d-flex flex-wrap flex-column align-items-center py-md-14 media-gallery">
           <div *ngFor="let media of mediaSequence; let j = index" #mediaElement class="media-element">
@@ -108,7 +110,7 @@
           </div>
         </div>
 
-        <div class="col-12 project-details row text-center mt-md-9">
+        <div class="col-12 project-details row text-center mt-md-5">
           <div class="col-12 col-md-4 d-flex flex-column align-items-start px-md-4">
             <p class="mb-0"><strong>Le Projet</strong></p>
             <span class="mt-1 text-start">{{ currentProject?.project }}</span>
@@ -123,7 +125,7 @@
           </div>
         </div>
         
-        <div class="col-12 project-details row text-center py-3">
+        <div class="col-12 project-details row text-center py-1">
           <div class="col-12 d-flex flex-column align-items-start px-sm-4">
             <p class="mb-0"><strong>Description</strong></p>
             <span class="mt-1 text-start">{{ currentProject?.description }}</span>
