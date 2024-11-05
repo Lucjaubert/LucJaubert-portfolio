@@ -1,16 +1,18 @@
 @import "../../../../styles/_variables.scss";
 
 .footer-section {
-  background-color: map-get($theme-colors, "blue-2");
+  background-color: map-get($theme-colors, "dark-black");
 
   .copyright {
     font-size: 1rem;
-    color: map-get($theme-colors, "light-blue");
     font-weight: 300;
     margin-top: 2rem;
     opacity: 0; 
     transform: translateY(20px);
-    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+    transition: transform 0.8s ease-out, opacity 0.8s ease-out, color 0.5s ease;
+
+    // Ne pas définir de couleur ici
+    // color: map-get($theme-colors, "light-blue");
   }
 
   &.animate {
@@ -20,4 +22,20 @@
       transform: translateY(0); 
     }
   }
+}
+
+.color-light-blue {
+  color: map-get($theme-colors, "light-blue");
+}
+
+.color-light-green {
+  color: map-get($theme-colors, "light-green");
+}
+
+.color-yellow {
+  color: map-get($theme-colors, "yellow");
+}
+
+.color-orange {
+  color: map-get($theme-colors, "orange");
 }

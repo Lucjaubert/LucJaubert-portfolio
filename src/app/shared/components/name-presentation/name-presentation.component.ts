@@ -1,10 +1,9 @@
 import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
 import { PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import anime from 'animejs/lib/anime.es.js';
-import { RouterOutlet } from '@angular/router';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,26 +11,25 @@ gsap.registerPlugin(ScrollTrigger);
   selector: 'app-name-presentation',
   templateUrl: './name-presentation.component.html',
   styleUrls: ['./name-presentation.component.scss'],
-  standalone: true,
-  imports: [
-    RouterOutlet,
-    CommonModule
-  ]
 })
 export class NamePresentationComponent implements OnInit, AfterViewInit {
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
-
-  colors = [
-    { name: 'red', image: 'letter-L-red.png', hex: '#FF0000' },
-    { name: 'green', image: 'letter-L-green.png', hex: '#00FF00' },
-    { name: 'blue', image: 'letter-L-blue.png', hex: '#0000FF' },
-    { name: 'orange', image: 'letter-L-orange.png', hex: '#FFA500' }
+  
+  private colors = [
+    { name: 'blue', hex: '#515DE2', image: 'letter-L-blue.png' },
+    { name: 'yellow', hex: '#ffdc7a', image: 'letter-L-yellow.png' },
+    { name: 'orange', hex: '#ffa93a', image: 'letter-L-orange.png' },
+    { name: 'light-green', hex: '#92FFE4', image: 'letter-L-light-green.png' },
   ];
 
-  selectedColor: any;
+  currentColor = this.colors[0]; 
+  colorChangeInterval: any;
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit(): void {
-    this.selectedColor = this.colors[Math.floor(Math.random() * this.colors.length)];
+    if (isPlatformBrowser(this.platformId)) {
+      this.startColorChange();
+    }
   }
 
   ngAfterViewInit(): void {
@@ -40,6 +38,24 @@ export class NamePresentationComponent implements OnInit, AfterViewInit {
       this.initDotReturn(); 
       this.setDotPositionOnLoad(); 
     }
+  }
+
+  ngOnDestroy(): void {
+    if (this.colorChangeInterval) {
+      clearInterval(this.colorChangeInterval);
+    }
+  }
+
+  private startColorChange(): void {
+    this.colorChangeInterval = setInterval(() => {
+      this.changeColor();
+    }, 7000); 
+  }
+
+  private changeColor(): void {
+    const currentIndex = this.colors.indexOf(this.currentColor);
+    const nextIndex = (currentIndex + 1) % this.colors.length;
+    this.currentColor = this.colors[nextIndex];
   }
 
   private setDotPositionOnLoad(): void {

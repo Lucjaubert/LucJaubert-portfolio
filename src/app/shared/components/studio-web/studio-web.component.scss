@@ -3,8 +3,50 @@
 .studio-web-section {
   position: relative;
 
-  h3, p, span {
+  p, span {
     color: map-get($theme-colors, "beige")
+  }
+
+  .design-section {
+    h3 {
+      color: map-get($theme-colors, "light-blue");
+    }
+
+    .stack-item {
+
+        color: map-get($theme-colors, "light-blue");
+    }
+  }
+
+  .development-section {
+    h3 {
+      color: map-get($theme-colors, "yellow");
+    }
+
+    .stack-item {
+        color: map-get($theme-colors, "yellow");
+      
+    }
+  }
+
+  .marketing-section {
+    h3 {
+      color: map-get($theme-colors, "light-green");
+    }
+
+    .stack-item {
+        color: map-get($theme-colors, "light-green");
+    }
+  }
+
+  .process-section {
+    h3 {
+      color: map-get($theme-colors, "orange");
+    }
+
+    .stack-item {
+        color: map-get($theme-colors, "orange");
+    }
   }
 
   .design-section,
@@ -17,11 +59,11 @@
     align-items: flex-start;
     min-height: 100vh;
 
-    &.design-section { background-color: map-get($theme-colors, "blue-3"); }
-    &.development-section { background-color: map-get($theme-colors, "blue-4"); }
-    &.marketing-section { background-color: map-get($theme-colors, "blue-5"); }
+    &.design-section { background-color: map-get($theme-colors, "black"); }
+    &.development-section { background-color: map-get($theme-colors, "black"); }
+    &.marketing-section { background-color: map-get($theme-colors, "black"); }
     &.process-section {
-      background-color: map-get($theme-colors, "blue-6");
+      background-color: map-get($theme-colors, "black");
       margin-bottom: map-get($spacers, "5");
     }
 
@@ -120,6 +162,20 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 0;  
+
+    .stack-item {
+      margin-top: 0;
+      text-align: left;
+      font-size: map-get($font-size, "20");
+
+      transition: transform 0.3s ease, color 0.3s ease; 
+      transform-origin: left center;
+
+      &:hover {
+        transform: scale(1.2);
+        cursor: pointer; 
+      }
+    }
 
     span {
       margin-top: 0; 

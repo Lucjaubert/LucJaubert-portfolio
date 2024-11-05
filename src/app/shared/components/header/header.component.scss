@@ -1,8 +1,16 @@
 @import "../../../../styles/_variables.scss";
 
-
 .custom-container {
   width: 100%;
+
+  a {
+    font-size: map-get($font-size, "10");
+  }
+
+  
+  @media (max-width: map-get($breakpoints, "md")) {
+    font-size: map-get($font-size, "17");
+  }
 
   @media (max-width: map-get($breakpoints, "xxl")) {
     padding-left: 3vw !important;
@@ -23,8 +31,8 @@
       position: absolute;
       top: 0%; 
       left: 0;
-      height: 1px;
-      background-color: map-get($theme-colors, "black");
+      height: 0.5px;
+      background-color: map-get($theme-colors, "beige");
       width: 0%;
       animation: drawLine 3s forwards ease-out;
       z-index: 2; 
@@ -52,25 +60,44 @@
         }
       }
       
-
       .nav-link {
-        color: map-get($theme-colors, "black-2");
+        color: map-get($theme-colors, "beige");
         text-transform: uppercase;
         padding-bottom: 0.5rem;
         position: relative;
         z-index: 1;
         font-weight: 400;
+        transition: color 0.3s ease; 
       }
 
+      .nav-link-projects:hover {
+        color: map-get($theme-colors, "light-blue");
+      }
+
+      .nav-link-studio:hover {
+        color: map-get($theme-colors, "yellow");
+      }
+
+      .nav-link-bio:hover {
+        color: map-get($theme-colors, "light-green");
+      }
+
+      .nav-link-contact:hover {
+        color: map-get($theme-colors, "orange");
+      }
+      
       .nav-item-projects {
         animation: showTextProjets 1s forwards 0.1s;
       }
+
       .nav-item-studio {
         animation: showTextSW 1s forwards 0.7s;
       }
+
       .nav-item-bio {
         animation: showTextBio 1s forwards 1.5s;
       }
+
       .nav-item-contact {
         animation: showTextContact 1s forwards 2.5s;
       }

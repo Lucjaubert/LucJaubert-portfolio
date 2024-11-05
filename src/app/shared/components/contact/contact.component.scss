@@ -18,7 +18,7 @@
     left: 0;
     width: 100%;
     height: 0%;
-    background-color: map-get($theme-colors, "blue-2");
+    background-color: map-get($theme-colors, "dark-black");
     z-index: 0; 
     transform-origin: bottom; 
     visibility: visible; 
@@ -35,17 +35,46 @@
       margin: 1rem 0; 
       opacity: 0; 
       transform: translateY(20px); 
-      transition: transform 0.8s ease-out, opacity 0.8s ease-out; 
+      transition: transform 0.8s ease-out, opacity 0.8s ease-out, color 0.3s ease; 
       z-index: 1;
 
       a {
         color: inherit; 
         font-size: map-get($font-size, "100"); 
         text-decoration: none; 
+        position: relative;
+        transition: color 0.3s ease;
 
-        &:hover {
-          color: map-get($theme-colors, "light-blue"); 
+        &:after {
+          content: '';
+          position: absolute;
+          width: 0%;
+          height: 2px;
+          background-color: currentColor;
+          left: 0;
+          bottom: -5px;
+          transition: width 0.3s ease;
         }
+
+        &:hover::after {
+          width: 100%;
+        }
+      }
+
+      &.contact-email a:hover {
+        color: map-get($theme-colors, "light-green");
+      }
+
+      &.contact-malt a:hover {
+        color: map-get($theme-colors, "yellow");
+      }
+
+      &.contact-instagram a:hover {
+        color: map-get($theme-colors, "orange");
+      }
+
+      &.contact-github a:hover {
+        color: map-get($theme-colors, "light-blue");
       }
     }
   }
@@ -56,7 +85,7 @@
     font-size: 4rem; 
 
     a {
-      font-size: map-get($font-size, "100") !important; 
+      font-size: map-get($font-size, "90") !important; 
     }
   }
 }
@@ -66,7 +95,7 @@
     font-size: 3.5rem; 
 
     a {
-      font-size: map-get($font-size, "85") !important; 
+      font-size: map-get($font-size, "75") !important; 
     }
   }
 }
@@ -76,7 +105,7 @@
     font-size: 3rem !important; 
 
     a {
-      font-size: map-get($font-size, "75") !important; 
+      font-size: map-get($font-size, "65") !important; 
     }
   }
 }

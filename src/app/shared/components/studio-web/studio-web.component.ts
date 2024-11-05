@@ -62,13 +62,13 @@ export class StudioWebComponent implements AfterViewInit, OnInit, OnDestroy {
   getSectionClass(index: number): string {
     switch (index) {
       case 0:
-        return 'design-section d-flex col-md-12 py-md-10';
+        return 'design-section d-flex col-md-12 py-md-7';
       case 1:
-        return 'development-section d-flex col-md-12 py-md-10';
+        return 'development-section d-flex col-md-12 py-md-7';
       case 2:
-        return 'marketing-section d-flex col-md-12 py-md-10';
+        return 'marketing-section d-flex col-md-12 py-md-7';
       case 3:
-        return 'process-section d-flex col-md-12 py-md-10';
+        return 'process-section d-flex col-md-12 py-md-7';
       default:
         return 'default-section-class';
     }

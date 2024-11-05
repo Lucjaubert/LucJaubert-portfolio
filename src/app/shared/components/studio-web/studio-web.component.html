@@ -18,7 +18,12 @@
 
           <div class="section-details-preview col-md-4 col-12 px-5 pt-2 d-flex justify-content-start align-items-top mask-wrapper">
             <div class="stacks-slide d-flex flex-column align-items-start px-md-2 py-md-5">
-              <span *ngFor="let stack of section.stacks.split(',')" class="mt-1 text-start">{{ stack.trim() }}</span>
+              <span
+                *ngFor="let stack of section.stacks.split(',')"
+                class="mt-1 text-start stack-item"
+              >
+                {{ stack.trim() }}
+              </span>
             </div>
           </div>
         </div>

@@ -37,11 +37,11 @@ body::-webkit-scrollbar {
 }
 
 .app-root {
-    font-family: 'Open Sans';
+    font-family: 'Trap';
     font-weight: normal;
     font-style: normal;
     color: map-get($theme-colors, "blue");
-    background-color: map-get($theme-colors, "beige");
+    background-color: map-get($theme-colors, "black");
     margin: 0;
     padding: 0;
     min-height: 100%;
@@ -51,11 +51,11 @@ body::-webkit-scrollbar {
         font-family: 'Trap';
         font-weight: 600;
         font-style: normal;
-        color: map-get($theme-colors, "black");
+        color: map-get($theme-colors, "beige");
     }
 
     h2 {
-        font-family: 'Open Sans';
+        font-family: 'Trap';
         font-weight: 300;
         font-style: normal;
         color: map-get($theme-colors, "blue");
@@ -72,7 +72,7 @@ body::-webkit-scrollbar {
     }
 
     h4 {
-        font-family: 'Open Sans';
+        font-family: 'Trap';
         font-weight: 600;
         font-style: normal;
         font-size: map-get($font-size, "30");
@@ -83,40 +83,40 @@ body::-webkit-scrollbar {
         font-family: 'Trap';
         font-weight: 100;
         font-style: normal;
-        color: map-get($theme-colors, "light-blue-2") !important;
+        color: map-get($theme-colors, "blue") !important;
 
         &:hover {
-            color: map-get($theme-colors, "beige") !important;
+            color: map-get($theme-colors, "light-blue-2") !important;
         }
 
         @media (max-width: map-get($breakpoints, "3xl")) {
-            color: map-get($theme-colors, "beige") !important;
+            color: map-get($theme-colors, "blue") !important;
             font-size: map-get($font-size, "110");
         }
 
         @media (max-width: map-get($breakpoints, "xl")) {
-            color: map-get($theme-colors, "beige") !important;
+            color: map-get($theme-colors, "blue") !important;
             font-size: map-get($font-size, "110");
         }
 
         @media (max-width: map-get($breakpoints, "lg")) {
-            color: map-get($theme-colors, "beige") !important;
+            color: map-get($theme-colors, "blue") !important;
             font-size: map-get($font-size, "90");
         }
 
         @media (max-width: map-get($breakpoints, "md")) {
-            color: map-get($theme-colors, "beige") !important;
+            color: map-get($theme-colors, "blue") !important;
             font-size: map-get($font-size, "70") !important;
         }
 
         @media (max-width: map-get($breakpoints, "md")) {
-            color: map-get($theme-colors, "beige") !important;
+            color: map-get($theme-colors, "blue") !important;
             font-size: map-get($font-size, "50") !important;
         }
     }
 
     h6 {
-        font-family: 'Open Sans';
+        font-family: 'Trap';
         font-weight: normal;
         font-style: normal;
         font-size: map-get($font-size, "20");
@@ -124,7 +124,7 @@ body::-webkit-scrollbar {
     }
 
     ul, li, a, p {
-        font-family: 'Open Sans';
+        font-family: 'Trap';
         font-weight: 300;
         font-size: map-get($font-size, "20");
         font-style: normal;
@@ -141,11 +141,11 @@ body::-webkit-scrollbar {
     display: none; 
     width: 50px;
     height: 50px;
-    background-color: map-get($theme-colors, "blue-2");
+    background-color: map-get($theme-colors, "blue-6");
     color: map-get($theme-colors, "beige");
     border: none;
     border-radius: 50%;
-    font-size: 2rem;
+    font-size: 1.5rem;
     cursor: pointer;
     align-items: center;
     justify-content: center;
@@ -154,15 +154,20 @@ body::-webkit-scrollbar {
     transition: opacity 0.3s ease, visibility 0.3s ease;
     opacity: 0;
     visibility: hidden;
+
+    @media (max-width: map-get($breakpoints, "md")) {
+        width: 40px;
+        height: 40px;
+    }
   }
   
-  #back-to-top.show {
+#back-to-top.show {
     display: flex;
     opacity: 1;
     visibility: visible;
-  }
-  
-  #back-to-top:hover {
+}
+
+#back-to-top:hover {
     background-color: map-get($theme-colors, "light-blue");
-  }
+}
   

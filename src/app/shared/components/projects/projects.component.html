@@ -2,7 +2,7 @@
   <div class="background-sides"></div>
 
   <div class="row project-hover-container">
-    <div class="col-12 col-md-7 projects-list ps-lg-5 ps-sm-5 py-lg-5 py-10">
+    <div class="col-12 col-md-6 projects-list ps-lg-5 ps-sm-5 py-lg-15 py-20">
       <div class="current-projects">
         <div class="projects-2024 d-flex flex-column align-items-center justify-content-center">
           <div *ngFor="let project of projects; let i = index">
@@ -18,13 +18,8 @@
               </div>
             </div>
 
-            <div
-              *ngIf="isMediaPreviewVisible(i)"
-              class="media-preview-mobile media-preview-mobile-{{ i }}"
-              [ngClass]="{ active: isMediaPreviewVisible(i) }"
-              (click)="toggleMediaPreview(i)"
-            >
-              <div class="col-12 d-flex flex-column">
+            <div *ngIf="isMediaPreviewVisible(i)" class="media-preview-mobile media-preview-mobile-{{ i }}" [ngClass]="{ active: isMediaPreviewVisible(i) }" (click)="toggleMediaPreview(i)">
+              <div class="col-12 d-flex flex-column media-container">
                 <div class="col-12 media-box d-flex flex-wrap flex-column align-items-center media-gallery">
                   <div *ngFor="let media of getMediaSequence(project); let j = index" #mediaElement class="media-element">
                     <img
@@ -85,7 +80,7 @@
       </div>
     </div>
 
-    <div class="col-12 col-md-5 media-preview">
+    <div class="col-12 col-md-6 media-preview">
       <div class="col-12 d-flex flex-column" [ngClass]="{ invisible: !isHovered }">
         <div class="col-12 media-box d-flex flex-wrap flex-column align-items-center py-md-14 media-gallery">
           <div *ngFor="let media of mediaSequence; let j = index" #mediaElement class="media-element">
@@ -111,22 +106,22 @@
         </div>
 
         <div class="col-12 project-details row text-center mt-md-5">
-          <div class="col-12 col-md-4 d-flex flex-column align-items-start px-md-4">
+          <div class="col-12 col-md-4 d-flex flex-column align-items-start">
             <p class="mb-0"><strong>Le Projet</strong></p>
             <span class="mt-1 text-start">{{ currentProject?.project }}</span>
           </div>
-          <div class="col-12 col-md-4 d-flex flex-column align-items-start px-md-4">
+          <div class="col-12 col-md-4 d-flex flex-column align-items-start">
             <p class="mb-0"><strong>Mes Missions</strong></p>
             <span class="mt-1 text-start">{{ currentProject?.role }}</span>
           </div>
-          <div class="col-12 col-md-4 d-flex flex-column align-items-start px-md-4">
+          <div class="col-12 col-md-4 d-flex flex-column align-items-start">
             <p class="mb-0"><strong>Les Stacks</strong></p>
             <span class="mt-1 text-start">{{ currentProject?.stacks }}</span>
           </div>
         </div>
         
-        <div class="col-12 project-details row text-center py-1">
-          <div class="col-12 d-flex flex-column align-items-start px-sm-4">
+        <div class="col-12 project-details row text-center py-3">
+          <div class="col-12 d-flex flex-column align-items-start">
             <p class="mb-0"><strong>Description</strong></p>
             <span class="mt-1 text-start">{{ currentProject?.description }}</span>
           </div>
