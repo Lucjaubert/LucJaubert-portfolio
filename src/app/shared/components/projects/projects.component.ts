@@ -463,7 +463,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
       timeline = gsap.timeline({ repeat: repeatValue, defaults: { ease: 'power1.inOut' } });
   
       const transitionDuration = 0.4;
-      const displayDuration = 1.2;
+      const displayDuration = 1.5;
       const timeBetweenElements = displayDuration;
   
       const directionOptionsX = ['-100%', '0%', '100%'];

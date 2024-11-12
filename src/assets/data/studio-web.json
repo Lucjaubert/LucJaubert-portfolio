@@ -1,22 +1,22 @@
 [
     {
         "name": "Developpement Web et Mobile",
-        "mission": "Conception et développement de sites web pour tous types d'appareils, adaptés aux besoins spécifiques. Utilisation des technologies les plus récentes pour créer des solutions fiables, rapides et évolutives qui répondent aux objectifs définis. Les sites sont livrés avec des outils de gestion de contenu intuitifs et faciles à utiliser.",
-        "stacks": "Sites Vitrine, Sites Institutionnels, E-commerce, Développement Sur-mesure, Angular 18, WordPress Headless, WordPress Personnalisé, Shopify, HTML5/CSS3, JavaScript - TypeScript, API GoogleMaps"
+        "mission": "Conception et développement de sites web pour tous types d'appareils, adaptés aux besoins spécifiques.\nUtilisation des technologies les plus récentes pour créer des solutions fiables, rapides et évolutives qui répondent aux objectifs définis.\nLes sites sont livrés avec des outils de gestion de contenu intuitifs et faciles à utiliser.",
+        "stacks": "Sites Vitrine, Sites Institutionnels, E-commerce, Developpement Sur-mesure, Angular 18, WordPress Headless, WordPress Personnalise, Shopify, HTML5/CSS3, JavaScript - TypeScript, API GoogleMaps"
     },
     {
         "name": "Conception et Design Web",
-        "mission": "J'accompagne mes clients dans la création d'interfaces intuitives et esthétiques. Mon objectif est de proposer des designs modernes, tout en veillant à l'ergonomie, à l'expérience utilisateur et à la cohérence visuelle qui refléte l'identité de la marque. Je collabore avec des agences de communication en transformant leurs maquettes en sites web fonctionnels, en restant fidèle aux designs fournis et en intégrant des fonctionnalités qui respectent l’expérience utilisateur définie par l’agence.",
-        "stacks": "Webdesign, UI Design, UX Design, Responsive Design, Identité Visuelle, Charte Graphique, Création de Logo"
+        "mission": "J'accompagne mes clients dans la creation d'interfaces intuitives et esthetiques. Mon objectif est de proposer des designs modernes, tout en veillant a l'ergonomie, a l'experience utilisateur et a la coherence visuelle qui reflete l'identite de la marque.\nJe collabore avec des agences de communication en transformant leurs maquettes en sites web fonctionnels, en restant fidele aux designs fournis et en integrant des fonctionnalites qui respectent l’experience utilisateur definie par l’agence.",
+        "stacks": "Webdesign, UI Design, UX Design, Responsive Design, Identite Visuelle, Charte Graphique, Creation de Logo"
     },
     {
         "name": "Optimisation et Marketing Digital",
-        "mission": "Services d'optimisation SEO et de marketing digital pour maximiser la visibilité des projets. Les contenus sont optimisés pour les moteurs de recherche, augmentant ainsi la visibilité en ligne.",
-        "stacks": "SEO, Réseaux Sociaux, Adaptation Mobile, Intégration HTML-CSS"
+        "mission": "Services d'optimisation SEO et de marketing digital pour maximiser la visibilite des projets. Les contenus sont optimises pour les moteurs de recherche, augmentant ainsi la visibilite en ligne.",
+        "stacks": "SEO, Reseaux Sociaux, Adaptation Mobile, Integration HTML-CSS"
     },
     {
         "name": "Processus de Creation et Lancement",
-        "mission": "Je gère l'ensemble du processus de création, du brief initial jusqu'à la mise en ligne. Chaque étape est soigneusement planifiée pour garantir un déploiement fluide et une qualité optimale.",
-        "stacks": "Brief, Méthodologie, Ergonomie, Zoning, Maquettes Figma, Récupération de Contenus, Développement & Intégration, SEO, Tests de Serveur, Hébergement, Déploiement - Mise en ligne"
+        "mission": "Je gere l'ensemble du processus de creation, du brief initial jusqu'a la mise en ligne. Chaque etape est soigneusement planifiee pour garantir un deploiement fluide et une qualite optimale.",
+        "stacks": "Brief, Methodologie, Ergonomie, Zoning, Maquettes Figma, Recuperation de Contenus, Developpement & Integration, SEO, Tests de Serveur, Hebergement, Deploiement - Mise en ligne"
     }
 ]
