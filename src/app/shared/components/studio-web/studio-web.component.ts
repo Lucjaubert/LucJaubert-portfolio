@@ -5,6 +5,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { SlugifyPipe } from '../../pipe/slugify.pipe';
+import { LineBreaksPipe } from '../../pipe/line-breaks.pipe';
 
 gsap.registerPlugin(CSSPlugin, ScrollTrigger);
 
@@ -22,7 +23,8 @@ interface StudioSection {
   imports: [
     RouterOutlet,
     CommonModule,
-    SlugifyPipe
+    SlugifyPipe,
+    LineBreaksPipe
   ]
 })
 export class StudioWebComponent implements AfterViewInit, OnInit, OnDestroy {

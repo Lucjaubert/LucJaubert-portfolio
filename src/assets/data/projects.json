@@ -2,11 +2,11 @@
   {
     "name": "LAITERIE BURDIGALA .",
     "year": "2024",
-    "project": "Laiterie aux Capucins - Bordeaux",
-    "role": "Maquettes - Développement complet - Pages produits - Click&collect sur mesure - API REST",
+    "project": "Creation du site internet de la Laiterie Burdigala aux Capucins - Bordeaux",
+    "role": "Charte graphique, ergonomie, zoning, design et developpement, Click&collect sur mesure, SEO, deploiement",
     "stacks": "WordPress Headless, Angular, API REST, Figma",
     "url": "www.laiterieburdigala.fr",
-    "description": "Site e-commerce avec WordPress Headless et Angular, intégration API REST, commande en ligne et click&collect.",
+    "description": "Site e-commerce avec WordPress Headless et Angular, integration API REST, commande en ligne et click&collect.",
     "images": [
       "assets/img/laiterie/images/laiterie-desktop-1.webp",
       "assets/img/laiterie/images/laiterie-desktop-2.webp",
@@ -31,11 +31,11 @@
   {
     "name": "ANGLAIS DU VIN .",
     "year": "2024",
-    "project": "Manuel d'anglais pour les professionnels du vin",
-    "role": "Maquettes - Développement front-end",
+    "project": "Creation d'un site internet pour un manuel d'anglais destine aux professionnels du vin",
+    "role": "Charte graphique, ergonomie, zoning, design et developpement, SEO, deploiement",
     "stacks": "Angular, Figma",
     "url": "www.kathrynwaltonward.com",
-    "description": "Site de promotion pour un manuel d'anglais dédié aux professionnels du vin.",
+    "description": "Site de promotion pour un manuel d'anglais dedie aux professionnels du vin.",
     "images": [
       "assets/img/anglais/images/anglais-du-vin-desktop-1.webp",
       "assets/img/anglais/images/anglais-du-vin-desktop-2.webp",
@@ -53,13 +53,13 @@
     "animationType": "anglaisAnimation"
   },
   {
-    "name": "LIMAGO REFLEXO .",
+    "name": "L'IMAGO REFLEXO .",
     "year": "2024",
-    "project": "Site de Limago Reflexo - Réflexologie plantaire et palmaire",
-    "role": "Logo - Maquettes - Développement front-end",
+    "project": "Creation du site internet de L'imago Reflexo - Reflexologie plantaire et palmaire",
+    "role": "Creation logo, charte graphique, ergonomie, zoning, design et developpement, SEO, deploiement",
     "stacks": "WordPress Headless, Angular, API REST, Figma",
     "url": "www.limago-reflexo.fr",
-    "description": "Site vitrine pour des services de réflexologie plantaire et palmaire",
+    "description": "Site vitrine pour des services de reflexologie plantaire et palmaire",
     "images": [
       "assets/img/limago/images/limago-desktop-1.webp",
       "assets/img/limago/images/limago-desktop-2.webp",
@@ -82,11 +82,11 @@
   {
     "name": "MAISON AH-RONG .",
     "year": "2024",
-    "project": "Institut de massages coréens - Bordeaux",
-    "role": "Maquettes - Développement front-end",
+    "project": "Creation du site internet pour un institut de massages coreens - Bordeaux",
+    "role": "Charte graphique, ergonomie, zoning, design et developpement, SEO, deploiement",
     "stacks": "WordPress Headless - Angular",
     "url": "www.maisonahrong.com",
-    "description": "Site vitrine pour un institut de massages coréens a Bordeaux",
+    "description": "Site vitrine pour un institut de massages coreens a Bordeaux",
     "images": [
       "assets/img/maison/images/maison-desktop-1.webp",
       "assets/img/maison/images/maison-desktop-2.webp",
