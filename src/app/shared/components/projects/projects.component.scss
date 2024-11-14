@@ -27,15 +27,15 @@
   .text-slide {
     opacity: 0;
     transform: translateY(20px);
-    color: map-get($theme-colors, "blue");
+    color: map-get($theme-colors, "orange");
     transition: transform 0.3s ease, opacity 0.3s ease;
 
     &:hover {
-      color: map-get($theme-colors, "light-blue-2") !important;
+      color: map-get($theme-colors, "beige") !important;
     }
 
     @media (max-width: map-get($breakpoints, "md")) {
-      color: map-get($theme-colors, "blue") !important;
+      color: map-get($theme-colors, "orange") !important;
     }
   }
 
@@ -95,7 +95,7 @@
         right: 1rem;
         background: none;
         border: none;
-        color: map-get($theme-colors, "blue");
+        color: map-get($theme-colors, "orange");
         font-size: 24px;
       }
 
@@ -216,7 +216,7 @@
     color: map-get($theme-colors, "beige");
     
     &:hover {
-      color: map-get($theme-colors, "light-blue-2");
+      color: map-get($theme-colors, "beige");
     }
   }
 
