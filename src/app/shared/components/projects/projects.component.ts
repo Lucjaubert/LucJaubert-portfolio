@@ -27,7 +27,7 @@ interface Project {
   role: string;
   stacks: string;
   url: string;
-  description: string;
+  //description: string;
   images: string[];
   videos: string[];
   animationType: string;

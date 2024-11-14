@@ -83,34 +83,34 @@ body::-webkit-scrollbar {
         font-family: 'Trap';
         font-weight: 100;
         font-style: normal;
-        color: map-get($theme-colors, "blue") !important;
+        color: map-get($theme-colors, "orange") !important;
 
         &:hover {
-            color: map-get($theme-colors, "light-blue-2") !important;
+            color: map-get($theme-colors, "light-orange") !important;
         }
 
         @media (max-width: map-get($breakpoints, "3xl")) {
-            color: map-get($theme-colors, "blue") !important;
+            color: map-get($theme-colors, "orange") !important;
             font-size: map-get($font-size, "110");
         }
 
         @media (max-width: map-get($breakpoints, "xl")) {
-            color: map-get($theme-colors, "blue") !important;
+            color: map-get($theme-colors, "orange") !important;
             font-size: map-get($font-size, "110");
         }
 
         @media (max-width: map-get($breakpoints, "lg")) {
-            color: map-get($theme-colors, "blue") !important;
+            color: map-get($theme-colors, "orange") !important;
             font-size: map-get($font-size, "90");
         }
 
         @media (max-width: map-get($breakpoints, "md")) {
-            color: map-get($theme-colors, "blue") !important;
+            color: map-get($theme-colors, "orange") !important;
             font-size: map-get($font-size, "70") !important;
         }
 
         @media (max-width: map-get($breakpoints, "md")) {
-            color: map-get($theme-colors, "blue") !important;
+            color: map-get($theme-colors, "orange") !important;
             font-size: map-get($font-size, "50") !important;
         }
     }

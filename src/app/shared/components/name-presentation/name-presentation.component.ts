@@ -111,19 +111,19 @@ export class NamePresentationComponent implements OnInit, AfterViewInit {
           })(),
         ],
         easing: 'easeOutExpo',
-        duration: 800,
+        duration: 400,
       })
       .add({
         targets: '.ml11 .letters-1 .letter',
         opacity: [0, 1],
         easing: 'easeOutExpo',
         duration: 800,
-        delay: (el: HTMLElement, i: number) => 180 * (i + 1),
+        delay: (el: HTMLElement, i: number) => 90 * (i + 1),
       })
       .add({
         targets: '.ml11 .first-line',
         opacity: 0,
-        duration: 800,
+        duration: 400,
         easing: 'easeOutExpo',
         complete: () => {
           this.triggerSecondLine();
@@ -146,19 +146,19 @@ export class NamePresentationComponent implements OnInit, AfterViewInit {
       .add({
         targets: '.ml11 .letters-2',
         opacity: 1,
-        duration: 800,
+        duration: 400,
       })
       .add({
         targets: '.ml11 .letters-2 .letter',
         opacity: [0, 1],
         easing: 'easeOutExpo',
-        duration: 800,
+        duration: 400,
         delay: (el: HTMLElement, i: number) => 180 * (i + 1),
       })
       .add({
         targets: '.ml11 .second-line',
         opacity: 0,
-        duration: 800,
+        duration: 400,
         easing: 'easeOutExpo',
         complete: () => {
           this.animateDeveloperTitle();
@@ -169,8 +169,8 @@ export class NamePresentationComponent implements OnInit, AfterViewInit {
   private animateDeveloperTitle(): void {
     gsap.to('.ml13 .letters-3', {
       opacity: 1,
-      duration: 0.5,
-      stagger: 0.05,
+      duration: 0.3,
+      stagger: 0.03,
       ease: "power1.out",
     });
   }
