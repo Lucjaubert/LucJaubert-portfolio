@@ -1,11 +1,11 @@
-<section class="name-presentation mt-15-xl mt-lg-15 mt-25-md mt-33-sm mt-25-xs">
+<section class="name-presentation mt-20-xl mt-25-lg mt-27-md mt-35-sm mt-30-xs">
   <div class="row">
     <div class="px-0 text-left">
       <div class="first-name ml11">
         <span class="text-wrapper d-flex align-items-baseline">
-          <img src="assets/img/icons/letter-L.png" alt="L" class="logo-letter">
-          <h1>
-            <span class="first-line line1"></span>
+          <img [src]="'assets/img/icons/' + currentColor.image" alt="L" class="logo-letter">
+          <h1 [style.color]="currentColor.hex">
+            <span class="first-line line1" [style.backgroundColor]="currentColor.hex"></span>
             <span class="letters-1">uc</span>
           </h1>
         </span>
@@ -14,10 +14,10 @@
       <div class="ml11">
         <span class="text-wrapper d-flex align-items-baseline">
           <h1 class="last-name">
-            <span>J</span> 
+            <span [style.color]="currentColor.hex">J</span> 
           </h1>
-          <h1>
-            <span class="second-line line1"></span>
+          <h1 [style.color]="currentColor.hex">
+            <span class="second-line line1" [style.backgroundColor]="currentColor.hex"></span>
             <span class="letters-2">aubert</span> 
           </h1>
           <h1>
@@ -26,8 +26,8 @@
         </span>
       </div>
 
-      <h2 class="ml13">
-        <span class="letters-3">D</span><span class="letters-3">é</span><span class="letters-3">v</span><span class="letters-3">e</span><span class="letters-3">l</span><span class="letters-3">o</span><span class="letters-3">p</span><span class="letters-3">p</span><span class="letters-3">e</span><span class="letters-3">u</span><span class="letters-3">r</span>
+      <h2 class="ml13 py-md-1 py-3" [style.color]="currentColor.hex">
+        <span class="letters-3">D</span><span class="letters-3">e</span><span class="letters-3">v</span><span class="letters-3">e</span><span class="letters-3">l</span><span class="letters-3">o</span><span class="letters-3">p</span><span class="letters-3">p</span><span class="letters-3">e</span><span class="letters-3">u</span><span class="letters-3">r</span>
         <span class="space"> </span>
         <span class="letters-3">W</span><span class="letters-3">e</span><span class="letters-3">b</span>
         <span class="space"> </span>

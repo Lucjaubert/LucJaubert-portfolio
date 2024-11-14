@@ -29,17 +29,18 @@
       display: inline-block;
       opacity: 0;
       line-height: 1em;
+      color: inherit; 
+      transition: color 0.75s ease; 
     }
 
-    .letters-1 .letter {
+    .letters-1 .letter,
+    .letters-2 .letter {
       opacity: 0;
+      color: inherit;
+      transition: color 0.75s ease;
     }
 
     .letters-2 {
-      opacity: 0;
-    }
-
-    .letters-2 .letter {
       opacity: 0;
     }
 
@@ -50,8 +51,9 @@
       left: 0;
       height: 100%;
       width: 3px;
-      background-color: map-get($theme-colors, "blue");
+      background-color: inherit;
       transform-origin: 0 50%;
+      transition: background-color 0.75s ease;
 
       &.line1 {
         bottom: 10px;
@@ -65,16 +67,20 @@
       opacity: 1;
       position: relative;
       transition: left 0.6s ease;
+      color: map-get($theme-colors, "beige");
+      transition: color 0.5s ease; 
     }
   }
 
   .ml13 {
     line-height: 3rem;
-    color: map-get($theme-colors, "blue");
+    color: inherit; 
 
     .letters-3 {
       display: inline-block;
       opacity: 0;
+      color: inherit;
+      transition: color 0.5s ease;
     }
 
     .space {
@@ -83,10 +89,13 @@
     }
   }
 
-  h1 {
+  h1,
+  h2 {
     display: inline-block;
     position: relative;
     font-size: map-get($font-size, "140");
+    color: inherit; 
+    transition: color 0.75s ease; 
   }
 
   h2 {
@@ -118,8 +127,9 @@
         left: 0;
         height: 100%;
         width: 3px;
-        background-color: map-get($theme-colors, "blue");
+        background-color: inherit; 
         transform-origin: 0 50%;
+        transition: background-color 0.5s ease;
 
         &.line1 {
           bottom: 10px;
@@ -131,14 +141,16 @@
     }
 
     h1 {
-      display: inline-block;
-      position: relative;
       line-height: 8rem;
       font-size: map-get($font-size, "240");
+      color: inherit;
+      transition: color 0.5s ease;
     }
 
     h2 {
       font-size: map-get($font-size, "70");
+      color: inherit;
+      transition: color 0.5s ease;
     }
   }
 
@@ -167,8 +179,9 @@
         left: 0;
         height: 100%;
         width: 3px;
-        background-color: map-get($theme-colors, "blue");
+        background-color: inherit; 
         transform-origin: 0 50%;
+        transition: background-color 0.5s ease;
 
         &.line1 {
           bottom: 10px;
@@ -180,18 +193,22 @@
 
       .dot {
         left: -35.7rem;
+        color: map-get($theme-colors, "beige");
+        transition: color 0.5s ease;
       }
     }
 
     h1 {
-      display: inline-block;
-      position: relative;
       line-height: 8rem;
       font-size: map-get($font-size, "260");
+      color: inherit;
+      transition: color 0.5s ease;
     }
 
     h2 {
       font-size: map-get($font-size, "90");
+      color: inherit;
+      transition: color 0.5s ease;
     }
   }
 }

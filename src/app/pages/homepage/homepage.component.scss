@@ -28,19 +28,19 @@
 
 @media (min-width: map-get($breakpoints, "sm")) {
   .container {
-    padding: 0 15px;
+    padding: 0 35px !important;
   }
 }
 
 @media (min-width: map-get($breakpoints, "md")) {
   .container {
-    padding: 0 15px;
+    padding: 0 45px !important;
   }
 }
 
 @media (min-width: map-get($breakpoints, "lg")) {
   .container {
-    padding: 0 15px;
+    padding: 0 65px !important;
   }
 }
 

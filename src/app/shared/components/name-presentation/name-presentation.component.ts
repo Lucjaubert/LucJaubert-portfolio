@@ -13,16 +13,49 @@ gsap.registerPlugin(ScrollTrigger);
   styleUrls: ['./name-presentation.component.scss'],
 })
 export class NamePresentationComponent implements OnInit, AfterViewInit {
+  
+  private colors = [
+    { name: 'blue', hex: '#515DE2', image: 'letter-L-blue.png' },
+    { name: 'yellow', hex: '#ffdc7a', image: 'letter-L-yellow.png' },
+    { name: 'orange', hex: '#ffa93a', image: 'letter-L-orange.png' },
+    { name: 'light-green', hex: '#92FFE4', image: 'letter-L-light-green.png' },
+  ];
+
+  currentColor = this.colors[0]; 
+  colorChangeInterval: any;
+
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.startColorChange();
+    }
+  }
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.initAnimeJS();
       this.initDotReturn(); 
-      this.setDotPositionOnLoad(); // Assure que le dot est bien positionné dès le chargement
+      this.setDotPositionOnLoad(); 
     }
+  }
+
+  ngOnDestroy(): void {
+    if (this.colorChangeInterval) {
+      clearInterval(this.colorChangeInterval);
+    }
+  }
+
+  private startColorChange(): void {
+    this.colorChangeInterval = setInterval(() => {
+      this.changeColor();
+    }, 7000); 
+  }
+
+  private changeColor(): void {
+    const currentIndex = this.colors.indexOf(this.currentColor);
+    const nextIndex = (currentIndex + 1) % this.colors.length;
+    this.currentColor = this.colors[nextIndex];
   }
 
   private setDotPositionOnLoad(): void {

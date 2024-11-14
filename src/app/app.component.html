@@ -3,3 +3,9 @@
     <router-outlet></router-outlet>
   </div>
 </div>
+
+<button id="back-to-top" (click)="scrollToTop()" [ngClass]="{ 'show': isAtBottom }">
+  <span class="material-symbols-outlined">
+    arrow_upward
+    </span>
+</button>

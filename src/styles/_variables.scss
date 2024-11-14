@@ -8,19 +8,10 @@ $theme-colors: (
   "grey": #dad1ca,
   "dark-grey": #afafaf,
   "pink": #FFEDF6,
-  "light-green": #edffed,
   "red": #ffe6e6b9,
-  "orange": #fff5dc,
   "light-pink": #fff4ff,
   "second-blue": #EDFFFF,
-  "black": #353535,
   "white": #FDFDFD,
-
-  "magenta": #FF6F61,
-  "yellow": #f1b605,
-  "green": #4CAF50,
-  "fushia": #E91E63,
-  "dark-blue": #2C3E50,
 
   "blue-2": #13183f,
   "blue-3": #454FB0,
@@ -28,6 +19,13 @@ $theme-colors: (
   "blue-5": #2E3576,
   "blue-6": #282E67,
   "blue-7": #161a4d,
+
+  "black": #303030,
+  "dark-black": #1f1f1f,
+  "light-green": #92FFE4,
+  "fushia": #ff5361,
+  "yellow": #ffdc7a,
+  "orange": #ffa93a,
 );
 
 // Tailles des bordures
@@ -87,7 +85,8 @@ $breakpoints: (
   "md": 768px,  // Medium devices (tablets)
   "lg": 1024px, // Large devices (desktops)
   "xl": 1440px, // Extra large devices (large desktops)
-  "xxl": 1980px // Extra extra large devices (very large desktops)
+  "xxl": 1980px, // Extra extra large devices (very large desktops)
+  "3xl": 2560px // Extra extra extra large devices (4k monitors)
 );
 
 // _variables.scss
@@ -97,6 +96,7 @@ $breakpoint-md: 768px;
 $breakpoint-lg: 1024px;
 $breakpoint-xl: 1440px;
 $breakpoint-xxl: 1980px;
+$breakpoint-3xl: 2560px;
 
 
 // Espacements

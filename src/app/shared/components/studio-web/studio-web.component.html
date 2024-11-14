@@ -11,14 +11,19 @@
           <div class="section-container col-md-8 col-12 px-5 py-4 d-flex flex-column justify-content-top align-items-start mask-wrapper">
             <h3 class="text-slide mb-0">{{ section.name }}</h3>
             <div class="horizontal-line mt-3"></div>
-            <p class="mission-slide mt-md-5 mt-3 pe-md-15">{{ section.mission }}</p>
+            <p class="mission-slide mt-md-5 mt-3 pe-md-15" [innerHTML]="section.mission | lineBreaks"></p>
           </div>
 
           <div class="vertical-line d-none d-md-block"></div>
 
           <div class="section-details-preview col-md-4 col-12 px-5 pt-2 d-flex justify-content-start align-items-top mask-wrapper">
             <div class="stacks-slide d-flex flex-column align-items-start px-md-2 py-md-5">
-              <span *ngFor="let stack of section.stacks.split(',')" class="mt-1 text-start">{{ stack.trim() }}</span>
+              <span
+                *ngFor="let stack of section.stacks.split(',')"
+                class="mt-1 text-start stack-item"
+              >
+                {{ stack.trim() }}
+              </span>
             </div>
           </div>
         </div>

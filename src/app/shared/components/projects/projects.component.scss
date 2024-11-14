@@ -18,7 +18,7 @@
     left: 0;
     width: 100%;
     height: 0%;
-    background-color: map-get($theme-colors, "blue");
+    background-color: map-get($theme-colors, "black");
     z-index: 0;
     transform-origin: bottom;
     visibility: visible;
@@ -26,21 +26,21 @@
 
   .text-slide {
     opacity: 0;
-    transform: translateY(20px); 
-    color : map-get($theme-colors, "light-blue-2");
+    transform: translateY(20px);
+    color: map-get($theme-colors, "blue");
+    transition: transform 0.3s ease, opacity 0.3s ease;
 
-      &:hover {
-        color: map-get($theme-colors, "beige") !important;
+    &:hover {
+      color: map-get($theme-colors, "light-blue-2") !important;
     }
 
     @media (max-width: map-get($breakpoints, "md")) {
-      color: map-get($theme-colors, "beige") !important;
+      color: map-get($theme-colors, "blue") !important;
     }
   }
 
-  .project-details-container {
-    opacity: 1;
-    transform: translateY(20px); 
+  .media-container {
+    background-color: map-get($theme-colors, "black");
   }
 
   .project-hover-container {
@@ -66,9 +66,28 @@
         transform: scale(1.01);
       }
 
+      .project-item {
+        display: flex;
+        align-items: baseline;
+        white-space: nowrap;
+
+        h5,
+        .date {
+          transition: transform 0.3s ease;
+        }
+
+        .offset-0 { transform: translateX(0); }
+        .offset-1 { transform: translateX(-130px); }
+        .offset-2 { transform: translateX(-70px); }
+        .offset-3 { transform: translateX(-180px); }
+        .offset-4 { transform: translateX(15px); }
+        .offset-5 { transform: translateX(50px); }
+      }
+
       .date {
         cursor: none !important;
-        font-weight: 300;
+        font-weight: 400;
+        font-size: map-get($font-size, "30") !important; 
       }
 
       .open-project-button {
@@ -79,16 +98,60 @@
         color: map-get($theme-colors, "blue");
         font-size: 24px;
       }
+
+      @media (max-width: 426px) {
+        .project-container {
+          justify-content: center !important; 
+          align-items: center !important;    
+        }
+      
+        .project-item {
+          display: flex;
+          flex-direction: row;           
+          justify-content: center;       
+          align-items: center;            
+          white-space: nowrap;           
+          margin: 0;
+          padding: 0;
+      
+          h5,
+          .date {
+            transform: translateX(0) !important; 
+            margin: 0;
+          }
+      
+          .date {
+            font-size: map-get($font-size, "20") !important; 
+          }
+        }
+      }
+      
+    }
+  }
+
+  .project-details-container {
+    opacity: 1;
+    transform: translateY(20px);
+  }
+
+  .project-details,
+  .project-details p {
+    color: map-get($theme-colors, "beige");
+    font-size: map-get($font-size, "10");
+    font-weight: 400;
+
+    @media (max-width: map-get($breakpoints, "md")) {
+      color: map-get($theme-colors, "beige");
     }
   }
 
   .project-details,
-  .project-details p,
   .project-details span {
     color: map-get($theme-colors, "beige");
+    font-size: map-get($font-size, "10");
 
     @media (max-width: map-get($breakpoints, "md")) {
-      color: map-get($theme-colors, "light-blue");
+      color: map-get($theme-colors, "beige");
     }
   }
 
@@ -112,12 +175,12 @@
 
   .media-box {
     position: relative;
-    width: 45vw;
+    width: 55vw;
     height: 55vh;
     overflow: hidden;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start; 
+    align-items: flex-start;     
   }
 
   .media-element {
@@ -128,13 +191,17 @@
     left: 0;
     opacity: 0;
     display: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
 
     img,
     video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center;
+      width: auto;               
+      height: 100%;               
+      max-width: 100%;          
+      object-fit: contain;        
+      object-position: left top;  
       display: block;
     }
   }
@@ -146,18 +213,18 @@
   }
 
   .url {
-    color: map-get($theme-colors, "light-blue");
+    color: map-get($theme-colors, "beige");
     
     &:hover {
-      color: map-get($theme-colors, "grey");
+      color: map-get($theme-colors, "light-blue-2");
     }
   }
 
   .material-symbols-outlined {
     font-family: 'Material Symbols Outlined';
-    font-weight: normal;
+    font-weight: normal  ;
     font-style: normal;
-    font-size: 15px;
+    font-size: 12px;
     display: inline-block;
     line-height: 1;
     text-transform: none;
@@ -165,7 +232,7 @@
     white-space: nowrap;
     word-wrap: normal;
     direction: ltr;
-    color: map-get($theme-colors, "light-blue");
+    color: map-get($theme-colors, "beige");
   }
 
   .media-preview-mobile {
@@ -176,7 +243,7 @@
     width: 90vw;
     max-height: 90vh;
     padding: 1rem;
-    background-color: map-get($theme-colors, "blue-7");
+    background-color: map-get($theme-colors,"dark");
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     z-index: 1000;
@@ -201,6 +268,7 @@
       justify-content: center;
       align-items: center;
       position: relative;
+      background-color: map-get($theme-colors,"dark");
     }
 
     .media-element {
@@ -228,6 +296,7 @@
     }
 
     @media (max-width: 768px) {
+
       & {
         position: fixed;
         top: 0;
@@ -255,6 +324,7 @@
         justify-content: center;
         align-items: center;
         position: relative;
+        background-color: map-get($theme-colors, "dark");
       }
 
       .media-element {
@@ -281,7 +351,7 @@
       }
 
       .project-details-container {
-        background-color: map-get($theme-colors, "blue-7");
+        background-color: map-get($theme-colors, "black");
         padding: 1rem;
         width: 100%;
       }
@@ -293,13 +363,10 @@
   }
 
   @media (max-width: map-get($breakpoints, "sm")) {
-    h5 {
-      font-size: map-get($font-size, "50") !important;
-    }
-
     .media-box {
       width: 100%;
       height: auto;
+      background-color: map-get($theme-colors, "black");
     }
 
     .media-element {
@@ -337,13 +404,11 @@
   }
 
   @media (max-width: map-get($breakpoints, "md")) {
-    h5 {
-      font-size: map-get($font-size, "70");
-    }
 
     .media-box {
       width: 100%;
       height: auto;
+      background-color: map-get($theme-colors, "black");
     }
 
     .media-element {

@@ -5,6 +5,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { SlugifyPipe } from '../../pipe/slugify.pipe';
+import { LineBreaksPipe } from '../../pipe/line-breaks.pipe';
 
 gsap.registerPlugin(CSSPlugin, ScrollTrigger);
 
@@ -22,7 +23,8 @@ interface StudioSection {
   imports: [
     RouterOutlet,
     CommonModule,
-    SlugifyPipe
+    SlugifyPipe,
+    LineBreaksPipe
   ]
 })
 export class StudioWebComponent implements AfterViewInit, OnInit, OnDestroy {
@@ -62,13 +64,13 @@ export class StudioWebComponent implements AfterViewInit, OnInit, OnDestroy {
   getSectionClass(index: number): string {
     switch (index) {
       case 0:
-        return 'design-section d-flex col-md-12 py-md-10';
+        return 'design-section d-flex col-md-12 py-md-7';
       case 1:
-        return 'development-section d-flex col-md-12 py-md-10';
+        return 'development-section d-flex col-md-12 py-md-7';
       case 2:
-        return 'marketing-section d-flex col-md-12 py-md-10';
+        return 'marketing-section d-flex col-md-12 py-md-7';
       case 3:
-        return 'process-section d-flex col-md-12 py-md-10';
+        return 'process-section d-flex col-md-12 py-md-7';
       default:
         return 'default-section-class';
     }
