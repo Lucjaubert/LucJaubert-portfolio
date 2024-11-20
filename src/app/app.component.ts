@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { LoadingScreenComponent } from './shared/components/loading-screen/loading-screen.component';
 import { LoadingService } from './services/loading.service';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -18,16 +19,24 @@ import { LoadingService } from './services/loading.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'lucjaubert';
-
   isAtBottom = false;
   isLoading = true;
 
-  constructor(private loadingService: LoadingService) {}
+  constructor(
+    private loadingService: LoadingService,
+    private titleService: Title,
+    private metaService: Meta
+  ) {}
 
   ngOnInit(): void {
     this.loadingService.loading$.subscribe((isLoading) => {
       this.isLoading = isLoading;
+    });
+
+    this.titleService.setTitle('Luc Jaubert - Développeur Web Freelance à Bordeaux');
+    this.metaService.updateTag({
+      name: 'description',
+      content: 'Création de sites internet sur mesure, vitrines, e-commerce, et optimisation SEO à Bordeaux.'
     });
   }
 
@@ -36,11 +45,7 @@ export class AppComponent implements OnInit {
     const pos = (document.documentElement.scrollTop || document.body.scrollTop) + window.innerHeight;
     const max = document.documentElement.scrollHeight || document.body.scrollHeight;
 
-    if (max - pos < 100) {
-      this.isAtBottom = true;
-    } else {
-      this.isAtBottom = false;
-    }
+    this.isAtBottom = max - pos < 100;
   }
 
   scrollToTop() {
