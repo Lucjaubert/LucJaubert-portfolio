@@ -1,5 +1,5 @@
 @import "./_variables.scss";
-@import '../../node_modules/bootstrap/scss/bootstrap.scss'; 
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
 @import '../assets/fonts/fonts.scss';
 
 body, html {
@@ -7,8 +7,8 @@ body, html {
     padding: 0;
     width: 100vw;
     height: 100vh;
-    -ms-overflow-style: none;    
-    scrollbar-width: none;   
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 body::-webkit-scrollbar {
@@ -52,6 +52,7 @@ body::-webkit-scrollbar {
         font-weight: 600;
         font-style: normal;
         color: map-get($theme-colors, "beige");
+        font-size: clamp(40px, 6vw, 80px);
     }
 
     h2 {
@@ -60,23 +61,24 @@ body::-webkit-scrollbar {
         font-style: normal;
         color: map-get($theme-colors, "blue");
         margin-top: -1rem;
+        font-size: clamp(32px, 5vw, 64px);
     }
 
     h3 {
         font-family: 'Trap';
         font-weight: 400;
         font-style: normal;
-        font-size: map-get($font-size, "90");
         text-transform: uppercase;
         color: map-get($theme-colors, "blue");
+        font-size: clamp(28px, 4vw, 48px);
     }
 
     h4 {
         font-family: 'Trap';
         font-weight: 600;
         font-style: normal;
-        font-size: map-get($font-size, "30");
         color: map-get($theme-colors, "blue");
+        font-size: clamp(24px, 3.5vw, 40px);
     }
 
     h5 {
@@ -84,34 +86,10 @@ body::-webkit-scrollbar {
         font-weight: 100;
         font-style: normal;
         color: map-get($theme-colors, "orange") !important;
+        font-size: clamp(30px, 4.5vw, 56px);
 
         &:hover {
             color: map-get($theme-colors, "light-orange") !important;
-        }
-
-        @media (max-width: map-get($breakpoints, "3xl")) {
-            color: map-get($theme-colors, "orange") !important;
-            font-size: map-get($font-size, "110");
-        }
-
-        @media (max-width: map-get($breakpoints, "xl")) {
-            color: map-get($theme-colors, "orange") !important;
-            font-size: map-get($font-size, "110");
-        }
-
-        @media (max-width: map-get($breakpoints, "lg")) {
-            color: map-get($theme-colors, "orange") !important;
-            font-size: map-get($font-size, "90");
-        }
-
-        @media (max-width: map-get($breakpoints, "md")) {
-            color: map-get($theme-colors, "orange") !important;
-            font-size: map-get($font-size, "70") !important;
-        }
-
-        @media (max-width: map-get($breakpoints, "md")) {
-            color: map-get($theme-colors, "orange") !important;
-            font-size: map-get($font-size, "50") !important;
         }
     }
 
@@ -119,18 +97,18 @@ body::-webkit-scrollbar {
         font-family: 'Trap';
         font-weight: normal;
         font-style: normal;
-        font-size: map-get($font-size, "20");
         color: map-get($theme-colors, "blue");
+        font-size: clamp(20px, 3vw, 36px);
     }
 
     ul, li, a, p {
         font-family: 'Trap';
         font-weight: 300;
-        font-size: map-get($font-size, "20");
         font-style: normal;
         list-style-type: none;
         padding: 0;
         margin: 0;
+        font-size: clamp(16px, 2vw, 24px);
     }
 }
 
@@ -138,7 +116,7 @@ body::-webkit-scrollbar {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
-    display: none; 
+    display: none;
     width: 50px;
     height: 50px;
     background-color: map-get($theme-colors, "blue-6");
@@ -150,7 +128,7 @@ body::-webkit-scrollbar {
     align-items: center;
     justify-content: center;
     z-index: 1000;
-  
+
     transition: opacity 0.3s ease, visibility 0.3s ease;
     opacity: 0;
     visibility: hidden;
@@ -159,8 +137,8 @@ body::-webkit-scrollbar {
         width: 40px;
         height: 40px;
     }
-  }
-  
+}
+
 #back-to-top.show {
     display: flex;
     opacity: 1;
@@ -170,4 +148,3 @@ body::-webkit-scrollbar {
 #back-to-top:hover {
     background-color: map-get($theme-colors, "light-blue");
 }
-  
