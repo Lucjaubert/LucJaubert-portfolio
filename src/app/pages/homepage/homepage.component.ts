@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, Inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { WordpressService } from '../../services/wordpress.service';
 import { catchError, Observable, of } from 'rxjs';
-import { HomepageData } from '../../models/homepage-data.model';
 import { PLATFORM_ID } from '@angular/core';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-homepage',
@@ -25,14 +24,31 @@ export class HomepageComponent implements OnInit {
   headerComponent: any;
   footerComponent: any;
 
-  homepageData$!: Observable<HomepageData[] | null>;
-
   constructor(
-    private wordpressService: WordpressService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private titleService: Title,
+    private metaService: Meta
   ) {}
 
   async ngOnInit(): Promise<void> {
+    this.titleService.setTitle('Luc Jaubert - Développeur Web Freelance à Bordeaux');
+    this.metaService.updateTag({
+      name: 'description',
+      content: "Création de sites internet sur mesure, vitrines, e-commerce, et optimisation SEO à Bordeaux."
+    });
+    this.metaService.updateTag({
+      property: 'og:title',
+      content: 'Luc Jaubert - Développeur Web Freelance à Bordeaux'
+    });
+    this.metaService.updateTag({
+      property: 'og:description',
+      content: "Découvrez mes projets de développement web : e-commerce, vitrines, click&collect sur mesure."
+    });
+    this.metaService.updateTag({
+      property: 'og:image',
+      content: 'https://lucjaubert.com/assets/icons/apple-touch-icon.png'
+    });
+
     this.headerComponent = await import('../../shared/components/header/header.component').then(
       (m) => m.HeaderComponent
     );
@@ -53,13 +69,6 @@ export class HomepageComponent implements OnInit {
     );
     this.footerComponent = await import('../../shared/components/footer/footer.component').then(
       (m) => m.FooterComponent
-    );
-
-    this.homepageData$ = this.wordpressService.getHomepageData().pipe(
-      catchError((error) => {
-        console.error('Error retrieving homepage data:', error);
-        return of(null);
-      })
     );
   }
 }
