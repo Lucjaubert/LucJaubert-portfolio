@@ -1,5 +1,9 @@
 <div class="loading-screen">
-  <div class="progress-text" [ngClass]="currentColorClass">
-    {{ loadingProgress }}%
+  <div
+    class="progress-text"
+    [ngClass]="progressTextClasses"
+  >
+    {{ displayText }}
   </div>
 </div>
+

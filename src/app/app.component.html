@@ -1,6 +1,7 @@
-<app-loading-screen *ngIf="isLoading"></app-loading-screen>
+<app-loading-screen *ngIf="(isLoading$ | async)"></app-loading-screen>
 
-<div id="app-container" class="app-root" [class.hidden]="isLoading">
+<div id="app-container" class="app-root" [class.hidden]="(isLoading$ | async)">
+  <app-header *ngIf="!(isLoading$ | async)"></app-header>
   <div id="page" class="page-content">
     <router-outlet></router-outlet>
   </div>
@@ -11,3 +12,5 @@
     arrow_upward
   </span>
 </button>
+
+

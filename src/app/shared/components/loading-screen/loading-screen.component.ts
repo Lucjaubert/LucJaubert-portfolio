@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { LoadingService } from '../../../services/loading.service';
 import { ProjectService } from '../../../services/project.service';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
@@ -11,25 +11,41 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
   imports: [CommonModule]
 })
 export class LoadingScreenComponent implements OnInit, OnDestroy {
-  loadingProgress = 0;
+  displayText = 'LJ.';
+  isRotating = false;
   colorClasses = ['color-light-blue', 'color-light-green', 'color-yellow', 'color-orange'];
   currentColorClassIndex = 0;
   currentColorClass = this.colorClasses[0];
   colorChangeInterval: any;
+  textTransformed = false;
+  isHidden = false;
 
   constructor(
     private loadingService: LoadingService,
     private projectService: ProjectService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.startColorCycle();
+      setTimeout(() => {
+        this.isRotating = true;
+        this.startColorCycle();
+        this.cdr.detectChanges();
 
-      Promise.all([this.preloadMedia(), this.minimumLoadTime(3000)]).then(() => {
-        this.loadingService.setLoading(false);
-      });
+        Promise.all([this.preloadMedia(), this.minimumLoadTime(2500)])
+          .then(() => {
+            this.updateDisplayText();
+            setTimeout(() => {
+              this.isHidden = true;
+              this.cdr.detectChanges();
+              setTimeout(() => {
+                this.loadingService.setLoading(false);
+              }, 1000); // Durée de l'animation CSS
+            }, 1000); // Temps pour afficher "100%"
+          });
+      }, 700); // Délai initial de 1 seconde avant de démarrer la rotation
     } else {
       this.loadingService.setLoading(false);
     }
@@ -66,7 +82,6 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
 
             video.onloadeddata = () => {
               loadedMedia++;
-              this.loadingProgress = Math.floor((loadedMedia / totalMedia) * 100);
               console.log(`Loaded video: ${mediaSrc} (${loadedMedia}/${totalMedia})`);
 
               if (loadedMedia === totalMedia) {
@@ -76,7 +91,6 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
 
             video.onerror = () => {
               loadedMedia++;
-              this.loadingProgress = Math.floor((loadedMedia / totalMedia) * 100);
               console.error(`Error loading video: ${mediaSrc} (${loadedMedia}/${totalMedia})`);
 
               if (loadedMedia === totalMedia) {
@@ -92,7 +106,6 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
 
             img.onload = () => {
               loadedMedia++;
-              this.loadingProgress = Math.floor((loadedMedia / totalMedia) * 100);
               console.log(`Loaded image: ${mediaSrc} (${loadedMedia}/${totalMedia})`);
 
               if (loadedMedia === totalMedia) {
@@ -102,7 +115,6 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
 
             img.onerror = () => {
               loadedMedia++;
-              this.loadingProgress = Math.floor((loadedMedia / totalMedia) * 100);
               console.error(`Error loading image: ${mediaSrc} (${loadedMedia}/${totalMedia})`);
 
               if (loadedMedia === totalMedia) {
@@ -115,7 +127,6 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
     });
   }
 
-
   minimumLoadTime(ms: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
@@ -125,5 +136,33 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
       this.currentColorClassIndex = (this.currentColorClassIndex + 1) % this.colorClasses.length;
       this.currentColorClass = this.colorClasses[this.currentColorClassIndex];
     }, 300);
+  }
+
+  updateDisplayText(): void {
+    // Arrêter la rotation
+    this.isRotating = false;
+
+    // Changer le texte en "100%"
+    this.displayText = '100%';
+
+    // Ajouter la classe d'animation
+    this.textTransformed = true;
+
+    // Arrêter le cycle de couleur
+    if (this.colorChangeInterval) {
+      clearInterval(this.colorChangeInterval);
+      this.colorChangeInterval = null;
+    }
+
+    // Forcer la détection des changements
+    this.cdr.detectChanges();
+  }
+
+  get progressTextClasses() {
+    return {
+      [this.currentColorClass]: true,
+      rotate: this.isRotating,
+      'transform-text': this.textTransformed
+    };
   }
 }

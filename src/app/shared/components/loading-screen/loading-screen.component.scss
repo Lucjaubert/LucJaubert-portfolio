@@ -11,12 +11,32 @@
   align-items: center;
   justify-content: center;
   z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+.loading-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .progress-text {
   font-size: clamp(24px, 5vw, 48px);
   font-weight: bold;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.rotate {
+  animation: rotate 0.2s linear infinite; /* Vitesse de rotation rapide */
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .color-light-blue {
@@ -33,4 +53,18 @@
 
 .color-orange {
   color: #ffa93a;
+}
+
+/* Animation pour la transformation du texte */
+.transform-text {
+  animation: transformText 1s forwards;
+}
+
+@keyframes transformText {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
