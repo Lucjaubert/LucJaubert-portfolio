@@ -27,7 +27,7 @@
 }
 
 .rotate {
-  animation: rotate 0.2s linear infinite; /* Vitesse de rotation rapide */
+  animation: rotate 0.2s linear infinite;
 }
 
 @keyframes rotate {
@@ -55,7 +55,6 @@
   color: #ffa93a;
 }
 
-/* Animation pour la transformation du texte */
 .transform-text {
   animation: transformText 1s forwards;
 }

@@ -42,10 +42,10 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
               this.cdr.detectChanges();
               setTimeout(() => {
                 this.loadingService.setLoading(false);
-              }, 1000); // Durée de l'animation CSS
-            }, 1000); // Temps pour afficher "100%"
+              }, 1000);
+            }, 1000);
           });
-      }, 700); // Délai initial de 1 seconde avant de démarrer la rotation
+      }, 700);
     } else {
       this.loadingService.setLoading(false);
     }
@@ -71,7 +71,6 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
           return;
         }
 
-        console.log('Starting to preload media:', totalMedia);
 
         mediaList.forEach((mediaSrc) => {
           const isVideo = mediaSrc.endsWith('.mp4') || mediaSrc.endsWith('.webm') || mediaSrc.endsWith('.ogg');
@@ -82,7 +81,6 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
 
             video.onloadeddata = () => {
               loadedMedia++;
-              console.log(`Loaded video: ${mediaSrc} (${loadedMedia}/${totalMedia})`);
 
               if (loadedMedia === totalMedia) {
                 resolve();
@@ -106,7 +104,6 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
 
             img.onload = () => {
               loadedMedia++;
-              console.log(`Loaded image: ${mediaSrc} (${loadedMedia}/${totalMedia})`);
 
               if (loadedMedia === totalMedia) {
                 resolve();
@@ -139,22 +136,17 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
   }
 
   updateDisplayText(): void {
-    // Arrêter la rotation
     this.isRotating = false;
 
-    // Changer le texte en "100%"
     this.displayText = '100%';
 
-    // Ajouter la classe d'animation
     this.textTransformed = true;
 
-    // Arrêter le cycle de couleur
     if (this.colorChangeInterval) {
       clearInterval(this.colorChangeInterval);
       this.colorChangeInterval = null;
     }
 
-    // Forcer la détection des changements
     this.cdr.detectChanges();
   }
 
