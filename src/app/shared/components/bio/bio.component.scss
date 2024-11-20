@@ -3,7 +3,7 @@
 .bio-section {
   .bio-content {
     p {
-      font-size: map-get($font-size, "40");
+      font-size: map-get($font-size, "30");
       font-weight: 300;
       opacity: 0;
       transform: translateY(10px);
@@ -11,11 +11,11 @@
       color: map-get($theme-colors, "beige");
 
       @media (min-width: map-get($breakpoints, "md")) {
-        font-size: map-get($font-size, "50");
+        font-size: map-get($font-size, "40");
       }
 
       @media (min-width: map-get($breakpoints, "lg")) {
-        font-size: map-get($font-size, "70");
+        font-size: map-get($font-size, "60");
       }
 
       .highlight-yellow {
@@ -38,5 +38,11 @@
     strong {
       font-weight: 600;
     }
+  }
+
+  .bio-image {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
   }
 }

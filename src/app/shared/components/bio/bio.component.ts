@@ -28,8 +28,11 @@ export class BioComponent implements AfterViewInit {
 
   private initBioAnimations(): void {
     if (isPlatformBrowser(this.platformId)) {
+      gsap.registerPlugin(ScrollTrigger);
+
       this.gsapContext = gsap.context(() => {
         const paragraphs = document.querySelectorAll('.bio-content p');
+        const photo = document.querySelector('.bio-image');
 
         paragraphs.forEach((paragraph) => {
           gsap.to(paragraph, {
@@ -55,6 +58,20 @@ export class BioComponent implements AfterViewInit {
             },
           });
         });
+
+        if (photo) {
+          gsap.to(photo, {
+            opacity: 1,
+            scale: 1.05,
+            duration: 1.5,
+            ease: "power4.out",
+            scrollTrigger: {
+              trigger: photo,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          });
+        }
       });
     }
   }

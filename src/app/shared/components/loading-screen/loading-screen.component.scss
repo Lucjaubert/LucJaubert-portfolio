@@ -14,7 +14,7 @@
 }
 
 .progress-text {
-  font-size: 48px;
+  font-size: clamp(24px, 5vw, 48px);
   font-weight: bold;
   transition: color 0.3s ease;
 }

@@ -220,7 +220,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.gsapContext = gsap.context(() => {
           gsap.to('.background-sides', {
             height: '80%',
-            duration: 1.5,
+            duration: 1,
             ease: 'expoScale',
             scrollTrigger: {
               trigger: '#projects',
@@ -508,7 +508,6 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
         );
       });
 
-      // Associez le timeline au bon nom
       switch (timelineName) {
         case 'laiterie':
           this.laiterieTimeline = timeline;
