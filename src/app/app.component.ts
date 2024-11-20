@@ -5,6 +5,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { LoadingScreenComponent } from './shared/components/loading-screen/loading-screen.component';
 import { LoadingService } from './services/loading.service';
 import { Title, Meta } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -20,19 +21,17 @@ import { Title, Meta } from '@angular/platform-browser';
 })
 export class AppComponent implements OnInit {
   isAtBottom = false;
-  isLoading = true;
+  isLoading$: Observable<boolean>;
 
   constructor(
     private loadingService: LoadingService,
     private titleService: Title,
     private metaService: Meta
-  ) {}
+  ) {
+    this.isLoading$ = this.loadingService.loading$;
+  }
 
   ngOnInit(): void {
-    this.loadingService.loading$.subscribe((isLoading) => {
-      this.isLoading = isLoading;
-    });
-
     this.titleService.setTitle('Luc Jaubert - Développeur Web Freelance à Bordeaux');
     this.metaService.updateTag({
       name: 'description',

@@ -1,9 +1,11 @@
-import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import anime from 'animejs/lib/anime.es.js';
+import { LoadingService } from '../../../services/loading.service';
+import { Subscription } from 'rxjs';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,7 +14,7 @@ gsap.registerPlugin(ScrollTrigger);
   templateUrl: './name-presentation.component.html',
   styleUrls: ['./name-presentation.component.scss'],
 })
-export class NamePresentationComponent implements OnInit, AfterViewInit {
+export class NamePresentationComponent implements OnInit, OnDestroy {
 
   private colors = [
     { name: 'blue', hex: '#515DE2', image: 'letter-L-blue.png' },
@@ -23,26 +25,39 @@ export class NamePresentationComponent implements OnInit, AfterViewInit {
 
   currentColor = this.colors[0];
   colorChangeInterval: any;
+  private loadingSubscription!: Subscription;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private loadingService: LoadingService
+  ) {}
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.startColorChange();
-    }
-  }
 
-  ngAfterViewInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.initAnimeJS();
-      this.initDotReturn();
-      this.setDotPositionOnLoad();
+      if (!this.loadingService.isLoading()) {
+        this.initAnimeJS();
+        this.initDotReturn();
+        this.setDotPositionOnLoad();
+      } else {
+        this.loadingSubscription = this.loadingService.loading$.subscribe((isLoading) => {
+          if (!isLoading) {
+            this.initAnimeJS();
+            this.initDotReturn();
+            this.setDotPositionOnLoad();
+          }
+        });
+      }
     }
   }
 
   ngOnDestroy(): void {
     if (this.colorChangeInterval) {
       clearInterval(this.colorChangeInterval);
+    }
+    if (this.loadingSubscription) {
+      this.loadingSubscription.unsubscribe();
     }
   }
 
@@ -117,8 +132,8 @@ export class NamePresentationComponent implements OnInit, AfterViewInit {
         targets: '.ml11 .letters-1 .letter',
         opacity: [0, 1],
         easing: 'easeOutExpo',
-        duration: 800,
-        delay: (el: HTMLElement, i: number) => 1200 * (i + 1),
+        duration: 400,
+        delay: (el: HTMLElement, i: number) => 200 * (i + 1),
       })
       .add({
         targets: '.ml11 .first-line',
