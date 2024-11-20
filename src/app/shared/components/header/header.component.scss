@@ -7,7 +7,7 @@
     font-size: map-get($font-size, "10");
   }
 
-  
+
   @media (max-width: map-get($breakpoints, "md")) {
     font-size: map-get($font-size, "17");
   }
@@ -29,15 +29,15 @@
     &::before {
       content: "";
       position: absolute;
-      top: 0%; 
+      top: 0%;
       left: 0;
       height: 0.5px;
       background-color: map-get($theme-colors, "beige");
       width: 0%;
       animation: drawLine 3s forwards ease-out;
-      z-index: 2; 
-      transform: translateY(-50%); 
-      will-change: width; 
+      z-index: 2;
+      transform: translateY(-50%);
+      will-change: width;
     }
 
     .navbar-nav {
@@ -54,12 +54,12 @@
 
       .nav-item-bio {
         display: none !important;
-      
+
         @media (min-width: map-get($breakpoints, "md")) {
           display: block !important;
         }
       }
-      
+
       .nav-link {
         color: map-get($theme-colors, "beige");
         text-transform: uppercase;
@@ -67,7 +67,7 @@
         position: relative;
         z-index: 1;
         font-weight: 400;
-        transition: color 0.3s ease; 
+        transition: color 0.3s ease;
       }
 
       .nav-link-projects:hover {
@@ -85,17 +85,17 @@
       .nav-link-contact:hover {
         color: map-get($theme-colors, "orange");
       }
-      
+
       .nav-item-projects {
         animation: showTextProjets 1s forwards 0.1s;
       }
 
       .nav-item-studio {
-        animation: showTextSW 1s forwards 0.7s;
+        animation: showTextSW 1s forwards 1.5s;
       }
 
       .nav-item-bio {
-        animation: showTextBio 1s forwards 1.5s;
+        animation: showTextBio 1s forwards 0.7s;
       }
 
       .nav-item-contact {

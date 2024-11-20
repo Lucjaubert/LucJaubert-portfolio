@@ -1,4 +1,6 @@
-<div id="app-container" class="app-root">
+<app-loading-screen *ngIf="isLoading"></app-loading-screen>
+
+<div id="app-container" class="app-root" [class.hidden]="isLoading">
   <div id="page" class="page-content">
     <router-outlet></router-outlet>
   </div>
@@ -7,5 +9,5 @@
 <button id="back-to-top" (click)="scrollToTop()" [ngClass]="{ 'show': isAtBottom }">
   <span class="material-symbols-outlined">
     arrow_upward
-    </span>
+  </span>
 </button>

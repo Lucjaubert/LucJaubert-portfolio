@@ -15,59 +15,84 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/lucjaubert",
             "index": "src/index.html",
-            "browser": "src/main.ts",
+            "main": "src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              { "glob": "**/*", "input": "src/assets", "output": "assets/" },
-              { "glob": "**/*", "input": "public", "output": "./" }
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "assets/"
+              },
+              {
+                "glob": "**/*",
+                "input": "public",
+                "output": "./"
+              }
             ],
-            "styles": ["src/styles/styles.scss", "node_modules/bootstrap/scss/bootstrap.scss"],
-            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            },
+            "styles": [
+              "src/styles/styles.scss",
+              "node_modules/bootstrap/scss/bootstrap.scss"
+            ],
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ],
             "allowedCommonJsDependencies": ["compression"]
           },
           "configurations": {
             "production": {
-              
               "budgets": [
-              {
+                {
                   "type": "initial",
                   "maximumWarning": "2MB",
                   "maximumError": "3MB"
-              },
-              {
+                },
+                {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "150kB",
-                  "maximumError": "200kB"
-              }
-            ],
+                  "maximumWarning": "180kB",
+                  "maximumError": "250kB"
+                }
+              ],
               "outputHashing": "all",
               "optimization": {
                 "scripts": true,
                 "styles": true
-              }
+              },
+              "aot": true,
+              "sourceMap": false,
+              "extractLicenses": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
             },
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "buildTarget": "lucjaubert:build"
+          },
           "configurations": {
             "production": {
               "buildTarget": "lucjaubert:build:production"
@@ -78,16 +103,56 @@
           },
           "defaultConfiguration": "development"
         },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/lucjaubert-server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "sourceMap": false,
+              "extractLicenses": true
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "lucjaubert:build:production",
+              "serverTarget": "lucjaubert:server:production"
+            },
+            "development": {
+              "browserTarget": "lucjaubert:build:development",
+              "serverTarget": "lucjaubert:server:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@angular-devkit/build-angular:prerender",
+          "options": {
+            "browserTarget": "lucjaubert:build:production",
+            "serverTarget": "lucjaubert:server:production",
+            "routes": ["/"]
+          }
+        },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -96,9 +161,7 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles/styles.scss"
-            ],
+            "styles": ["src/styles/styles.scss"],
             "scripts": []
           }
         }
@@ -106,6 +169,6 @@
     }
   },
   "cli": {
-    "analytics": "42a22d52-d988-4148-b2ba-a1ba9b3e39c9"
+    "analytics": false
   }
 }

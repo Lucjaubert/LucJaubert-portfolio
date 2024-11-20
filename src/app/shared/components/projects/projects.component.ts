@@ -27,7 +27,6 @@ interface Project {
   role: string;
   stacks: string;
   url: string;
-  //description: string;
   images: string[];
   videos: string[];
   animationType: string;
@@ -40,7 +39,7 @@ interface Project {
   styleUrls: ['./projects.component.scss'],
   standalone: true,
   imports: [RouterOutlet, CommonModule],
-  changeDetection: ChangeDetectionStrategy.OnPush, 
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChildren('mediaElement') mediaElements!: QueryList<ElementRef>;
@@ -61,14 +60,14 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   isDesktop: boolean = false;
 
-  private mobileSlideshowInterval: any; 
+  private mobileSlideshowInterval: any;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private http: HttpClient,
     private changeDetectorRef: ChangeDetectorRef,
     private breakpointObserver: BreakpointObserver,
-    private ngZone: NgZone 
+    private ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -95,7 +94,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.breakpointObserver.observe(['(min-width: 768px)']).subscribe((state) => {
         this.isDesktop = state.matches;
-        this.changeDetectorRef.markForCheck(); 
+        this.changeDetectorRef.markForCheck();
       });
     }
   }
@@ -130,7 +129,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.mediaSequence = [];
       this.animationInitialized = false;
       this.changeDetectorRef.detectChanges();
-  
+
       if (this.mobileSlideshowInterval) {
         clearInterval(this.mobileSlideshowInterval);
         this.mobileSlideshowInterval = null;
@@ -138,27 +137,27 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.activeMediaIndex = index;
       this.currentProject = this.projects[index];
-  
+
       this.mediaSequence = this.currentProject.mediaSequence || [];
-  
+
       this.animationInitialized = false;
       this.changeDetectorRef.detectChanges();
-  
+
       setTimeout(() => {
         this.changeDetectorRef.detectChanges();
-  
+
         this.mediaElements.changes.subscribe(() => {
           if (this.mediaElements.length > 0 && this.currentProject) {
             this.initAnimationForCurrentProject();
           }
         });
-  
+
         if (this.mediaElements.length > 0 && this.currentProject) {
           this.initAnimationForCurrentProject();
         }
       }, 0);
     }
-  }  
+  }
 
   isMediaPreviewVisible(index: number): boolean {
     return this.activeMediaIndex === index;
@@ -189,7 +188,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   openProjectLink(project: Project | null): void {
     if (!project) return;
-  
+
     let url: string;
     switch (project.name) {
       case 'LAITERIE BURDIGALA .':
@@ -207,21 +206,21 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
       default:
         url = '#';
     }
-  
+
     if (!/^https?:\/\//i.test(url)) {
       url = 'https://' + url;
     }
-  
+
     window.open(url, '_blank');
-  }  
+  }
 
   private initProjectAnimations(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.ngZone.runOutsideAngular(() => {
         this.gsapContext = gsap.context(() => {
           gsap.to('.background-sides', {
-            height: '100%',
-            duration: 1.3,
+            height: '80%',
+            duration: 1.5,
             ease: 'expoScale',
             scrollTrigger: {
               trigger: '#projects',
@@ -233,7 +232,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
         });
       });
     }
-  }  
+  }
 
   private animateTextSlides(): void {
     this.ngZone.runOutsideAngular(() => {
@@ -270,7 +269,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
       });
       this.changeDetectorRef.detectChanges();
     });
-  }  
+  }
 
   onProjectHover(project: Project, event: MouseEvent): void {
     if (!this.isDesktop) return;
@@ -352,48 +351,48 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.mobileSlideshowInterval) {
       clearInterval(this.mobileSlideshowInterval);
     }
-  
+
     const elements = this.mediaElements.toArray();
     let currentIndex = 0;
-  
+
     elements.forEach((elementRef, index) => {
       const element = elementRef.nativeElement;
       element.style.display = index === 0 ? 'block' : 'none';
-  
+
       if (element.tagName.toLowerCase() === 'video') {
         element.pause();
         element.currentTime = 0;
       }
     });
-  
+
     const firstElement = elements[0].nativeElement;
     if (firstElement.tagName.toLowerCase() === 'video') {
       firstElement.play();
     }
-  
+
     this.mobileSlideshowInterval = setInterval(() => {
       const previousElement = elements[currentIndex].nativeElement;
-  
+
       previousElement.style.display = 'none';
-  
+
       if (previousElement.tagName.toLowerCase() === 'video') {
         previousElement.pause();
         previousElement.currentTime = 0;
       }
-  
+
       currentIndex = (currentIndex + 1) % elements.length;
       const currentElement = elements[currentIndex].nativeElement;
-  
+
       currentElement.style.display = 'block';
-  
+
       if (currentElement.tagName.toLowerCase() === 'video') {
         currentElement.play();
       }
-  
+
       this.changeDetectorRef.detectChanges();
-    }, 1500); 
+    }, 1500);
   }
-  
+
 
   getAllMedia(project: Project | null): { type: 'image' | 'video'; src: string }[] {
     if (!project) {
@@ -429,7 +428,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
   private initProjectAnimation(timelineName: string): void {
     if (this.mediaElements && this.mediaElements.length > 0) {
       let timeline: gsap.core.Timeline | null = null;
-  
+
       switch (timelineName) {
         case 'laiterie':
           if (this.laiterieTimeline) {
@@ -456,88 +455,60 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
           }
           break;
       }
-  
-      const shuffledMediaElements = this.mediaElements.toArray();
-      const repeatValue = -1;
-  
-      timeline = gsap.timeline({ repeat: repeatValue, defaults: { ease: 'power1.inOut' } });
-  
+
+      timeline = gsap.timeline({ repeat: -1, defaults: { ease: 'power1.inOut' } });
+
       const transitionDuration = 0.4;
       const displayDuration = 1.5;
       const timeBetweenElements = displayDuration;
-  
       const directionOptionsX = ['-100%', '0%', '100%'];
       const directionOptionsY = ['-100%', '0%', '100%'];
-  
-      shuffledMediaElements.forEach((elementRef) => {
-        const element = elementRef.nativeElement;
-        const xStart = directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
-        const yStart = directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
-        gsap.set(element, {
-          opacity: 0,
-          display: 'none',
-          x: xStart,
-          y: yStart,
-        });
-  
-        if (element.tagName.toLowerCase() === 'video') {
-          element.muted = true;
-          element.playsInline = true;
-          element.autoplay = true;
-          element.preload = 'auto';
-          element.load();
-        }
-      });
-  
+
+      const shuffledMediaElements = this.mediaElements.toArray();
       shuffledMediaElements.forEach((elementRef, index) => {
         const element = elementRef.nativeElement;
         const xStart = directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
         const yStart = directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
-  
-        const showStartTime = index * timeBetweenElements;
-        const hideStartTime = showStartTime + displayDuration;
-  
-        timeline.to(
+
+        timeline!.to(
           element,
           {
-            display: 'block',
             opacity: 1,
             x: '0%',
             y: '0%',
+            display: 'block',
             duration: transitionDuration,
             onStart: () => {
               if (element.tagName.toLowerCase() === 'video') {
-                const playPromise = element.play();
-                if (playPromise !== undefined) {
-                  playPromise.catch((error: any) => {
-                    console.error('Erreur lors de la lecture de la vidéo :', error);
-                  });
-                }
+                element.play().catch((error: any) => {
+                  console.error('Erreur de lecture de la vidéo :', error);
+                });
               }
             },
           },
-          showStartTime
+          index * timeBetweenElements
         );
-  
-        timeline.to(
+
+        timeline!.to(
           element,
           {
             opacity: 0,
             x: xStart,
             y: yStart,
+            display: 'none',
             duration: transitionDuration,
             onComplete: () => {
-              element.style.display = 'none';
               if (element.tagName.toLowerCase() === 'video') {
                 element.pause();
                 element.currentTime = 0;
               }
             },
           },
-          hideStartTime
+          index * timeBetweenElements + displayDuration
         );
       });
-  
+
+      // Associez le timeline au bon nom
       switch (timelineName) {
         case 'laiterie':
           this.laiterieTimeline = timeline;
@@ -554,10 +525,9 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
   }
-  
+
 }
 
 
 
 
-  

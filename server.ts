@@ -1,70 +1,38 @@
-import { APP_BASE_HREF } from '@angular/common';
+import 'zone.js/node';
+import express, { Request, Response } from 'express';
+import { join } from 'path';
 import { CommonEngine } from '@angular/ssr';
-import express from 'express';
-import { fileURLToPath } from 'node:url';
-import { dirname, join, resolve } from 'node:path';
 import bootstrap from './src/main.server';
-import compression from 'compression';
-import expressStaticGzip from 'express-static-gzip';
+import { APP_BASE_HREF } from '@angular/common';
 
-// The Express app is exported so that it can be used by serverless Functions.
-export function app(): express.Express {
-  const server = express();
-  const serverDistFolder = dirname(fileURLToPath(import.meta.url));
-  const browserDistFolder = resolve(serverDistFolder, '../browser');
-  const indexHtml = join(serverDistFolder, 'index.server.html');
+const app = express();
 
-  const commonEngine = new CommonEngine();
+const DIST_FOLDER = join(process.cwd(), 'lucjaubert');
 
-  // Use compression middleware
-  server.use(compression());
+app.get(
+  '*.*',
+  express.static(DIST_FOLDER, {
+    maxAge: '1y',
+  })
+);
 
-  // Use expressStaticGzip for serving pre-compressed assets
-  server.use('/', expressStaticGzip(browserDistFolder, {
-    enableBrotli: true,
-    orderPreference: ['br', 'gz']
-  }));  
+app.get('*', (req: Request, res: Response) => {
+  const engine = new CommonEngine();
+  engine
+    .render({
+      bootstrap,
+      documentFilePath: join(DIST_FOLDER, 'index.html'),
+      url: req.originalUrl,
+      publicPath: DIST_FOLDER,
+      providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }],
+    })
+    .then((html) => res.status(200).send(html))
+    .catch((err) => {
+      console.error('Erreur lors du rendu SSR', err);
+      res.status(500).send('Une erreur est survenue');
+    });
+});
 
-  // Setting cache headers for static files
-  server.use('/', express.static(browserDistFolder, {
-    setHeaders: (res) => {
-      res.setHeader("Cache-Control", "public, max-age=31536000"); 
-    }
-  }));
-
-  server.set('view engine', 'html');
-  server.set('views', browserDistFolder);
-
-  // Example Express Rest API endpoints
-  // server.get('/api/**', (req, res) => { });
-  
-  // All regular routes use the Angular engine
-  server.get('**', (req, res, next) => {
-    const { protocol, originalUrl, baseUrl, headers } = req;
-
-    commonEngine
-      .render({
-        bootstrap,
-        documentFilePath: indexHtml,
-        url: `${protocol}://${headers.host}${originalUrl}`,
-        publicPath: browserDistFolder,
-        providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
-      })
-      .then((html) => res.send(html))
-      .catch((err) => next(err));
-  });
-
-  return server;
-}
-
-function run(): void {
-  const port = process.env['PORT'] || 4000;
-
-  // Start up the Node server
-  const server = app();
-  server.listen(port, () => {
-    console.log(`Node Express server listening on http://localhost:${port}`);
-  });
-}
-
-run();
+app.listen(4000, () => {
+  console.log(`Serveur Node écoutant sur http://localhost:4000`);
+});

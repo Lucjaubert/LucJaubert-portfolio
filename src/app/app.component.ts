@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
+import { LoadingScreenComponent } from './shared/components/loading-screen/loading-screen.component';
+import { LoadingService } from './services/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -9,15 +11,25 @@ import { HeaderComponent } from './shared/components/header/header.component';
   imports: [
     RouterOutlet,
     CommonModule,
-    HeaderComponent
+    HeaderComponent,
+    LoadingScreenComponent
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'lucjaubert';
 
   isAtBottom = false;
+  isLoading = true;
+
+  constructor(private loadingService: LoadingService) {}
+
+  ngOnInit(): void {
+    this.loadingService.loading$.subscribe((isLoading) => {
+      this.isLoading = isLoading;
+    });
+  }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {

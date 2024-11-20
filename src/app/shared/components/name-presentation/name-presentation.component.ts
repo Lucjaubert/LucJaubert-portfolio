@@ -13,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
   styleUrls: ['./name-presentation.component.scss'],
 })
 export class NamePresentationComponent implements OnInit, AfterViewInit {
-  
+
   private colors = [
     { name: 'blue', hex: '#515DE2', image: 'letter-L-blue.png' },
     { name: 'yellow', hex: '#ffdc7a', image: 'letter-L-yellow.png' },
@@ -21,7 +21,7 @@ export class NamePresentationComponent implements OnInit, AfterViewInit {
     { name: 'light-green', hex: '#92FFE4', image: 'letter-L-light-green.png' },
   ];
 
-  currentColor = this.colors[0]; 
+  currentColor = this.colors[0];
   colorChangeInterval: any;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
@@ -35,8 +35,8 @@ export class NamePresentationComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.initAnimeJS();
-      this.initDotReturn(); 
-      this.setDotPositionOnLoad(); 
+      this.initDotReturn();
+      this.setDotPositionOnLoad();
     }
   }
 
@@ -49,7 +49,7 @@ export class NamePresentationComponent implements OnInit, AfterViewInit {
   private startColorChange(): void {
     this.colorChangeInterval = setInterval(() => {
       this.changeColor();
-    }, 7000); 
+    }, 7000);
   }
 
   private changeColor(): void {
@@ -118,7 +118,7 @@ export class NamePresentationComponent implements OnInit, AfterViewInit {
         opacity: [0, 1],
         easing: 'easeOutExpo',
         duration: 800,
-        delay: (el: HTMLElement, i: number) => 90 * (i + 1),
+        delay: (el: HTMLElement, i: number) => 1200 * (i + 1),
       })
       .add({
         targets: '.ml11 .first-line',
@@ -216,7 +216,7 @@ export class NamePresentationComponent implements OnInit, AfterViewInit {
                 } else {
                   gsap.to(dotElement, {
                     duration: 0.5,
-                    left: '-16.2rem', 
+                    left: '-16.2rem',
                   });
                 }
               }

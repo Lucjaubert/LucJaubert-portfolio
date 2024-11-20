@@ -1,0 +1,36 @@
+@import "../../../../styles/_variables.scss";
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: map-get($theme-colors, "black");
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.progress-text {
+  font-size: 48px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.color-light-blue {
+  color: #a2aafd;
+}
+
+.color-light-green {
+  color: #92ffe4;
+}
+
+.color-yellow {
+  color: #ffdc7a;
+}
+
+.color-orange {
+  color: #ffa93a;
+}
