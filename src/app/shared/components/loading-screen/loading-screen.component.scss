@@ -33,8 +33,11 @@
 }
 
 img {
-  width: 100px; /* Ajustez la taille selon vos besoins */
+  width: 100px;
   height: 100px;
+  opacity: 1;
+  animation: fadeOut 1.3s ease-in forwards;
+  animation-delay: 1s;
 }
 
 .rotate {
@@ -47,6 +50,15 @@ img {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
 

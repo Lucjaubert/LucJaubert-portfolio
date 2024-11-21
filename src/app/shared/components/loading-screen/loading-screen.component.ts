@@ -1,25 +1,31 @@
-import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { LoadingService } from '../../../services/loading.service';
-import { ProjectService } from '../../../services/project.service';
-import { isPlatformBrowser, NgIf, NgClass } from '@angular/common';
+import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy, ChangeDetectorRef } from "@angular/core";
+import { LoadingService } from "../../../services/loading.service";
+import { ProjectService } from "../../../services/project.service";
+import { isPlatformBrowser, NgIf, NgClass } from "@angular/common";
 
 @Component({
-  selector: 'app-loading-screen',
-  templateUrl: './loading-screen.component.html',
-  styleUrls: ['./loading-screen.component.scss'],
+  selector: "app-loading-screen",
+  templateUrl: "./loading-screen.component.html",
+  styleUrls: ["./loading-screen.component.scss"],
   standalone: true,
-  imports: [NgIf, NgClass]
+  imports: [NgIf, NgClass],
 })
 export class LoadingScreenComponent implements OnInit, OnDestroy {
-  displayText = '100%';
+  displayText = "100%";
   isRotating = false;
-  colorClasses = ['color-light-blue', 'color-light-green', 'color-yellow', 'color-orange'];
+  colorClasses = [
+    "color-light-blue",
+    "color-light-green",
+    "color-yellow",
+    "color-orange",
+  ];
   currentColorClassIndex = 0;
   currentColorClass = this.colorClasses[0];
   colorChangeInterval: any;
   textTransformed = false;
   isHidden = false;
   showPercentage = false;
+  isImageVisible = true;
 
   constructor(
     private loadingService: LoadingService,
@@ -35,16 +41,19 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
         this.startColorCycle();
         this.cdr.detectChanges();
 
-        Promise.all([this.preloadMedia(), this.minimumLoadTime(2500)])
-          .then(() => {
+        Promise.all([this.preloadMedia(), this.minimumLoadTime(2500)]).then(
+          () => {
             this.updateDisplayText();
+
             setTimeout(() => {
+              this.isImageVisible = false;
               this.isHidden = true;
               this.cdr.detectChanges();
 
               this.loadingService.setLoading(false);
-            }, 1500);
-          });
+            }, 1000);
+          }
+        );
       }, 700);
     } else {
       this.loadingService.setLoading(false);
@@ -66,17 +75,20 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
         const totalMedia = mediaList.length;
 
         if (totalMedia === 0) {
-          console.warn('No media to load.');
+          console.warn("No media to load.");
           resolve();
           return;
         }
 
         mediaList.forEach((mediaSrc) => {
-          const isVideo = mediaSrc.endsWith('.mp4') || mediaSrc.endsWith('.webm') || mediaSrc.endsWith('.ogg');
+          const isVideo =
+            mediaSrc.endsWith(".mp4") ||
+            mediaSrc.endsWith(".webm") ||
+            mediaSrc.endsWith(".ogg");
           if (isVideo) {
-            const video = document.createElement('video');
+            const video = document.createElement("video");
             video.src = mediaSrc;
-            video.preload = 'auto';
+            video.preload = "auto";
 
             video.onloadeddata = () => {
               loadedMedia++;
@@ -87,7 +99,9 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
 
             video.onerror = () => {
               loadedMedia++;
-              console.error(`Error loading video: ${mediaSrc} (${loadedMedia}/${totalMedia})`);
+              console.error(
+                `Error loading video: ${mediaSrc} (${loadedMedia}/${totalMedia})`
+              );
               if (loadedMedia === totalMedia) {
                 resolve();
               }
@@ -107,7 +121,9 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
 
             img.onerror = () => {
               loadedMedia++;
-              console.error(`Error loading image: ${mediaSrc} (${loadedMedia}/${totalMedia})`);
+              console.error(
+                `Error loading image: ${mediaSrc} (${loadedMedia}/${totalMedia})`
+              );
               if (loadedMedia === totalMedia) {
                 resolve();
               }
@@ -124,7 +140,8 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
 
   startColorCycle(): void {
     this.colorChangeInterval = setInterval(() => {
-      this.currentColorClassIndex = (this.currentColorClassIndex + 1) % this.colorClasses.length;
+      this.currentColorClassIndex =
+        (this.currentColorClassIndex + 1) % this.colorClasses.length;
       this.currentColorClass = this.colorClasses[this.currentColorClassIndex];
       this.cdr.detectChanges();
     }, 300);
@@ -134,10 +151,6 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
     this.isRotating = false;
     this.showPercentage = true;
     this.textTransformed = true;
-
-    // Continuer le cycle de couleurs pour le '100%'
-    // Le cycle de couleurs est déjà en cours grâce à startColorCycle()
-
     this.cdr.detectChanges();
   }
 
@@ -145,7 +158,7 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
     return {
       [this.currentColorClass]: true,
       rotate: this.isRotating,
-      'transform-text': this.textTransformed
+      "transform-text": this.textTransformed,
     };
   }
 }
