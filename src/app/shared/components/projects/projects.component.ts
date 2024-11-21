@@ -189,30 +189,15 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
   openProjectLink(project: Project | null): void {
     if (!project) return;
 
-    let url: string;
-    switch (project.name) {
-      case 'LAITERIE BURDIGALA .':
-        url = 'www.laiterieburdigala.fr';
-        break;
-      case 'ANGLAIS DU VIN .':
-        url = 'www.kathrynwaltonward.com';
-        break;
-      case 'LIMAGO REFLEXO .':
-        url = 'www.limago-reflexo.fr';
-        break;
-      case 'MAISON AH-RONG .':
-        url = 'www.maisonahrong.com';
-        break;
-      default:
-        url = '#';
-    }
+    let url = project.url.trim();
 
     if (!/^https?:\/\//i.test(url)) {
-      url = 'https://' + url;
+        url = 'https://' + url;
     }
 
     window.open(url, '_blank');
-  }
+}
+
 
   private initProjectAnimations(): void {
     if (isPlatformBrowser(this.platformId)) {
