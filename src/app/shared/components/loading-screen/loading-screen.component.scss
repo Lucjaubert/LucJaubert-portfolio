@@ -20,10 +20,24 @@
   pointer-events: none;
 }
 
+.progress-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .progress-text {
   font-size: clamp(24px, 5vw, 48px);
   font-weight: bold;
   transition: color 0.3s ease, transform 0.3s ease;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+  opacity: 1;
+  animation: fadeOut 1.3s ease-in forwards;
+  animation-delay: 1s;
 }
 
 .rotate {
@@ -36,6 +50,15 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
 

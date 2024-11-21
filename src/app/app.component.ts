@@ -6,6 +6,7 @@ import { LoadingScreenComponent } from './shared/components/loading-screen/loadi
 import { LoadingService } from './services/loading.service';
 import { Title, Meta } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,8 @@ import { Observable } from 'rxjs';
     RouterOutlet,
     CommonModule,
     HeaderComponent,
-    LoadingScreenComponent
+    LoadingScreenComponent,
+    NgIf
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']

@@ -1,9 +1,19 @@
-<div class="loading-screen">
-  <div
-    class="progress-text"
-    [ngClass]="progressTextClasses"
-  >
-    {{ displayText }}
+<div class="loading-screen" [class.hidden]="isHidden">
+  <div class="progress-content">
+    <ng-container *ngIf="!showPercentage">
+      <img
+        src="assets/img/icons/logo-lj-yellow-hello.png"
+        alt="Loading"
+        [ngClass]="progressTextClasses"
+      />
+    </ng-container>
+    <ng-container *ngIf="showPercentage">
+      <div
+        class="progress-text"
+        [ngClass]="progressTextClasses"
+      >
+        {{ displayText }}
+      </div>
+    </ng-container>
   </div>
 </div>
-
