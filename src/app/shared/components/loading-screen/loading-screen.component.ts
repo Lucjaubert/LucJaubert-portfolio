@@ -6,16 +6,15 @@ import {
   OnDestroy,
   ChangeDetectorRef,
 } from '@angular/core';
-import { LoadingService } from '../../../services/loading.service';
 import { ProjectService } from '../../../services/project.service';
-import { isPlatformBrowser, CommonModule } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-loading-screen',
   templateUrl: './loading-screen.component.html',
   styleUrls: ['./loading-screen.component.scss'],
   standalone: true,
-  imports: [CommonModule],
 })
 export class LoadingScreenComponent implements OnInit, OnDestroy {
   displayText = '100%';
@@ -35,8 +34,8 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
   isImageVisible = true;
 
   constructor(
-    private loadingService: LoadingService,
     private projectService: ProjectService,
+    private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object,
     private cdr: ChangeDetectorRef
   ) {}
@@ -57,13 +56,13 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
               this.isHidden = true;
               this.cdr.detectChanges();
 
-              this.loadingService.setLoading(false);
+              this.router.navigate(['/home']);
             }, 1000);
           }
         );
       }, 700);
     } else {
-      this.loadingService.setLoading(false);
+      this.router.navigate(['/home']);
     }
   }
 

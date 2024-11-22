@@ -2,16 +2,16 @@
   <nav class="navbar navbar-expand-lg navbar-light custom-navbar" [class.animate]="animateHeader">
     <ul class="navbar-nav d-flex w-100 justify-content-between align-items-center">
       <li class="nav-item nav-item-projects">
-        <a class="nav-link nav-link-projects active" aria-current="page" href="#projects">Projets</a>
+        <a class="nav-link nav-link-projects active" aria-current="page" [routerLink]="['/home']" fragment="projects">Projets</a>
       </li>
       <li class="nav-item nav-item-bio" style="display: block;">
-        <a class="nav-link nav-link-bio" href="#bio">Bio</a>
+        <a class="nav-link nav-link-bio" [routerLink]="['/home']" fragment="bio">Bio</a>
       </li>
       <li class="nav-item nav-item-studio">
-        <a class="nav-link nav-link-studio" href="#studio-web">Studio Web</a>
+        <a class="nav-link nav-link-studio" [routerLink]="['/home']" fragment="studio-web">Studio Web</a>
       </li>
       <li class="nav-item nav-item-contact">
-        <a class="nav-link nav-link-contact" href="#contact">Contact</a>
+        <a class="nav-link nav-link-contact" [routerLink]="['/home']" fragment="contact">Contact</a>
       </li>
     </ul>
   </nav>

@@ -1,11 +1,9 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, Inject } from '@angular/core';
 import { PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import anime from 'animejs/lib/anime.es.js';
-import { LoadingService } from '../../../services/loading.service';
-import { Subscription } from 'rxjs';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,8 +11,10 @@ gsap.registerPlugin(ScrollTrigger);
   selector: 'app-name-presentation',
   templateUrl: './name-presentation.component.html',
   styleUrls: ['./name-presentation.component.scss'],
+  standalone: true,
+  imports: [CommonModule],
 })
-export class NamePresentationComponent implements OnInit, OnDestroy {
+export class NamePresentationComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private colors = [
     { name: 'blue', hex: '#515DE2', image: 'letter-L-blue.png' },
@@ -25,39 +25,28 @@ export class NamePresentationComponent implements OnInit, OnDestroy {
 
   currentColor = this.colors[0];
   colorChangeInterval: any;
-  private loadingSubscription!: Subscription;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
-    private loadingService: LoadingService
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.startColorChange();
+    }
+  }
 
-      if (!this.loadingService.isLoading()) {
-        this.initAnimeJS();
-        this.initDotReturn();
-        this.setDotPositionOnLoad();
-      } else {
-        this.loadingSubscription = this.loadingService.loading$.subscribe((isLoading) => {
-          if (!isLoading) {
-            this.initAnimeJS();
-            this.initDotReturn();
-            this.setDotPositionOnLoad();
-          }
-        });
-      }
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.initAnimeJS();
+      this.initDotReturn();
+      this.setDotPositionOnLoad();
     }
   }
 
   ngOnDestroy(): void {
     if (this.colorChangeInterval) {
       clearInterval(this.colorChangeInterval);
-    }
-    if (this.loadingSubscription) {
-      this.loadingSubscription.unsubscribe();
     }
   }
 

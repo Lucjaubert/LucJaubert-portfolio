@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
