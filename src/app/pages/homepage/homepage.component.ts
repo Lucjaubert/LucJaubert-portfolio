@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, Inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { PLATFORM_ID } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { LoadingService } from '../../services/loading.service';
@@ -12,7 +12,7 @@ import { LoadingService } from '../../services/loading.service';
   standalone: true,
   imports: [
     CommonModule,
-    RouterOutlet,
+    RouterModule,
   ],
 })
 export class HomepageComponent implements OnInit {
