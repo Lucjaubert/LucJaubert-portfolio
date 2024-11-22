@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, Inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { catchError, Observable, of } from 'rxjs';
 import { PLATFORM_ID } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-homepage',
@@ -24,10 +24,13 @@ export class HomepageComponent implements OnInit {
   headerComponent: any;
   footerComponent: any;
 
+  isLoaded: boolean = false;
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private titleService: Title,
-    private metaService: Meta
+    private metaService: Meta,
+    private loadingService: LoadingService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -49,26 +52,32 @@ export class HomepageComponent implements OnInit {
       content: 'https://lucjaubert.com/assets/icons/apple-touch-icon.png'
     });
 
-    this.headerComponent = await import('../../shared/components/header/header.component').then(
-      (m) => m.HeaderComponent
-    );
-    this.namePresentationComponent = await import('../../shared/components/name-presentation/name-presentation.component').then(
-      (m) => m.NamePresentationComponent
-    );
-    this.projectsComponent = await import('../../shared/components/projects/projects.component').then(
-      (m) => m.ProjectsComponent
-    );
-    this.studioWebComponent = await import('../../shared/components/studio-web/studio-web.component').then(
-      (m) => m.StudioWebComponent
-    );
-    this.bioComponent = await import('../../shared/components/bio/bio.component').then(
-      (m) => m.BioComponent
-    );
-    this.contactComponent = await import('../../shared/components/contact/contact.component').then(
-      (m) => m.ContactComponent
-    );
-    this.footerComponent = await import('../../shared/components/footer/footer.component').then(
-      (m) => m.FooterComponent
-    );
+    await Promise.all([
+      import('../../shared/components/header/header.component').then(
+        (m) => (this.headerComponent = m.HeaderComponent)
+      ),
+      import('../../shared/components/name-presentation/name-presentation.component').then(
+        (m) => (this.namePresentationComponent = m.NamePresentationComponent)
+      ),
+      import('../../shared/components/projects/projects.component').then(
+        (m) => (this.projectsComponent = m.ProjectsComponent)
+      ),
+      import('../../shared/components/studio-web/studio-web.component').then(
+        (m) => (this.studioWebComponent = m.StudioWebComponent)
+      ),
+      import('../../shared/components/bio/bio.component').then(
+        (m) => (this.bioComponent = m.BioComponent)
+      ),
+      import('../../shared/components/contact/contact.component').then(
+        (m) => (this.contactComponent = m.ContactComponent)
+      ),
+      import('../../shared/components/footer/footer.component').then(
+        (m) => (this.footerComponent = m.FooterComponent)
+      ),
+    ]);
+
+    this.isLoaded = true;
+
+    this.loadingService.setLoading(false);
   }
 }

@@ -1,17 +1,18 @@
 
-<div class="full-screen-container">
-  <div class="container">
-    <ng-container *ngComponentOutlet="namePresentationComponent"></ng-container>
+<div *ngIf="isLoaded">
+  <div class="full-screen-container">
+    <div class="container">
+      <ng-container *ngComponentOutlet="namePresentationComponent"></ng-container>
+    </div>
   </div>
+
+  <ng-container *ngComponentOutlet="projectsComponent"></ng-container>
+  <ng-container *ngComponentOutlet="bioComponent"></ng-container>
+  <div class="spacer"></div>
+  <ng-container *ngComponentOutlet="studioWebComponent"></ng-container>
+  <ng-container *ngComponentOutlet="contactComponent"></ng-container>
+  <ng-container *ngComponentOutlet="footerComponent"></ng-container>
 </div>
-
-<ng-container *ngComponentOutlet="projectsComponent"></ng-container>
-<ng-container *ngComponentOutlet="bioComponent"></ng-container>
-<div class="spacer"></div>
-<ng-container *ngComponentOutlet="studioWebComponent"></ng-container>
-<ng-container *ngComponentOutlet="contactComponent"></ng-container>
-<ng-container *ngComponentOutlet="footerComponent"></ng-container>
-
 
 
 
