@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, Inject } from '@angular/core';
 import { PLATFORM_ID } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
 import { NamePresentationComponent } from '../../shared/components/name-presentation/name-presentation.component';
 import { ProjectsComponent } from '../../shared/components/projects/projects.component';
@@ -27,14 +28,18 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
 export class HomepageComponent implements OnInit {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(DOCUMENT) private document: Document,
     private titleService: Title,
     private metaService: Meta
   ) {}
 
   ngOnInit(): void {
+    this.updateCanonicalURL('https://lucjaubert.com/home');
+
     this.titleService.setTitle(
       'Luc Jaubert - Création de Sites Internet | Développeur Web Freelance'
     );
+
     this.metaService.updateTag({
       name: 'description',
       content:
@@ -54,5 +59,20 @@ export class HomepageComponent implements OnInit {
       property: 'og:image',
       content: 'https://lucjaubert.com/assets/icons/apple-touch-icon.png',
     });
+  }
+
+  updateCanonicalURL(url: string): void {
+    let link: HTMLLinkElement | null = this.document.querySelector(
+      'link[rel="canonical"]'
+    );
+
+    if (link) {
+      link.href = url;
+    } else {
+      link = this.document.createElement('link');
+      link.setAttribute('rel', 'canonical');
+      link.setAttribute('href', url);
+      this.document.head.appendChild(link);
+    }
   }
 }

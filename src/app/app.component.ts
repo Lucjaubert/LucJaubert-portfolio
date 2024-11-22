@@ -6,14 +6,14 @@ import {
   Inject,
   PLATFORM_ID,
 } from '@angular/core';
-import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
+import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, HeaderComponent],
+  imports: [RouterModule, CommonModule, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
@@ -75,7 +75,7 @@ export class AppComponent implements OnInit {
     this.metaService.updateTag({ property: 'og:image', content: image });
     this.metaService.updateTag({
       property: 'og:url',
-      content: 'https://lucjaubert.com',
+      content: 'https://lucjaubert.com/home',
     });
     this.metaService.updateTag({
       property: 'og:site_name',
@@ -98,7 +98,7 @@ export class AppComponent implements OnInit {
     this.metaService.updateTag({ name: 'theme-color', content: '#537ce2' });
     this.metaService.updateTag({
       rel: 'canonical',
-      href: 'https://lucjaubert.com/',
+      href: 'https://lucjaubert.com/home',
     });
   }
 

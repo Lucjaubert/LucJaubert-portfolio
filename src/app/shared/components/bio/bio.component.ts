@@ -3,7 +3,7 @@ import { PLATFORM_ID } from '@angular/core';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-bio',
@@ -11,7 +11,7 @@ import { RouterOutlet } from '@angular/router';
   styleUrls: ['./bio.component.scss'],
   standalone: true,
   imports: [
-    RouterOutlet,
+    RouterModule,
     CommonModule
   ]
 })
