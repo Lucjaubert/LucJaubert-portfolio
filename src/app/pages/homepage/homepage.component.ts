@@ -24,28 +24,26 @@ export class HomepageComponent implements OnInit {
   headerComponent: any;
   footerComponent: any;
 
-  isLoaded: boolean = false;
-
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private titleService: Title,
     private metaService: Meta,
-    private loadingService: LoadingService
+    public loadingService: LoadingService
   ) {}
 
   async ngOnInit(): Promise<void> {
-    this.titleService.setTitle('Luc Jaubert - Développeur Web Freelance à Bordeaux');
+    this.titleService.setTitle('Luc Jaubert - Création de Sites Internet | Développeur Web Freelance');
     this.metaService.updateTag({
       name: 'description',
-      content: "Création de sites internet sur mesure, vitrines, e-commerce, et optimisation SEO à Bordeaux."
+      content: 'Création de sites internet sur mesure, vitrines, e-commerce, et optimisation SEO à Bordeaux.'
     });
     this.metaService.updateTag({
       property: 'og:title',
-      content: 'Luc Jaubert - Développeur Web Freelance à Bordeaux'
+      content: 'Luc Jaubert - Création de Sites Internet | Développeur Web Freelance'
     });
     this.metaService.updateTag({
       property: 'og:description',
-      content: "Découvrez mes projets de développement web : e-commerce, vitrines, click&collect sur mesure."
+      content: 'Découvrez mes projets de développement web : vitrines, e-commerce, click & collect sur mesure, avec une expertise en SEO.'
     });
     this.metaService.updateTag({
       property: 'og:image',
@@ -75,9 +73,5 @@ export class HomepageComponent implements OnInit {
         (m) => (this.footerComponent = m.FooterComponent)
       ),
     ]);
-
-    this.isLoaded = true;
-
-    this.loadingService.setLoading(false);
   }
 }

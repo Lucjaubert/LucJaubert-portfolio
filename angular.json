@@ -36,23 +36,9 @@
                 "output": "./"
               },
               "src/robots.txt",
-              "src/sitemap.xml",
-              {
-                "glob": "main.ts",
-                "input": "",
-                "output": "./"
-              },
-              {
-                "glob": "package.json",
-                "input": "",
-                "output": "./"
-              },
-              {
-                "glob": "package-lock.json",
-                "input": "",
-                "output": "./"
-              }
+              "src/sitemap.xml"
             ],
+
             "styles": [
               "src/styles/styles.scss",
               "node_modules/bootstrap/scss/bootstrap.scss"

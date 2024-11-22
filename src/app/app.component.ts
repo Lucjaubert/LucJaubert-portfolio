@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, HostListener, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
@@ -6,7 +6,6 @@ import { LoadingScreenComponent } from './shared/components/loading-screen/loadi
 import { LoadingService } from './services/loading.service';
 import { Title, Meta } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +15,6 @@ import { NgIf } from '@angular/common';
     CommonModule,
     HeaderComponent,
     LoadingScreenComponent,
-    NgIf
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
@@ -26,7 +24,7 @@ export class AppComponent implements OnInit {
   isLoading$: Observable<boolean>;
 
   constructor(
-    private loadingService: LoadingService,
+    public loadingService: LoadingService,
     private titleService: Title,
     private metaService: Meta,
     private router: Router,
