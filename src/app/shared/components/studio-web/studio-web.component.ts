@@ -2,7 +2,7 @@ import { Component, AfterViewInit, ViewChildren, ElementRef, QueryList, Inject, 
 import { PLATFORM_ID } from '@angular/core';
 import { gsap, CSSPlugin, ScrollTrigger } from 'gsap/all';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { SlugifyPipe } from '../../pipe/slugify.pipe';
 import { LineBreaksPipe } from '../../pipe/line-breaks.pipe';
@@ -21,7 +21,7 @@ interface StudioSection {
   styleUrls: ['./studio-web.component.scss'],
   standalone: true,
   imports: [
-    RouterOutlet,
+    RouterModule,
     CommonModule,
     SlugifyPipe,
     LineBreaksPipe
@@ -94,17 +94,17 @@ export class StudioWebComponent implements AfterViewInit, OnInit, OnDestroy {
           const horizontalLine = sectionElement.querySelector('.horizontal-line') as HTMLElement | null;
           const verticalLine = sectionElement.querySelector('.vertical-line') as HTMLElement | null;
           const detailsText = sectionElement.querySelector('.stacks-slide') as HTMLElement | null;
-  
-  
+
+
           ScrollTrigger.create({
             trigger: sectionElement,
             start: "top top",
             end: "bottom top",
             pin: true,
-            pinSpacing: true, 
+            pinSpacing: true,
             scrub: false,
           });
-  
+
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: sectionElement,
@@ -113,7 +113,7 @@ export class StudioWebComponent implements AfterViewInit, OnInit, OnDestroy {
               scrub: false,
             }
           });
-  
+
           if (title) {
             tl.fromTo(
               title,
@@ -129,8 +129,8 @@ export class StudioWebComponent implements AfterViewInit, OnInit, OnDestroy {
               }
             );
           }
-          
-  
+
+
           if (horizontalLine) {
             tl.fromTo(horizontalLine, {
               width: '0%',
@@ -153,7 +153,7 @@ export class StudioWebComponent implements AfterViewInit, OnInit, OnDestroy {
                 ease: "power4.out"
             }, "-=0.5");
           }
-  
+
           if (verticalLine) {
             tl.fromTo(verticalLine, {
               height: '0%',
@@ -163,7 +163,7 @@ export class StudioWebComponent implements AfterViewInit, OnInit, OnDestroy {
               ease: 'none'
             }, "-=0.5");
           }
-  
+
           if (detailsText) {
             tl.from(detailsText, {
               opacity: 0,

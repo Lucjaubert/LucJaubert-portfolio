@@ -29,8 +29,8 @@
       display: inline-block;
       opacity: 0;
       line-height: 1em;
-      color: inherit; 
-      transition: color 0.75s ease; 
+      color: inherit;
+      transition: color 0.75s ease;
     }
 
     .letters-1 .letter,
@@ -68,13 +68,13 @@
       position: relative;
       transition: left 0.6s ease;
       color: map-get($theme-colors, "beige");
-      transition: color 0.5s ease; 
+      transition: color 0.5s ease;
     }
   }
 
   .ml13 {
     line-height: 3rem;
-    color: inherit; 
+    color: inherit;
 
     .letters-3 {
       display: inline-block;
@@ -94,8 +94,8 @@
     display: inline-block;
     position: relative;
     font-size: map-get($font-size, "140");
-    color: inherit; 
-    transition: color 0.75s ease; 
+    color: inherit;
+    transition: color 0.75s ease;
   }
 
   h2 {
@@ -127,7 +127,7 @@
         left: 0;
         height: 100%;
         width: 3px;
-        background-color: inherit; 
+        background-color: inherit;
         transform-origin: 0 50%;
         transition: background-color 0.5s ease;
 
@@ -179,7 +179,7 @@
         left: 0;
         height: 100%;
         width: 3px;
-        background-color: inherit; 
+        background-color: inherit;
         transform-origin: 0 50%;
         transition: background-color 0.5s ease;
 

@@ -1,6 +1,6 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
@@ -8,7 +8,7 @@ import { RouterOutlet } from '@angular/router';
   styleUrls: ['./footer.component.scss'],
   standalone: true,
   imports: [
-    RouterOutlet,
+    RouterModule,
     CommonModule
   ]
 })
@@ -16,7 +16,7 @@ export class FooterComponent implements OnInit, OnDestroy {
 
   colorClasses = ['color-light-blue', 'color-light-green', 'color-yellow', 'color-orange'];
   currentColorClassIndex = 0;
-  currentColorClass = this.colorClasses[0]; 
+  currentColorClass = this.colorClasses[0];
   colorChangeInterval: any;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
@@ -39,6 +39,6 @@ export class FooterComponent implements OnInit, OnDestroy {
     this.colorChangeInterval = setInterval(() => {
       this.currentColorClassIndex = (this.currentColorClassIndex + 1) % this.colorClasses.length;
       this.currentColorClass = this.colorClasses[this.currentColorClassIndex];
-    }, 3000); 
+    }, 3000);
   }
 }
