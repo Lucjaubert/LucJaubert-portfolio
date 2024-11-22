@@ -1,9 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, Inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { PLATFORM_ID } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
-import { LoadingService } from '../../services/loading.service';
+import { NamePresentationComponent } from '../../shared/components/name-presentation/name-presentation.component';
+import { ProjectsComponent } from '../../shared/components/projects/projects.component';
+import { StudioWebComponent } from '../../shared/components/studio-web/studio-web.component';
+import { BioComponent } from '../../shared/components/bio/bio.component';
+import { ContactComponent } from '../../shared/components/contact/contact.component';
+import { FooterComponent } from '../../shared/components/footer/footer.component';
 
 @Component({
   selector: 'app-homepage',
@@ -12,66 +16,43 @@ import { LoadingService } from '../../services/loading.service';
   standalone: true,
   imports: [
     CommonModule,
-    RouterOutlet,
+    NamePresentationComponent,
+    ProjectsComponent,
+    StudioWebComponent,
+    BioComponent,
+    ContactComponent,
+    FooterComponent,
   ],
 })
 export class HomepageComponent implements OnInit {
-  namePresentationComponent: any;
-  projectsComponent: any;
-  studioWebComponent: any;
-  bioComponent: any;
-  contactComponent: any;
-  headerComponent: any;
-  footerComponent: any;
-
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private titleService: Title,
-    private metaService: Meta,
-    public loadingService: LoadingService
+    private metaService: Meta
   ) {}
 
-  async ngOnInit(): Promise<void> {
-    this.titleService.setTitle('Luc Jaubert - Création de Sites Internet | Développeur Web Freelance');
+  ngOnInit(): void {
+    this.titleService.setTitle(
+      'Luc Jaubert - Création de Sites Internet | Développeur Web Freelance'
+    );
     this.metaService.updateTag({
       name: 'description',
-      content: 'Création de sites internet sur mesure, vitrines, e-commerce, et optimisation SEO à Bordeaux.'
+      content:
+        'Création de sites internet sur mesure, vitrines, e-commerce, et optimisation SEO à Bordeaux.',
     });
     this.metaService.updateTag({
       property: 'og:title',
-      content: 'Luc Jaubert - Création de Sites Internet | Développeur Web Freelance'
+      content:
+        'Luc Jaubert - Création de Sites Internet | Développeur Web Freelance',
     });
     this.metaService.updateTag({
       property: 'og:description',
-      content: 'Découvrez mes projets de développement web : vitrines, e-commerce, click & collect sur mesure, avec une expertise en SEO.'
+      content:
+        'Découvrez mes projets de développement web : vitrines, e-commerce, click & collect sur mesure, avec une expertise en SEO.',
     });
     this.metaService.updateTag({
       property: 'og:image',
-      content: 'https://lucjaubert.com/assets/icons/apple-touch-icon.png'
+      content: 'https://lucjaubert.com/assets/icons/apple-touch-icon.png',
     });
-
-    await Promise.all([
-      import('../../shared/components/header/header.component').then(
-        (m) => (this.headerComponent = m.HeaderComponent)
-      ),
-      import('../../shared/components/name-presentation/name-presentation.component').then(
-        (m) => (this.namePresentationComponent = m.NamePresentationComponent)
-      ),
-      import('../../shared/components/projects/projects.component').then(
-        (m) => (this.projectsComponent = m.ProjectsComponent)
-      ),
-      import('../../shared/components/studio-web/studio-web.component').then(
-        (m) => (this.studioWebComponent = m.StudioWebComponent)
-      ),
-      import('../../shared/components/bio/bio.component').then(
-        (m) => (this.bioComponent = m.BioComponent)
-      ),
-      import('../../shared/components/contact/contact.component').then(
-        (m) => (this.contactComponent = m.ContactComponent)
-      ),
-      import('../../shared/components/footer/footer.component').then(
-        (m) => (this.footerComponent = m.FooterComponent)
-      ),
-    ]);
   }
 }
