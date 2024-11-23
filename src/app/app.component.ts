@@ -64,18 +64,15 @@ export class AppComponent implements OnInit {
     });
   }
 
-  /**
-   * Initialise le chargement des ressources
-   */
   startLoading(): void {
-    this.loadingService.setLoading(true); // Active l'état de chargement
-    Promise.all([this.projectService.getAllMedia().toPromise(), this.minimumLoadTime(2500)])
+    this.loadingService.setLoading(true);
+    Promise.all([this.projectService.getAllMedia().toPromise(), this.minimumLoadTime(3500)])
       .then(() => {
-        this.loadingService.setLoading(false); // Désactive le chargement une fois terminé
+        this.loadingService.setLoading(false);
       })
       .catch((error) => {
         console.error('Erreur de chargement des ressources :', error);
-        this.loadingService.setLoading(false); // Assure la désactivation en cas d'erreur
+        this.loadingService.setLoading(false);
       });
   }
 
@@ -83,9 +80,6 @@ export class AppComponent implements OnInit {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  /**
-   * Met à jour les balises meta pour le SEO
-   */
   updateSEO(title: string, description: string, image: string): void {
     this.titleService.setTitle(title);
 

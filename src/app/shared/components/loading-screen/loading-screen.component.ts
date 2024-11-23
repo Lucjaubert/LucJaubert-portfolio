@@ -6,8 +6,9 @@ import {
   OnDestroy,
   ChangeDetectorRef,
 } from "@angular/core";
-import { LoadingService } from "../../../services/loading.service";
+import { Router } from "@angular/router";
 import { ProjectService } from "../../../services/project.service";
+import { LoadingService } from "../../../services/loading.service";
 import { isPlatformBrowser, CommonModule } from "@angular/common";
 
 @Component({
@@ -36,13 +37,16 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
   isImageVisible = true;
 
   constructor(
-    private loadingService: LoadingService,
+    private router: Router,
     private projectService: ProjectService,
+    private loadingService: LoadingService,
     @Inject(PLATFORM_ID) private platformId: Object,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
+    this.loadingService.setLoading(true);
+
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => {
         this.isRotating = true;
@@ -50,16 +54,18 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
 
         Promise.all([this.preloadMedia(), this.minimumLoadTime(1000)]).then(() => {
           this.updateDisplayText();
-
           this.startTextColorCycle();
 
           setTimeout(() => {
             this.isHidden = true;
-            this.cdr.detectChanges();
             this.loadingService.setLoading(false);
-          }, 3000); // "100%" reste affiché pendant 3 secondes au total
+            this.cdr.detectChanges();
+            this.router.navigate(['/']);
+          }, 2500);
         });
-      }, 1000); // Temps de départ figé de l'image
+      }, 1000);
+    } else {
+      this.loadingService.setLoading(false);
     }
   }
 
@@ -76,7 +82,60 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
 
   preloadMedia(): Promise<void> {
     return new Promise((resolve) => {
-      setTimeout(resolve, 500);
+      this.projectService.getAllMedia().subscribe((mediaList) => {
+        let loadedMedia = 0;
+        const totalMedia = mediaList.length;
+
+        if (totalMedia === 0) {
+          resolve();
+          return;
+        }
+
+        mediaList.forEach((mediaSrc) => {
+          const isVideo =
+            mediaSrc.endsWith(".mp4") ||
+            mediaSrc.endsWith(".webm") ||
+            mediaSrc.endsWith(".ogg");
+          if (isVideo) {
+            const video = document.createElement("video");
+            video.src = mediaSrc;
+            video.preload = "auto";
+
+            video.onloadeddata = () => {
+              loadedMedia++;
+              if (loadedMedia === totalMedia) {
+                resolve();
+              }
+            };
+
+            video.onerror = () => {
+              loadedMedia++;
+              if (loadedMedia === totalMedia) {
+                resolve();
+              }
+            };
+
+            video.load();
+          } else {
+            const img = new Image();
+            img.src = mediaSrc;
+
+            img.onload = () => {
+              loadedMedia++;
+              if (loadedMedia === totalMedia) {
+                resolve();
+              }
+            };
+
+            img.onerror = () => {
+              loadedMedia++;
+              if (loadedMedia === totalMedia) {
+                resolve();
+              }
+            };
+          }
+        });
+      });
     });
   }
 
