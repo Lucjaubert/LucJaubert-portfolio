@@ -1,29 +1,23 @@
-import {
-  Component,
-  OnInit,
-  Inject,
-  PLATFORM_ID,
-  OnDestroy,
-  ChangeDetectorRef,
-} from '@angular/core';
-import { ProjectService } from '../../../services/project.service';
-import { isPlatformBrowser } from '@angular/common';
-import { Router } from '@angular/router';
+import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy, ChangeDetectorRef } from "@angular/core";
+import { LoadingService } from "../../../services/loading.service";
+import { ProjectService } from "../../../services/project.service";
+import { isPlatformBrowser, NgIf, NgClass } from "@angular/common";
 
 @Component({
-  selector: 'app-loading-screen',
-  templateUrl: './loading-screen.component.html',
-  styleUrls: ['./loading-screen.component.scss'],
+  selector: "app-loading-screen",
+  templateUrl: "./loading-screen.component.html",
+  styleUrls: ["./loading-screen.component.scss"],
   standalone: true,
+  imports: [NgIf, NgClass],
 })
 export class LoadingScreenComponent implements OnInit, OnDestroy {
-  displayText = '100%';
+  displayText = "100%";
   isRotating = false;
   colorClasses = [
-    'color-light-blue',
-    'color-light-green',
-    'color-yellow',
-    'color-orange',
+    "color-light-blue",
+    "color-light-green",
+    "color-yellow",
+    "color-orange",
   ];
   currentColorClassIndex = 0;
   currentColorClass = this.colorClasses[0];
@@ -34,8 +28,8 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
   isImageVisible = true;
 
   constructor(
+    private loadingService: LoadingService,
     private projectService: ProjectService,
-    private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object,
     private cdr: ChangeDetectorRef
   ) {}
@@ -56,13 +50,13 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
               this.isHidden = true;
               this.cdr.detectChanges();
 
-              this.router.navigate(['/home']);
+              this.loadingService.setLoading(false);
             }, 1000);
           }
         );
       }, 700);
     } else {
-      this.router.navigate(['/home']);
+      this.loadingService.setLoading(false);
     }
   }
 
@@ -81,20 +75,20 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
         const totalMedia = mediaList.length;
 
         if (totalMedia === 0) {
-          console.warn('No media to load.');
+          console.warn("No media to load.");
           resolve();
           return;
         }
 
         mediaList.forEach((mediaSrc) => {
           const isVideo =
-            mediaSrc.endsWith('.mp4') ||
-            mediaSrc.endsWith('.webm') ||
-            mediaSrc.endsWith('.ogg');
+            mediaSrc.endsWith(".mp4") ||
+            mediaSrc.endsWith(".webm") ||
+            mediaSrc.endsWith(".ogg");
           if (isVideo) {
-            const video = document.createElement('video');
+            const video = document.createElement("video");
             video.src = mediaSrc;
-            video.preload = 'auto';
+            video.preload = "auto";
 
             video.onloadeddata = () => {
               loadedMedia++;
@@ -160,14 +154,11 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
     this.cdr.detectChanges();
   }
 
-  get progressTextClasses(): string {
-    let classes = this.currentColorClass;
-    if (this.isRotating) {
-      classes += ' rotate';
-    }
-    if (this.textTransformed) {
-      classes += ' transform-text';
-    }
-    return classes;
+  get progressTextClasses() {
+    return {
+      [this.currentColorClass]: true,
+      rotate: this.isRotating,
+      "transform-text": this.textTransformed,
+    };
   }
 }

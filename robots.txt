@@ -1,4 +1,3 @@
 User-agent: *
-Disallow: /intro
+Allow: /
 Sitemap: https://lucjaubert.com/sitemap.xml
-

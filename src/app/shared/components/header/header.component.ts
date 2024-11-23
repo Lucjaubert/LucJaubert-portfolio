@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private checkIfHomePage(url: string) {
-    const homeRoutes = ['/', '/home', '/accueil', '/intro'];
+    const homeRoutes = ['/', '/accueil'];
     const urlWithoutFragment = url.split('#')[0];
     if (homeRoutes.includes(urlWithoutFragment)) {
       this.animateHeader = true;

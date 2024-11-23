@@ -1,14 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, Inject } from '@angular/core';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { PLATFORM_ID } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
 import { Title, Meta } from '@angular/platform-browser';
-import { NamePresentationComponent } from '../../shared/components/name-presentation/name-presentation.component';
-import { ProjectsComponent } from '../../shared/components/projects/projects.component';
-import { StudioWebComponent } from '../../shared/components/studio-web/studio-web.component';
-import { BioComponent } from '../../shared/components/bio/bio.component';
-import { ContactComponent } from '../../shared/components/contact/contact.component';
-import { FooterComponent } from '../../shared/components/footer/footer.component';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-homepage',
@@ -17,62 +12,72 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
   standalone: true,
   imports: [
     CommonModule,
-    NamePresentationComponent,
-    ProjectsComponent,
-    StudioWebComponent,
-    BioComponent,
-    ContactComponent,
-    FooterComponent,
+    RouterModule,
   ],
 })
 export class HomepageComponent implements OnInit {
+  namePresentationComponent: any;
+  projectsComponent: any;
+  studioWebComponent: any;
+  bioComponent: any;
+  contactComponent: any;
+  headerComponent: any;
+  footerComponent: any;
+
+  isLoaded: boolean = false;
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    @Inject(DOCUMENT) private document: Document,
     private titleService: Title,
-    private metaService: Meta
+    private metaService: Meta,
+    private loadingService: LoadingService
   ) {}
 
-  ngOnInit(): void {
-    this.updateCanonicalURL('https://lucjaubert.com/home');
-
-    this.titleService.setTitle(
-      'Luc Jaubert - Création de Sites Internet | Développeur Web Freelance'
-    );
-
+  async ngOnInit(): Promise<void> {
+    this.titleService.setTitle('Luc Jaubert - Développeur Web Freelance à Bordeaux');
     this.metaService.updateTag({
       name: 'description',
-      content:
-        'Création de sites internet sur mesure, vitrines, e-commerce, et optimisation SEO à Bordeaux.',
+      content: "Création de sites internet sur mesure, vitrines, e-commerce, et optimisation SEO à Bordeaux."
     });
     this.metaService.updateTag({
       property: 'og:title',
-      content:
-        'Luc Jaubert - Création de Sites Internet | Développeur Web Freelance',
+      content: 'Luc Jaubert - Développeur Web Freelance à Bordeaux'
     });
     this.metaService.updateTag({
       property: 'og:description',
-      content:
-        'Découvrez mes projets de développement web : vitrines, e-commerce, click & collect sur mesure, avec une expertise en SEO.',
+      content: "Découvrez mes projets de développement web : e-commerce, vitrines, click&collect sur mesure."
     });
     this.metaService.updateTag({
       property: 'og:image',
-      content: 'https://lucjaubert.com/assets/icons/apple-touch-icon.png',
+      content: 'https://lucjaubert.com/assets/icons/apple-touch-icon.png'
     });
-  }
 
-  updateCanonicalURL(url: string): void {
-    let link: HTMLLinkElement | null = this.document.querySelector(
-      'link[rel="canonical"]'
-    );
+    await Promise.all([
+      import('../../shared/components/header/header.component').then(
+        (m) => (this.headerComponent = m.HeaderComponent)
+      ),
+      import('../../shared/components/name-presentation/name-presentation.component').then(
+        (m) => (this.namePresentationComponent = m.NamePresentationComponent)
+      ),
+      import('../../shared/components/projects/projects.component').then(
+        (m) => (this.projectsComponent = m.ProjectsComponent)
+      ),
+      import('../../shared/components/studio-web/studio-web.component').then(
+        (m) => (this.studioWebComponent = m.StudioWebComponent)
+      ),
+      import('../../shared/components/bio/bio.component').then(
+        (m) => (this.bioComponent = m.BioComponent)
+      ),
+      import('../../shared/components/contact/contact.component').then(
+        (m) => (this.contactComponent = m.ContactComponent)
+      ),
+      import('../../shared/components/footer/footer.component').then(
+        (m) => (this.footerComponent = m.FooterComponent)
+      ),
+    ]);
 
-    if (link) {
-      link.href = url;
-    } else {
-      link = this.document.createElement('link');
-      link.setAttribute('rel', 'canonical');
-      link.setAttribute('href', url);
-      this.document.head.appendChild(link);
-    }
+    this.isLoaded = true;
+
+    this.loadingService.setLoading(false);
   }
 }

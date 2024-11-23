@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
   templateUrl: './name-presentation.component.html',
   styleUrls: ['./name-presentation.component.scss'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [ CommonModule ],
 })
 export class NamePresentationComponent implements OnInit, OnDestroy, AfterViewInit {
 

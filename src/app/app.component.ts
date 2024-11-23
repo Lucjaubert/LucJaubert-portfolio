@@ -1,33 +1,44 @@
-import { CommonModule } from '@angular/common';
-import {
-  Component,
-  HostListener,
-  OnInit,
-  Inject,
-  PLATFORM_ID,
-} from '@angular/core';
-import { Router, NavigationEnd, RouterModule } from '@angular/router';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, HostListener, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
+import { LoadingScreenComponent } from './shared/components/loading-screen/loading-screen.component';
+import { LoadingService } from './services/loading.service';
+import { ProjectService } from './services/project.service';
 import { Title, Meta } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, CommonModule, HeaderComponent],
+  imports: [
+    RouterOutlet,
+    CommonModule,
+    HeaderComponent,
+    LoadingScreenComponent,
+    NgIf,
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   isAtBottom = false;
+  isLoading$: Observable<boolean>;
 
   constructor(
+    private loadingService: LoadingService,
+    private projectService: ProjectService,
     private titleService: Title,
     private metaService: Meta,
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  ) {
+    this.isLoading$ = this.loadingService.loading$; // Abonnement à l'état de chargement
+  }
 
   ngOnInit(): void {
+    this.startLoading();
     this.updateSEO(
       'Luc Jaubert - Création de Sites Internet | Développeur Web Freelance',
       'Je crée des sites internet sur mesure : vitrines, e-commerce, click & collect, avec une expertise en SEO. Basé à Bordeaux, je suis à votre service pour développer votre présence en ligne.',
@@ -54,10 +65,26 @@ export class AppComponent implements OnInit {
   }
 
   /**
+   * Initialise le chargement des ressources
+   */
+  startLoading(): void {
+    this.loadingService.setLoading(true); // Active l'état de chargement
+    Promise.all([this.projectService.getAllMedia().toPromise(), this.minimumLoadTime(2500)])
+      .then(() => {
+        this.loadingService.setLoading(false); // Désactive le chargement une fois terminé
+      })
+      .catch((error) => {
+        console.error('Erreur de chargement des ressources :', error);
+        this.loadingService.setLoading(false); // Assure la désactivation en cas d'erreur
+      });
+  }
+
+  minimumLoadTime(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  /**
    * Met à jour les balises meta pour le SEO
-   * @param title Titre de la page
-   * @param description Description de la page
-   * @param image
    */
   updateSEO(title: string, description: string, image: string): void {
     this.titleService.setTitle(title);
@@ -68,47 +95,27 @@ export class AppComponent implements OnInit {
     });
 
     this.metaService.updateTag({ property: 'og:title', content: title });
-    this.metaService.updateTag({
-      property: 'og:description',
-      content: description,
-    });
+    this.metaService.updateTag({ property: 'og:description', content: description });
     this.metaService.updateTag({ property: 'og:image', content: image });
-    this.metaService.updateTag({
-      property: 'og:url',
-      content: 'https://lucjaubert.com/home',
-    });
-    this.metaService.updateTag({
-      property: 'og:site_name',
-      content: 'Luc Jaubert Portfolio',
-    });
+    this.metaService.updateTag({ property: 'og:url', content: 'https://lucjaubert.com' });
+    this.metaService.updateTag({ property: 'og:site_name', content: 'Luc Jaubert Portfolio' });
     this.metaService.updateTag({ property: 'og:type', content: 'website' });
 
     this.metaService.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
     this.metaService.updateTag({ name: 'twitter:title', content: title });
-    this.metaService.updateTag({
-      name: 'twitter:description',
-      content: description,
-    });
+    this.metaService.updateTag({ name: 'twitter:description', content: description });
     this.metaService.updateTag({ name: 'twitter:image', content: image });
 
-    this.metaService.updateTag({
-      name: 'robots',
-      content: 'index, follow, max-image-preview:large',
-    });
+    this.metaService.updateTag({ name: 'robots', content: 'index, follow, max-image-preview:large' });
     this.metaService.updateTag({ name: 'theme-color', content: '#537ce2' });
-    this.metaService.updateTag({
-      rel: 'canonical',
-      href: 'https://lucjaubert.com/home',
-    });
+    this.metaService.updateTag({ rel: 'canonical', href: 'https://lucjaubert.com/' });
   }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    const scrollTop =
-      document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     const windowHeight = window.innerHeight;
-    const documentHeight =
-      document.documentElement.scrollHeight || document.body.scrollHeight;
+    const documentHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
 
     const atBottom = scrollTop + windowHeight >= documentHeight - 100;
     if (this.isAtBottom !== atBottom) {

@@ -1,10 +1,17 @@
-<div id="app-container" class="app-root">
-  <app-header></app-header>
-  <div id="page" class="page-content">
-    <router-outlet></router-outlet>
+<app-loading-screen *ngIf="isLoading$ | async"></app-loading-screen>
+
+<div *ngIf="!(isLoading$ | async)">
+  <div id="app-container" class="app-root">
+    <app-header></app-header>
+    <div id="page" class="page-content">
+      <router-outlet></router-outlet>
+    </div>
   </div>
+
+  <button id="back-to-top" (click)="scrollToTop()" [ngClass]="{ 'show': isAtBottom }">
+    <span class="material-symbols-outlined">
+      arrow_upward
+    </span>
+  </button>
 </div>
 
-<button id="back-to-top" (click)="scrollToTop()" [class.show]="isAtBottom">
-  <span class="material-symbols-outlined"> arrow_upward </span>
-</button>
