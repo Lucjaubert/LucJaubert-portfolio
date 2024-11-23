@@ -8,6 +8,11 @@ export const routes: Routes = [
     },
     {
         path: '',
+        redirectTo: 'intro',
+        pathMatch: 'full'
+    },
+    {
+        path: 'home',
         loadComponent: () => import('./pages/homepage/homepage.component').then(m => m.HomepageComponent),
         title: 'Accueil'
     },
@@ -21,4 +26,3 @@ export const routes: Routes = [
         redirectTo: '404'
     }
 ];
-

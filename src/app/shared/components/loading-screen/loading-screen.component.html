@@ -1,17 +1,14 @@
 <div class="loading-screen" [class.hidden]="isHidden">
   <div class="progress-content">
-    <!-- Image -->
     <img
       src="assets/img/icons/logo-lj-yellow-hello.png"
       alt="Loading"
       [class.rotate]="isRotating"
       [hidden]="!isImageVisible"
     />
-
-    <!-- Texte -->
     <div
       class="progress-text"
-      [ngClass]="currentColorClass"
+      [ngClass]="progressTextClasses"
       [hidden]="!showPercentage"
     >
       {{ displayText }}

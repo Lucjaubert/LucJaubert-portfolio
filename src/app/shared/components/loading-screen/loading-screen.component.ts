@@ -6,9 +6,7 @@ import {
   OnDestroy,
   ChangeDetectorRef,
 } from "@angular/core";
-import { Router } from "@angular/router";
-import { ProjectService } from "../../../services/project.service";
-import { LoadingService } from "../../../services/loading.service";
+import { Router, ActivatedRoute } from "@angular/router";
 import { isPlatformBrowser, CommonModule } from "@angular/common";
 
 @Component({
@@ -31,116 +29,46 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
   currentColorClass = this.colorClasses[0];
   colorChangeInterval: any;
   textColorChangeInterval: any;
-  textTransformed = false;
   isHidden = false;
   showPercentage = false;
   isImageVisible = true;
 
   constructor(
     private router: Router,
-    private projectService: ProjectService,
-    private loadingService: LoadingService,
+    private route: ActivatedRoute,
     @Inject(PLATFORM_ID) private platformId: Object,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.loadingService.setLoading(true);
-
-    if (isPlatformBrowser(this.platformId)) {
-      setTimeout(() => {
-        this.isRotating = true;
-        this.cdr.detectChanges();
-
-        Promise.all([this.preloadMedia(), this.minimumLoadTime(1000)]).then(() => {
-          this.updateDisplayText();
-          this.startTextColorCycle();
+    if (this.route.snapshot.routeConfig?.path === "intro") {
+      if (isPlatformBrowser(this.platformId)) {
+        setTimeout(() => {
+          this.isRotating = true;
+          this.cdr.detectChanges();
 
           setTimeout(() => {
-            this.isHidden = true;
-            this.loadingService.setLoading(false);
-            this.cdr.detectChanges();
-            this.router.navigate(['/']);
-          }, 2500);
+            this.updateDisplayText();
+            this.startTextColorCycle();
+
+            setTimeout(() => {
+              this.isHidden = true;
+              this.cdr.detectChanges();
+              this.router.navigate(["/home"]);
+            }, 1000);
+          }, 2000);
         });
-      }, 1000);
-    } else {
-      this.loadingService.setLoading(false);
+      }
     }
   }
 
   ngOnDestroy(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      if (this.colorChangeInterval) {
-        clearInterval(this.colorChangeInterval);
-      }
-      if (this.textColorChangeInterval) {
-        clearInterval(this.textColorChangeInterval);
-      }
+    if (this.colorChangeInterval) {
+      clearInterval(this.colorChangeInterval);
     }
-  }
-
-  preloadMedia(): Promise<void> {
-    return new Promise((resolve) => {
-      this.projectService.getAllMedia().subscribe((mediaList) => {
-        let loadedMedia = 0;
-        const totalMedia = mediaList.length;
-
-        if (totalMedia === 0) {
-          resolve();
-          return;
-        }
-
-        mediaList.forEach((mediaSrc) => {
-          const isVideo =
-            mediaSrc.endsWith(".mp4") ||
-            mediaSrc.endsWith(".webm") ||
-            mediaSrc.endsWith(".ogg");
-          if (isVideo) {
-            const video = document.createElement("video");
-            video.src = mediaSrc;
-            video.preload = "auto";
-
-            video.onloadeddata = () => {
-              loadedMedia++;
-              if (loadedMedia === totalMedia) {
-                resolve();
-              }
-            };
-
-            video.onerror = () => {
-              loadedMedia++;
-              if (loadedMedia === totalMedia) {
-                resolve();
-              }
-            };
-
-            video.load();
-          } else {
-            const img = new Image();
-            img.src = mediaSrc;
-
-            img.onload = () => {
-              loadedMedia++;
-              if (loadedMedia === totalMedia) {
-                resolve();
-              }
-            };
-
-            img.onerror = () => {
-              loadedMedia++;
-              if (loadedMedia === totalMedia) {
-                resolve();
-              }
-            };
-          }
-        });
-      });
-    });
-  }
-
-  minimumLoadTime(ms: number): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, ms));
+    if (this.textColorChangeInterval) {
+      clearInterval(this.textColorChangeInterval);
+    }
   }
 
   startTextColorCycle(): void {
@@ -163,7 +91,6 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
     return {
       [this.currentColorClass]: true,
       rotate: this.isRotating,
-      "transform-text": this.textTransformed,
     };
   }
 }
