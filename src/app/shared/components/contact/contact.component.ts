@@ -3,7 +3,7 @@ import { PLATFORM_ID } from '@angular/core';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
   styleUrls: ['./contact.component.scss'],
   standalone: true,
   imports: [
-    RouterOutlet,
+    RouterModule,
     CommonModule
   ]
 })

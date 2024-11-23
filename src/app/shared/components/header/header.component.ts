@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, NavigationEnd, Event } from '@angular/router';
+import { Router, NavigationEnd, Event, RouterModule } from '@angular/router';
 import { LoadingService } from '../../../services/loading.service';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -11,7 +11,8 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./header.component.scss'],
   standalone: true,
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
@@ -52,8 +53,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private checkIfHomePage(url: string) {
-    const homeRoutes = ['/', '/home', '/accueil'];
-    if (homeRoutes.includes(url)) {
+    const homeRoutes = ['/', '/home', '/accueil', '/intro'];
+    const urlWithoutFragment = url.split('#')[0];
+    if (homeRoutes.includes(urlWithoutFragment)) {
       this.animateHeader = true;
     } else {
       this.animateHeader = false;

@@ -5,8 +5,17 @@
     "types": ["node"]
   },
   "files": ["src/main.ts"],
-  "include": ["src/**/*.d.ts", "src/app/**/*", "src/environments/**/*"],
-  "exclude": ["src/test.ts", "src/**/*.spec.ts", "server.ts", "src/main.server.ts"]
+  "include": ["src/app/**/*.ts"],
+  "exclude": [
+    "src/test.ts",
+    "src/**/*.spec.ts",
+    "server.ts",
+    "src/main.server.ts",
+    "src/app/app.config.server.ts",
+    "src/app/app.config.ts",
+    "src/app/models/homepage-data.model.ts",
+    "src/app/services/wordpress.service.ts",
+    "src/environments/environment.prod.ts",
+    "src/environments/environment.ts"
+  ]
 }
-
-
