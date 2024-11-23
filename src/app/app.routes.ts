@@ -2,14 +2,14 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
     {
-        path: 'intro',
-        loadComponent: () => import('./shared/components/loading-screen/loading-screen.component').then(m => m.LoadingScreenComponent),
-        title: 'Intro'
-    },
-    {
         path: '',
         redirectTo: 'intro',
         pathMatch: 'full'
+    },
+    {
+        path: 'intro',
+        loadComponent: () => import('./shared/components/loading-screen/loading-screen.component').then(m => m.LoadingScreenComponent),
+        title: 'Intro'
     },
     {
         path: 'home',
