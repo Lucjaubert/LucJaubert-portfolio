@@ -34,16 +34,11 @@ export class AppComponent implements OnInit {
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
-    this.isLoading$ = this.loadingService.loading$; // Abonnement à l'état de chargement
+    this.isLoading$ = this.loadingService.loading$;
   }
 
   ngOnInit(): void {
     this.startLoading();
-    this.updateSEO(
-      'Luc Jaubert - Création de Sites Internet | Développeur Web Freelance',
-      'Je crée des sites internet sur mesure : vitrines, e-commerce, click & collect, avec une expertise en SEO. Basé à Bordeaux, je suis à votre service pour développer votre présence en ligne.',
-      'https://lucjaubert.com/assets/icons/apple-touch-icon.png'
-    );
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -53,10 +48,10 @@ export class AppComponent implements OnInit {
             'Contactez-moi pour discuter de vos projets de création de site internet.',
             'https://lucjaubert.com/assets/icons/contact-page-image.png'
           );
-        } else {
+        } else if (event.url === '/home') {
           this.updateSEO(
-            'Luc Jaubert - Création de Sites Internet | Développeur Web Freelance',
-            'Je crée des sites internet sur mesure : vitrines, e-commerce, click & collect, avec une expertise en SEO. Basé à Bordeaux, je suis à votre service pour développer votre présence en ligne.',
+            'Luc Jaubert - Développeur Web Freelance à Bordeaux',
+            'Je crée des sites internet sur mesure : vitrines, e-commerce, click & collect, avec une expertise en SEO.',
             'https://lucjaubert.com/assets/icons/apple-touch-icon.png'
           );
         }
@@ -64,18 +59,15 @@ export class AppComponent implements OnInit {
     });
   }
 
-  /**
-   * Initialise le chargement des ressources
-   */
   startLoading(): void {
-    this.loadingService.setLoading(true); // Active l'état de chargement
-    Promise.all([this.projectService.getAllMedia().toPromise(), this.minimumLoadTime(2500)])
+    this.loadingService.setLoading(true);
+    Promise.all([this.minimumLoadTime(2500)])
       .then(() => {
-        this.loadingService.setLoading(false); // Désactive le chargement une fois terminé
+        this.loadingService.setLoading(false);
       })
       .catch((error) => {
         console.error('Erreur de chargement des ressources :', error);
-        this.loadingService.setLoading(false); // Assure la désactivation en cas d'erreur
+        this.loadingService.setLoading(false);
       });
   }
 
@@ -83,32 +75,15 @@ export class AppComponent implements OnInit {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  /**
-   * Met à jour les balises meta pour le SEO
-   */
   updateSEO(title: string, description: string, image: string): void {
     this.titleService.setTitle(title);
-
-    this.metaService.updateTag({
-      name: 'description',
-      content: description,
-    });
-
+    this.metaService.updateTag({ name: 'description', content: description });
     this.metaService.updateTag({ property: 'og:title', content: title });
     this.metaService.updateTag({ property: 'og:description', content: description });
     this.metaService.updateTag({ property: 'og:image', content: image });
     this.metaService.updateTag({ property: 'og:url', content: 'https://lucjaubert.com' });
-    this.metaService.updateTag({ property: 'og:site_name', content: 'Luc Jaubert Portfolio' });
-    this.metaService.updateTag({ property: 'og:type', content: 'website' });
-
-    this.metaService.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
-    this.metaService.updateTag({ name: 'twitter:title', content: title });
-    this.metaService.updateTag({ name: 'twitter:description', content: description });
-    this.metaService.updateTag({ name: 'twitter:image', content: image });
-
-    this.metaService.updateTag({ name: 'robots', content: 'index, follow, max-image-preview:large' });
-    this.metaService.updateTag({ name: 'theme-color', content: '#537ce2' });
-    this.metaService.updateTag({ rel: 'canonical', href: 'https://lucjaubert.com/' });
+    this.metaService.updateTag({ name: 'robots', content: 'index, follow' });
+    this.metaService.updateTag({ rel: 'canonical', href: 'https://lucjaubert.com' });
   }
 
   @HostListener('window:scroll', [])

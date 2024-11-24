@@ -9,6 +9,7 @@
   background-color: map-get($theme-colors, "black");
   display: flex;
   align-items: center;
+  font-family: 'Trap';
   justify-content: center;
   z-index: 9999;
   opacity: 1;
@@ -36,7 +37,6 @@ img {
   width: 100px;
   height: 100px;
   opacity: 1;
-  animation: fadeOut 1.3s ease-in forwards;
   animation-delay: 1s;
 }
 

@@ -17,9 +17,9 @@ gsap.registerPlugin(ScrollTrigger);
 export class NamePresentationComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private colors = [
+    { name: 'orange', hex: '#ffa93a', image: 'letter-L-orange.png' },
     { name: 'blue', hex: '#515DE2', image: 'letter-L-blue.png' },
     { name: 'yellow', hex: '#ffdc7a', image: 'letter-L-yellow.png' },
-    { name: 'orange', hex: '#ffa93a', image: 'letter-L-orange.png' },
     { name: 'light-green', hex: '#92FFE4', image: 'letter-L-light-green.png' },
   ];
 

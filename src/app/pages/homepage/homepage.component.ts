@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, Inject } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { PLATFORM_ID } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { LoadingService } from '../../services/loading.service';
@@ -51,6 +51,18 @@ export class HomepageComponent implements OnInit {
       property: 'og:image',
       content: 'https://lucjaubert.com/assets/icons/apple-touch-icon.png'
     });
+    this.metaService.updateTag({
+      property: 'og:url',
+      content: 'https://lucjaubert.com'
+    });
+    this.metaService.updateTag({
+      name: 'robots',
+      content: 'index, follow'
+    });
+    this.metaService.updateTag({
+      rel: 'canonical',
+      href: 'https://lucjaubert.com'
+    });
 
     await Promise.all([
       import('../../shared/components/header/header.component').then(
@@ -77,7 +89,6 @@ export class HomepageComponent implements OnInit {
     ]);
 
     this.isLoaded = true;
-
     this.loadingService.setLoading(false);
   }
 }
