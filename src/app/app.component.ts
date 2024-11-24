@@ -61,7 +61,7 @@ export class AppComponent implements OnInit {
 
   startLoading(): void {
     this.loadingService.setLoading(true);
-    Promise.all([this.minimumLoadTime(3500)])
+    Promise.all([this.minimumLoadTime(2500)])
       .then(() => {
         this.loadingService.setLoading(false);
       })

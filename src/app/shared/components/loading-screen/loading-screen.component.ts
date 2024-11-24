@@ -56,7 +56,7 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
               this.cdr.detectChanges();
               this.router.navigate(["/home"]);
             }, 1000);
-          }, 2000);
+          }, 1000);
         });
       }
     }
