@@ -34,14 +34,14 @@ export class HomepageComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    this.titleService.setTitle('Luc Jaubert - Développeur Web Freelance à Bordeaux');
+    this.titleService.setTitle('Luc Jaubert - Création de Sites Internet | Développeur Web Freelance');
     this.metaService.updateTag({
       name: 'description',
       content: "Création de sites internet sur mesure, vitrines, e-commerce, et optimisation SEO à Bordeaux."
     });
     this.metaService.updateTag({
       property: 'og:title',
-      content: 'Luc Jaubert - Développeur Web Freelance à Bordeaux'
+      content: 'LLuc Jaubert - Création de Sites Internet | Développeur Web Freelance'
     });
     this.metaService.updateTag({
       property: 'og:description',
