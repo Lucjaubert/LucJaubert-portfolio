@@ -25,7 +25,7 @@
 
     .stack-item {
         color: map-get($theme-colors, "yellow");
-      
+
     }
   }
 
@@ -87,10 +87,10 @@
   .text-slide {
     opacity: 0;
     transform: translateY(50px);
-  }  
+  }
 
   .section-container {
-    padding: 0;  
+    padding: 0;
     height: auto;
     min-height: auto;
 
@@ -98,7 +98,7 @@
       font-size: map-get($font-size, "40");
       transition: none;
       text-align: left;
-      margin: 0;  
+      margin: 0;
 
       @media (min-width: map-get($breakpoints, "md")) {
         font-size: map-get($font-size, "50");
@@ -118,10 +118,6 @@
       font-size: map-get($font-size, "20");
       text-align: left;
       margin: 0;
-
-      @media (min-width: map-get($breakpoints, "md")) {
-        font-size: map-get($font-size, "30");
-      }
     }
 
     @media (min-width: map-get($breakpoints, "md")) {
@@ -136,7 +132,7 @@
 
     @media (min-width: map-get($breakpoints, "lg")) {
       h3.text-slide {
-        font-size: map-get($font-size, "90");
+        font-size: map-get($font-size, "70");
       }
     }
   }
@@ -161,24 +157,24 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 0;  
+    padding: 0;
 
     .stack-item {
       margin-top: 0;
       text-align: left;
       font-size: map-get($font-size, "20");
 
-      transition: transform 0.3s ease, color 0.3s ease; 
+      transition: transform 0.3s ease, color 0.3s ease;
       transform-origin: left center;
 
       &:hover {
         transform: scale(1.2);
-        cursor: pointer; 
+        cursor: pointer;
       }
     }
 
     span {
-      margin-top: 0; 
+      margin-top: 0;
       text-align: left;
       font-size: map-get($font-size, "20");
     }

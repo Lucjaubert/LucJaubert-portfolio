@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Inject, OnInit } from '@angular/core';
+import { Component, AfterViewInit, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { PLATFORM_ID } from '@angular/core';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -11,11 +11,12 @@ gsap.registerPlugin(ScrollTrigger);
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
+  encapsulation: ViewEncapsulation.Emulated,
   standalone: true,
   imports: [
     RouterModule,
     CommonModule
-  ]
+  ],
 })
 export class ContactComponent implements AfterViewInit {
   private gsapContext: gsap.Context | undefined;

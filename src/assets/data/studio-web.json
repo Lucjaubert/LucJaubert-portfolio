@@ -1,22 +1,22 @@
 [
-    {
-        "name": "Developpement Web et Mobile",
-        "mission": "Creation de sites web adaptes a vos besoins specifiques et optimises pour tous les types d’ecrans (desktop, tablette, smartphone). En utilisant les technologies les plus recentes, je developpe des solutions rapides, fiables et evolutives, parfaitement alignees avec vos objectifs.\\n\\n<strong>Chaque site est livre avec un outil de gestion de contenu intuitif</strong>, vous permettant de gerer facilement et en toute autonomie vos mises a jour. Plus besoin de faire appel a un developpeur pour une modification ou un ajout de contenu, vous avez le controle total.",
-        "stacks": "Sites Vitrine, Sites Institutionnels, E-commerce, Developpement Sur-mesure, Angular 18, WordPress Headless, WordPress Personnalise, Shopify, HTML5/CSS3, JavaScript - TypeScript, API GoogleMaps"
-    },    
-    {
-        "name": "Conception et Design Web",
-        "mission": "Mon objectif est de concevoir des designs modernes qui allient esthetique, ergonomie et experience utilisateur, tout en restant fidele a l’identite de votre marque. Je veille a une coherence visuelle optimale pour offrir une navigation fluide et agreable.\\n\\nJe travaille egalement en collaboration avec des agences de communication en transformant leurs maquettes en sites web fonctionnels, en respectant scrupuleusement les designs fournis et en integrant des fonctionnalites qui preservent l’experience utilisateur definie par l’agence.",
-        "stacks": "Webdesign, UI Design, UX Design, Responsive Design, Identite Visuelle, Charte Graphique, Creation de Logo"
-    },
-    {
-        "name": "Optimisation et Marketing Digital",
-        "mission": "Optimisation SEO de votre site pour maximiser sa visibilite sur les moteurs de recherche et attirer un trafic qualifie. Cela comprend l'optimisation des contenus, la recherche de mots-cles pertinents, l'amelioration de la structure du site et la mise en place de bonnes pratiques techniques pour ameliorer le classement dans les resultats de recherche.\\n\\nEn complement, je developpe des strategies de marketing digital adaptees a vos objectifs : creation de contenu engageant, campagnes publicitaires ciblees (Google Ads, reseaux sociaux), suivi des performances et analyse des resultats pour ajuster les actions en continu. L'objectif est de vous aider a atteindre votre public cible, augmenter votre visibilite en ligne, et convertir ce trafic en prospects ou clients fideles.",
-        "stacks": "SEO, Reseaux Sociaux, Adaptation Mobile, Integration HTML-CSS"
-    },
-    {
-        "name": "Processus de Creation et Lancement",
-        "mission": "Je gere l'ensemble du processus de creation de votre site web, de la definition de vos besoins lors du brief initial jusqu’a la mise en ligne. Chaque etape est soigneusement planifiee et executee pour garantir une realisation fluide, un respect strict des delais, et un produit final de qualite optimale.\\n\\nMa methodologie repose sur une collaboration etroite avec vous a chaque phase du projet, pour m'assurer que le resultat corresponde parfaitement a vos attentes.",
-        "stacks": "Brief, Methodologie, Ergonomie, Zoning, Maquettes Figma, Recuperation de Contenus, Developpement & Integration, SEO, Tests de Serveur, Hebergement, Deploiement - Mise en ligne"
-    } 
+  {
+      "name": "Developpement Web et Mobile",
+      "mission": "Création de sites web adaptés à vos besoins spécifiques et optimisés pour tous les types d’écrans (desktop, tablette, smartphone). En utilisant les technologies les plus récentes, je développe des solutions rapides, fiables et évolutives, parfaitement alignées avec vos objectifs.\\n\\n<strong>Chaque site est livré avec un outil de gestion de contenu intuitif</strong>, vous permettant de gérer facilement et en toute autonomie vos mises à jour. Plus besoin de faire appel à un développeur pour une modification ou un ajout de contenu, vous avez le contrôle total.",
+      "stacks": "Sites Vitrine, Sites Institutionnels, E-commerce, Développement Sur-mesure, Angular 18, WordPress Headless, WordPress Personnalisé, Shopify, HTML5/CSS3, JavaScript - TypeScript, API GoogleMaps"
+  },
+  {
+      "name": "Conception et Design Web",
+      "mission": "Mon objectif est de concevoir des designs modernes qui allient esthétique, ergonomie et expérience utilisateur, tout en restant fidèle à l’identité de votre marque. Je veille à une cohérence visuelle optimale pour offrir une navigation fluide et agréable.\\n\\nJe travaille également en collaboration avec des agences de communication en transformant leurs maquettes en sites web fonctionnels, en respectant scrupuleusement les designs fournis et en intégrant des fonctionnalités qui préservent l’expérience utilisateur définie par l’agence.",
+      "stacks": "Webdesign, UI Design, UX Design, Responsive Design, Identité Visuelle, Charte Graphique, Création de Logo"
+  },
+  {
+      "name": "Optimisation et Marketing Digital",
+      "mission": "Optimisation SEO de votre site pour maximiser sa visibilité sur les moteurs de recherche et attirer un trafic qualifié. Cela comprend l'optimisation des contenus, la recherche de mots-clés pertinents, l'amélioration de la structure du site et la mise en place de bonnes pratiques techniques pour améliorer le classement dans les résultats de recherche.\\n\\nEn complément, je développe des stratégies de marketing digital adaptées à vos objectifs : création de contenu engageant, campagnes publicitaires ciblées (Google Ads, réseaux sociaux), suivi des performances et analyse des résultats pour ajuster les actions en continu. L'objectif est de vous aider à atteindre votre public cible, augmenter votre visibilité en ligne, et convertir ce trafic en prospects ou clients fidèles.",
+      "stacks": "SEO, Réseaux Sociaux, Adaptation Mobile, Intégration HTML-CSS"
+  },
+  {
+      "name": "Processus de Creation et Lancement",
+      "mission": "Je gère l'ensemble du processus de création de votre site web, de la définition de vos besoins lors du brief initial jusqu’à la mise en ligne. Chaque étape est soigneusement planifiée et exécutée pour garantir une réalisation fluide, un respect strict des délais, et un produit final de qualité optimale.\\n\\nMa méthodologie repose sur une collaboration étroite avec vous à chaque phase du projet, pour m'assurer que le résultat corresponde parfaitement à vos attentes.",
+      "stacks": "Brief, Méthodologie, Ergonomie, Zoning, Maquettes Figma, Récupération de Contenus, Développement & Intégration, SEO, Tests de Serveur, Hébergement, Déploiement - Mise en ligne"
+  }
 ]

@@ -45,13 +45,13 @@ export class AppComponent implements OnInit {
         if (event.url === '/contact') {
           this.updateSEO(
             'Contact - Luc Jaubert',
-            'Contactez-moi pour discuter de vos projets de création de site internet.',
+            'Contactez-moi pour discuter de vos projets de création de site internet sur-mesure.',
             'https://lucjaubert.com/assets/icons/contact-page-image.png'
           );
         } else if (event.url === '/home') {
           this.updateSEO(
-            'Luc Jaubert - Développeur Web Freelance à Bordeaux',
-            'Je crée des sites internet sur mesure : vitrines, e-commerce, click & collect, avec une expertise en SEO.',
+            'Luc Jaubert - Création de Sites Internet | Développeur Web Freelance',
+            'Création de sites internet sur mesure à Bordeaux : vitrines modernes, boutiques e-commerce dynamiques, et solutions click & collect innovantes. Spécialisé en WordPress Headless, Angular, et SEO, je vous aide à maximiser votre impact en ligne avec des solutions adaptées à vos besoins.',
             'https://lucjaubert.com/assets/icons/apple-touch-icon.png'
           );
         }
