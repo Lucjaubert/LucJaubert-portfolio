@@ -1,105 +1,135 @@
 @font-face {
-    font-family: 'Open Sans';
-    src: url('OpenSans-ExtraBold.woff2') format('woff2');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Open Sans';
+  src: url('OpenSans-ExtraBold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Open Sans';
-    src: url('OpenSans-Light.woff2') format('woff2');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Open Sans';
+  src: url('OpenSans-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Open Sans';
-    src: url('OpenSans-Bold.woff2') format('woff2');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Open Sans';
+  src: url('OpenSans-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Open Sans';
-    src: url('OpenSans-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Open Sans';
+  src: url('OpenSans-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Open Sans';
-    src: url('OpenSans-Medium.woff2') format('woff2');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Open Sans';
+  src: url('OpenSans-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Open Sans';
-    src: url('OpenSans-SemiBold.woff2') format('woff2');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-}
-
-
-
-@font-face {
-    font-family: 'Trap';
-    src: url('Trap-Black.woff2') format('woff2');
-    font-weight: 900;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Open Sans';
+  src: url('OpenSans-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Trap';
-    src: url('Trap-ExtraBold.woff2') format('woff2');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Trap';
+  src: url('Trap-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Trap';
-    src: url('Trap-Bold.woff2') format('woff2');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Trap';
+  src: url('Trap-ExtraBold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Trap';
-    src: url('Trap-Medium.woff2') format('woff2');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Trap';
+  src: url('Trap-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Trap';
-    src: url('Trap-SemiBold.woff2') format('woff2');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Trap';
+  src: url('Trap-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Trap';
-    src: url('Trap-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Trap';
+  src: url('Trap-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'Trap';
-    src: url('Trap-Light.woff2') format('woff2');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Trap';
+  src: url('Trap-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Trap';
+  src: url('Trap-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Parkinsans';
+  src: url('Parkinsans-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Parkinsans';
+  src: url('Parkinsans-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Parkinsans';
+  src: url('Parkinsans-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Parkinsans';
+  src: url('Parkinsans-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
 }

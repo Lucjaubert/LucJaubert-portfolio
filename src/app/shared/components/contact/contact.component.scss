@@ -1,11 +1,15 @@
 @import "../../../../styles/_variables.scss";
 
 .contact-section {
+
+  a {
+    font-family: 'Trap', sans-serif !important;
+  }
   position: relative;
   overflow: hidden;
   margin: 0;
   padding: 0;
-  height: 100vh; 
+  height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -19,9 +23,9 @@
     width: 100%;
     height: 0%;
     background-color: map-get($theme-colors, "dark-black");
-    z-index: 0; 
-    transform-origin: bottom; 
-    visibility: visible; 
+    z-index: 0;
+    transform-origin: bottom;
+    visibility: visible;
   }
 
   .contact-links {
@@ -29,19 +33,19 @@
     position: relative;
 
     .contact-item {
-      font-size: 3.5rem; 
-      color: map-get($theme-colors, "blue"); 
+      font-size: 3.5rem;
+      color: map-get($theme-colors, "blue");
       font-weight: 300;
-      margin: 1rem 0; 
-      opacity: 0; 
-      transform: translateY(20px); 
-      transition: transform 0.8s ease-out, opacity 0.8s ease-out, color 0.3s ease; 
+      margin: 1rem 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: transform 0.8s ease-out, opacity 0.8s ease-out, color 0.3s ease;
       z-index: 1;
 
       a {
-        color: inherit; 
-        font-size: map-get($font-size, "100"); 
-        text-decoration: none; 
+        color: inherit;
+        font-size: map-get($font-size, "100");
+        text-decoration: none;
         position: relative;
         transition: color 0.3s ease;
 
@@ -82,30 +86,30 @@
 
 @media (max-width: map-get($breakpoints, "md")) {
   .contact-section .contact-links .contact-item {
-    font-size: 4rem; 
+    font-size: 4rem;
 
     a {
-      font-size: map-get($font-size, "90") !important; 
+      font-size: map-get($font-size, "90") !important;
     }
   }
 }
 
 @media (max-width: map-get($breakpoints, "sm")) {
   .contact-section .contact-links .contact-item {
-    font-size: 3.5rem; 
+    font-size: 3.5rem;
 
     a {
-      font-size: map-get($font-size, "75") !important; 
+      font-size: map-get($font-size, "75") !important;
     }
   }
 }
 
 @media (max-width: map-get($breakpoints, "xs")) {
   .contact-section .contact-links .contact-item {
-    font-size: 3rem !important; 
+    font-size: 3rem !important;
 
     a {
-      font-size: map-get($font-size, "65") !important; 
+      font-size: map-get($font-size, "65") !important;
     }
   }
 }
