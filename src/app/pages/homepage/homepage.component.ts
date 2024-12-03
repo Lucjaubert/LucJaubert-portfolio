@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { PLATFORM_ID } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { LoadingService } from '../../services/loading.service';
 
@@ -27,7 +26,6 @@ export class HomepageComponent implements OnInit {
   isLoaded: boolean = false;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
     private titleService: Title,
     private metaService: Meta,
     private loadingService: LoadingService
@@ -35,17 +33,29 @@ export class HomepageComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.titleService.setTitle('Luc Jaubert - Création de Sites Internet | Développeur Web Freelance');
+
     this.metaService.updateTag({
       name: 'description',
-      content: "Création de sites internet sur mesure, vitrines, e-commerce, et optimisation SEO à Bordeaux."
+      content: 'Création de sites internet sur mesure, vitrines, e-commerce, et optimisation SEO à Bordeaux.'
     });
+
+    this.metaService.updateTag({
+      name: 'robots',
+      content: 'index, follow, max-image-preview:large'
+    });
+
+    this.metaService.updateTag({
+      rel: 'canonical',
+      href: 'https://lucjaubert.com/home'
+    });
+
     this.metaService.updateTag({
       property: 'og:title',
-      content: 'LLuc Jaubert - Création de Sites Internet | Développeur Web Freelance'
+      content: 'Luc Jaubert - Création de Sites Internet | Développeur Web Freelance'
     });
     this.metaService.updateTag({
       property: 'og:description',
-      content: "Découvrez mes projets de développement web : e-commerce, vitrines, click&collect sur mesure."
+      content: 'Découvrez mes projets de développement web : e-commerce, vitrines, click&collect sur mesure.'
     });
     this.metaService.updateTag({
       property: 'og:image',
@@ -53,15 +63,24 @@ export class HomepageComponent implements OnInit {
     });
     this.metaService.updateTag({
       property: 'og:url',
-      content: 'https://lucjaubert.com'
+      content: 'https://lucjaubert.com/home'
+    });
+
+    this.metaService.updateTag({
+      name: 'twitter:card',
+      content: 'summary_large_image'
     });
     this.metaService.updateTag({
-      name: 'robots',
-      content: 'index, follow'
+      name: 'twitter:title',
+      content: 'Luc Jaubert - Création de Sites Internet | Développeur Web Freelance'
     });
     this.metaService.updateTag({
-      rel: 'canonical',
-      href: 'https://lucjaubert.com'
+      name: 'twitter:description',
+      content: 'Découvrez mes projets de développement web : e-commerce, vitrines, click&collect sur mesure.'
+    });
+    this.metaService.updateTag({
+      name: 'twitter:image',
+      content: 'https://lucjaubert.com/assets/icons/apple-touch-icon.png'
     });
 
     await Promise.all([
