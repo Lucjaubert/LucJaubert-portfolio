@@ -1,6 +1,5 @@
 User-agent: *
-Allow: /
 Disallow: /intro
-Disallow: /home
+Disallow: /404
 Sitemap: https://lucjaubert.com/sitemap.xml
 

@@ -8,6 +8,7 @@ import {
 } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { isPlatformBrowser, CommonModule } from "@angular/common";
+import { Meta } from '@angular/platform-browser';  // Import du service Meta
 
 @Component({
   selector: "app-loading-screen",
@@ -37,8 +38,11 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private cdr: ChangeDetectorRef,
+    private metaService: Meta
+  ) {
+    this.metaService.updateTag({ name: 'robots', content: 'noindex, follow' });
+  }
 
   ngOnInit(): void {
     if (this.route.snapshot.routeConfig?.path === "intro") {
