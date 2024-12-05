@@ -8,7 +8,7 @@ import {
 } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { isPlatformBrowser, CommonModule } from "@angular/common";
-import { Meta } from '@angular/platform-browser';  // Import du service Meta
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: "app-loading-screen",

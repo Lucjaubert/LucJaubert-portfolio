@@ -17,57 +17,6 @@
                 <span [ngClass]="'offset-' + i" class="date ms-2">{{ project.year }}</span>
               </div>
             </div>
-
-            <div *ngIf="isMediaPreviewVisible(i)" class="media-preview-mobile media-preview-mobile-{{ i }}" [ngClass]="{ active: isMediaPreviewVisible(i) }" (click)="toggleMediaPreview(i)">
-              <div class="col-12 d-flex flex-column media-container">
-                <div class="col-12 media-box d-flex flex-wrap flex-column align-items-center media-gallery">
-                  <div *ngFor="let media of getMediaSequence(project); let j = index" #mediaElement class="media-element">
-                    <img
-                      *ngIf="media.type === 'image'"
-                      [src]="media.src"
-                      class="img-fluid"
-                      alt="Image du projet"
-                    />
-                    <video
-                      *ngIf="media.type === 'video'"
-                      autoplay
-                      muted
-                      playsinline
-                      loop
-                      preload="auto"
-                      class="img-fluid"
-                    >
-                      <source [src]="media.src" type="video/mp4" />
-                      Votre navigateur ne supporte pas la balise vidéo.
-                    </video>
-                  </div>
-                </div>
-
-                <div class="project-details-container py-0">
-                  <div class="col-12 project-details row text-center py-0">
-                    <div class="col-12 col-sm-4 d-flex flex-column align-items-start px-sm-4">
-                      <p class="mb-0"><strong>Le Projet</strong></p>
-                      <span class="mt-1 text-start">{{ project.project }}</span>
-                    </div>
-                    <div class="col-12 col-sm-4 d-flex flex-column align-items-start px-sm-4">
-                      <p class="mb-0"><strong>Les Missions</strong></p>
-                      <span class="mt-1 text-start">{{ project.role }}</span>
-                    </div>
-                    <div class="col-12 col-sm-4 d-flex flex-column align-items-start px-sm-4">
-                      <p class="mb-0"><strong>Les Stacks</strong></p>
-                      <span class="mt-1 text-start">{{ project.stacks }}</span>
-                    </div>
-                  </div>
-
-                  <div class="d-flex px-3 align-items-baseline py-3">
-                    <p class="url text-start" (click)="openProjectLink(project)">{{ project.url }}</p>
-                    <button class="btn align-self-baseline open-project-button" (click)="openProjectLink(project)">
-                        <span class="material-symbols-outlined">open_in_new</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -98,7 +47,7 @@
           </div>
         </div>
 
-        <div class="col-12 project-details row text-center mt-md-5">
+        <div class="col-12 project-details row mt-md-5">
           <div class="col-12 col-md-4 d-flex flex-column align-items-start">
             <p class="mb-0"><strong>Le Projet</strong></p>
             <span class="mt-1 text-start">{{ currentProject?.project }}</span>
@@ -112,13 +61,11 @@
             <span class="mt-1 text-start">{{ currentProject?.stacks }}</span>
           </div>
         </div>
-
-        <!--<div class="col-12 project-details row text-center py-3">
-          <div class="col-12 d-flex flex-column align-items-start">
-            <p class="mb-0"><strong>Description</strong></p>
-            <span class="mt-1 text-start">{{ currentProject?.description }}</span>
-          </div>
-        </div>-->
+        <div class="col-12 url-container mt-lg-4 mt-3">
+          <p class="url text-start" (click)="openProjectLink(currentProject)">
+            {{ currentProject?.url }}
+          </p>
+        </div>
       </div>
     </div>
   </div>
