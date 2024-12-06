@@ -49,10 +49,6 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
   isHovered: boolean = false;
   activeMediaIndex: number | null = null;
 
-  showTooltip: boolean = false;
-  tooltipX: number = 0;
-  tooltipY: number = 0;
-
   mediaSequence: { type: 'image' | 'video'; src: string }[] = [];
   private laiterieTimeline: gsap.core.Timeline | null = null;
   private anglaisTimeline: gsap.core.Timeline | null = null;
@@ -126,33 +122,6 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  onProjectMouseEnter(event: MouseEvent) {
-    if (this.isDesktop) {
-      this.showTooltip = true;
-      this.updateTooltipPosition(event);
-    }
-  }
-
-  onProjectMouseMove(event: MouseEvent) {
-    if (this.isDesktop && this.showTooltip) {
-      this.updateTooltipPosition(event);
-    }
-  }
-
-  onProjectMouseLeave(event: MouseEvent) {
-    if (this.isDesktop) {
-      this.showTooltip = false;
-    }
-  }
-
-  updateTooltipPosition(event: MouseEvent) {
-    if (this.isDesktop) {
-      this.tooltipX = event.pageX + 15;
-      this.tooltipY = event.pageY + 15;
-      this.changeDetectorRef.detectChanges();
-    }
-  }
-
   toggleMediaPreview(index: number): void {
     if (this.activeMediaIndex === index) {
       this.activeMediaIndex = null;
@@ -209,23 +178,26 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     return mediaSequence.sort(() => Math.random() - 0.5);
   }
 
+  onProjectContainerClick(index: number): void {
+    if (!this.isDesktop) {
+      this.toggleMediaPreview(index);
+    } else {
+      this.openProjectLink(this.projects[index]);
+    }
+  }
+
   openProjectLink(project: Project | null): void {
     if (!project) return;
 
     let url = project.url.trim();
 
     if (!/^https?:\/\//i.test(url)) {
-      url = 'https://' + url;
+        url = 'https://' + url;
     }
 
-    if (isPlatformBrowser(this.platformId)) {
-      window.open(url, '_blank');
-    }
+    window.open(url, '_blank');
   }
 
-  onProjectContainerClick(index: number): void {
-    this.openProjectLink(this.projects[index]);
-  }
 
   private initProjectAnimations(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -539,7 +511,3 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 }
-
-
-
-
