@@ -196,7 +196,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     window.open(url, '_blank');
-}
+  }
 
 
   private initProjectAnimations(): void {
@@ -511,7 +511,3 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 }
-
-
-
-
