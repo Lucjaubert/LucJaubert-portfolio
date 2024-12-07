@@ -100,6 +100,7 @@
 
   h2 {
     font-size: map-get($font-size, "40");
+    font-family: 'Trap', sans-serif !important;
   }
 
   @media (min-width: map-get($breakpoints, "md")) {

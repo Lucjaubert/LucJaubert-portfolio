@@ -16,6 +16,7 @@ import { LoadingService } from '../../services/loading.service';
 })
 export class HomepageComponent implements OnInit {
   namePresentationComponent: any;
+  descriptionComponent: any;
   projectsComponent: any;
   studioWebComponent: any;
   bioComponent: any;
@@ -89,6 +90,9 @@ export class HomepageComponent implements OnInit {
       ),
       import('../../shared/components/name-presentation/name-presentation.component').then(
         (m) => (this.namePresentationComponent = m.NamePresentationComponent)
+      ),
+      import('../../shared/components/description/description.component').then(
+        (m) => (this.descriptionComponent = m.DescriptionComponent)
       ),
       import('../../shared/components/projects/projects.component').then(
         (m) => (this.projectsComponent = m.ProjectsComponent)

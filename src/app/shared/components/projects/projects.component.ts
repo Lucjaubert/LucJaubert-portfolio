@@ -108,6 +108,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (isPlatformBrowser(this.platformId)) {
       this.initProjectAnimations();
+      this.animateProjectItemsOnScroll(); // Ajout de l'animation au scroll pour les project-items
     }
   }
 
@@ -197,7 +198,6 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     window.open(url, '_blank');
   }
-
 
   private initProjectAnimations(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -378,7 +378,6 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     }, 1500);
   }
 
-
   getAllMedia(project: Project | null): { type: 'image' | 'video'; src: string }[] {
     if (!project) {
       return [];
@@ -507,6 +506,31 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
           this.maisonTimeline = timeline;
           break;
       }
+    }
+  }
+
+  // Ajout de la méthode pour animer les .project-item (ici les h5) lors du scroll
+  private animateProjectItemsOnScroll(): void {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const projectItems = document.querySelectorAll('.project-item h5');
+
+    if (projectItems.length > 0) {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '#projects',
+          start: 'top 80%',
+          toggleActions: 'play none none none',
+        },
+      });
+
+      tl.from(projectItems, {
+        opacity: 0,
+        y: 20,
+        duration: 0.8,
+        ease: 'power4.out',
+        stagger: 0.2,
+      });
     }
   }
 

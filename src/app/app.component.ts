@@ -28,7 +28,6 @@ export class AppComponent implements OnInit {
 
   constructor(
     private loadingService: LoadingService,
-    private projectService: ProjectService,
     private titleService: Title,
     private metaService: Meta,
     private router: Router,
@@ -48,10 +47,10 @@ export class AppComponent implements OnInit {
             'Contactez-moi pour discuter de vos projets de création de site internet sur-mesure.',
             'https://lucjaubert.com/assets/icons/contact-page-image.png'
           );
-        } else if (event.url === '/home') {
+        } else if (event.url === '/home' || event.url === '/') {
           this.updateSEO(
             'Luc Jaubert - Création de Sites Internet | Développeur Web Freelance',
-            'Création de sites internet sur mesure à Bordeaux : vitrines modernes, boutiques e-commerce dynamiques, et solutions click & collect innovantes. Spécialisé en WordPress Headless, Angular, et SEO, je vous aide à maximiser votre impact en ligne avec des solutions adaptées à vos besoins.',
+            'Création de sites internet sur-mesure à Bordeaux : vitrines modernes, boutiques e-commerce performantes et optimisées pour tous les supports. Je vous aide à booster votre visibilité en ligne et à atteindre vos objectifs avec des solutions adaptées.',
             'https://lucjaubert.com/assets/icons/apple-touch-icon.png'
           );
         }
@@ -81,9 +80,22 @@ export class AppComponent implements OnInit {
     this.metaService.updateTag({ property: 'og:title', content: title });
     this.metaService.updateTag({ property: 'og:description', content: description });
     this.metaService.updateTag({ property: 'og:image', content: image });
-    this.metaService.updateTag({ property: 'og:url', content: 'https://lucjaubert.com' });
+    this.metaService.updateTag({ property: 'og:url', content: 'https://lucjaubert.com/home' });
     this.metaService.updateTag({ name: 'robots', content: 'index, follow' });
-    this.metaService.updateTag({ rel: 'canonical', href: 'https://lucjaubert.com' });
+
+    this.updateCanonicalURL('https://lucjaubert.com/home');
+  }
+
+  updateCanonicalURL(url: string): void {
+    let link: HTMLLinkElement | null = document.querySelector("link[rel='canonical']");
+    if (link) {
+      link.setAttribute('href', url);
+    } else {
+      link = document.createElement('link');
+      link.setAttribute('rel', 'canonical');
+      link.setAttribute('href', url);
+      document.head.appendChild(link);
+    }
   }
 
   @HostListener('window:scroll', [])
