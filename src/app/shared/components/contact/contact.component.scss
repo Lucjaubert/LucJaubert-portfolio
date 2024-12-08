@@ -42,6 +42,41 @@
       transition: transform 0.8s ease-out, opacity 0.8s ease-out, color 0.3s ease;
       z-index: 1;
 
+      &.contact-email a {
+        position: relative;
+        display: inline-block;
+        color: inherit;
+        text-align: center;
+
+        span {
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          transition: opacity 0.3s ease;
+        }
+
+        .default-text {
+          opacity: 1;
+        }
+
+        .hover-text {
+          opacity: 0;
+          font-size: clamp(1.2rem, 3vw, 2rem);
+        }
+
+        &:hover .default-text {
+          opacity: 0;
+        }
+
+        &:hover .hover-text {
+          opacity: 1;
+          color: map-get($theme-colors, "light-green");
+          font-size: clamp(1.2rem, 3vw, 2rem);
+        }
+      }
+
       a {
         color: inherit;
         font-size: map-get($font-size, "100");
@@ -63,10 +98,6 @@
         &:hover::after {
           width: 100%;
         }
-      }
-
-      &.contact-email a:hover {
-        color: map-get($theme-colors, "light-green");
       }
 
       &.contact-malt a:hover {
