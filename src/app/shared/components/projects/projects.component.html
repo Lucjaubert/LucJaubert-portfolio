@@ -13,12 +13,31 @@
               (mouseleave)="onProjectOut($event)"
             >
               <div class="project-item">
-                <h5 [ngClass]="'offset-' + i" class="mb-0">{{ project.name }}</h5>
+                <h5
+                  [ngClass]="'offset-' + i"
+                  class="mb-0"
+                  (mousemove)="onProjectHoverMove($event)"
+                >{{ project.name }}</h5>
                 <span [ngClass]="'offset-' + i" class="date ms-2">{{ project.year }}</span>
               </div>
+
+              <div
+                class="view-circle"
+                [ngStyle]="{
+                  transform: 'translate(' + circleX + 'px, ' + circleY + 'px) scale(' + (isCircleVisible ? 1 : 0) + ')'
+                }"
+              >
+                view
+              </div>
+
             </div>
 
-            <div *ngIf="isMediaPreviewVisible(i)" class="media-preview-mobile media-preview-mobile-{{ i }}" [ngClass]="{ active: isMediaPreviewVisible(i) }" (click)="toggleMediaPreview(i)">
+            <div
+              *ngIf="isMediaPreviewVisible(i)"
+              class="media-preview-mobile media-preview-mobile-{{ i }}"
+              [ngClass]="{ active: isMediaPreviewVisible(i) }"
+              (click)="toggleMediaPreview(i)"
+            >
               <div class="col-12 d-flex flex-column media-container">
                 <div class="col-12 media-box d-flex flex-wrap flex-column align-items-center media-gallery">
                   <div *ngFor="let media of getMediaSequence(project); let j = index" #mediaElement class="media-element">
@@ -62,7 +81,7 @@
                   <div class="d-flex px-3 align-items-baseline py-3">
                     <p class="url text-start" (click)="openProjectLink(project)">{{ project.url }}</p>
                     <button class="btn align-self-baseline open-project-button" (click)="openProjectLink(project)">
-                        <span class="material-symbols-outlined">open_in_new</span>
+                      <span class="material-symbols-outlined">open_in_new</span>
                     </button>
                   </div>
                 </div>
@@ -91,7 +110,7 @@
               loop
               preload="auto"
               class="img-fluid"
-              >
+            >
               <source [src]="media.src" type="video/mp4" />
               Votre navigateur ne supporte pas la balise vidéo.
             </video>
