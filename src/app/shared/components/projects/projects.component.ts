@@ -60,6 +60,10 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   isDesktop: boolean = false;
 
+  public circleX: number = 0;
+  public circleY: number = 0;
+  public isCircleVisible: boolean = false;
+
   private mobileSlideshowInterval: any;
 
   constructor(
@@ -108,7 +112,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (isPlatformBrowser(this.platformId)) {
       this.initProjectAnimations();
-      this.animateProjectItemsOnScroll(); // Ajout de l'animation au scroll pour les project-items
+      this.animateProjectItemsOnScroll();
     }
   }
 
@@ -193,10 +197,73 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     let url = project.url.trim();
 
     if (!/^https?:\/\//i.test(url)) {
-        url = 'https://' + url;
+      url = 'https://' + url;
     }
 
     window.open(url, '_blank');
+  }
+
+  onProjectHover(project: Project, event: MouseEvent): void {
+    if (!this.isDesktop) return;
+
+    if (this.currentProject && this.currentProject !== project) {
+      const previousAnimation = this.animations[this.currentProject.animationType || ''];
+      if (previousAnimation && previousAnimation.out) {
+        previousAnimation.out();
+      }
+    }
+
+    this.currentProject = project;
+    this.isHovered = true;
+    this.isCircleVisible = true;
+    this.animationInitialized = false;
+
+    this.mediaSequence = this.getAllMedia(project);
+    this.mediaSequence = this.mediaSequence.sort(() => Math.random() - 0.5);
+
+    this.changeDetectorRef.detectChanges();
+
+    setTimeout(() => {
+      if (this.mediaElements.length > 0) {
+        this.initAnimationForCurrentProject();
+      }
+    }, 0);
+  }
+
+  onProjectOut(event: MouseEvent): void {
+    if (!this.isDesktop) return;
+
+    const relatedTarget = event.relatedTarget as HTMLElement;
+    if (
+      relatedTarget &&
+      (relatedTarget.closest('.project-container') || relatedTarget.closest('.media-preview'))
+    ) {
+      return;
+    }
+
+    this.isHovered = false;
+    this.isCircleVisible = false;
+    this.animationInitialized = false;
+
+    const animation = this.animations[this.currentProject?.animationType || ''];
+    if (animation && animation.out) {
+      animation.out();
+    }
+
+    this.currentProject = null;
+    this.mediaSequence = [];
+    this.changeDetectorRef.detectChanges();
+
+    if (this.mobileSlideshowInterval) {
+      clearInterval(this.mobileSlideshowInterval);
+      this.mobileSlideshowInterval = null;
+    }
+  }
+
+  onProjectHoverMove(event: MouseEvent): void {
+    if (!this.isDesktop) return;
+    this.circleX = event.offsetX - 40;
+    this.circleY = event.offsetY - 40;
   }
 
   private initProjectAnimations(): void {
@@ -256,61 +323,6 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  onProjectHover(project: Project, event: MouseEvent): void {
-    if (!this.isDesktop) return;
-
-    if (this.currentProject && this.currentProject !== project) {
-      const previousAnimation = this.animations[this.currentProject.animationType || ''];
-      if (previousAnimation && previousAnimation.out) {
-        previousAnimation.out();
-      }
-    }
-
-    this.currentProject = project;
-    this.isHovered = true;
-    this.animationInitialized = false;
-
-    this.mediaSequence = this.getAllMedia(project);
-    this.mediaSequence = this.mediaSequence.sort(() => Math.random() - 0.5);
-
-    this.changeDetectorRef.detectChanges();
-
-    setTimeout(() => {
-      if (this.mediaElements.length > 0) {
-        this.initAnimationForCurrentProject();
-      }
-    }, 0);
-  }
-
-  onProjectOut(event: MouseEvent): void {
-    if (!this.isDesktop) return;
-
-    const relatedTarget = event.relatedTarget as HTMLElement;
-    if (
-      relatedTarget &&
-      (relatedTarget.closest('.project-container') || relatedTarget.closest('.media-preview'))
-    ) {
-      return;
-    }
-
-    this.isHovered = false;
-    this.animationInitialized = false;
-
-    const animation = this.animations[this.currentProject?.animationType || ''];
-    if (animation && animation.out) {
-      animation.out();
-    }
-
-    this.currentProject = null;
-    this.mediaSequence = [];
-    this.changeDetectorRef.detectChanges();
-
-    if (this.mobileSlideshowInterval) {
-      clearInterval(this.mobileSlideshowInterval);
-      this.mobileSlideshowInterval = null;
-    }
-  }
-
   private initAnimationForCurrentProject(): void {
     if (this.animationInitialized || this.mediaElements.length === 0 || !this.currentProject) {
       return;
@@ -350,14 +362,13 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
 
-    const firstElement = elements[0].nativeElement;
-    if (firstElement.tagName.toLowerCase() === 'video') {
+    const firstElement = elements[0]?.nativeElement;
+    if (firstElement && firstElement.tagName.toLowerCase() === 'video') {
       firstElement.play();
     }
 
     this.mobileSlideshowInterval = setInterval(() => {
       const previousElement = elements[currentIndex].nativeElement;
-
       previousElement.style.display = 'none';
 
       if (previousElement.tagName.toLowerCase() === 'video') {
@@ -369,7 +380,6 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
       const currentElement = elements[currentIndex].nativeElement;
 
       currentElement.style.display = 'block';
-
       if (currentElement.tagName.toLowerCase() === 'video') {
         currentElement.play();
       }
@@ -399,13 +409,16 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private killTimelines(): void {
-    [this.laiterieTimeline, this.anglaisTimeline, this.limagoTimeline, this.maisonTimeline].forEach(
-      (timeline) => {
-        if (timeline) {
-          timeline.kill();
-        }
+    [
+      this.laiterieTimeline,
+      this.anglaisTimeline,
+      this.limagoTimeline,
+      this.maisonTimeline,
+    ].forEach((timeline) => {
+      if (timeline) {
+        timeline.kill();
       }
-    );
+    });
     this.animationInitialized = false;
   }
 
@@ -509,7 +522,6 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // Ajout de la méthode pour animer les .project-item (ici les h5) lors du scroll
   private animateProjectItemsOnScroll(): void {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -533,5 +545,4 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     }
   }
-
 }

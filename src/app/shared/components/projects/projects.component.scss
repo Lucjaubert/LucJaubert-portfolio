@@ -55,6 +55,7 @@
     }
 
     .project-container {
+      position: relative;
       padding-bottom: 5rem;
       display: flex;
       align-items: baseline;
@@ -76,12 +77,12 @@
           transition: transform 0.3s ease;
         }
 
-        .offset-0 { transform: translateX(0); }
-        .offset-1 { transform: translateX(-130px); }
-        .offset-2 { transform: translateX(-70px); }
-        .offset-3 { transform: translateX(-180px); }
-        .offset-4 { transform: translateX(15px); }
-        .offset-5 { transform: translateX(50px); }
+        .offset-0 { transform: translateX(70px); }
+        .offset-1 { transform: translateX(-70px); }
+        .offset-2 { transform: translateX(-30px); }
+        .offset-3 { transform: translateX(-100px); }
+        .offset-4 { transform: translateX(35px); }
+        .offset-5 { transform: translateX(60px); }
       }
 
       .date {
@@ -97,6 +98,36 @@
         border: none;
         color: map-get($theme-colors, "orange");
         font-size: 24px;
+      }
+
+      @media (min-width: 768px) {
+
+        .view-circle {
+          position: absolute;
+          top: 0;
+          left: 10px;
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          background-color: #fff;
+          color: #000;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 600;
+          font-family: sans-serif;
+          text-transform: uppercase;
+          pointer-events: none;
+          z-index: 10;
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0);
+          transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        &:hover .view-circle {
+          opacity: 0.5;
+          transform: scale(1);
+        }
       }
 
       @media (max-width: 768px) {
@@ -125,7 +156,6 @@
           }
         }
       }
-
     }
   }
 
@@ -222,7 +252,7 @@
 
   .material-symbols-outlined {
     font-family: 'Material Symbols Outlined';
-    font-weight: normal  ;
+    font-weight: normal;
     font-style: normal;
     font-size: 12px;
     display: inline-block;
@@ -398,7 +428,6 @@
       flex-direction: column;
       align-items: flex-start;
       padding: 1rem;
-
     }
 
     .project-details .col-12 {
