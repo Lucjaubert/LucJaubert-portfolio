@@ -86,7 +86,7 @@ body::-webkit-scrollbar {
         font-weight: 100;
         font-style: normal;
         color: map-get($theme-colors, "orange") !important;
-        font-size: clamp(30px, 4.5vw, 56px);
+        font-size: clamp(26px, 4.5vw, 56px);
 
         &:hover {
             color: map-get($theme-colors, "light-orange") !important;
