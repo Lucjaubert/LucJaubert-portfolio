@@ -18,20 +18,53 @@
         font-size: map-get($font-size, "40");
       }
 
+      a {
+        font-size: inherit;
+        text-decoration: none;
+        font-weight: 400;
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: -2px;
+          width: 100%;
+          height: 2px;
+          background-color: currentColor;
+        }
+      }
+
       .highlight-yellow {
         color: map-get($theme-colors, "yellow");
+
+        a {
+          color: map-get($theme-colors, "yellow");
+        }
       }
 
       .highlight-orange {
         color: map-get($theme-colors, "orange");
+
+        a {
+          color: map-get($theme-colors, "orange");
+        }
       }
 
       .highlight-light-green {
         color: map-get($theme-colors, "light-green");
+
+        a {
+          color: map-get($theme-colors, "light-green");
+        }
       }
 
       .highlight-light-blue {
         color: map-get($theme-colors, "light-blue");
+
+        a {
+          color: map-get($theme-colors, "light-blue");
+        }
       }
     }
 
