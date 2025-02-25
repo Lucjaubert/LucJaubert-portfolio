@@ -7,7 +7,7 @@ import { APP_BASE_HREF } from '@angular/common';
 
 const app = express();
 
-const DIST_FOLDER = join(process.cwd(), 'lucjaubert');
+const DIST_FOLDER = '/var/www/lucjaubert_c_usr14/data/www/lucjaubert.com/lucjaubert';
 
 app.get(
   '*.*',
