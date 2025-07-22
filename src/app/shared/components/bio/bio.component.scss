@@ -77,5 +77,16 @@
     opacity: 0;
     transform: translateY(10px);
     transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+
+    img {
+      max-width: 30%;
+      height: auto;
+    }
+
+    @media (max-width: 425px) {
+      img {
+        max-width: 50%;
+      }
+    }
   }
 }

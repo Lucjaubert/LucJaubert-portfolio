@@ -23,16 +23,10 @@
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/robots.txt",
-              "src/sitemap.xml",
-              {
-                "glob": "**/*",
-                "input": "src/assets",
-                "output": "assets/"
-              },
               {
                 "glob": "**/*",
                 "input": "public",
@@ -51,6 +45,7 @@
             ],
             "allowedCommonJsDependencies": ["compression"]
           },
+
           "configurations": {
             "production": {
               "budgets": [
@@ -94,6 +89,7 @@
           },
           "defaultConfiguration": "development"
         },
+
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
@@ -109,6 +105,7 @@
           },
           "defaultConfiguration": "development"
         },
+
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
@@ -130,6 +127,7 @@
           },
           "defaultConfiguration": "production"
         },
+
         "serve-ssr": {
           "builder": "@nguniversal/builders:ssr-dev-server",
           "configurations": {
@@ -144,14 +142,22 @@
           },
           "defaultConfiguration": "development"
         },
+
         "prerender": {
           "builder": "@angular-devkit/build-angular:prerender",
           "options": {
             "browserTarget": "lucjaubert:build:production",
             "serverTarget": "lucjaubert:server:production",
-            "routes": ["/"]
+            "routes": [
+              "/",
+              "/intro",
+              "/competences",
+              "/projets",
+              "/contact"
+            ]
           }
         },
+
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"
         },
@@ -174,6 +180,7 @@
       }
     }
   },
+
   "cli": {
     "analytics": false
   }

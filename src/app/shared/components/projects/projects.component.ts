@@ -10,13 +10,14 @@ import {
   AfterViewInit,
   PLATFORM_ID,
   NgZone,
-  ChangeDetectionStrategy,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { gsap, CSSPlugin, ScrollTrigger } from 'gsap/all';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { SeoService } from '../../../core/seo.service';
 
 gsap.registerPlugin(CSSPlugin, ScrollTrigger);
 
@@ -39,66 +40,64 @@ interface Project {
   styleUrls: ['./projects.component.scss'],
   standalone: true,
   imports: [RouterModule, CommonModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChildren('mediaElement') mediaElements!: QueryList<ElementRef>;
 
   projects: Project[] = [];
   currentProject: Project | null = null;
-  isHovered: boolean = false;
+  isHovered = false;
   activeMediaIndex: number | null = null;
-
   mediaSequence: { type: 'image' | 'video'; src: string }[] = [];
+
+  private cb2pTimeline: gsap.core.Timeline | null = null;
   private laiterieTimeline: gsap.core.Timeline | null = null;
   private anglaisTimeline: gsap.core.Timeline | null = null;
   private limagoTimeline: gsap.core.Timeline | null = null;
   private maisonTimeline: gsap.core.Timeline | null = null;
+  private abcTimeline: gsap.core.Timeline | null = null;
   private animations: { [key: string]: { in: () => void; out: () => void } } = {};
-  private animationInitialized: boolean = false;
-  private gsapContext: gsap.Context | undefined;
+  private animationInitialized = false;
+  private gsapContext?: gsap.Context;
 
-  isDesktop: boolean = false;
-
-  public circleX: number = 0;
-  public circleY: number = 0;
-  public isCircleVisible: boolean = false;
-
+  isDesktop = false;
+  circleX = 0;
+  circleY = 0;
+  isCircleVisible = false;
   private mobileSlideshowInterval: any;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(PLATFORM_ID) private platformId: object,
     private http: HttpClient,
-    private changeDetectorRef: ChangeDetectorRef,
+    private cdr: ChangeDetectorRef,
     private breakpointObserver: BreakpointObserver,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private seo: SeoService
   ) {}
 
   ngOnInit(): void {
+    this.seo.update({
+      title: 'Projets – Luc Jaubert',
+      description: 'Portfolio des projets réalisés par Luc Jaubert, développeur web freelance à Bordeaux.',
+      url: 'https://lucjaubert.com/projets',
+      image: 'https://lucjaubert.com/assets/icons/apple-touch-icon.png'
+    });
+
     if (isPlatformBrowser(this.platformId)) {
       this.loadProjects();
       this.animations = {
-        laiterieAnimation: {
-          in: () => this.initProjectAnimation('laiterie'),
-          out: () => {},
-        },
-        anglaisAnimation: {
-          in: () => this.initProjectAnimation('anglais'),
-          out: () => {},
-        },
-        limagoAnimation: {
-          in: () => this.initProjectAnimation('limago'),
-          out: () => {},
-        },
-        maisonAnimation: {
-          in: () => this.initProjectAnimation('maison'),
-          out: () => {},
-        },
+        cb2pAnimation: { in: () => this.initProjectAnimation('cb2p'), out: () => {} },
+        laiterieAnimation: { in: () => this.initProjectAnimation('laiterie'), out: () => {} },
+        anglaisAnimation: { in: () => this.initProjectAnimation('anglais'), out: () => {} },
+        limagoAnimation: { in: () => this.initProjectAnimation('limago'), out: () => {} },
+        maisonAnimation: { in: () => this.initProjectAnimation('maison'), out: () => {} },
+        abcAnimation: { in: () => this.initProjectAnimation('abc'), out: () => {} }
       };
 
-      this.breakpointObserver.observe(['(min-width: 768px)']).subscribe((state) => {
+      this.breakpointObserver.observe(['(min-width: 768px)']).subscribe(state => {
         this.isDesktop = state.matches;
-        this.changeDetectorRef.markForCheck();
+        this.cdr.markForCheck();
       });
     }
   }
@@ -133,7 +132,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.currentProject = null;
       this.mediaSequence = [];
       this.animationInitialized = false;
-      this.changeDetectorRef.detectChanges();
+      this.cdr.detectChanges();
 
       if (this.mobileSlideshowInterval) {
         clearInterval(this.mobileSlideshowInterval);
@@ -146,10 +145,10 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.mediaSequence = this.currentProject.mediaSequence || [];
 
       this.animationInitialized = false;
-      this.changeDetectorRef.detectChanges();
+      this.cdr.detectChanges();
 
       setTimeout(() => {
-        this.changeDetectorRef.detectChanges();
+        this.cdr.detectChanges();
 
         this.mediaElements.changes.subscribe(() => {
           if (this.mediaElements.length > 0 && this.currentProject) {
@@ -221,7 +220,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.mediaSequence = this.getAllMedia(project);
     this.mediaSequence = this.mediaSequence.sort(() => Math.random() - 0.5);
 
-    this.changeDetectorRef.detectChanges();
+    this.cdr.detectChanges();
 
     setTimeout(() => {
       if (this.mediaElements.length > 0) {
@@ -252,7 +251,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.currentProject = null;
     this.mediaSequence = [];
-    this.changeDetectorRef.detectChanges();
+    this.cdr.detectChanges();
 
     if (this.mobileSlideshowInterval) {
       clearInterval(this.mobileSlideshowInterval);
@@ -319,7 +318,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
           mediaSequence: shuffledMediaSequence,
         };
       });
-      this.changeDetectorRef.detectChanges();
+      this.cdr.detectChanges();
     });
   }
 
@@ -384,7 +383,7 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
         currentElement.play();
       }
 
-      this.changeDetectorRef.detectChanges();
+      this.cdr.detectChanges();
     }, 1500);
   }
 
@@ -410,115 +409,101 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private killTimelines(): void {
     [
+      this.cb2pTimeline,
       this.laiterieTimeline,
       this.anglaisTimeline,
       this.limagoTimeline,
       this.maisonTimeline,
-    ].forEach((timeline) => {
-      if (timeline) {
-        timeline.kill();
-      }
-    });
+      this.abcTimeline
+    ].forEach(tl => tl?.kill());
     this.animationInitialized = false;
   }
 
   private initProjectAnimation(timelineName: string): void {
-    if (this.mediaElements && this.mediaElements.length > 0) {
-      let timeline: gsap.core.Timeline | null = null;
+    if (!this.mediaElements || this.mediaElements.length === 0) return;
 
-      switch (timelineName) {
-        case 'laiterie':
-          if (this.laiterieTimeline) {
-            this.laiterieTimeline.kill();
-            this.laiterieTimeline = null;
+    const resetTimeline = (ref: gsap.core.Timeline | null) => {
+      if (ref) ref.kill();
+      return null;
+    };
+
+    switch (timelineName) {
+      case 'cb2p':
+        this.cb2pTimeline = resetTimeline(this.cb2pTimeline);
+        break;
+      case 'laiterie':
+        this.laiterieTimeline = resetTimeline(this.laiterieTimeline);
+        break;
+      case 'anglais':
+        this.anglaisTimeline = resetTimeline(this.anglaisTimeline);
+        break;
+      case 'limago':
+        this.limagoTimeline = resetTimeline(this.limagoTimeline);
+        break;
+      case 'maison':
+        this.maisonTimeline = resetTimeline(this.maisonTimeline);
+        break;
+      case 'abc':
+        this.abcTimeline = resetTimeline(this.abcTimeline);
+        break;
+    }
+
+    const tl = gsap.timeline({ repeat: -1, defaults: { ease: 'power1.inOut' } });
+    const transition = 0.4;
+    const stay = 1.5;
+    const dirX = ['-100%', '0%', '100%'];
+    const dirY = ['-100%', '0%', '100%'];
+
+    this.mediaElements.toArray().forEach((ref, i) => {
+      const el = ref.nativeElement as HTMLElement;
+      const xStart = dirX[Math.floor(Math.random() * dirX.length)];
+      const yStart = dirY[Math.floor(Math.random() * dirY.length)];
+
+      tl.to(el, {
+        opacity: 1,
+        x: '0%',
+        y: '0%',
+        display: 'block',
+        duration: transition,
+        onStart: () => {
+          if (el.tagName.toLowerCase() === 'video') (el as HTMLVideoElement).play().catch(() => {});
+        }
+      }, i * stay)
+      .to(el, {
+        opacity: 0,
+        x: xStart,
+        y: yStart,
+        display: 'none',
+        duration: transition,
+        onComplete: () => {
+          if (el.tagName.toLowerCase() === 'video') {
+            const vid = el as HTMLVideoElement;
+            vid.pause();
+            vid.currentTime = 0;
           }
-          break;
-        case 'anglais':
-          if (this.anglaisTimeline) {
-            this.anglaisTimeline.kill();
-            this.anglaisTimeline = null;
-          }
-          break;
-        case 'limago':
-          if (this.limagoTimeline) {
-            this.limagoTimeline.kill();
-            this.limagoTimeline = null;
-          }
-          break;
-        case 'maison':
-          if (this.maisonTimeline) {
-            this.maisonTimeline.kill();
-            this.maisonTimeline = null;
-          }
-          break;
-      }
+        }
+      }, i * stay + stay);
+    });
 
-      timeline = gsap.timeline({ repeat: -1, defaults: { ease: 'power1.inOut' } });
-
-      const transitionDuration = 0.4;
-      const displayDuration = 1.5;
-      const timeBetweenElements = displayDuration;
-      const directionOptionsX = ['-100%', '0%', '100%'];
-      const directionOptionsY = ['-100%', '0%', '100%'];
-
-      const shuffledMediaElements = this.mediaElements.toArray();
-      shuffledMediaElements.forEach((elementRef, index) => {
-        const element = elementRef.nativeElement;
-        const xStart = directionOptionsX[Math.floor(Math.random() * directionOptionsX.length)];
-        const yStart = directionOptionsY[Math.floor(Math.random() * directionOptionsY.length)];
-
-        timeline!.to(
-          element,
-          {
-            opacity: 1,
-            x: '0%',
-            y: '0%',
-            display: 'block',
-            duration: transitionDuration,
-            onStart: () => {
-              if (element.tagName.toLowerCase() === 'video') {
-                element.play().catch((error: any) => {
-                  console.error('Erreur de lecture de la vidéo :', error);
-                });
-              }
-            },
-          },
-          index * timeBetweenElements
-        );
-
-        timeline!.to(
-          element,
-          {
-            opacity: 0,
-            x: xStart,
-            y: yStart,
-            display: 'none',
-            duration: transitionDuration,
-            onComplete: () => {
-              if (element.tagName.toLowerCase() === 'video') {
-                element.pause();
-                element.currentTime = 0;
-              }
-            },
-          },
-          index * timeBetweenElements + displayDuration
-        );
-      });
-
-      switch (timelineName) {
-        case 'laiterie':
-          this.laiterieTimeline = timeline;
-          break;
-        case 'anglais':
-          this.anglaisTimeline = timeline;
-          break;
-        case 'limago':
-          this.limagoTimeline = timeline;
-          break;
-        case 'maison':
-          this.maisonTimeline = timeline;
-          break;
-      }
+    switch (timelineName) {
+      case 'cb2p':
+        this.cb2pTimeline = tl;
+        break;
+      case 'laiterie':
+        this.laiterieTimeline = tl;
+        break;
+      case 'anglais':
+        this.anglaisTimeline = tl;
+        break;
+      case 'limago':
+        this.limagoTimeline = tl;
+        break;
+      case 'maison':
+        this.maisonTimeline = tl;
+        break;
+      case 'abc':
+        this.abcTimeline = tl;
+        break;
     }
   }
 

@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, Inject } from '@angular/core';
-import { PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import anime from 'animejs/lib/anime.es.js';
+import { SeoService } from '../../../core/seo.service';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,25 +12,29 @@ gsap.registerPlugin(ScrollTrigger);
   templateUrl: './name-presentation.component.html',
   styleUrls: ['./name-presentation.component.scss'],
   standalone: true,
-  imports: [ CommonModule ],
+  imports: [CommonModule]
 })
 export class NamePresentationComponent implements OnInit, OnDestroy, AfterViewInit {
-
   private colors = [
     { name: 'orange', hex: '#ffa93a', image: 'letter-L-orange.png' },
     { name: 'blue', hex: '#515DE2', image: 'letter-L-blue.png' },
     { name: 'yellow', hex: '#ffdc7a', image: 'letter-L-yellow.png' },
-    { name: 'light-green', hex: '#92FFE4', image: 'letter-L-light-green.png' },
+    { name: 'light-green', hex: '#92FFE4', image: 'letter-L-light-green.png' }
   ];
 
   currentColor = this.colors[0];
   colorChangeInterval: any;
 
-  constructor(
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: object, private seo: SeoService) {}
 
   ngOnInit(): void {
+    this.seo.update({
+      title: 'Accueil – Luc Jaubert',
+      description: 'Développeur web freelance à Bordeaux spécialisé en sites sur mesure, performance et SEO.',
+      url: 'https://lucjaubert.com/',
+      image: 'https://lucjaubert.com/assets/icons/apple-touch-icon.png'
+    });
+
     if (isPlatformBrowser(this.platformId)) {
       this.startColorChange();
     }

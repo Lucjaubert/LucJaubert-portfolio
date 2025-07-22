@@ -50,6 +50,11 @@
     flex: 1;
     z-index: 1;
 
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+    }
+
     .projects-list {
       flex: 1;
     }
@@ -58,7 +63,8 @@
       position: relative;
       padding-bottom: 5rem;
       display: flex;
-      align-items: baseline;
+      align-items: center;
+      justify-content: center;
       padding: 1rem 0;
       cursor: pointer;
       transition: transform 0.3s ease, color 0.3s ease;
@@ -69,21 +75,55 @@
 
       .project-item {
         display: flex;
-        align-items: baseline;
+        align-items: baseline; // Aligne la date avec le point
+        justify-content: center;
         white-space: nowrap;
 
         h5,
         .date {
           transition: transform 0.3s ease;
+          margin: 0 0.5rem;
         }
 
-        .offset-0 { transform: translateX(70px); }
-        .offset-1 { transform: translateX(-70px); }
-        .offset-2 { transform: translateX(-30px); }
-        .offset-3 { transform: translateX(-100px); }
-        .offset-4 { transform: translateX(35px); }
-        .offset-5 { transform: translateX(60px); }
+        // Desktop ≥ 1440px : tout sur une ligne
+        @media (min-width: 1440px) {
+          flex-direction: row;
+
+          h5,
+          .date {
+            white-space: nowrap;
+            word-break: keep-all;
+            text-align: left;
+          }
+
+          .date {
+            font-size: calc(map-get($font-size, "30") * 1.2); // +20%
+            line-height: 1;
+            vertical-align: baseline;
+            align-self: baseline; // force alignement au point
+          }
+        }
+
+        // En dessous : la date passe en dessous
+        @media (max-width: 1439px) {
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          white-space: normal;
+          word-break: break-word;
+
+          h5,
+          .date {
+            text-align: center;
+            margin: 0;
+          }
+
+          .date {
+            font-size: map-get($font-size, "20") !important;
+          }
+        }
       }
+
 
       .date {
         cursor: none !important;
@@ -100,48 +140,49 @@
         font-size: 24px;
       }
 
-      @media (min-width: 768px) {
+      .view-circle {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background-color: #fff;
+        color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-family: sans-serif;
+        text-transform: uppercase;
+        pointer-events: none;
+        z-index: 10;
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+        transition: transform 0.3s ease, opacity 0.3s ease;
 
-        .view-circle {
-          position: absolute;
-          top: 0;
-          left: 10px;
-          width: 80px;
-          height: 80px;
-          border-radius: 50%;
-          background-color: #fff;
-          color: #000;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: 600;
-          font-family: sans-serif;
-          text-transform: uppercase;
-          pointer-events: none;
-          z-index: 10;
-          opacity: 0;
-          transform: translate(-50%, -50%) scale(0);
-          transition: transform 0.3s ease, opacity 0.3s ease;
-        }
-
-        &:hover .view-circle {
-          opacity: 0.5;
-          transform: scale(1);
+        @media (max-width: 768px) {
+          display: none;
         }
       }
 
+      &:hover .view-circle {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1);
+      }
+
       @media (max-width: 768px) {
-        .project-container {
-          justify-content: center !important;
-          align-items: center !important;
-        }
+        justify-content: center !important;
+        align-items: center !important;
 
         .project-item {
           display: flex;
           flex-direction: row;
           justify-content: center;
           align-items: center;
-          white-space: nowrap;
+          white-space: normal;
+          flex-wrap: wrap;
+          word-break: break-word;
           margin: 0;
           padding: 0;
 
@@ -158,6 +199,7 @@
       }
     }
   }
+
 
   .project-details-container {
     opacity: 1;
@@ -211,6 +253,15 @@
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
+
+    &.small-media img,
+    &.small-media video {
+      width: 65%;
+      height: auto;
+      max-height: 100%;
+      object-fit: contain;
+      object-position: left top;
+    }
   }
 
   .media-element {
@@ -327,13 +378,13 @@
 
     .url {
       font-size: 14px !important;
+
       @media (max-width: 768px) {
         font-size: 14px;
       }
     }
 
     @media (max-width: 768px) {
-
       & {
         position: fixed;
         top: 0;
@@ -406,6 +457,11 @@
       background-color: map-get($theme-colors, "black");
     }
 
+    .media-box.small-media img,
+    .media-box.small-media video {
+      width: 100% !important;
+    }
+
     .media-element {
       position: relative;
       width: 100%;
@@ -440,11 +496,15 @@
   }
 
   @media (max-width: map-get($breakpoints, "md")) {
-
     .media-box {
       width: 100%;
       height: auto;
       background-color: map-get($theme-colors, "black");
+    }
+
+    .media-box.small-media img,
+    .media-box.small-media video {
+      width: 100% !important;
     }
 
     .media-element {
@@ -467,6 +527,25 @@
 
     .material-symbols-outlined {
       font-size: 24px;
+    }
+  }
+
+  .project-container .project-item h5 small {
+    font-size: 0.55em;
+    font-weight: 400;
+    line-height: 1;
+    margin-left: 0.35rem;
+  }
+
+  @media (max-width: map-get($breakpoints, "md")) {
+    .project-container .project-item h5 small {
+      font-size: 0.65em;
+    }
+  }
+
+  @media (max-width: map-get($breakpoints, "sm")) {
+    .project-container .project-item h5 small {
+      font-size: 0.75em;
     }
   }
 }

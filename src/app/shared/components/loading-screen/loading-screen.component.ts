@@ -4,28 +4,24 @@ import {
   Inject,
   PLATFORM_ID,
   OnDestroy,
-  ChangeDetectorRef,
+  ChangeDetectorRef
 } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { isPlatformBrowser, CommonModule } from "@angular/common";
-import { Meta } from '@angular/platform-browser';
+import { Meta } from "@angular/platform-browser";
+import { environment } from "../../../../environments/environment";
 
 @Component({
   selector: "app-loading-screen",
   templateUrl: "./loading-screen.component.html",
   styleUrls: ["./loading-screen.component.scss"],
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule]
 })
 export class LoadingScreenComponent implements OnInit, OnDestroy {
   displayText = "100%";
   isRotating = false;
-  colorClasses = [
-    "color-light-blue",
-    "color-light-green",
-    "color-yellow",
-    "color-orange",
-  ];
+  colorClasses = ["color-light-blue", "color-light-green", "color-yellow", "color-orange"];
   currentColorClassIndex = 0;
   currentColorClass = this.colorClasses[0];
   colorChangeInterval: any;
@@ -37,11 +33,13 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(PLATFORM_ID) private platformId: object,
     private cdr: ChangeDetectorRef,
-    private metaService: Meta
+    private meta: Meta
   ) {
-    this.metaService.updateTag({ name: 'robots', content: 'noindex, follow' });
+    if (!environment.production) {
+      this.meta.updateTag({ name: "robots", content: "noindex, follow" });
+    }
   }
 
   ngOnInit(): void {
@@ -67,18 +65,14 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.colorChangeInterval) {
-      clearInterval(this.colorChangeInterval);
-    }
-    if (this.textColorChangeInterval) {
-      clearInterval(this.textColorChangeInterval);
-    }
+    this.meta.removeTag("name='robots'");
+    if (this.colorChangeInterval) clearInterval(this.colorChangeInterval);
+    if (this.textColorChangeInterval) clearInterval(this.textColorChangeInterval);
   }
 
   startTextColorCycle(): void {
     this.textColorChangeInterval = setInterval(() => {
-      this.currentColorClassIndex =
-        (this.currentColorClassIndex + 1) % this.colorClasses.length;
+      this.currentColorClassIndex = (this.currentColorClassIndex + 1) % this.colorClasses.length;
       this.currentColorClass = this.colorClasses[this.currentColorClassIndex];
       this.cdr.detectChanges();
     }, 100);
@@ -92,9 +86,6 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
   }
 
   get progressTextClasses() {
-    return {
-      [this.currentColorClass]: true,
-      rotate: this.isRotating,
-    };
+    return { [this.currentColorClass]: true, rotate: this.isRotating };
   }
 }
