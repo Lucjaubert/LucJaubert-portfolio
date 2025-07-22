@@ -1,7 +1,39 @@
 [
   {
+    "name": "GROUPE ABC IMMOBILIER . (en cours)",
+    "year": "2025",
+    "project": "Extranet + site vitrine pour un réseau d’experts immobiliers",
+    "role": "Zoning, maquettes Figma / Adobe XD, charte graphique (Studio Dada), dev sur‑mesure, responsive, SEO, déploiement",
+    "stacks": "WordPress Headless · Angular · API REST · Figma / Adobe XD",
+    "url": "https://www.groupe-abc.fr/",
+    "description": "Site vitrine + extranet sécurisé, design sur‑mesure et UX mobile. Identité graphique conçue avec Studio Dada.",
+    "images": [
+      "assets/img/groupe-abc/GroupeABC-charte-Studio-Dada-01.webp",
+      "assets/img/groupe-abc/GroupeABC-charte-Studio-Dada-02.webp"
+    ],
+    "videos": [],
+    "animationType": "abcAnimation"
+  },
+  {
+    "name": "CB2P AVOCATS .",
+    "year": "2025",
+    "project": "Création du site vitrine pour le cabinet d'avocats CB2P basé à Bordeaux",
+    "role": "Design UI, zoning, développement sur mesure, responsive, SEO, déploiement",
+    "stacks": "WordPress Headless - Angular - API REST - Figma",
+    "url": "https://www.cb2p-avocats.fr",
+    "description": "Site vitrine développé sur-mesure pour un cabinet d'avocats pluridisciplinaire, avec optimisation SEO locale et design sobre et professionnel.",
+    "images": [
+      "assets/img/cb2p/images/bc2p-1.webp",
+      "assets/img/cb2p/images/bc2p-2.webp"
+    ],
+    "videos": [
+      "assets/img/cb2p/videos/cb2p-avocats.fr.mp4"
+    ],
+    "animationType": "cb2pAnimation"
+  },
+  {
     "name": "LAITERIE BURDIGALA .",
-    "year": "2024",
+    "year": "2025",
     "project": "Creation du site internet de la Laiterie Burdigala aux Capucins - Bordeaux",
     "role": "Charte graphique, ergonomie, zoning, design et developpement, Click&collect sur mesure, SEO, deploiement",
     "stacks": "WordPress Headless - Angular - API Rest - Figma",

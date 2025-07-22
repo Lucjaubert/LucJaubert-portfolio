@@ -1,17 +1,28 @@
-import { Component, AfterViewInit, ViewChildren, ElementRef, QueryList, Inject, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
-import { PLATFORM_ID } from '@angular/core';
-import { gsap, CSSPlugin, ScrollTrigger } from 'gsap/all';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  AfterViewInit,
+  ViewChildren,
+  ElementRef,
+  QueryList,
+  Inject,
+  PLATFORM_ID,
+  ChangeDetectorRef
+} from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { gsap, CSSPlugin, ScrollTrigger } from 'gsap/all';
 import { HttpClient } from '@angular/common/http';
 import { SlugifyPipe } from '../../pipe/slugify.pipe';
 import { LineBreaksPipe } from '../../pipe/line-breaks.pipe';
+import { SeoService } from '../../../core/seo.service';
 
 gsap.registerPlugin(CSSPlugin, ScrollTrigger);
 
 interface StudioSection {
   name: string;
-  mission :string;
+  mission: string;
   stacks: string;
 }
 
@@ -20,28 +31,31 @@ interface StudioSection {
   templateUrl: './studio-web.component.html',
   styleUrls: ['./studio-web.component.scss'],
   standalone: true,
-  imports: [
-    RouterModule,
-    CommonModule,
-    SlugifyPipe,
-    LineBreaksPipe
-  ]
+  imports: [RouterModule, CommonModule, SlugifyPipe, LineBreaksPipe]
 })
-export class StudioWebComponent implements AfterViewInit, OnInit, OnDestroy {
+export class StudioWebComponent implements OnInit, AfterViewInit, OnDestroy {
+  [x: string]: any;
   @ViewChildren('studioSectionContainer') studioSectionContainers!: QueryList<ElementRef>;
-  private gsapContext: gsap.Context | undefined;
-
+  private gsapContext?: gsap.Context;
   sections: StudioSection[] = [];
   currentSection: StudioSection | null = null;
-  isHovered: boolean = false;
+  isHovered = false;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(PLATFORM_ID) private platformId: object,
     private http: HttpClient,
-    private changeDetectorRef: ChangeDetectorRef,
+    private cdr: ChangeDetectorRef,
+    private seo: SeoService
   ) {}
 
   ngOnInit(): void {
+    this.seo.update({
+      title: 'Studio Web – Luc Jaubert',
+      description: 'Expertise développement, design et SEO de Luc Jaubert pour vos projets web.',
+      url: 'https://lucjaubert.com/studio-web',
+      image: 'https://lucjaubert.com/assets/icons/apple-touch-icon.png'
+    });
+
     if (isPlatformBrowser(this.platformId)) {
       this.loadStudioSections();
     }
@@ -79,7 +93,7 @@ export class StudioWebComponent implements AfterViewInit, OnInit, OnDestroy {
   private loadStudioSections(): void {
     this.http.get<StudioSection[]>('assets/data/studio-web.json').subscribe((data: StudioSection[]) => {
       this.sections = data;
-      this.changeDetectorRef.detectChanges();
+      this.cdr.detectChanges();
       this.initStudioSectionAnimations();
     });
   }

@@ -7,7 +7,7 @@ var ssr_1 = require("@angular/ssr");
 var main_server_1 = require("./src/main.server");
 var common_1 = require("@angular/common");
 var PORT = process.env['PORT'] || 4000;
-var DIST_FOLDER = (0, path_1.join)(process.cwd(), 'dist/lucjaubert');
+var DIST_FOLDER = '/var/www/lucjaubert_c_usr14/data/www/lucjaubert.com/lucjaubert';
 var engine = new ssr_1.CommonEngine();
 var app = (0, express_1.default)();
 app.get('*.*', express_1.default.static(DIST_FOLDER, {
