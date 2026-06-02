@@ -86,7 +86,7 @@ body::-webkit-scrollbar {
         font-weight: 100;
         font-style: normal;
         color: map-get($theme-colors, "orange") !important;
-        font-size: clamp(26px, 4.5vw, 56px);
+        font-size: clamp(26px, 4.5vw, 45px);
 
         &:hover {
             color: map-get($theme-colors, "light-orange") !important;
@@ -110,6 +110,20 @@ body::-webkit-scrollbar {
         margin: 0;
         font-size: 14px;
     }
+}
+
+// Aligne le contenu interne du composant <app-studio-web> sur les mêmes 5vw que les autres
+// sections quand le composant est utilisé dans /sites-web ou /outils-metier. Override en
+// global (pas dans le SCSS des pages) car les enfants d'<app-studio-web> sont scopés par
+// Angular sur un autre _ngcontent que la page parente, donc inaccessibles autrement.
+// Le !important neutralise le .px-5 Bootstrap (3rem !important) déjà présent sur ces éléments.
+.outils-metier-page,
+.sites-web-page {
+  .section-container,
+  .section-details-preview {
+    padding-left: 5vw !important;
+    padding-right: 5vw !important;
+  }
 }
 
 #back-to-top {

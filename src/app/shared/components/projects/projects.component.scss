@@ -12,6 +12,22 @@
   flex-wrap: wrap;
   pointer-events: none;
 
+   /* --------------------------------------------
+     SEO / A11Y – invisible visuellement
+     -------------------------------------------- */
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
+
   .background-sides {
     position: absolute;
     bottom: 0;
@@ -75,7 +91,7 @@
 
       .project-item {
         display: flex;
-        align-items: baseline; // Aligne la date avec le point
+        align-items: baseline;
         justify-content: center;
         white-space: nowrap;
 
@@ -85,7 +101,6 @@
           margin: 0 0.5rem;
         }
 
-        // Desktop ≥ 1440px : tout sur une ligne
         @media (min-width: 1440px) {
           flex-direction: row;
 
@@ -97,14 +112,13 @@
           }
 
           .date {
-            font-size: calc(map-get($font-size, "30") * 1.2); // +20%
+            font-size: calc(map-get($font-size, "30") * 1.2);
             line-height: 1;
             vertical-align: baseline;
-            align-self: baseline; // force alignement au point
+            align-self: baseline;
           }
         }
 
-        // En dessous : la date passe en dessous
         @media (max-width: 1439px) {
           flex-direction: column;
           align-items: center;
@@ -124,6 +138,26 @@
         }
       }
 
+      .project-item.project-item--wrap {
+        white-space: normal;
+      }
+
+      .project-item.project-item--wrap h5 {
+        white-space: normal !important;
+        overflow-wrap: anywhere;
+        word-break: normal;
+        text-align: center;
+        margin: 0;
+      }
+      /* 2026 inline, collé au point */
+      .project-item.project-item--wrap .date-inline {
+        display: inline;
+        white-space: nowrap;
+        margin-left: 0.6rem;
+        line-height: 1;
+        font-weight: 400;
+        font-size: map-get($font-size, "30") !important;
+      }
 
       .date {
         cursor: none !important;
@@ -196,10 +230,17 @@
             font-size: map-get($font-size, "20") !important;
           }
         }
+
+        .project-item.project-item--wrap h5 {
+          text-align: center;
+        }
+
+        .project-item.project-item--wrap .date-inline {
+          font-size: map-get($font-size, "20") !important;
+        }
       }
     }
   }
-
 
   .project-details-container {
     opacity: 1;
@@ -233,7 +274,7 @@
   }
 
   .project-details span {
-    font-family: 'Open Sans';
+    font-family: "Open Sans";
     margin-top: 5px;
     white-space: normal;
     font-weight: 300;
@@ -295,6 +336,7 @@
 
   .url {
     color: map-get($theme-colors, "beige");
+    font-family: "Trap", sans-serif !important;
 
     &:hover {
       color: map-get($theme-colors, "beige");
@@ -302,7 +344,7 @@
   }
 
   .material-symbols-outlined {
-    font-family: 'Material Symbols Outlined';
+    font-family: "Material Symbols Outlined";
     font-weight: normal;
     font-style: normal;
     font-size: 12px;
@@ -324,7 +366,7 @@
     width: 90vw;
     max-height: 90vh;
     padding: 1rem;
-    background-color: map-get($theme-colors,"dark");
+    background-color: map-get($theme-colors, "dark");
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     z-index: 1000;
@@ -334,6 +376,7 @@
     transition: opacity 0.3s ease, transform 0.3s ease;
     display: flex;
     flex-direction: column;
+    font-size: map-get($font-size, "10");
 
     &.active {
       opacity: 1;
@@ -349,7 +392,7 @@
       justify-content: center;
       align-items: center;
       position: relative;
-      background-color: map-get($theme-colors,"dark");
+      background-color: map-get($theme-colors, "dark");
     }
 
     .media-element {

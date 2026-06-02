@@ -1,8 +1,19 @@
 <section id="projects" class="project-presentation mt-md-2 py-md-8">
+
+  <h2 id="projects-title" class="visually-hidden">
+    Projets – Développement web Angular et WordPress
+  </h2>
+
+  <p class="visually-hidden">
+    Sélection de projets réalisés par Luc Jaubert (LJ Studio Web) :
+    sites vitrines, e-commerce, WordPress headless, Angular SSR,
+    interfaces sur mesure et optimisations SEO.
+  </p>
+
   <div class="background-sides"></div>
 
   <div class="row project-hover-container">
-    <div class="col-12 col-md-6 projects-list ps-lg-2 ps-sm-5 py-lg-10 py-17">
+    <div class="col-12 col-md-6 projects-list ps-lg-5 ps-sm-5 py-lg-10 py-17">
       <div class="current-projects">
         <div class="projects-2024 d-flex flex-column align-items-center justify-content-center">
           <div *ngFor="let project of projects; let i = index">
@@ -12,8 +23,7 @@
               (mouseenter)="onProjectHover(project, $event)"
               (mouseleave)="onProjectOut($event)"
             >
-              <div class="project-item">
-
+              <div class="project-item" [class.project-item--wrap]="i === 0">
                 <h5
                   [ngClass]="'offset-' + i"
                   class="mb-0"
@@ -21,20 +31,29 @@
                 >
                   {{ project.name.replace(' (en cours)', '') }}
                   <small *ngIf="project.name.includes('(en cours)')">(en cours)</small>
+
+                  <ng-container *ngIf="i === 0; else yearOutside">
+                    <span class="date date-inline">{{ project.year }}</span>
+                  </ng-container>
+
+                  <ng-template #yearOutside></ng-template>
                 </h5>
 
-                <span [ngClass]="'offset-' + i" class="date ms-2">{{ project.year }}</span>
+                <ng-container *ngIf="i !== 0">
+                  <span [ngClass]="'offset-' + i" class="date">{{ project.year }}</span>
+                </ng-container>
               </div>
+
 
               <div
                 class="view-circle"
                 [ngStyle]="{
-                  transform: 'translate(' + circleX + 'px, ' + circleY + 'px) scale(' + (isCircleVisible ? 1 : 0) + ')'
+                  transform:
+                    'translate(' + circleX + 'px, ' + circleY + 'px) scale(' + (isCircleVisible ? 1 : 0) + ')'
                 }"
               >
                 view
               </div>
-
             </div>
 
             <div
@@ -45,12 +64,16 @@
             >
               <div class="col-12 d-flex flex-column media-container">
                 <div class="col-12 media-box small-media d-flex flex-wrap flex-column align-items-center media-gallery">
-                  <div *ngFor="let media of getMediaSequence(project); let j = index" #mediaElement class="media-element">
+                  <div
+                    *ngFor="let media of getMediaSequence(project); let j = index"
+                    #mediaElement
+                    class="media-element"
+                  >
                     <img
                       *ngIf="media.type === 'image'"
                       [src]="media.src"
                       class="img-fluid"
-                      alt="Image du projet"
+                      [alt]="(project.name || 'Projet') + ' — projet réalisé par Luc Jaubert'"
                     />
                     <video
                       *ngIf="media.type === 'video'"
@@ -68,30 +91,33 @@
                 </div>
 
                 <div class="project-details-container py-0">
-                  <div class="col-12 project-details row text-center py-0">
-                    <div class="col-12 col-sm-4 d-flex flex-column align-items-start px-sm-4">
-                      <p class="mb-0"><strong>Le Projet</strong></p>
-                      <span class="mt-1 text-start">{{ project.project }}</span>
-                    </div>
-                    <div class="col-12 col-sm-4 d-flex flex-column align-items-start px-sm-4">
-                      <p class="mb-0"><strong>Les Missions</strong></p>
-                      <span class="mt-1 text-start">{{ project.role }}</span>
-                    </div>
-                    <div class="col-12 col-sm-4 d-flex flex-column align-items-start px-sm-4">
-                      <p class="mb-0"><strong>Les Stacks</strong></p>
-                      <span class="mt-1 text-start">{{ project.stacks }}</span>
-                    </div>
-                  </div>
-
                   <div class="d-flex px-3 align-items-baseline py-3">
                     <p class="url text-start" (click)="openProjectLink(project)">{{ project.url }}</p>
                     <button class="btn align-self-baseline open-project-button" (click)="openProjectLink(project)">
                       <span class="material-symbols-outlined">open_in_new</span>
                     </button>
                   </div>
+
+                  <div class="col-12 project-details row text-center py-0">
+                    <div class="col-12 col-sm-4 d-flex flex-column align-items-start px-sm-4">
+                      <p class="mb-0"><strong>Le Projet</strong></p>
+                      <span class="mt-1 text-start">{{ project.project }}</span>
+                    </div>
+
+                    <div class="col-12 col-sm-4 d-flex flex-column align-items-start px-sm-4">
+                      <p class="mb-0"><strong>Les Missions</strong></p>
+                      <span class="mt-1 text-start">{{ project.role }}</span>
+                    </div>
+
+                    <div class="col-12 col-sm-4 d-flex flex-column align-items-start px-sm-4">
+                      <p class="mb-0"><strong>Les Stacks</strong></p>
+                      <span class="mt-1 text-start">{{ project.stacks }}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+            <!-- /media-preview-mobile -->
           </div>
         </div>
       </div>
@@ -105,7 +131,7 @@
               *ngIf="media.type === 'image'"
               [src]="media.src"
               class="img-fluid"
-              alt="Image du projet"
+              [alt]="(currentProject?.name || 'Projet') + ' — projet réalisé par Luc Jaubert'"
             />
             <video
               *ngIf="media.type === 'video'"
@@ -127,10 +153,12 @@
             <p class="mb-0"><strong>Le Projet</strong></p>
             <span class="mt-1 text-start">{{ currentProject?.project }}</span>
           </div>
+
           <div class="col-12 col-md-4 d-flex flex-column align-items-start">
             <p class="mb-0"><strong>Mes Missions</strong></p>
             <span class="mt-1 text-start">{{ currentProject?.role }}</span>
           </div>
+
           <div class="col-12 col-md-4 d-flex flex-column align-items-start">
             <p class="mb-0"><strong>Les Stacks</strong></p>
             <span class="mt-1 text-start">{{ currentProject?.stacks }}</span>

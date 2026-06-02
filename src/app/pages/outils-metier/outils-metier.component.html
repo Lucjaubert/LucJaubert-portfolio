@@ -1,0 +1,73 @@
+<div class="outils-metier-page">
+
+  <!-- HERO -->
+  <section class="page-hero py-12 py-md-14" aria-labelledby="outils-metier-hero-title">
+    <p class="hero-eyebrow text-fs-20 text-beige mb-4">02, OUTILS MÉTIER</p>
+    <h1 id="outils-metier-hero-title" class="hero-title text-fs-100 text-fs-130-md text-fw-bold text-beige mb-5">
+      Outils métier sur-mesure
+    </h1>
+    <p class="hero-subtitle text-fs-40 text-fs-50-md text-beige">
+      Quand un <strong class="text-orange">Excel à rallonge</strong> fait perdre des heures à une équipe, ou qu'un <strong class="text-orange">logiciel générique</strong> ne colle pas à la réalité du terrain, un <strong class="text-orange">outil sur-mesure</strong> peut tout changer.
+    </p>
+    <a class="hero-cta text-fs-30 mt-8" [routerLink]="['/']" fragment="contact">
+      Parler d'un projet →
+    </a>
+  </section>
+
+  <!-- POUR QUI -->
+  <section class="page-pour-qui py-10 py-md-12" aria-labelledby="outils-metier-pour-qui-title">
+    <h2 id="outils-metier-pour-qui-title" class="section-title text-fs-70 text-fs-90-md text-fw-bold text-beige mb-7 mb-md-9">
+      Pour qui
+    </h2>
+    <div class="pour-qui-grid">
+      <article class="pour-qui-card">
+        <h3 class="text-fs-50 text-fw-bold text-beige mb-4">PME et organisations</h3>
+        <p class="text-fs-30 text-beige">
+          Vous avez identifié un <strong class="text-orange">goulot d'étranglement opérationnel</strong>, et les solutions du marché ne couvrent que la moitié du besoin. Un <strong class="text-orange">outil pensé pour votre métier</strong>, pas pour 10 000 clients moyens.
+        </p>
+      </article>
+      <article class="pour-qui-card">
+        <h3 class="text-fs-50 text-fw-bold text-beige mb-4">Structures publiques et associations</h3>
+        <p class="text-fs-30 text-beige">
+          <strong class="text-orange">Budgets contraints, exigences fortes, contraintes réglementaires</strong>. Conception d'outils robustes et durables, <strong class="text-orange">transmissibles à vos équipes</strong> ou à un repreneur technique.
+        </p>
+      </article>
+      <article class="pour-qui-card">
+        <h3 class="text-fs-50 text-fw-bold text-beige mb-4">Équipes qui héritent d'outils inadaptés</h3>
+        <p class="text-fs-30 text-beige">
+          <strong class="text-orange">Excel partagés à 30 personnes</strong>, <strong class="text-orange">logiciels métier d'il y a 15 ans</strong>, scripts non documentés. Audit, <strong class="text-orange">plan de sortie progressif</strong>, remplacement par un outil clair et maintenable.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- CE QUE JE CONÇOIS -->
+  <section class="page-services" aria-labelledby="outils-metier-services-title">
+    <h2 id="outils-metier-services-title" class="section-title text-fs-70 text-fs-90-md text-fw-bold text-beige mb-6 mb-md-8 pt-10">
+      Ce que je conçois
+    </h2>
+    <app-studio-web [sections]="sections"></app-studio-web>
+  </section>
+
+  <!-- APPROCHE -->
+  <section class="page-approche py-10 py-md-12" aria-labelledby="outils-metier-approche-title">
+    <h2 id="outils-metier-approche-title" class="section-title text-fs-70 text-fs-90-md text-fw-bold text-beige mb-7 mb-md-9">
+      Approche
+    </h2>
+    <p class="approche-text text-fs-40 text-beige">
+      Je conçois ces outils en m'appuyant sur deux choses : un <strong class="text-orange">parcours d'architecte de formation</strong>, et l'expérience de <strong class="text-orange">Wanted Community</strong>, un outil collectif utilisé par <strong class="text-orange">1,3 million de personnes pendant 11 ans</strong>, lauréat du <strong class="text-orange">prix mondial d'innovation Facebook en 2018</strong>. Concevoir des <strong class="text-orange">outils qui durent</strong>, c'est ce que je fais depuis toujours.
+    </p>
+  </section>
+
+  <!-- CTA CONTACT -->
+  <section class="page-cta py-12 py-md-14" aria-labelledby="outils-metier-cta-title">
+    <h2 id="outils-metier-cta-title" class="cta-title text-fs-70 text-fs-100-md text-fw-bold text-beige mb-6">
+      Un outil à concevoir ou à refaire ? Parlons-en.
+    </h2>
+    <a class="cta-link text-fs-30" [routerLink]="['/']" fragment="contact">
+      Me contacter →
+    </a>
+  </section>
+
+  <app-footer></app-footer>
+</div>

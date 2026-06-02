@@ -1,9 +1,15 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, Inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  OnDestroy,
+  Inject,
+  PLATFORM_ID,
+  ViewEncapsulation
+} from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SeoService } from '../../../core/seo.service';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,22 +21,10 @@ gsap.registerPlugin(ScrollTrigger);
   standalone: true,
   imports: [RouterModule, CommonModule]
 })
-export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ContactComponent implements AfterViewInit, OnDestroy {
   private gsapContext?: gsap.Context;
 
-  constructor(
-    @Inject(PLATFORM_ID) private platformId: object,
-    private seo: SeoService
-  ) {}
-
-  ngOnInit(): void {
-    this.seo.update({
-      title: 'Contact – Luc Jaubert',
-      description: 'Contactez Luc Jaubert, développeur web freelance à Bordeaux, pour discuter de votre projet.',
-      url: 'https://lucjaubert.com/contact',
-      image: 'https://lucjaubert.com/assets/icons/apple-touch-icon.png'
-    });
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {}
 
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {

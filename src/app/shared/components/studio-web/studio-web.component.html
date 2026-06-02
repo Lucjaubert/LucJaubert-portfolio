@@ -1,5 +1,22 @@
-<section *ngIf="sections.length > 0" id="studio-web" class="studio-web-presentation py-md-5 py-5">
-  <div class="row studio-web-section">
+<section
+  *ngIf="sections.length > 0"
+  id="studio-web"
+  class="studio-web-presentation py-md-5 py-5"
+  aria-labelledby="studio-web-title"
+>
+  <!-- SEO / A11Y invisible -->
+  <h2 id="studio-web-title" class="visually-hidden">
+    Studio Web – Services : design, développement, SEO et méthode
+  </h2>
+
+  <p class="visually-hidden">
+    LJ Studio Web propose des prestations web complètes : conception et design,
+    développement front-end et back-end, optimisation SEO, performance et maintenance.
+    Chaque section détaille une offre et les technologies utilisées.
+  </p>
+
+  <!-- Contenu visuel / animé (inchangé) -->
+  <div class="row studio-web-section" aria-hidden="true">
     <div class="studio-web-list">
       <div class="current-sections">
         <div
@@ -26,6 +43,15 @@
               </span>
             </div>
           </div>
+
+          <div class="visually-hidden">
+            <h3>{{ section.name }}</h3>
+            <p [innerHTML]="section.mission | lineBreaks"></p>
+            <p>
+              Technologies : {{ section.stacks }}
+            </p>
+          </div>
+
         </div>
       </div>
     </div>

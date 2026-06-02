@@ -3,7 +3,6 @@ import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import anime from 'animejs/lib/anime.es.js';
-import { SeoService } from '../../../core/seo.service';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,16 +24,9 @@ export class NamePresentationComponent implements OnInit, OnDestroy, AfterViewIn
   currentColor = this.colors[0];
   colorChangeInterval: any;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: object, private seo: SeoService) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: object) {}
 
   ngOnInit(): void {
-    this.seo.update({
-      title: 'Accueil – Luc Jaubert',
-      description: 'Développeur web freelance à Bordeaux spécialisé en sites sur mesure, performance et SEO.',
-      url: 'https://lucjaubert.com/',
-      image: 'https://lucjaubert.com/assets/icons/apple-touch-icon.png'
-    });
-
     if (isPlatformBrowser(this.platformId)) {
       this.startColorChange();
     }
@@ -73,7 +65,7 @@ export class NamePresentationComponent implements OnInit, OnDestroy, AfterViewIn
     const totalWidth = letters2Width + jElementWidth;
 
     if (dotElement) {
-      if (window.matchMedia("(min-width: 769px)").matches) {
+      if (window.matchMedia('(min-width: 769px)').matches) {
         gsap.set(dotElement, {
           left: '-35.7rem',
         });
@@ -90,7 +82,7 @@ export class NamePresentationComponent implements OnInit, OnDestroy, AfterViewIn
     const textWrappers1 = document.querySelectorAll('.ml11 .letters-1');
     textWrappers1.forEach((textWrapper) => {
       if (textWrapper && textWrapper.textContent) {
-        textWrapper.innerHTML = textWrapper.textContent.replace(
+        (textWrapper as HTMLElement).innerHTML = textWrapper.textContent.replace(
           /([^\x00-\x80]|\w)/g,
           "<span class='letter'>$&</span>"
         );
@@ -100,7 +92,7 @@ export class NamePresentationComponent implements OnInit, OnDestroy, AfterViewIn
     const textWrappers2 = document.querySelectorAll('.ml11 .letters-2');
     textWrappers2.forEach((textWrapper) => {
       if (textWrapper && textWrapper.textContent) {
-        textWrapper.innerHTML = textWrapper.textContent.replace(
+        (textWrapper as HTMLElement).innerHTML = textWrapper.textContent.replace(
           /([^\x00-\x80]|\w)/g,
           "<span class='letter'>$&</span>"
         );
@@ -114,7 +106,7 @@ export class NamePresentationComponent implements OnInit, OnDestroy, AfterViewIn
         translateX: [
           0,
           (() => {
-            const letters1 = document.querySelector('.ml11 .letters-1');
+            const letters1 = document.querySelector('.ml11 .letters-1') as HTMLElement | null;
             return letters1 ? letters1.getBoundingClientRect().width + 5 : 0;
           })(),
         ],
@@ -126,7 +118,7 @@ export class NamePresentationComponent implements OnInit, OnDestroy, AfterViewIn
         opacity: [0, 1],
         easing: 'easeOutExpo',
         duration: 400,
-        delay: (el: HTMLElement, i: number) => 200 * (i + 1),
+        delay: (_el: HTMLElement, i: number) => 200 * (i + 1),
       })
       .add({
         targets: '.ml11 .first-line',
@@ -161,7 +153,7 @@ export class NamePresentationComponent implements OnInit, OnDestroy, AfterViewIn
         opacity: [0, 1],
         easing: 'easeOutExpo',
         duration: 400,
-        delay: (el: HTMLElement, i: number) => 180 * (i + 1),
+        delay: (_el: HTMLElement, i: number) => 180 * (i + 1),
       })
       .add({
         targets: '.ml11 .second-line',
@@ -179,91 +171,91 @@ export class NamePresentationComponent implements OnInit, OnDestroy, AfterViewIn
       opacity: 1,
       duration: 0.3,
       stagger: 0.03,
-      ease: "power1.out",
+      ease: 'power1.out',
     });
   }
 
   private initDotReturn(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      let scrollDirection = 'down';
-      let lastScroll = 0;
+    if (!isPlatformBrowser(this.platformId)) return;
 
-      window.addEventListener('scroll', () => {
-        const scrollPosition = window.scrollY;
-        scrollDirection = scrollPosition > lastScroll ? 'down' : 'up';
-        lastScroll = scrollPosition;
+    let scrollDirection: 'down' | 'up' = 'down';
+    let lastScroll = 0;
 
-        if (scrollDirection === 'down' && scrollPosition > 100) {
-          gsap.to('.ml11 .letters-1 .letter', {
-            y: (i: number) => -20 * Math.sin(i * 0.5),
-            duration: 0.6,
-            stagger: 0.05,
-            ease: "power1.inOut",
-            opacity: 0,
-          });
+    window.addEventListener('scroll', () => {
+      const scrollPosition = window.scrollY;
+      scrollDirection = scrollPosition > lastScroll ? 'down' : 'up';
+      lastScroll = scrollPosition;
 
-          gsap.to('.ml11 .letters-2 .letter', {
-            y: (i: number) => -20 * Math.sin(i * 0.7),
-            duration: 0.6,
-            stagger: 0.1,
-            ease: "power1.inOut",
-            opacity: 0,
-            onComplete: () => {
-              gsap.to('.ml11 .logo-letter, .ml11 .letters-1', {
-                opacity: 1,
-                duration: 0.5,
-              });
+      if (scrollDirection === 'down' && scrollPosition > 100) {
+        gsap.to('.ml11 .letters-1 .letter', {
+          y: (i: number) => -20 * Math.sin(i * 0.5),
+          duration: 0.6,
+          stagger: 0.05,
+          ease: 'power1.inOut',
+          opacity: 0,
+        });
 
-              const dotElement = document.querySelector('.dot') as HTMLElement;
-              if (dotElement) {
-                if (window.matchMedia("(min-width: 769px)").matches) {
-                  gsap.to(dotElement, {
-                    duration: 0.5,
-                    left: '-35.7rem',
-                  });
-                } else {
-                  gsap.to(dotElement, {
-                    duration: 0.5,
-                    left: '-16.2rem',
-                  });
-                }
-              }
-            }
-          });
-        } else if (scrollDirection === 'up' && scrollPosition < 100) {
-          gsap.to('.ml11 .letters-2 .letter', {
-            y: 0,
-            opacity: 1,
-            duration: 0.4,
-            stagger: 0.2,
-            ease: "power1.inOut",
-            onUpdate: () => {
-              const letters2Width = document.querySelector('.ml11 .letters-2')?.getBoundingClientRect().width || 0;
-              const jElementWidth = document.querySelector('.ml11 .last-name span')?.getBoundingClientRect().width || 0;
-              const totalWidth = letters2Width + jElementWidth;
+        gsap.to('.ml11 .letters-2 .letter', {
+          y: (i: number) => -20 * Math.sin(i * 0.7),
+          duration: 0.6,
+          stagger: 0.1,
+          ease: 'power1.inOut',
+          opacity: 0,
+          onComplete: () => {
+            gsap.to('.ml11 .logo-letter, .ml11 .letters-1', {
+              opacity: 1,
+              duration: 0.5,
+            });
 
-              const dotElement = document.querySelector('.dot') as HTMLElement;
-              if (dotElement) {
+            const dotElement = document.querySelector('.dot') as HTMLElement;
+            if (dotElement) {
+              if (window.matchMedia('(min-width: 769px)').matches) {
                 gsap.to(dotElement, {
-                  x: totalWidth,
-                  left: '0',
-                  duration: 0.1,
-                  stagger: 0.3,
-                  ease: "power1.inOut",
+                  duration: 0.5,
+                  left: '-35.7rem',
+                });
+              } else {
+                gsap.to(dotElement, {
+                  duration: 0.5,
+                  left: '-16.2rem',
                 });
               }
             }
-          });
+          }
+        });
+      } else if (scrollDirection === 'up' && scrollPosition < 100) {
+        gsap.to('.ml11 .letters-2 .letter', {
+          y: 0,
+          opacity: 1,
+          duration: 0.4,
+          stagger: 0.2,
+          ease: 'power1.inOut',
+          onUpdate: () => {
+            const letters2Width = document.querySelector('.ml11 .letters-2')?.getBoundingClientRect().width || 0;
+            const jElementWidth = document.querySelector('.ml11 .last-name span')?.getBoundingClientRect().width || 0;
+            const totalWidth = letters2Width + jElementWidth;
 
-          gsap.to('.ml11 .letters-1 .letter', {
-            y: 0,
-            opacity: 1,
-            duration: 0.9,
-            stagger: 0.05,
-            ease: "power1.inOut",
-          });
-        }
-      });
-    }
+            const dotElement = document.querySelector('.dot') as HTMLElement;
+            if (dotElement) {
+              gsap.to(dotElement, {
+                x: totalWidth,
+                left: '0',
+                duration: 0.1,
+                stagger: 0.3,
+                ease: 'power1.inOut',
+              });
+            }
+          }
+        });
+
+        gsap.to('.ml11 .letters-1 .letter', {
+          y: 0,
+          opacity: 1,
+          duration: 0.9,
+          stagger: 0.05,
+          ease: 'power1.inOut',
+        });
+      }
+    });
   }
 }

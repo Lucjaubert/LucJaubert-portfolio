@@ -28,7 +28,7 @@
     "compression": "1.7.4",
     "express": "^4.21.1",
     "express-static-gzip": "2.1.8",
-    "glob": "11.0.0",
+    "glob": "^11.1.0",
     "gsap": "3.12.5",
     "lucjaubert": "file:",
     "rxjs": "7.8.0",
@@ -57,8 +57,5 @@
     "rollup": "4.24.0",
     "typescript": "5.4.4",
     "vite": "5.4.8"
-  },
-  "overrides": {
-    "glob": "11.0.0"
   }
 }

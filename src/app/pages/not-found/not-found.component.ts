@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { Title, Meta } from '@angular/platform-browser';
+import { Meta } from '@angular/platform-browser';
+import { SeoService } from '../../core/seo.service';
 
 @Component({
   selector: 'app-not-found',
@@ -16,16 +17,18 @@ import { Title, Meta } from '@angular/platform-browser';
 export class NotFoundComponent implements OnInit {
   constructor(
     private router: Router,
-    private titleService: Title,
-    private metaService: Meta
+    private seoService: SeoService,
+    private meta: Meta
   ) {}
 
   ngOnInit(): void {
-    this.titleService.setTitle('Erreur 404 - Page non trouvée | Luc Jaubert');
-    this.metaService.updateTag({
-      name: 'description',
-      content: 'La page que vous cherchez est introuvable. Retournez à l’accueil ou vérifiez l’URL.'
+    this.seoService.update({
+      title: 'Page non trouvée, LJ Studio Web',
+      description: 'La page que vous cherchez n\'existe pas. Retournez à l\'accueil.',
+      url: 'https://lucjaubert.com/404',
+      image: 'https://lucjaubert.com/assets/icons/apple-touch-icon.png'
     });
+    this.meta.updateTag({ name: 'robots', content: 'noindex, follow' });
   }
 
   goToHomePage(): void {

@@ -1,87 +1,42 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { Title, Meta } from '@angular/platform-browser';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { LoadingService } from '../../services/loading.service';
+import { SeoService } from '../../core/seo.service';
 
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss'],
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-  ],
+  imports: [CommonModule, RouterModule],
 })
 export class HomepageComponent implements OnInit {
   namePresentationComponent: any;
   descriptionComponent: any;
+  offresHomeComponent: any;
   projectsComponent: any;
-  studioWebComponent: any;
   bioComponent: any;
   contactComponent: any;
   headerComponent: any;
   footerComponent: any;
 
-  isLoaded: boolean = false;
+  isLoaded = false;
 
   constructor(
-    private titleService: Title,
-    private metaService: Meta,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private seoService: SeoService,
+    private route: ActivatedRoute,
+    @Inject(PLATFORM_ID) private platformId: object
   ) {}
 
   async ngOnInit(): Promise<void> {
-    this.titleService.setTitle('Luc Jaubert - Création de Sites Internet | Développeur Web Freelance');
-
-    this.metaService.updateTag({
-      name: 'description',
-      content: 'Création de sites internet sur mesure, vitrines, e-commerce, et optimisation SEO à Bordeaux.'
-    });
-
-    this.metaService.updateTag({
-      name: 'robots',
-      content: 'index, follow, max-image-preview:large'
-    });
-
-    this.metaService.updateTag({
-      rel: 'canonical',
-      href: 'https://lucjaubert.com/home'
-    });
-
-    this.metaService.updateTag({
-      property: 'og:title',
-      content: 'Luc Jaubert - Création de Sites Internet | Développeur Web Freelance'
-    });
-    this.metaService.updateTag({
-      property: 'og:description',
-      content: 'Découvrez mes projets de développement web : e-commerce, vitrines, click&collect sur mesure.'
-    });
-    this.metaService.updateTag({
-      property: 'og:image',
-      content: 'https://lucjaubert.com/assets/icons/apple-touch-icon.png'
-    });
-    this.metaService.updateTag({
-      property: 'og:url',
-      content: 'https://lucjaubert.com/home'
-    });
-
-    this.metaService.updateTag({
-      name: 'twitter:card',
-      content: 'summary_large_image'
-    });
-    this.metaService.updateTag({
-      name: 'twitter:title',
-      content: 'Luc Jaubert - Création de Sites Internet | Développeur Web Freelance'
-    });
-    this.metaService.updateTag({
-      name: 'twitter:description',
-      content: 'Découvrez mes projets de développement web : e-commerce, vitrines, click&collect sur mesure.'
-    });
-    this.metaService.updateTag({
-      name: 'twitter:image',
-      content: 'https://lucjaubert.com/assets/icons/apple-touch-icon.png'
+    this.seoService.update({
+      title: 'LJ Studio Web, sites web et outils métier sur-mesure, Bordeaux et France',
+      description:
+        "Développeur freelance à Bordeaux. Création de sites web (vitrine, e-commerce, Angular, WordPress headless) et conception d'outils métier sur-mesure pour entreprises et organisations partout en France.",
+      url: 'https://lucjaubert.com/',
+      image: 'https://lucjaubert.com/assets/icons/apple-touch-icon.png'
     });
 
     await Promise.all([
@@ -94,11 +49,11 @@ export class HomepageComponent implements OnInit {
       import('../../shared/components/description/description.component').then(
         (m) => (this.descriptionComponent = m.DescriptionComponent)
       ),
+      import('../../shared/components/offres-home/offres-home.component').then(
+        (m) => (this.offresHomeComponent = m.OffresHomeComponent)
+      ),
       import('../../shared/components/projects/projects.component').then(
         (m) => (this.projectsComponent = m.ProjectsComponent)
-      ),
-      import('../../shared/components/studio-web/studio-web.component').then(
-        (m) => (this.studioWebComponent = m.StudioWebComponent)
       ),
       import('../../shared/components/bio/bio.component').then(
         (m) => (this.bioComponent = m.BioComponent)
@@ -113,5 +68,27 @@ export class HomepageComponent implements OnInit {
 
     this.isLoaded = true;
     this.loadingService.setLoading(false);
+
+    this.scrollToFragmentIfAny();
+  }
+
+  /**
+   * Les sous-composants de la home sont rendus via *ngComponentOutlet uniquement
+   * après isLoaded === true. anchorScrolling d'Angular scrolle dès NavigationEnd,
+   * donc trop tôt : la cible (#contact, #bio, #projects) n'existe pas encore dans
+   * le DOM. On scrolle manuellement après le rendu.
+   */
+  private scrollToFragmentIfAny(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    const fragment = this.route.snapshot.fragment;
+    if (!fragment) return;
+
+    setTimeout(() => {
+      document.getElementById(fragment)?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }, 100);
   }
 }

@@ -1,28 +1,38 @@
 <section class="name-presentation mt-20-xl mt-25-lg mt-27-md mt-35-sm mt-30-xs">
+  <!-- SEO/A11Y : seul H1 de la page, invisible visuellement, lisible par lecteurs d'écran -->
+  <h1 class="visually-hidden">
+    LJ Studio Web – Luc Jaubert, développeur web freelance à Bordeaux
+  </h1>
+
+  <p class="visually-hidden">
+    Création de sites internet sur-mesure : site vitrine, e-commerce, WordPress headless, Angular, performance et optimisation SEO à Bordeaux.
+  </p>
+
+  <!-- Contenu visuel (les anciens h1 sont devenus des spans pour éviter le multi-H1 SEO) -->
   <div class="row">
     <div class="px-0 text-left">
       <div class="first-name ml11">
         <span class="text-wrapper d-flex align-items-baseline">
-          <img [src]="'assets/img/icons/' + currentColor.image" alt="L" class="logo-letter">
-          <h1 [style.color]="currentColor.hex">
+          <img [src]="'assets/img/icons/' + currentColor.image" alt="Logo Luc Jaubert — LJ Studio Web" class="logo-letter">
+          <span class="name-display" [style.color]="currentColor.hex">
             <span class="first-line line1" [style.backgroundColor]="currentColor.hex"></span>
             <span class="letters-1">uc</span>
-          </h1>
+          </span>
         </span>
       </div>
 
       <div class="ml11">
         <span class="text-wrapper d-flex align-items-baseline">
-          <h1 class="last-name">
+          <span class="name-display last-name">
             <span [style.color]="currentColor.hex">J</span>
-          </h1>
-          <h1 [style.color]="currentColor.hex">
+          </span>
+          <span class="name-display" [style.color]="currentColor.hex">
             <span class="second-line line1" [style.backgroundColor]="currentColor.hex"></span>
             <span class="letters-2">aubert</span>
-          </h1>
-          <h1>
+          </span>
+          <span class="name-display">
             <span class="dot">.</span>
-          </h1>
+          </span>
         </span>
       </div>
 
