@@ -3,6 +3,18 @@
 .studio-web-section {
   position: relative;
 
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
   p, span {
     color: map-get($theme-colors, "beige")
   }
@@ -13,8 +25,7 @@
     }
 
     .stack-item {
-
-        color: map-get($theme-colors, "light-blue");
+      color: map-get($theme-colors, "light-blue");
     }
   }
 
@@ -24,8 +35,7 @@
     }
 
     .stack-item {
-        color: map-get($theme-colors, "yellow");
-
+      color: map-get($theme-colors, "yellow");
     }
   }
 
@@ -35,7 +45,7 @@
     }
 
     .stack-item {
-        color: map-get($theme-colors, "light-green");
+      color: map-get($theme-colors, "light-green");
     }
   }
 
@@ -45,7 +55,7 @@
     }
 
     .stack-item {
-        color: map-get($theme-colors, "orange");
+      color: map-get($theme-colors, "orange");
     }
   }
 
@@ -163,7 +173,6 @@
       margin-top: 0;
       text-align: left;
       font-size: map-get($font-size, "20");
-
       transition: transform 0.3s ease, color 0.3s ease;
       transform-origin: left center;
 

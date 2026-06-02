@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, NavigationEnd, Event, RouterModule } from '@angular/router';
-import { LoadingService } from '../../../services/loading.service';
+import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
@@ -18,47 +17,34 @@ import { filter } from 'rxjs/operators';
 export class HeaderComponent implements OnInit, OnDestroy {
 
   animateHeader = false;
-  private loadingSubscription!: Subscription;
-  private routerSubscription!: Subscription;
+  private routerSubscription?: Subscription;
 
-  constructor(private router: Router, private loadingService: LoadingService) { }
+  constructor(private router: Router) {}
 
-  ngOnInit() {
-    if (!this.loadingService.isLoading()) {
-      this.checkIfHomePage(this.router.url);
-    } else {
-      this.loadingSubscription = this.loadingService.loading$.subscribe(isLoading => {
-        if (!isLoading) {
-          this.checkIfHomePage(this.router.url);
-        }
-      });
-    }
+  ngOnInit(): void {
+    // État initial (au chargement)
+    this.checkIfHomePage(this.router.url);
 
-    this.routerSubscription = this.router.events.pipe(
-      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
-      if (!this.loadingService.isLoading()) {
+    // Suivi des navigations
+    this.routerSubscription = this.router.events
+      .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
         this.checkIfHomePage(event.urlAfterRedirects);
-      }
-    });
+      });
   }
 
-  ngOnDestroy() {
-    if (this.loadingSubscription) {
-      this.loadingSubscription.unsubscribe();
-    }
-    if (this.routerSubscription) {
-      this.routerSubscription.unsubscribe();
-    }
+  ngOnDestroy(): void {
+    this.routerSubscription?.unsubscribe();
   }
 
-  private checkIfHomePage(url: string) {
-    const homeRoutes = ['/', '/accueil'];
-    const urlWithoutFragment = url.split('#')[0];
-    if (homeRoutes.includes(urlWithoutFragment)) {
-      this.animateHeader = true;
-    } else {
-      this.animateHeader = false;
-    }
+  private checkIfHomePage(url: string): void {
+    // On enlève les fragments et query params
+    const urlWithoutFragment = url.split('#')[0].split('?')[0];
+
+    // Avec ton routing actuel, la home canonique = "/"
+    // Si /home existe encore, il redirige vers "/" donc urlAfterRedirects sera "/"
+    const homeRoutes = ['/', ''];
+
+    this.animateHeader = homeRoutes.includes(urlWithoutFragment);
   }
 }

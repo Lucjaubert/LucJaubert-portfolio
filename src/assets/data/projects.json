@@ -1,12 +1,31 @@
 [
   {
-    "name": "GROUPE ABC IMMOBILIER . (en cours)",
+    "name": "VIOLETTE CRUSE, DECORATRICE D'INTERIEUR(site en cours de developpement) .",
+    "year": "2026",
+    "project": "Site vitrine pour Violette Cruse, décoratrice d'intérieur à Bordeaux",
+    "role": "Zoning, maquettes Figma, intégration de la charte graphique, développement sur-mesure Angular SSR, SEO",
+    "stacks": "WordPress Headless · Angular 18 (SSR) · API REST ACF Pro · GSAP · Figma",
+    "url": "",
+    "description": "Site vitrine bilingue pour une décoratrice d'intérieur spécialisée dans l'hôtellerie et les lieux de caractère. Architecture WordPress headless avec API REST consommée par un front Angular 18 en SSR, pour combiner autonomie éditoriale côté cliente et performance SEO côté visiteur.",
+    "images": [
+      "assets/img/violette/architecture.webp",
+      "assets/img/violette/fiche-projet.webp",
+      "assets/img/violette/identite.webp",
+      "assets/img/violette/parcours-ux.webp",
+      "assets/img/violette/projets.webp",
+      "assets/img/violette/regles-design.webp"
+    ],
+    "videos": [],
+    "animationType": "abcAnimation"
+  },
+  {
+    "name": "GROUPE ABC IMMOBILIER .",
     "year": "2025",
-    "project": "Extranet + site vitrine pour un réseau d’experts immobiliers",
-    "role": "Zoning, maquettes Figma / Adobe XD, charte graphique (Studio Dada), dev sur‑mesure, responsive, SEO, déploiement",
-    "stacks": "WordPress Headless · Angular · API REST · Figma / Adobe XD",
+    "project": "Site vitrine pour un réseau national d’experts immobiliers agréés",
+    "role": "Zoning, maquettes Figma / Adobe XD, intégration de la charte graphique (Studio Dada), développement sur-mesure Angular SSR, SEO, et déploiement sur VPS",
+    "stacks": "WordPress Headless · Angular 18 (SSR) · API REST ACF Pro · GSAP Animations · Figma / Adobe XD · Nginx / PM2 / Hostinger VPS",
     "url": "https://www.groupe-abc.fr/",
-    "description": "Site vitrine + extranet sécurisé, design sur‑mesure et UX mobile. Identité graphique conçue avec Studio Dada.",
+    "description": "Développement complet du site vitrine du Groupe ABC, un réseau national d’experts immobiliers agréés RICS et IFEI. Projet headless reposant sur WordPress (ACF Pro) pour la gestion des contenus et Angular SSR pour le rendu optimisé SEO. Architecture hybride avec Yoast SEO + ACF, intégration des schémas JSON-LD (Service, LocalBusiness, FAQ, BreadcrumbList) et sitemap dynamique côté serveur. Design sur-mesure et UX mobile conçus avec Studio Dada. Hébergement, reverse-proxy et automatisation du déploiement sur VPS Hostinger.",
     "images": [
       "assets/img/groupe-abc/GroupeABC-charte-Studio-Dada-01.webp",
       "assets/img/groupe-abc/GroupeABC-charte-Studio-Dada-02.webp"

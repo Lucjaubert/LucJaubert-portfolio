@@ -2,40 +2,82 @@
 
 .footer-section {
   background-color: map-get($theme-colors, "dark-black");
+  color: map-get($theme-colors, "beige");
+  padding-left: 5vw;
+  padding-right: 5vw;
+}
 
-  .copyright {
-    font-size: 1rem;
-    font-weight: 300;
-    margin-top: 2rem;
-    opacity: 0; 
-    transform: translateY(20px);
-    transition: transform 0.8s ease-out, opacity 0.8s ease-out, color 0.5s ease;
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: map-get($spacers, "7");
+  max-width: 1400px;
+  margin: 0 auto;
 
-    // Ne pas définir de couleur ici
-    // color: map-get($theme-colors, "light-blue");
-  }
-
-  &.animate {
-    .contact-item,
-    .copyright {
-      opacity: 1;
-      transform: translateY(0); 
-    }
+  @media (min-width: map-get($breakpoints, "md")) {
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: map-get($spacers, "8");
   }
 }
 
-.color-light-blue {
-  color: map-get($theme-colors, "light-blue");
+.footer-block {
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: 0.6;
+    margin: 0;
+  }
 }
 
-.color-light-green {
-  color: map-get($theme-colors, "light-green");
+.footer-brand {
+  margin: 0;
+  transition: color 0.5s ease;
+  letter-spacing: 0.04em;
 }
 
-.color-yellow {
-  color: map-get($theme-colors, "yellow");
+.footer-tagline {
+  margin: 0;
+  color: map-get($theme-colors, "beige");
+  opacity: 0.7;
+  max-width: 320px;
+  line-height: 1.5;
 }
 
-.color-orange {
-  color: map-get($theme-colors, "orange");
+.footer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: map-get($spacers, "3");
 }
+
+.footer-link {
+  color: map-get($theme-colors, "beige");
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    opacity: 1;
+    color: map-get($theme-colors, "light-blue");
+  }
+}
+
+.footer-copyright {
+  text-align: center;
+  margin-bottom: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  opacity: 0.6;
+  transition: color 0.5s ease;
+}
+
+// Cycle de couleurs (logique TS existante conservée) — appliqué au brand + copyright
+.color-light-blue { color: map-get($theme-colors, "light-blue"); }
+.color-light-green { color: map-get($theme-colors, "light-green"); }
+.color-yellow { color: map-get($theme-colors, "yellow"); }
+.color-orange { color: map-get($theme-colors, "orange"); }

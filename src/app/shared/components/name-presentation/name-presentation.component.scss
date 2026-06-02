@@ -5,6 +5,22 @@
     margin-top: map-get($spacers, "30");
   }
 
+  /* -------------------------------------------------------
+     SEO/A11Y (invisible visuellement, lisible lecteurs d'écran)
+     On le met ici (scopé au composant) pour éviter tout conflit global.
+     ------------------------------------------------------- */
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
   .logo-letter {
     width: 2.4rem;
     height: auto;
@@ -90,12 +106,20 @@
   }
 
   h1,
+  .name-display,
   h2 {
     display: inline-block;
     position: relative;
     font-size: map-get($font-size, "140");
     color: inherit;
     transition: color 0.75s ease;
+  }
+
+  // Reproduit le font-weight 600 qu'appliquait .app-root h1 avant la transformation
+  // des h1 visibles en spans (refonte SEO multi-H1). Sans ça, .name-display hérite du
+  // font-weight: normal du .app-root et "Luc Jaubert" apparaît trop fin.
+  .name-display {
+    font-weight: 600;
   }
 
   h2 {
@@ -141,7 +165,8 @@
       }
     }
 
-    h1 {
+    h1,
+    .name-display {
       line-height: 8rem;
       font-size: map-get($font-size, "240");
       color: inherit;
@@ -199,7 +224,8 @@
       }
     }
 
-    h1 {
+    h1,
+    .name-display {
       line-height: 8rem;
       font-size: map-get($font-size, "260");
       color: inherit;

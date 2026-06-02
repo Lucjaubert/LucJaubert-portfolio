@@ -1,23 +1,88 @@
-<section id="contact" class="contact-section py-md-7 d-flex justify-content-center align-items-center">
+<section
+  id="contact"
+  class="contact-section py-md-7 d-flex justify-content-center align-items-center"
+  aria-labelledby="contact-title"
+>
+  <!-- SEO / A11Y invisible -->
+  <h2 id="contact-title" class="visually-hidden">
+    Contact – LJ Studio Web (Luc Jaubert)
+  </h2>
+
+  <p class="visually-hidden">
+    Pour me contacter : email lucjaubert.dev&#64;gmail.com. Retrouvez aussi mon profil LinkedIn,
+    Malt, Instagram et GitHub. Développeur web freelance basé à Bordeaux.
+  </p>
+
+  <!-- Données structurées locales (crawlable) -->
+  <div class="visually-hidden" itemscope itemtype="https://schema.org/Person">
+    <span itemprop="name">Luc Jaubert</span>
+    <span itemprop="jobTitle">Développeur web freelance</span>
+    <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+      <span itemprop="addressLocality">Bordeaux</span>
+      <span itemprop="addressCountry">FR</span>
+    </span>
+
+    <a itemprop="email" href="mailto:lucjaubert.dev&#64;gmail.com">lucjaubert.dev&#64;gmail.com</a>
+    <a itemprop="url" href="https://lucjaubert.com/">https://lucjaubert.com/</a>
+    <a itemprop="sameAs" href="https://www.linkedin.com/in/luc-jaubert/">LinkedIn</a>
+    <a itemprop="sameAs" href="https://www.malt.fr/profile/lucjaubert">Malt</a>
+    <a itemprop="sameAs" href="https://www.instagram.com/lucjaubert.dev.web/">Instagram</a>
+    <a itemprop="sameAs" href="https://github.com/Lucjaubert">GitHub</a>
+  </div>
+
+  <!-- UI / Animation (inchangé) -->
   <div class="background-contact"></div>
+
   <div class="contact-links mt-5">
     <p class="contact-item contact-email">
-      <a href="mailto:lucjaubert.dev@gmail.com" target="_blank" class="email-link">
+      <a href="mailto:lucjaubert.dev&#64;gmail.com" class="email-link" aria-label="Envoyer un email à Luc Jaubert">
         <span class="default-text">EMAIL</span>
         <span class="hover-text">lucjaubert.dev&#64;gmail.com</span>
       </a>
     </p>
+
     <p class="contact-item contact-linkedin">
-      <a href="https://www.linkedin.com/in/luc-jaubert/" target="_blank" rel="noopener noreferrer">LINKEDIN</a>
+      <a
+        href="https://www.linkedin.com/in/luc-jaubert/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Ouvrir le profil LinkedIn de Luc Jaubert"
+      >
+        LINKEDIN
+      </a>
     </p>
+
     <p class="contact-item contact-malt">
-      <a href="https://www.malt.fr/profile/lucjaubert" target="_blank" rel="noopener noreferrer">MALT</a>
+      <a
+        href="https://www.malt.fr/profile/lucjaubert"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Ouvrir le profil Malt de Luc Jaubert"
+      >
+        MALT
+      </a>
     </p>
+
     <p class="contact-item contact-instagram">
-      <a href="https://www.instagram.com/lucjaubert.developpeurweb/" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
+      <a
+        href="https://www.instagram.com/lucjaubert.dev.web/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Ouvrir Instagram lucjaubert.dev.web"
+      >
+        INSTAGRAM
+      </a>
     </p>
+
     <p class="contact-item contact-github">
-      <a href="https://github.com/Lucjaubert" target="_blank" rel="noopener noreferrer">GITHUB</a>
+      <a
+        href="https://github.com/Lucjaubert"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Ouvrir le GitHub de Luc Jaubert"
+      >
+        GITHUB
+      </a>
     </p>
   </div>
 </section>

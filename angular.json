@@ -150,10 +150,9 @@
             "serverTarget": "lucjaubert:server:production",
             "routes": [
               "/",
-              "/intro",
-              "/competences",
-              "/projets",
-              "/contact"
+              "/sites-web",
+              "/outils-metier",
+              "/404"
             ]
           }
         },

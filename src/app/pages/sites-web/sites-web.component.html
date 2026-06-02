@@ -1,0 +1,211 @@
+<div class="sites-web-page">
+
+  <!-- 01 — HERO -->
+  <section #fadeIn class="page-hero fade-in-on-scroll py-12 py-md-14" aria-labelledby="sites-web-hero-title">
+    <p class="hero-eyebrow text-fs-20 text-beige mb-4">01 — SITES WEB</p>
+    <h1 id="sites-web-hero-title" class="hero-title text-fs-100 text-fs-130-md text-fw-bold text-beige mb-5">
+      Sites web sur-mesure pour entreprises établies
+    </h1>
+    <p class="hero-subtitle text-fs-40 text-fs-50-md text-beige mb-6">
+      Pour les structures qui ont grandi et dont le site n'a pas suivi.
+    </p>
+    <p class="hero-intro text-fs-30 text-beige mb-5">
+      Beaucoup d'entreprises que j'accompagne arrivent au même constat : leur activité s'est transformée, leur clientèle s'est qualifiée, leur message a évolué, mais leur site internet est <strong class="text-yellow">resté en 2018</strong>. Il fonctionne encore, mais il ne raconte plus la bonne histoire, il n'attire plus les bons prospects, et il ne porte plus <strong class="text-yellow">l'ambition de la maison</strong>.
+    </p>
+    <p class="hero-intro text-fs-30 text-beige mb-8">
+      Je conçois des sites internet sur-mesure pour ces structures-là. Pas pour les projets qui démarrent de zéro et veulent juste exister en ligne, ni pour ceux qui cherchent le moins-disant. Pour celles qui ont compris qu'un site web n'est pas une dépense de communication mais <strong class="text-yellow">un outil stratégique</strong>, et qui veulent y mettre la matière nécessaire.
+    </p>
+    <a class="hero-cta text-fs-30" [routerLink]="['/']" fragment="contact">
+      Parler d'un projet →
+    </a>
+  </section>
+
+
+  <!-- 02 — POUR QUI -->
+  <section #fadeIn class="page-pour-qui fade-in-on-scroll py-10 py-md-12" aria-labelledby="sites-web-pour-qui-title">
+    <h2 id="sites-web-pour-qui-title" class="section-title text-fs-70 text-fs-90-md text-fw-bold text-beige mb-4">
+      Pour qui je travaille
+    </h2>
+    <p class="section-intro text-fs-30 text-beige mb-7 mb-md-9">
+      Trois profils reviennent dans mes projets.
+    </p>
+    <div class="pour-qui-grid fade-in-stagger">
+      <article class="pour-qui-card">
+        <h3 class="text-fs-50 text-fw-bold mb-4">Entreprises établies en refonte</h3>
+        <p class="text-fs-30 text-beige">
+          Vous avez cinq, dix, vingt ans d'existence. Votre activité s'est diversifiée, votre clientèle s'est qualifiée, votre positionnement s'est affiné. Votre site actuel ne dit plus ce que vous êtes devenu. C'est le moment d'une <strong class="text-yellow">refonte de fond</strong>, pas d'un simple <strong class="text-yellow">ravalement de façade</strong>.
+        </p>
+      </article>
+      <article class="pour-qui-card">
+        <h3 class="text-fs-50 text-fw-bold mb-4">Réseaux et structures multi-sites</h3>
+        <p class="text-fs-30 text-beige">
+          Vous êtes un réseau d'experts, une fédération, un groupement professionnel. Vous avez besoin d'une plateforme qui valorise chaque membre, structure clairement l'offre, et soutient la <strong class="text-yellow">croissance du réseau</strong>. C'est le type de projet que j'ai mené avec le <strong class="text-yellow">Groupe ABC</strong>, réseau national d'experts immobiliers présents à Paris, en régions et en Outre-mer.
+        </p>
+      </article>
+      <article class="pour-qui-card">
+        <h3 class="text-fs-50 text-fw-bold mb-4">Agences de communication en renfort développement</h3>
+        <p class="text-fs-30 text-beige">
+          Vous êtes une agence de design, de branding ou de communication. Vous avez la stratégie et les maquettes, vous cherchez un développeur freelance capable de <strong class="text-yellow">traduire fidèlement votre vision</strong> en site performant. Je collabore régulièrement dans cette configuration.
+        </p>
+      </article>
+    </div>
+  </section>
+
+
+  <!-- 03 — MA MÉTHODE (avec studio-web pour les 4 étapes) -->
+  <!-- Pas de .fade-in-on-scroll ici : le composant <app-studio-web> a ses propres animations GSAP
+       avec ScrollTrigger pin. Superposer un fade-in IntersectionObserver casse les deux. -->
+  <section class="page-methode" aria-labelledby="methode-title">
+    <div class="page-methode__intro">
+      <h2 id="methode-title" class="section-title text-fs-70 text-fs-90-md text-fw-bold text-beige mb-4">
+        Ma méthode
+      </h2>
+      <p class="section-intro text-fs-30 text-beige mb-6 mb-md-8">
+        Quatre étapes structurées qui permettent à un site sur-mesure d'aboutir avec rigueur, <strong class="text-yellow">sans dérive de planning</strong> ni <strong class="text-yellow">surprise budgétaire</strong>.
+      </p>
+    </div>
+    <div role="region" aria-labelledby="methode-title">
+      <app-studio-web [sections]="methodeSections"></app-studio-web>
+    </div>
+  </section>
+
+
+  <!-- 04 — POURQUOI ME CHOISIR -->
+  <section #fadeIn class="page-pourquoi fade-in-on-scroll py-10 py-md-12" aria-labelledby="sites-web-pourquoi-title">
+    <h2 id="sites-web-pourquoi-title" class="section-title text-fs-70 text-fs-90-md text-fw-bold text-beige mb-4">
+      Pourquoi me choisir
+    </h2>
+    <p class="section-intro text-fs-30 text-beige mb-7 mb-md-9">
+      Je suis un freelance solo, ce qui veut dire <strong class="text-yellow">un interlocuteur unique</strong> du début à la fin du projet. Pas de chaîne intermédiaire, pas de chef de projet qui sépare le client du développeur. Voici ce qui distingue concrètement ma manière de travailler.
+    </p>
+
+    <div class="pourquoi-list fade-in-stagger">
+      <article class="pourquoi-card">
+        <h3 class="text-fs-50 text-fw-bold mb-4">Un parcours hybride entre architecture, design et code</h3>
+        <p class="text-fs-30 text-beige mb-4">
+          J'ai été architecte avant d'être développeur. Diplômé de l'<strong class="text-yellow">École nationale supérieure d'architecture de Paris-Val-de-Seine</strong>, formé au design d'espace et à la communication visuelle à l'<strong class="text-yellow">ECV</strong>, je suis venu au développement web par conviction qu'un site bien conçu relève des mêmes principes qu'un bâtiment bien conçu : structure claire, parcours fluide, intention assumée.
+        </p>
+        <p class="text-fs-30 text-beige">
+          Cette <strong class="text-yellow">double culture</strong> change concrètement la manière dont j'aborde un projet. Je ne livre pas une coquille technique à habiller. Je conçois <strong class="text-yellow">un espace qui a du sens</strong>.
+        </p>
+      </article>
+
+      <article class="pourquoi-card">
+        <h3 class="text-fs-50 text-fw-bold mb-4">Un freelance qui sait s'entourer</h3>
+        <p class="text-fs-30 text-beige mb-4">
+          Je travaille seul sur le développement. Mais quand un projet demande une expertise complémentaire — une charte graphique d'agence, un référencement spécialisé, un contenu rédactionnel poussé — j'ai un réseau de partenaires éprouvés. <strong class="text-yellow">Studio Dada</strong> pour les chartes graphiques exigeantes. Des spécialistes SEO comme <strong class="text-yellow">Matthieu Laberibe</strong>. Le <strong class="text-yellow">Collectif Cosme</strong>, dont je suis membre depuis janvier 2025, qui me met en lien avec d'autres freelances complémentaires.
+        </p>
+        <p class="text-fs-30 text-beige">
+          Le client a un interlocuteur unique, et derrière, les bonnes compétences sont mobilisées au bon moment. C'est ce qui a permis à un projet comme <strong class="text-yellow">Groupe ABC</strong> d'atteindre sa qualité finale : un dev solo, une <strong class="text-yellow">équipe coordonnée autour</strong>.
+        </p>
+      </article>
+
+      <article class="pourquoi-card">
+        <h3 class="text-fs-50 text-fw-bold mb-4">Une crédibilité construite avant le freelancing</h3>
+        <p class="text-fs-30 text-beige mb-4">
+          Avant de lancer LJ Studio Web en septembre 2024, j'ai cofondé <strong class="text-yellow">Wanted Community</strong>, une plateforme d'entraide qui réunit aujourd'hui plus de <strong class="text-yellow">1,3 million de membres</strong> et qui a reçu un <strong class="text-yellow">prix mondial Facebook en 2018</strong>. Ce projet m'a appris ce qu'est concevoir un produit numérique utilisé à grande échelle, avec des contraintes réelles d'expérience utilisateur, de performance et de croissance.
+        </p>
+        <p class="text-fs-30 text-beige">
+          Mes clients ne me choisissent pas sur une <strong class="text-yellow">promesse marketing</strong>. Ils me choisissent parce qu'ils savent <strong class="text-yellow">ce que j'ai déjà construit</strong>.
+        </p>
+      </article>
+    </div>
+  </section>
+
+
+  <!-- 05 — PROJETS RÉCENTS -->
+  <section #fadeIn class="page-projects fade-in-on-scroll py-10 py-md-12" aria-labelledby="sites-web-projects-title">
+    <h2 id="sites-web-projects-title" class="section-title text-fs-70 text-fs-90-md text-fw-bold text-beige mb-4">
+      Projets récents
+    </h2>
+    <p class="section-intro text-fs-30 text-beige mb-7 mb-md-9">
+      Quelques exemples de refontes et de créations sur-mesure menées récemment.
+    </p>
+
+    <ul class="projects-list">
+      <li *ngFor="let project of projetsRecents" class="projects-item">
+        <h3 class="project-name text-fs-50 text-fs-70-md text-fw-bold text-beige">
+          {{ project.title }}
+        </h3>
+        <p class="project-summary text-fs-30 text-beige mt-4" [innerHTML]="project.description"></p>
+        <blockquote *ngIf="project.testimonial" class="project-testimonial text-fs-30 text-beige mt-4">
+          « {{ project.testimonial }} »
+          <cite *ngIf="project.testimonialAuthor" class="text-fs-20 d-block mt-2">
+            — {{ project.testimonialAuthor }}
+          </cite>
+        </blockquote>
+        <a *ngIf="project.url" class="project-link text-fs-20 mt-4" [href]="project.url" target="_blank" rel="noopener">
+          Voir le site →
+        </a>
+      </li>
+    </ul>
+  </section>
+
+
+  <!-- 06 — STACK ET COMPÉTENCES (AUCUN accent jaune — choix volontaire du brief A8) -->
+  <section #fadeIn class="page-stack fade-in-on-scroll py-10 py-md-12" aria-labelledby="sites-web-stack-title">
+    <h2 id="sites-web-stack-title" class="section-title text-fs-70 text-fs-90-md text-fw-bold text-beige mb-4">
+      Stack et compétences techniques
+    </h2>
+    <p class="section-intro text-fs-30 text-beige mb-7 mb-md-9">
+      Mes choix techniques sont guidés par les besoins du projet, pas par la mode.
+    </p>
+
+    <div class="stack-blocks">
+      <p class="stack-block text-fs-30 text-beige">
+        <strong class="stack-block__label">Pour les sites institutionnels exigeants :</strong>
+        Angular 18 avec rendu côté serveur (SSR), idéal pour la performance et le référencement naturel sur des structures complexes. Couplé à WordPress en mode Headless quand le client veut conserver la liberté éditoriale.
+      </p>
+      <p class="stack-block text-fs-30 text-beige">
+        <strong class="stack-block__label">Pour les e-commerces et sites éditoriaux :</strong>
+        WordPress personnalisé, intégrations Stripe, modules sur-mesure quand les plugins existants ne suffisent pas.
+      </p>
+      <p class="stack-block text-fs-30 text-beige">
+        <strong class="stack-block__label">Pour le design :</strong>
+        Figma, Adobe XD, intégration de chartes existantes ou conception complète.
+      </p>
+      <p class="stack-block text-fs-30 text-beige">
+        <strong class="stack-block__label">Pour l'infrastructure :</strong>
+        déploiement VPS, gestion de l'hébergement, suivi post-mise en ligne.
+      </p>
+      <p class="stack-block stack-block--note text-fs-20 text-beige">
+        Le détail des technologies utilisées sur chaque projet est précisé dans les pages projets dédiées.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- 07 — PARLONS BUDGET -->
+  <section #fadeIn class="page-budget fade-in-on-scroll py-10 py-md-12" aria-labelledby="sites-web-budget-title">
+    <h2 id="sites-web-budget-title" class="section-title text-fs-70 text-fs-90-md text-fw-bold text-beige mb-7 mb-md-9">
+      Parlons budget franchement
+    </h2>
+    <div class="budget-content">
+      <p class="text-fs-30 text-beige mb-5">
+        Un site sur-mesure n'a pas le même prix qu'un <strong class="text-yellow">template installé en une semaine</strong>. Je travaille avec des entreprises qui ont compris cette différence et qui investissent dans leur outil web parce qu'elles en attendent un <strong class="text-yellow">retour business mesurable</strong>.
+      </p>
+      <p class="text-fs-30 text-beige mb-5">
+        Mes projets se construisent sur <strong class="text-yellow">devis détaillé</strong>, après une première discussion qui me permet de comprendre votre contexte. Je préfère prendre le temps de chiffrer juste plutôt que d'afficher des <strong class="text-yellow">prix d'appel</strong> qui ne correspondent à aucun projet réel.
+      </p>
+      <p class="text-fs-30 text-beige">
+        Si vous cherchez l'offre la moins chère du marché, <strong class="text-yellow">je ne suis pas le bon prestataire</strong>, et je vous le dirai dès le premier échange. Si vous cherchez un partenaire qui va concevoir un site <strong class="text-yellow">à la hauteur de votre activité</strong>, demandons-nous d'abord si c'est le bon moment, et combien cela coûte vraiment.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- 08 — CTA FINAL -->
+  <section #fadeIn class="page-cta fade-in-on-scroll py-12 py-md-14" aria-labelledby="sites-web-cta-title">
+    <h2 id="sites-web-cta-title" class="cta-title text-fs-70 text-fs-100-md text-fw-bold text-beige mb-6">
+      Un site à refondre ou à créer ? Parlons-en.
+    </h2>
+    <p class="cta-subtitle text-fs-30 text-beige mb-7">
+      Si vous vous êtes reconnu dans cette page, prenons le temps d'un premier échange. <strong class="text-yellow">Une demi-heure suffit</strong> pour savoir si nos approches s'accordent et si votre projet entre dans ma capacité actuelle.
+    </p>
+    <a class="cta-link text-fs-30" [routerLink]="['/']" fragment="contact">
+      Me contacter →
+    </a>
+  </section>
+
+  <app-footer></app-footer>
+</div>

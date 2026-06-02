@@ -17,8 +17,8 @@
   }
 
   @media (max-width: map-get($breakpoints, "md")) {
-    padding-left: 5vw !important;
-    padding-right: 5vw !important;
+    padding-left: 4vw !important;
+    padding-right: 4vw !important;
   }
 
   .custom-navbar {
@@ -44,35 +44,43 @@
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+      gap: 0.5rem;
+      flex-wrap: nowrap;
 
       .nav-item {
         opacity: 1;
-      }
-
-      .nav-item-bio {
-        display: none !important;
-
-        @media (min-width: map-get($breakpoints, "md")) {
-          display: block !important;
-        }
+        flex: 0 0 auto;
       }
 
       .nav-link {
         color: map-get($theme-colors, "beige");
         text-transform: uppercase;
         padding-bottom: 0.5rem;
+        padding-left: 0;
+        padding-right: 0;
         position: relative;
         z-index: 1;
         font-weight: 400;
         transition: color 0.3s ease;
+        white-space: nowrap;
+        letter-spacing: 0.04em;
+      }
+
+      .nav-label-short { display: none; }
+      .nav-label-full { display: inline; }
+
+      .nav-link-sites:hover,
+      .nav-link-sites.is-active {
+        color: map-get($theme-colors, "blue");
+      }
+
+      .nav-link-outils:hover,
+      .nav-link-outils.is-active {
+        color: map-get($theme-colors, "orange");
       }
 
       .nav-link-projects:hover {
         color: map-get($theme-colors, "light-blue");
-      }
-
-      .nav-link-studio:hover {
-        color: map-get($theme-colors, "yellow");
       }
 
       .nav-link-bio:hover {
@@ -80,7 +88,7 @@
       }
 
       .nav-link-contact:hover {
-        color: map-get($theme-colors, "orange");
+        color: map-get($theme-colors, "yellow");
       }
     }
 
@@ -95,22 +103,36 @@
           opacity: 0;
         }
 
-        .nav-item-projects {
-          animation: showTextProjets 1s forwards 0.1s;
-        }
-
-        .nav-item-studio {
-          animation: showTextSW 1s forwards 1.5s;
-        }
-
-        .nav-item-bio {
-          animation: showTextBio 1s forwards 0.7s;
-        }
-
-        .nav-item-contact {
-          animation: showTextContact 1s forwards 2.5s;
-        }
+        .nav-item-sites    { animation: navFadeIn 1s forwards 0.1s; }
+        .nav-item-outils   { animation: navFadeIn 1s forwards 0.7s; }
+        .nav-item-projects { animation: navFadeIn 1s forwards 1.3s; }
+        .nav-item-bio      { animation: navFadeIn 1s forwards 1.9s; }
+        .nav-item-contact  { animation: navFadeIn 1s forwards 2.5s; }
       }
+    }
+  }
+}
+
+/* Mobile (< 768px) : font plus petite, letter-spacing serré, labels courts si trop juste */
+@media (max-width: 767.98px) {
+  .custom-container {
+    .custom-navbar .navbar-nav {
+      gap: 0.25rem;
+
+      .nav-link {
+        font-size: map-get($font-size, "10");
+        letter-spacing: 0.02em;
+      }
+    }
+  }
+}
+
+/* Très petit (< 425px) : bascule sur labels courts pour "Sites web" et "Outils métier" */
+@media (max-width: 424.98px) {
+  .custom-container {
+    .custom-navbar .navbar-nav {
+      .nav-label-full { display: none; }
+      .nav-label-short { display: inline; }
     }
   }
 }
@@ -124,34 +146,7 @@
   }
 }
 
-@keyframes showTextProjets {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes showTextSW {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes showTextBio {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes showTextContact {
+@keyframes navFadeIn {
   0% {
     opacity: 0;
   }

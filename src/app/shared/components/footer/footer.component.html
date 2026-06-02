@@ -1,5 +1,58 @@
-<footer class="footer-section d-flex justify-content-center align-items-center pb-2">
-  <div class="footer-content">
-    <p class="copyright mb-2" [ngClass]="currentColorClass">&copy; 2025</p>
+<footer class="footer-section py-7 py-md-9">
+  <div class="footer-inner">
+
+    <!-- Bloc identité -->
+    <div class="footer-block footer-block--identity">
+      <p class="footer-brand text-fs-30 text-fw-bold" [ngClass]="currentColorClass">
+        LJ Studio Web
+      </p>
+      <p class="footer-tagline text-fs-20 mt-2">
+        Luc Jaubert — développeur web freelance basé à Bordeaux
+      </p>
+    </div>
+
+    <!-- Bloc navigation interne -->
+    <nav class="footer-block footer-block--nav" aria-label="Navigation footer">
+      <p class="footer-block__title text-fs-10 mb-3">Navigation</p>
+      <ul class="footer-list">
+        <li><a routerLink="/sites-web" class="footer-link text-fs-20">Sites web</a></li>
+        <li><a routerLink="/outils-metier" class="footer-link text-fs-20">Outils métier</a></li>
+        <li><a [routerLink]="['/']" fragment="projects" class="footer-link text-fs-20">Projets</a></li>
+        <li><a [routerLink]="['/']" fragment="contact" class="footer-link text-fs-20">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Bloc réseaux -->
+    <div class="footer-block footer-block--social">
+      <p class="footer-block__title text-fs-10 mb-3">Me retrouver</p>
+      <ul class="footer-list">
+        <li>
+          <a href="https://www.linkedin.com/in/luc-jaubert/" target="_blank" rel="noopener noreferrer" class="footer-link text-fs-20">
+            LinkedIn
+          </a>
+        </li>
+        <li>
+          <a href="https://www.malt.fr/profile/lucjaubert" target="_blank" rel="noopener noreferrer" class="footer-link text-fs-20">
+            Malt
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/Lucjaubert" target="_blank" rel="noopener noreferrer" class="footer-link text-fs-20">
+            GitHub
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/lucjaubert.dev.web/" target="_blank" rel="noopener noreferrer" class="footer-link text-fs-20">
+            Instagram
+          </a>
+        </li>
+      </ul>
+    </div>
+
   </div>
+
+  <!-- Mentions sommaires -->
+  <p class="footer-copyright text-fs-10 mt-7 mt-md-9" [ngClass]="currentColorClass">
+    © 2026 Luc Jaubert — Tous droits réservés
+  </p>
 </footer>

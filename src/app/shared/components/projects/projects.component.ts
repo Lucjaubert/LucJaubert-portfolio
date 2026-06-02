@@ -17,7 +17,6 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { SeoService } from '../../../core/seo.service';
 
 gsap.registerPlugin(CSSPlugin, ScrollTrigger);
 
@@ -72,20 +71,13 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     private http: HttpClient,
     private cdr: ChangeDetectorRef,
     private breakpointObserver: BreakpointObserver,
-    private ngZone: NgZone,
-    private seo: SeoService
+    private ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
-    this.seo.update({
-      title: 'Projets – Luc Jaubert',
-      description: 'Portfolio des projets réalisés par Luc Jaubert, développeur web freelance à Bordeaux.',
-      url: 'https://lucjaubert.com/projets',
-      image: 'https://lucjaubert.com/assets/icons/apple-touch-icon.png'
-    });
-
     if (isPlatformBrowser(this.platformId)) {
       this.loadProjects();
+
       this.animations = {
         cb2pAnimation: { in: () => this.initProjectAnimation('cb2p'), out: () => {} },
         laiterieAnimation: { in: () => this.initProjectAnimation('laiterie'), out: () => {} },
@@ -194,15 +186,13 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!project) return;
 
     let url = project.url.trim();
-
     if (!/^https?:\/\//i.test(url)) {
       url = 'https://' + url;
     }
-
     window.open(url, '_blank');
   }
 
-  onProjectHover(project: Project, event: MouseEvent): void {
+  onProjectHover(project: Project, _event: MouseEvent): void {
     if (!this.isDesktop) return;
 
     if (this.currentProject && this.currentProject !== project) {
@@ -266,23 +256,23 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private initProjectAnimations(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.ngZone.runOutsideAngular(() => {
-        this.gsapContext = gsap.context(() => {
-          gsap.to('.background-sides', {
-            height: '80%',
-            duration: 1,
-            ease: 'expoScale',
-            scrollTrigger: {
-              trigger: '#projects',
-            },
-            onComplete: () => {
-              this.animateTextSlides();
-            },
-          });
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    this.ngZone.runOutsideAngular(() => {
+      this.gsapContext = gsap.context(() => {
+        gsap.to('.background-sides', {
+          height: '80%',
+          duration: 1,
+          ease: 'expoScale',
+          scrollTrigger: {
+            trigger: '#projects',
+          },
+          onComplete: () => {
+            this.animateTextSlides();
+          },
         });
       });
-    }
+    });
   }
 
   private animateTextSlides(): void {
@@ -352,35 +342,37 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     let currentIndex = 0;
 
     elements.forEach((elementRef, index) => {
-      const element = elementRef.nativeElement;
+      const element = elementRef.nativeElement as HTMLElement;
       element.style.display = index === 0 ? 'block' : 'none';
 
       if (element.tagName.toLowerCase() === 'video') {
-        element.pause();
-        element.currentTime = 0;
+        const vid = element as HTMLVideoElement;
+        vid.pause();
+        vid.currentTime = 0;
       }
     });
 
-    const firstElement = elements[0]?.nativeElement;
+    const firstElement = elements[0]?.nativeElement as HTMLElement | undefined;
     if (firstElement && firstElement.tagName.toLowerCase() === 'video') {
-      firstElement.play();
+      (firstElement as HTMLVideoElement).play().catch(() => {});
     }
 
     this.mobileSlideshowInterval = setInterval(() => {
-      const previousElement = elements[currentIndex].nativeElement;
+      const previousElement = elements[currentIndex].nativeElement as HTMLElement;
       previousElement.style.display = 'none';
 
       if (previousElement.tagName.toLowerCase() === 'video') {
-        previousElement.pause();
-        previousElement.currentTime = 0;
+        const vid = previousElement as HTMLVideoElement;
+        vid.pause();
+        vid.currentTime = 0;
       }
 
       currentIndex = (currentIndex + 1) % elements.length;
-      const currentElement = elements[currentIndex].nativeElement;
+      const currentElement = elements[currentIndex].nativeElement as HTMLElement;
 
       currentElement.style.display = 'block';
       if (currentElement.tagName.toLowerCase() === 'video') {
-        currentElement.play();
+        (currentElement as HTMLVideoElement).play().catch(() => {});
       }
 
       this.cdr.detectChanges();
@@ -388,20 +380,14 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getAllMedia(project: Project | null): { type: 'image' | 'video'; src: string }[] {
-    if (!project) {
-      return [];
-    }
+    if (!project) return [];
 
     const mediaSequence: { type: 'image' | 'video'; src: string }[] = [];
     const maxLength = Math.max(project.images.length, project.videos.length);
 
     for (let i = 0; i < maxLength; i++) {
-      if (project.images[i]) {
-        mediaSequence.push({ type: 'image', src: project.images[i] });
-      }
-      if (project.videos[i]) {
-        mediaSequence.push({ type: 'video', src: project.videos[i] });
-      }
+      if (project.images[i]) mediaSequence.push({ type: 'image', src: project.images[i] });
+      if (project.videos[i]) mediaSequence.push({ type: 'video', src: project.videos[i] });
     }
 
     return mediaSequence;
@@ -428,24 +414,12 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     };
 
     switch (timelineName) {
-      case 'cb2p':
-        this.cb2pTimeline = resetTimeline(this.cb2pTimeline);
-        break;
-      case 'laiterie':
-        this.laiterieTimeline = resetTimeline(this.laiterieTimeline);
-        break;
-      case 'anglais':
-        this.anglaisTimeline = resetTimeline(this.anglaisTimeline);
-        break;
-      case 'limago':
-        this.limagoTimeline = resetTimeline(this.limagoTimeline);
-        break;
-      case 'maison':
-        this.maisonTimeline = resetTimeline(this.maisonTimeline);
-        break;
-      case 'abc':
-        this.abcTimeline = resetTimeline(this.abcTimeline);
-        break;
+      case 'cb2p': this.cb2pTimeline = resetTimeline(this.cb2pTimeline); break;
+      case 'laiterie': this.laiterieTimeline = resetTimeline(this.laiterieTimeline); break;
+      case 'anglais': this.anglaisTimeline = resetTimeline(this.anglaisTimeline); break;
+      case 'limago': this.limagoTimeline = resetTimeline(this.limagoTimeline); break;
+      case 'maison': this.maisonTimeline = resetTimeline(this.maisonTimeline); break;
+      case 'abc': this.abcTimeline = resetTimeline(this.abcTimeline); break;
     }
 
     const tl = gsap.timeline({ repeat: -1, defaults: { ease: 'power1.inOut' } });
@@ -486,24 +460,12 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     switch (timelineName) {
-      case 'cb2p':
-        this.cb2pTimeline = tl;
-        break;
-      case 'laiterie':
-        this.laiterieTimeline = tl;
-        break;
-      case 'anglais':
-        this.anglaisTimeline = tl;
-        break;
-      case 'limago':
-        this.limagoTimeline = tl;
-        break;
-      case 'maison':
-        this.maisonTimeline = tl;
-        break;
-      case 'abc':
-        this.abcTimeline = tl;
-        break;
+      case 'cb2p': this.cb2pTimeline = tl; break;
+      case 'laiterie': this.laiterieTimeline = tl; break;
+      case 'anglais': this.anglaisTimeline = tl; break;
+      case 'limago': this.limagoTimeline = tl; break;
+      case 'maison': this.maisonTimeline = tl; break;
+      case 'abc': this.abcTimeline = tl; break;
     }
   }
 
@@ -513,15 +475,13 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     const projectItems = document.querySelectorAll('.project-item h5');
 
     if (projectItems.length > 0) {
-      const tl = gsap.timeline({
+      gsap.timeline({
         scrollTrigger: {
           trigger: '#projects',
           start: 'top 80%',
           toggleActions: 'play none none none',
         },
-      });
-
-      tl.from(projectItems, {
+      }).from(projectItems, {
         opacity: 0,
         y: 20,
         duration: 0.8,

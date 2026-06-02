@@ -8,7 +8,8 @@ import {
   QueryList,
   Inject,
   PLATFORM_ID,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  Input
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -16,7 +17,6 @@ import { gsap, CSSPlugin, ScrollTrigger } from 'gsap/all';
 import { HttpClient } from '@angular/common/http';
 import { SlugifyPipe } from '../../pipe/slugify.pipe';
 import { LineBreaksPipe } from '../../pipe/line-breaks.pipe';
-import { SeoService } from '../../../core/seo.service';
 
 gsap.registerPlugin(CSSPlugin, ScrollTrigger);
 
@@ -34,27 +34,25 @@ interface StudioSection {
   imports: [RouterModule, CommonModule, SlugifyPipe, LineBreaksPipe]
 })
 export class StudioWebComponent implements OnInit, AfterViewInit, OnDestroy {
-  [x: string]: any;
   @ViewChildren('studioSectionContainer') studioSectionContainers!: QueryList<ElementRef>;
+
+  @Input() sections: StudioSection[] = [];
+
   private gsapContext?: gsap.Context;
-  sections: StudioSection[] = [];
+
   currentSection: StudioSection | null = null;
   isHovered = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: object,
     private http: HttpClient,
-    private cdr: ChangeDetectorRef,
-    private seo: SeoService
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.seo.update({
-      title: 'Studio Web – Luc Jaubert',
-      description: 'Expertise développement, design et SEO de Luc Jaubert pour vos projets web.',
-      url: 'https://lucjaubert.com/studio-web',
-      image: 'https://lucjaubert.com/assets/icons/apple-touch-icon.png'
-    });
+    if (this.sections && this.sections.length > 0) {
+      return;
+    }
 
     if (isPlatformBrowser(this.platformId)) {
       this.loadStudioSections();
@@ -70,24 +68,17 @@ export class StudioWebComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.gsapContext) {
-      this.gsapContext.revert();
-    }
+    this.gsapContext?.revert();
   }
 
   getSectionClass(index: number): string {
-    switch (index) {
-      case 0:
-        return 'design-section d-flex col-md-12 py-md-7';
-      case 1:
-        return 'development-section d-flex col-md-12 py-md-7';
-      case 2:
-        return 'marketing-section d-flex col-md-12 py-md-7';
-      case 3:
-        return 'process-section d-flex col-md-12 py-md-7';
-      default:
-        return 'default-section-class';
-    }
+    const classes = [
+      'design-section',
+      'development-section',
+      'marketing-section',
+      'process-section'
+    ];
+    return `${classes[index % classes.length]} d-flex col-md-12 py-md-7`;
   }
 
   private loadStudioSections(): void {
@@ -99,95 +90,83 @@ export class StudioWebComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private initStudioSectionAnimations(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.gsapContext = gsap.context(() => {
-        this.studioSectionContainers.forEach((section: ElementRef, index: number) => {
-          const sectionElement = section.nativeElement as HTMLElement;
-          const title = sectionElement.querySelector('h3.text-slide') as HTMLElement | null;
-          const mission = sectionElement.querySelector('.mission-slide') as HTMLElement | null;
-          const horizontalLine = sectionElement.querySelector('.horizontal-line') as HTMLElement | null;
-          const verticalLine = sectionElement.querySelector('.vertical-line') as HTMLElement | null;
-          const detailsText = sectionElement.querySelector('.stacks-slide') as HTMLElement | null;
+    if (!isPlatformBrowser(this.platformId)) return;
+    if (!this.studioSectionContainers || this.studioSectionContainers.length === 0) return;
 
+    // évite de recréer des triggers si rappelée plusieurs fois
+    this.gsapContext?.revert();
 
-          ScrollTrigger.create({
+    this.gsapContext = gsap.context(() => {
+      this.studioSectionContainers.forEach((section: ElementRef) => {
+        const sectionElement = section.nativeElement as HTMLElement;
+
+        const title = sectionElement.querySelector('h3.text-slide') as HTMLElement | null;
+        const mission = sectionElement.querySelector('.mission-slide') as HTMLElement | null;
+        const horizontalLine = sectionElement.querySelector('.horizontal-line') as HTMLElement | null;
+        const verticalLine = sectionElement.querySelector('.vertical-line') as HTMLElement | null;
+        const detailsText = sectionElement.querySelector('.stacks-slide') as HTMLElement | null;
+
+        ScrollTrigger.create({
+          trigger: sectionElement,
+          start: 'top top',
+          end: 'bottom top',
+          pin: true,
+          pinSpacing: true,
+          scrub: false
+        });
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
             trigger: sectionElement,
-            start: "top top",
-            end: "bottom top",
-            pin: true,
-            pinSpacing: true,
-            scrub: false,
-          });
-
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: sectionElement,
-              start: "top top",
-              end: "bottom top",
-              scrub: false,
-            }
-          });
-
-          if (title) {
-            tl.fromTo(
-              title,
-              {
-                opacity: 0,
-                y: 50,
-              },
-              {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: "power4.out",
-              }
-            );
-          }
-
-
-          if (horizontalLine) {
-            tl.fromTo(horizontalLine, {
-              width: '0%',
-            }, {
-              width: '100%',
-              duration: 1,
-              ease: 'none'
-            }, "-=0.5");
-          }
-
-
-          if (mission) {
-            tl.fromTo(mission, {
-                opacity: 0,
-                y: 50,
-              }, {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: "power4.out"
-            }, "-=0.5");
-          }
-
-          if (verticalLine) {
-            tl.fromTo(verticalLine, {
-              height: '0%',
-            }, {
-              height: '100%',
-              duration: 1,
-              ease: 'none'
-            }, "-=0.5");
-          }
-
-          if (detailsText) {
-            tl.from(detailsText, {
-              opacity: 0,
-              x: 100,
-              duration: 1,
-              ease: "power4.out"
-            }, "-=0.5");
+            start: 'top top',
+            end: 'bottom top',
+            scrub: false
           }
         });
+
+        if (title) {
+          tl.fromTo(
+            title,
+            { opacity: 0, y: 50 },
+            { opacity: 1, y: 0, duration: 1, ease: 'power4.out' }
+          );
+        }
+
+        if (horizontalLine) {
+          tl.fromTo(
+            horizontalLine,
+            { width: '0%' },
+            { width: '100%', duration: 1, ease: 'none' },
+            '-=0.5'
+          );
+        }
+
+        if (mission) {
+          tl.fromTo(
+            mission,
+            { opacity: 0, y: 50 },
+            { opacity: 1, y: 0, duration: 1, ease: 'power4.out' },
+            '-=0.5'
+          );
+        }
+
+        if (verticalLine) {
+          tl.fromTo(
+            verticalLine,
+            { height: '0%' },
+            { height: '100%', duration: 1, ease: 'none' },
+            '-=0.5'
+          );
+        }
+
+        if (detailsText) {
+          tl.from(
+            detailsText,
+            { opacity: 0, x: 100, duration: 1, ease: 'power4.out' },
+            '-=0.5'
+          );
+        }
       });
-    }
+    });
   }
 }

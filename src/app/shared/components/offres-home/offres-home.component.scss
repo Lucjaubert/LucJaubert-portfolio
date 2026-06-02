@@ -1,0 +1,138 @@
+@import "../../../../styles/_variables.scss";
+
+.offres-home {
+  background-color: map-get($theme-colors, "black");
+  padding-left: 5vw;
+  padding-right: 5vw;
+
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
+  .offres-eyebrow {
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+}
+
+.offres-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: map-get($spacers, "7");
+  max-width: 1400px;
+  margin: 0 auto;
+
+  @media (min-width: map-get($breakpoints, "md")) {
+    grid-template-columns: 1fr 1fr;
+    gap: map-get($spacers, "8");
+  }
+}
+
+.offre-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: map-get($spacers, "7") map-get($spacers, "6");
+  background-color: map-get($theme-colors, "black");
+  border: 1.5px solid map-get($theme-colors, "beige");
+  color: map-get($theme-colors, "beige");
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+
+  @media (min-width: map-get($breakpoints, "md")) {
+    padding: map-get($spacers, "9") map-get($spacers, "7");
+  }
+
+  .offre-number,
+  .offre-cta {
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  .offre-title {
+    color: map-get($theme-colors, "beige");
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .offre-description {
+    color: map-get($theme-colors, "beige");
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .offre-tags {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: map-get($spacers, "4") map-get($spacers, "5");
+
+    li {
+      color: map-get($theme-colors, "beige");
+      opacity: 0.85;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+  }
+
+  .offre-cta {
+    margin-top: auto;
+    color: map-get($theme-colors, "beige");
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    outline: none;
+  }
+
+  &--sites {
+    &:hover,
+    &:focus-visible {
+      border-color: map-get($theme-colors, "blue");
+
+      .offre-number,
+      .offre-cta {
+        color: map-get($theme-colors, "blue");
+      }
+
+      .offre-cta {
+        transform: translateX(4px);
+      }
+    }
+  }
+
+  &--outils {
+    &:hover,
+    &:focus-visible {
+      border-color: map-get($theme-colors, "orange");
+
+      .offre-number,
+      .offre-cta {
+        color: map-get($theme-colors, "orange");
+      }
+
+      .offre-cta {
+        transform: translateX(4px);
+      }
+    }
+  }
+}
