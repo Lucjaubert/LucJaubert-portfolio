@@ -1,8 +1,15 @@
 @import "../../../../styles/_variables.scss";
 
 .name-presentation {
-  @media (max-width: 360px) {
-    margin-top: map-get($spacers, "30");
+  // Mobile (< 768px) : margin-top proportionnelle à la hauteur RÉELLE du viewport
+  // via dvh (dynamic viewport height, gère les barres Safari iOS). Remplace les
+  // classes utilitaires .mt-30-xs / .mt-35-sm en rem (qui débordaient sur les
+  // écrans courts comme iPhone 11 Pro / SE) et neutralise au passage l'override
+  // @media (max-width: 360px) { margin-top: 26rem } qui aggravait le cas SE.
+  // Le JS d'animation (offsets rem du dot) n'est PAS touché, position du point préservée.
+  // Valeur 45dvh à calibrer à l'œil sur iPhone 12 Pro (rendu de référence).
+  @media (max-width: 767px) {
+    margin-top: 45dvh !important;
   }
 
   /* -------------------------------------------------------

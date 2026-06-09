@@ -205,4 +205,42 @@
     position: relative;
     overflow: hidden;
   }
+
+  // Blocs optionnels "Quand cela devient pertinent" et "Exemple d'usage typique"
+  // (introduits pour /outils-metier, masqués sur /sites-web qui ne fournit pas ces champs).
+  .when-relevant-block,
+  .typical-example-block {
+    width: 100%;
+    color: map-get($theme-colors, "beige");
+  }
+
+  .when-relevant-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+
+    li {
+      padding-left: 1.2rem;
+      position: relative;
+      color: map-get($theme-colors, "beige");
+      opacity: 0.85;
+      line-height: 1.5;
+
+      &::before {
+        content: '◇';
+        position: absolute;
+        left: 0;
+        color: map-get($theme-colors, "beige");
+        opacity: 0.6;
+      }
+    }
+  }
+
+  .typical-example-text {
+    border-left: 2px solid map-get($theme-colors, "beige");
+    padding-left: 1rem;
+    opacity: 0.85;
+    line-height: 1.5;
+    color: map-get($theme-colors, "beige");
+  }
 }

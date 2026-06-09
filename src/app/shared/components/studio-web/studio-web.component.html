@@ -2,19 +2,7 @@
   *ngIf="sections.length > 0"
   id="studio-web"
   class="studio-web-presentation py-md-5 py-5"
-  aria-labelledby="studio-web-title"
 >
-  <!-- SEO / A11Y invisible -->
-  <h2 id="studio-web-title" class="visually-hidden">
-    Studio Web – Services : design, développement, SEO et méthode
-  </h2>
-
-  <p class="visually-hidden">
-    LJ Studio Web propose des prestations web complètes : conception et design,
-    développement front-end et back-end, optimisation SEO, performance et maintenance.
-    Chaque section détaille une offre et les technologies utilisées.
-  </p>
-
   <!-- Contenu visuel / animé (inchangé) -->
   <div class="row studio-web-section" aria-hidden="true">
     <div class="studio-web-list">
@@ -29,6 +17,23 @@
             <h3 class="text-slide mb-0">{{ section.name }}</h3>
             <div class="horizontal-line mt-3"></div>
             <p class="mission-slide mt-md-5 mt-3 pe-md-15" [innerHTML]="section.mission | lineBreaks"></p>
+
+            <div *ngIf="section.whenRelevant && section.whenRelevant.length > 0"
+                 class="when-relevant-block mt-md-5 mt-4 pe-md-15">
+              <h4 class="text-fs-40 text-orange mb-3">Quand cela devient pertinent</h4>
+              <ul class="when-relevant-list">
+                <li *ngFor="let item of section.whenRelevant"
+                    class="text-fs-20 mb-2"
+                    [innerHTML]="item | lineBreaks"></li>
+              </ul>
+            </div>
+
+            <div *ngIf="section.typicalExample"
+                 class="typical-example-block mt-md-4 mt-3 pe-md-15">
+              <h4 class="text-fs-40 text-orange mb-3">Exemple d'usage typique</h4>
+              <p class="text-fs-20 typical-example-text fst-italic"
+                 [innerHTML]="section.typicalExample | lineBreaks"></p>
+            </div>
           </div>
 
           <div class="vertical-line d-none d-md-block"></div>
@@ -50,6 +55,17 @@
             <p>
               Technologies : {{ section.stacks }}
             </p>
+            <div *ngIf="section.whenRelevant && section.whenRelevant.length > 0">
+              <h4>Quand cela devient pertinent</h4>
+              <ul>
+                <li *ngFor="let item of section.whenRelevant"
+                    [innerHTML]="item | lineBreaks"></li>
+              </ul>
+            </div>
+            <div *ngIf="section.typicalExample">
+              <h4>Exemple d'usage typique</h4>
+              <p [innerHTML]="section.typicalExample | lineBreaks"></p>
+            </div>
           </div>
 
         </div>
