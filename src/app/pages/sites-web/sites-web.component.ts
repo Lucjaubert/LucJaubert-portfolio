@@ -39,13 +39,13 @@ export const METHODE_SECTIONS: StudioSection[] = [
   {
     name: 'Design et identité visuelle',
     mission:
-      "Design des pages clés à partir de votre charte graphique existante, ou en collaboration avec un graphiste ou une agence si la création visuelle est confiée à des spécialistes — comme avec <strong class='text-yellow'>Studio Dada</strong> sur le projet Groupe ABC. Je veille à une cohérence visuelle au service du parcours utilisateur, pas à des <strong class='text-yellow'>effets décoratifs gratuits</strong>.",
+      "Design des pages clés à partir de votre charte graphique existante, ou en collaboration avec un graphiste ou une agence si la création visuelle est confiée à des spécialistes, comme avec <strong class='text-yellow'>Studio Dada</strong> sur le projet Groupe ABC. Je veille à une cohérence visuelle au service du parcours utilisateur, pas à des <strong class='text-yellow'>effets décoratifs gratuits</strong>.",
     stacks: 'Figma, Adobe XD, UI Design, UX Design, Responsive Design, Identité visuelle, Charte graphique, Création de logo'
   },
   {
     name: 'Développement, SEO et performance',
     mission:
-      "Stack adaptée au projet : Angular 18 avec rendu côté serveur pour les sites institutionnels exigeants, ou WordPress en configuration headless quand le client veut garder la main éditoriale. <strong class='text-yellow'>Pas de template, pas de page builder limitant</strong>. Du code propre, conçu pour durer. Optimisation des temps de chargement, balisage sémantique, structure pour le référencement, Core Web Vitals — soit en autonomie, soit en collaboration avec un référenceur spécialisé comme <strong class='text-yellow'>Matthieu Laberibe</strong> sur Groupe ABC.",
+      "Stack adaptée au projet : Angular 18 avec rendu côté serveur pour les sites institutionnels exigeants, ou WordPress en configuration headless quand le client veut garder la main éditoriale. <strong class='text-yellow'>Pas de template, pas de page builder limitant</strong>. Du code propre, conçu pour durer. Optimisation des temps de chargement, balisage sémantique, structure pour le référencement, Core Web Vitals, soit en autonomie, soit en collaboration avec un référenceur spécialisé comme <strong class='text-yellow'>Matthieu Laberibe</strong> sur Groupe ABC.",
     stacks: 'Angular 18 SSR, WordPress Headless, WordPress, Shopify, HTML5, CSS3, TypeScript, API REST, GSAP, SEO technique, Core Web Vitals, Schema.org'
   },
   {

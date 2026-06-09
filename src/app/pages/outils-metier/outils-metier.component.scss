@@ -8,7 +8,7 @@
 
 .page-hero,
 .page-pour-qui,
-.page-approche,
+.page-pourquoi,
 .page-cta {
   padding-left: 5vw;
   padding-right: 5vw;
@@ -41,6 +41,13 @@
   .hero-subtitle {
     max-width: 800px;
     line-height: 1.4;
+    color: map-get($theme-colors, "beige");
+  }
+
+  .hero-intro {
+    max-width: 900px;
+    line-height: 1.6;
+    opacity: 0.9;
     color: map-get($theme-colors, "beige");
   }
 
@@ -92,13 +99,27 @@
   }
 }
 
-.page-approche {
+.page-pourquoi {
   border-top: 1.5px solid map-get($theme-colors, "beige");
+  border-bottom: 1.5px solid map-get($theme-colors, "beige");
 
-  .approche-text {
-    max-width: 900px;
-    line-height: 1.5;
-    margin: 0;
+  .pourquoi-list {
+    display: flex;
+    flex-direction: column;
+    gap: map-get($spacers, "8");
+  }
+
+  .pourquoi-card {
+    max-width: 1000px;
+
+    h3 {
+      color: map-get($theme-colors, "orange");
+      line-height: 1.2;
+    }
+
+    p {
+      line-height: 1.6;
+    }
   }
 }
 

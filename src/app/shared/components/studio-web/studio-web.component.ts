@@ -24,6 +24,8 @@ interface StudioSection {
   name: string;
   mission: string;
   stacks: string;
+  whenRelevant?: string[];
+  typicalExample?: string;
 }
 
 @Component({
@@ -105,6 +107,8 @@ export class StudioWebComponent implements OnInit, AfterViewInit, OnDestroy {
         const horizontalLine = sectionElement.querySelector('.horizontal-line') as HTMLElement | null;
         const verticalLine = sectionElement.querySelector('.vertical-line') as HTMLElement | null;
         const detailsText = sectionElement.querySelector('.stacks-slide') as HTMLElement | null;
+        const whenRelevant = sectionElement.querySelector('.when-relevant-block') as HTMLElement | null;
+        const typicalExample = sectionElement.querySelector('.typical-example-block') as HTMLElement | null;
 
         ScrollTrigger.create({
           trigger: sectionElement,
@@ -147,6 +151,24 @@ export class StudioWebComponent implements OnInit, AfterViewInit, OnDestroy {
             { opacity: 0, y: 50 },
             { opacity: 1, y: 0, duration: 1, ease: 'power4.out' },
             '-=0.5'
+          );
+        }
+
+        if (whenRelevant) {
+          tl.fromTo(
+            whenRelevant,
+            { opacity: 0, y: 40 },
+            { opacity: 1, y: 0, duration: 0.8, ease: 'power4.out' },
+            '-=0.4'
+          );
+        }
+
+        if (typicalExample) {
+          tl.fromTo(
+            typicalExample,
+            { opacity: 0, y: 40 },
+            { opacity: 1, y: 0, duration: 0.8, ease: 'power4.out' },
+            '-=0.4'
           );
         }
 
