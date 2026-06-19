@@ -1,11 +1,11 @@
 [
   {
-    "name": "VIOLETTE CRUSE, DECORATRICE D'INTERIEUR(site en cours de developpement) .",
+    "name": "VIOLETTE CRUSE, DECORATRICE D'INTERIEUR .",
     "year": "2026",
     "project": "Site vitrine pour Violette Cruse, décoratrice d'intérieur à Bordeaux",
     "role": "Zoning, maquettes Figma, intégration de la charte graphique, développement sur-mesure Angular SSR, SEO",
     "stacks": "WordPress Headless · Angular 18 (SSR) · API REST ACF Pro · GSAP · Figma",
-    "url": "",
+    "url": "https://www.violettecrusedecoration.fr/",
     "description": "Site vitrine bilingue pour une décoratrice d'intérieur spécialisée dans l'hôtellerie et les lieux de caractère. Architecture WordPress headless avec API REST consommée par un front Angular 18 en SSR, pour combiner autonomie éditoriale côté cliente et performance SEO côté visiteur.",
     "images": [
       "assets/img/violette/architecture.webp",
@@ -16,7 +16,7 @@
       "assets/img/violette/regles-design.webp"
     ],
     "videos": [],
-    "animationType": "abcAnimation"
+    "animationType": "violetteAnimation"
   },
   {
     "name": "GROUPE ABC IMMOBILIER .",

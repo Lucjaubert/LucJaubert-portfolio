@@ -84,7 +84,8 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
         anglaisAnimation: { in: () => this.initProjectAnimation('anglais'), out: () => {} },
         limagoAnimation: { in: () => this.initProjectAnimation('limago'), out: () => {} },
         maisonAnimation: { in: () => this.initProjectAnimation('maison'), out: () => {} },
-        abcAnimation: { in: () => this.initProjectAnimation('abc'), out: () => {} }
+        abcAnimation: { in: () => this.initProjectAnimation('abc'), out: () => {} },
+        violetteAnimation: { in: () => this.initProjectAnimation('violette'), out: () => {} }
       };
 
       this.breakpointObserver.observe(['(min-width: 768px)']).subscribe(state => {
