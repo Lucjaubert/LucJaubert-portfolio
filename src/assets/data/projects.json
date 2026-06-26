@@ -1,6 +1,122 @@
 [
   {
+    "name": "ARMONY .",
+    "slug": "armony",
+    "category": "outils-metier",
+    "year": "2026",
+    "project": "Suite d'outils métier pour la régulation médicale : sectorisation journalière et planning mensuel",
+    "role": "Analyse du besoin terrain, structuration de données réelles, conception d'outils sur-mesure, co-construction avec les utilisateurs",
+    "stacks": "HTML · SVG · JavaScript · Python (extraction de données)",
+    "url": "",
+    "internalRoute": "/projets/outils-metier/armony",
+    "description": "Prototype d'outils d'aide à la planification (sectorisation, planning mensuel, structuration de données) pour un service de régulation médicale. Validé par les équipes terrain, en phase de validation institutionnelle.",
+    "images": [
+      "assets/img/armony/planning-mensuel.webp",
+      "assets/img/armony/secto-1.webp",
+      "assets/img/armony/competences-samu-33.webp"
+    ],
+    "videos": [],
+    "animationType": "armonyAnimation",
+    "seo": {
+      "title": "ARMony — Étude de cas outils métier (régulation médicale) | Luc Jaubert",
+      "description": "Conception d'une suite d'outils métier pour un service de régulation médicale (SAMU) : sectorisation, planning, structuration de données. Prototype validé terrain, en validation institutionnelle.",
+      "ogTitle": "ARMony — Outils métier pour la régulation médicale",
+      "ogImage": "https://lucjaubert.com/assets/images/og/armony-og.jpg"
+    },
+    "galleryImages": [
+      { "src": "assets/img/armony/planning-mensuel.webp", "alt": "ARMony — planning mensuel : construction du planning des agents avec gestion des effectifs et seuils SMUR" },
+      { "src": "assets/img/armony/secto-1.webp", "alt": "ARMony — écran de sectorisation journalière : répartition des agents par poste avec contrôle des habilitations et alertes de sous-effectif" },
+      { "src": "assets/img/armony/secto-2.webp", "alt": "ARMony — audit d'équité de la sectorisation : nombre de créneaux et taux d'occupation par agent" },
+      { "src": "assets/img/armony/competences-samu-33.webp", "alt": "ARMony — matrice des compétences par poste : niveau d'habilitation de chaque agent pilotant la distribution" },
+      { "src": "assets/img/armony/equite-agents-samu-33-1.webp", "alt": "ARMony — analyse d'équité structurelle : couverture par poste sur l'effectif" },
+      { "src": "assets/img/armony/equite-agents-samu-33-2.webp", "alt": "ARMony — profil de polyvalence de l'équipe et identification des goulets d'étranglement" },
+      { "src": "assets/img/armony/equite-agents-samu-33-3.webp", "alt": "ARMony — équité de charge sur la journée : taux d'occupation et postes tenus par agent" }
+    ],
+    "content": [
+      {
+        "heading": "En bref",
+        "paragraphs": [
+          "Conception et développement d'une suite d'outils d'aide à la planification pour un service de régulation médicale hospitalier (SAMU). De l'analyse du besoin terrain jusqu'au prototype fonctionnel validé par les équipes terrain, en passant par l'extraction et la structuration de données réelles.",
+          "<strong class=\"text-orange\">Compétence illustrée :</strong> outils métier sur mesure, traduire un processus opérationnel complexe en application utilisable, en dialogue direct avec les utilisateurs finaux.",
+          "<strong class=\"text-orange\">Statut :</strong> prototype abouti, en phase de validation institutionnelle."
+        ]
+      },
+      {
+        "heading": "Le contexte",
+        "paragraphs": [
+          "Dans un service de régulation médicale, deux tâches récurrentes mobilisent un temps considérable et reposent largement sur des manipulations manuelles :"
+        ],
+        "bullets": [
+          "<strong class=\"text-orange\">La sectorisation journalière :</strong> répartir chaque jour les agents présents sur les différents postes, en respectant leurs habilitations et les effectifs minimums par poste.",
+          "<strong class=\"text-orange\">La construction du planning mensuel :</strong> bâtir et ajuster le planning de dizaines d'agents sur le mois, en arbitrant les souhaits d'échange tout en garantissant la couverture du service et l'équité."
+        ]
+      },
+      {
+        "heading": "",
+        "paragraphs": [
+          "Ces opérations s'appuyaient sur des supports dispersés (tableurs, documents PDF) et un savoir-faire largement implicite, peu outillé."
+        ]
+      },
+      {
+        "heading": "La démarche",
+        "paragraphs": [
+          "Le cœur du projet n'a pas été uniquement technique. Il a consisté à <strong class=\"text-orange\">comprendre un métier de l'intérieur</strong> et à le traduire en logiciel.",
+          "<strong class=\"text-orange\">Analyse du besoin réel.</strong> Plusieurs hypothèses initiales se sont révélées fausses au contact du terrain. Exemple : on imaginait d'abord un outil qui <em>importe</em> un planning existant ; le dialogue avec les utilisateurs a montré qu'ils voulaient le <em>construire</em> directement dans l'outil. Cette correction a réorienté tout le développement.",
+          "<strong class=\"text-orange\">Structuration de données réelles.</strong> Les plannings du service existaient sous forme de PDF non structurés (dizaines d'agents, codes de vacation, mises en page irrégulières). J'ai développé une chaîne d'extraction pour les transformer en données exploitables, en gérant les cas particuliers (noms multi-mots, codes éclatés sur plusieurs lignes, lignes incomplètes).",
+          "<strong class=\"text-orange\">Co-construction avec les utilisateurs.</strong> Plutôt que d'imposer des règles métier inventées, j'ai conçu des supports de validation (ateliers structurés) permettant aux responsables du service de confirmer ou corriger chaque hypothèse, horaires, seuils d'effectif, habilitations. L'outil distingue clairement ce qui est validé de ce qui reste à confirmer."
+        ]
+      },
+      {
+        "heading": "Ce qui a été livré",
+        "paragraphs": [
+          "<strong class=\"text-orange\">Un outil de sectorisation journalière.</strong> Répartition automatique des agents présents sur les postes, en tenant compte des habilitations et des seuils, avec alertes en cas de sous-effectif sur un poste critique.",
+          "<strong class=\"text-orange\">Un outil de planning mensuel.</strong> Construction et ajustement du planning par glisser-déposer, vue d'ensemble de type tableau, gestion des souhaits d'échange avec détection automatique des conflits et des non-conformités aux règles du service, statut de validation, et persistance du travail.",
+          "<strong class=\"text-orange\">Un pont entre les deux outils.</strong> Le planning mensuel alimente la sectorisation : on choisit un jour, et les agents présents sont reconstruits automatiquement pour être répartis.",
+          "<strong class=\"text-orange\">Des supports de validation métier.</strong> Documents structurés permettant aux responsables de valider les règles et les compétences, conçus pour être remplis sans effort (pré-remplis, à corriger plutôt qu'à saisir)."
+        ]
+      },
+      {
+        "heading": "Aperçu de l'outil",
+        "paragraphs": [ "Quelques écrans du prototype." ],
+        "gallery": true
+      },
+      {
+        "heading": "L'approche technique",
+        "bullets": [
+          "<strong class=\"text-orange\">Front-end sur mesure</strong> en HTML/SVG/JavaScript, sans dépendance lourde : des outils autonomes, ouvrables dans un simple navigateur, sans installation côté utilisateur.",
+          "<strong class=\"text-orange\">Traitement de données</strong> en Python pour l'extraction et la structuration depuis des sources hétérogènes.",
+          "<strong class=\"text-orange\">Persistance locale</strong> et échange de données entre outils par fichiers structurés.",
+          "<strong class=\"text-orange\">Design system cohérent</strong> (palette, typographie, codes couleur accessibles) pour une interface lisible et professionnelle.",
+          "<strong class=\"text-orange\">Versionnement Git</strong> et documentation du projet."
+        ]
+      },
+      {
+        "heading": "",
+        "paragraphs": [
+          "Le choix d'une stack légère est délibéré : pour un prototype destiné à convaincre des décideurs et à être testé en conditions réelles, la simplicité de déploiement prime sur la sophistication technique."
+        ]
+      },
+      {
+        "heading": "Ce que ce projet démontre",
+        "bullets": [
+          "Capacité à <strong class=\"text-orange\">comprendre un métier complexe</strong> et à dialoguer avec des utilisateurs experts non techniciens.",
+          "Capacité à <strong class=\"text-orange\">structurer des données réelles, imparfaites et hétérogènes</strong> en information exploitable.",
+          "Capacité à <strong class=\"text-orange\">concevoir une interface métier</strong> qui colle au geste de travail réel, plutôt qu'à une vision théorique.",
+          "Rigueur sur la <strong class=\"text-orange\">distinction entre hypothèse et donnée validée</strong>, essentiel dans un contexte où une erreur a des conséquences opérationnelles."
+        ]
+      },
+      {
+        "heading": "Pour les structures qui ont un besoin similaire",
+        "paragraphs": [
+          "Beaucoup d'organisations font tourner des processus critiques sur des tableurs bricolés et du savoir-faire implicite. Je conçois des outils métier sur mesure qui captent ce savoir-faire, l'outillent, et le rendent transmissible, en partant du terrain, pas d'un cahier des charges hors-sol."
+        ]
+      }
+    ]
+  },
+  {
     "name": "VIOLETTE CRUSE, DECORATRICE D'INTERIEUR .",
+    "slug": "violette-cruse",
+    "category": "sites-web",
     "year": "2026",
     "project": "Site vitrine pour Violette Cruse, décoratrice d'intérieur à Bordeaux",
     "role": "Zoning, maquettes Figma, intégration de la charte graphique, développement sur-mesure Angular SSR, SEO",
@@ -20,6 +136,8 @@
   },
   {
     "name": "GROUPE ABC IMMOBILIER .",
+    "slug": "groupe-abc-immobilier",
+    "category": "sites-web",
     "year": "2025",
     "project": "Site vitrine pour un réseau national d’experts immobiliers agréés",
     "role": "Zoning, maquettes Figma / Adobe XD, intégration de la charte graphique (Studio Dada), développement sur-mesure Angular SSR, SEO, et déploiement sur VPS",
@@ -35,6 +153,8 @@
   },
   {
     "name": "CB2P AVOCATS .",
+    "slug": "cb2p-avocats",
+    "category": "sites-web",
     "year": "2025",
     "project": "Création du site vitrine pour le cabinet d'avocats CB2P basé à Bordeaux",
     "role": "Design UI, zoning, développement sur mesure, responsive, SEO, déploiement",
@@ -52,6 +172,8 @@
   },
   {
     "name": "LAITERIE BURDIGALA .",
+    "slug": "laiterie-burdigala",
+    "category": "sites-web",
     "year": "2025",
     "project": "Creation du site internet de la Laiterie Burdigala aux Capucins - Bordeaux",
     "role": "Charte graphique, ergonomie, zoning, design et developpement, Click&collect sur mesure, SEO, deploiement",
@@ -81,6 +203,8 @@
   },
   {
     "name": "ANGLAIS DU VIN .",
+    "slug": "anglais-du-vin",
+    "category": "sites-web",
     "year": "2024",
     "project": "Creation d'un site internet pour un manuel d'anglais destine aux professionnels du vin",
     "role": "Charte graphique, ergonomie, zoning, design et developpement, SEO, deploiement",
@@ -105,6 +229,8 @@
   },
   {
     "name": "L'IMAGO REFLEXO .",
+    "slug": "imago-reflexo",
+    "category": "sites-web",
     "year": "2024",
     "project": "Creation du site internet de L'imago Reflexo - Reflexologie plantaire et palmaire",
     "role": "Creation logo, charte graphique, ergonomie, zoning, design et developpement, SEO, deploiement",
@@ -131,6 +257,8 @@
   },
   {
     "name": "MAISON AH-RONG .",
+    "slug": "maison-ah-rong",
+    "category": "sites-web",
     "year": "2024",
     "project": "Creation du site internet pour un institut de massages coreens - Bordeaux",
     "role": "Charte graphique, ergonomie, zoning, design et developpement, SEO, deploiement",

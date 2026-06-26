@@ -1,0 +1,99 @@
+<div class="projet-detail-page" *ngIf="project as p">
+
+  <article class="projet-detail">
+
+    <!-- HERO -->
+    <header class="page-hero py-12 py-md-14" aria-labelledby="projet-detail-title">
+      <p class="hero-eyebrow text-fs-20 text-beige mb-4">{{ categoryLabel(p.category) }} · {{ p.year }}</p>
+      <h1 id="projet-detail-title" class="hero-title text-fs-100 text-fs-130-md text-fw-bold text-beige">
+        {{ cleanName(p.name) }}
+      </h1>
+    </header>
+
+    <ng-container *ngIf="p.content && p.content.length; else simple">
+
+      <!-- CONTENU RICHE -->
+      <section *ngFor="let section of p.content" class="projet-section">
+        <h2 *ngIf="section.heading"
+            class="section-title text-fs-70 text-fs-90-md text-fw-bold text-beige">{{ section.heading }}</h2>
+
+        <p *ngFor="let para of (section.paragraphs || [])"
+           class="text-fs-30 text-beige" [innerHTML]="para"></p>
+
+        <ul *ngIf="section.bullets && section.bullets.length">
+          <li *ngFor="let b of section.bullets" class="text-fs-30 text-beige" [innerHTML]="b"></li>
+        </ul>
+
+        <ng-container *ngIf="section.gallery">
+          <ng-container *ngTemplateOutlet="galleryTpl"></ng-container>
+        </ng-container>
+      </section>
+
+      <!-- CTA -->
+      <section class="projet-section projet-cta-section">
+        <p class="projet-cta">
+          <a *ngIf="hasExternalUrl" class="projet-btn text-fs-30"
+             [href]="externalUrl()" target="_blank" rel="noopener noreferrer">Voir le site en ligne</a>
+          <a *ngIf="!hasExternalUrl" class="projet-btn text-fs-30"
+             [href]="bookingUrl" target="_blank" rel="noopener noreferrer">Prendre rendez-vous</a>
+        </p>
+        <p class="projet-signature text-fs-20 text-beige">
+          Luc Jaubert · développeur web freelance · lucjaubert.com
+        </p>
+      </section>
+
+    </ng-container>
+
+    <!-- RENDU SIMPLE (projets sans content) -->
+    <ng-template #simple>
+      <section class="projet-section">
+        <p class="projet-lead text-fs-40 text-fs-50-md text-beige mb-6">{{ p.project }}</p>
+        <p class="text-fs-30 text-beige">{{ p.description }}</p>
+
+        <div class="projet-meta">
+          <div class="projet-meta__block">
+            <p class="projet-meta__label text-fs-20 text-orange mb-2"><strong>Mes missions</strong></p>
+            <p class="text-fs-30 text-beige">{{ p.role }}</p>
+          </div>
+          <div class="projet-meta__block">
+            <p class="projet-meta__label text-fs-20 text-orange mb-2"><strong>Stacks</strong></p>
+            <p class="text-fs-30 text-beige">{{ p.stacks }}</p>
+          </div>
+        </div>
+
+        <p class="projet-cta">
+          <a *ngIf="hasExternalUrl" class="projet-btn text-fs-30"
+             [href]="externalUrl()" target="_blank" rel="noopener noreferrer">Voir le site en ligne</a>
+          <a *ngIf="!hasExternalUrl" class="projet-btn text-fs-30"
+             [href]="bookingUrl" target="_blank" rel="noopener noreferrer">Prendre rendez-vous</a>
+        </p>
+      </section>
+
+      <section class="projet-section projet-gallery-section" *ngIf="galleryItems().length">
+        <h2 class="section-title text-fs-70 text-fs-90-md text-fw-bold text-beige">Aperçu</h2>
+        <ng-container *ngTemplateOutlet="galleryTpl"></ng-container>
+      </section>
+    </ng-template>
+
+  </article>
+
+  <!-- Galerie réutilisable -->
+  <ng-template #galleryTpl>
+    <div class="projet-gallery">
+      <button type="button" class="projet-gallery__item"
+              *ngFor="let item of galleryItems(); let i = index"
+              (click)="openLightbox($event)">
+        <img [src]="'/' + item.src" [alt]="item.alt" [attr.loading]="i === 0 ? 'eager' : 'lazy'" />
+      </button>
+    </div>
+  </ng-template>
+
+  <!-- Lightbox (confort JS, s'attache après hydratation) -->
+  <div *ngIf="lightboxOpen" class="projet-lightbox" role="dialog" aria-modal="true"
+       aria-label="Aperçu agrandi" (click)="closeLightbox()">
+    <button type="button" class="projet-lightbox__close" aria-label="Fermer l'aperçu" (click)="closeLightbox()">×</button>
+    <img class="projet-lightbox__img" [src]="lightboxSrc" [alt]="lightboxAlt" (click)="$event.stopPropagation()" />
+  </div>
+
+  <app-footer></app-footer>
+</div>

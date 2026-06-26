@@ -1,0 +1,36 @@
+<div class="projets-liste-page" *ngIf="category">
+
+  <article class="projets-liste">
+
+    <!-- HERO -->
+    <header class="page-hero py-12 py-md-14" aria-labelledby="projets-liste-title">
+      <p class="hero-eyebrow text-fs-20 text-beige mb-4">Projets</p>
+      <h1 id="projets-liste-title" class="hero-title text-fs-100 text-fs-130-md text-fw-bold text-beige">
+        {{ categoryLabel(category) }}
+      </h1>
+    </header>
+
+    <!-- LISTE -->
+    <section class="projets-liste-section py-10 py-md-12" aria-label="Liste des projets">
+      <ul class="projets-grid">
+        <li class="projet-card" *ngFor="let p of projects">
+          <a class="projet-card__link" [routerLink]="['/projets', p.category, p.slug]"
+             [attr.aria-label]="'Voir le projet ' + cleanName(p.name)">
+            <span class="projet-card__media" *ngIf="p.images && p.images.length">
+              <img [src]="'/' + p.images[0]" [alt]="cleanName(p.name)" loading="lazy" />
+            </span>
+            <span class="projet-card__body">
+              <span class="projet-card__year text-fs-20 text-orange">{{ p.year }}</span>
+              <span class="projet-card__name text-fs-50 text-fs-70-md text-fw-bold text-beige">{{ cleanName(p.name) }}</span>
+              <span class="projet-card__excerpt text-fs-30 text-beige">{{ excerpt(p) }}</span>
+              <span class="projet-card__cta text-fs-20">Voir le projet →</span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+  </article>
+
+  <app-footer></app-footer>
+</div>

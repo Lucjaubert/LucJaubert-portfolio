@@ -93,7 +93,13 @@
         display: flex;
         align-items: baseline;
         justify-content: center;
-        white-space: nowrap;
+        white-space: normal;
+        max-width: 100%;
+
+        // Le titre wrappe entre ses mots ; seul « dernier mot + année » reste insécable.
+        .title-tail {
+          white-space: nowrap !important;
+        }
 
         h5,
         .date {
@@ -106,7 +112,7 @@
 
           h5,
           .date {
-            white-space: nowrap;
+            white-space: normal;
             word-break: keep-all;
             text-align: left;
           }

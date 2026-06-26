@@ -16,6 +16,12 @@ app.get(
   })
 );
 
+// Redirection 301 permanente : ancienne URL ARMony => canonique (SEO).
+// Doit précéder le handler Angular ci-dessous.
+app.get('/projets/armony', (_req: Request, res: Response) => {
+  res.redirect(301, '/projets/outils-metier/armony');
+});
+
 app.get('*', (req: Request, res: Response) => {
   const engine = new CommonEngine();
   engine

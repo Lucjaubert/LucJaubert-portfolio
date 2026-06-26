@@ -15,9 +15,14 @@
     <p class="hero-intro text-fs-30 text-beige mb-8">
       Je conçois des outils métier sur-mesure pour ces équipes-là. Pas pour automatiser à tout prix, ni pour remplacer ce qui fonctionne déjà bien. Pour celles qui ont identifié précisément ce qui leur coûte du temps chaque semaine, et qui veulent un outil <strong class="text-orange">aligné sur leur métier</strong>, <strong class="text-orange">conçu avec les personnes qui l'utiliseront</strong> vraiment.
     </p>
-    <a class="hero-cta text-fs-30 mt-8" [routerLink]="['/']" fragment="contact">
-      Parler d'un projet →
-    </a>
+    <div class="hero-cta-group mt-8">
+      <a class="hero-cta text-fs-30" [routerLink]="['/']" fragment="contact">
+        Parler d'un projet →
+      </a>
+      <a class="hero-cta text-fs-30" routerLink="/projets/outils-metier">
+        Mes projets →
+      </a>
+    </div>
   </section>
 
   <!-- POUR QUI -->
@@ -53,6 +58,33 @@
       Ce que je conçois
     </h2>
     <app-studio-web [sections]="sections"></app-studio-web>
+  </section>
+
+  <!-- ÉTUDE DE CAS -->
+  <section class="page-etude-cas py-10 py-md-12" aria-labelledby="outils-metier-etude-cas-title">
+    <h2 id="outils-metier-etude-cas-title" class="section-title text-fs-70 text-fs-90-md text-fw-bold text-beige mb-4">
+      Étude de cas
+    </h2>
+    <p class="section-intro text-fs-30 text-beige mb-7 mb-md-9">
+      Un exemple concret d'outil métier conçu sur le terrain, du besoin réel au prototype validé par les équipes.
+    </p>
+
+    <article class="etude-cas-card">
+      <a class="etude-cas-card__media" routerLink="/projets/outils-metier/armony" aria-label="Voir l'étude de cas ARMony">
+        <img src="/assets/img/armony/secto-1.webp"
+             alt="ARMony — écran de sectorisation journalière du prototype"
+             width="1580" height="995" loading="lazy" />
+      </a>
+      <div class="etude-cas-card__body">
+        <h3 class="text-fs-50 text-fs-70-md text-fw-bold mb-3">ARMony</h3>
+        <p class="text-fs-30 text-beige mb-5">
+          Suite d'outils métier pour la régulation médicale : sectorisation journalière, planning mensuel et structuration de données. Prototype validé par les équipes terrain, en phase de validation institutionnelle.
+        </p>
+        <a class="etude-cas-card__link text-fs-20" routerLink="/projets/outils-metier/armony">
+          Voir l'étude de cas →
+        </a>
+      </div>
+    </article>
   </section>
 
   <!-- POURQUOI ME CHOISIR -->

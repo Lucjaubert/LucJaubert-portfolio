@@ -15,9 +15,14 @@
     <p class="hero-intro text-fs-30 text-beige mb-8">
       Je conçois des <strong class="text-yellow">sites internet sur-mesure</strong> pour ces structures-là. Pas pour les projets qui démarrent de zéro et veulent juste exister en ligne, ni pour ceux qui cherchent le moins-disant. Pour celles qui ont compris qu'un site web n'est pas une dépense de communication mais <strong class="text-yellow">un outil stratégique</strong>, et qui veulent y mettre la matière nécessaire.
     </p>
-    <a class="hero-cta text-fs-30" [routerLink]="['/']" fragment="contact">
-      Parler d'un projet →
-    </a>
+    <div class="hero-cta-group">
+      <a class="hero-cta text-fs-30" [routerLink]="['/']" fragment="contact">
+        Parler d'un projet →
+      </a>
+      <a class="hero-cta text-fs-30" routerLink="/projets/sites-web">
+        Mes projets →
+      </a>
+    </div>
   </section>
 
 

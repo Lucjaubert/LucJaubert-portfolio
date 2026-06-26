@@ -1,0 +1,120 @@
+@import "../../../../styles/_variables.scss";
+
+.projets-liste-page {
+  background-color: map-get($theme-colors, "black");
+  color: map-get($theme-colors, "beige");
+  min-height: 100vh;
+}
+
+.projets-liste {
+  .page-hero,
+  .projets-liste-section {
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
+}
+
+.page-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-bottom: 1.5px solid map-get($theme-colors, "beige");
+
+  .hero-eyebrow {
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .hero-title {
+    line-height: 1;
+    margin: 0;
+    max-width: 1100px;
+    color: map-get($theme-colors, "beige");
+  }
+}
+
+.projets-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: map-get($spacers, "8");
+
+  @media (min-width: map-get($breakpoints, "md")) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: map-get($spacers, "9");
+  }
+}
+
+.projet-card {
+  &__link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    border: 1.5px solid map-get($theme-colors, "beige");
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover,
+    &:focus-visible {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+    }
+
+    &:focus-visible {
+      outline: 2px solid map-get($theme-colors, "orange");
+      outline-offset: 2px;
+    }
+  }
+
+  &__media {
+    display: block;
+    line-height: 0;
+    overflow: hidden;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: map-get($spacers, "3");
+    padding: map-get($spacers, "6");
+  }
+
+  &__year {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  &__name {
+    line-height: 1.1;
+  }
+
+  &__excerpt {
+    line-height: 1.5;
+    opacity: 0.9;
+  }
+
+  &__cta {
+    margin-top: map-get($spacers, "3");
+    color: map-get($theme-colors, "orange");
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    transition: transform 0.3s ease;
+  }
+
+  &__link:hover &__cta {
+    transform: translateX(6px);
+  }
+}
