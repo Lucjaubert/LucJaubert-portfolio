@@ -73,6 +73,14 @@ export const PROJETS_RECENTS: ProjetRecent[] = [
     testimonial:
       "J'ai été enchantée de collaborer avec Luc Jaubert pour le développement de mon site web de la Laiterie Burdigala. Il a été pédagogue, disponible et à l'écoute. Le monde de l'informatique n'étant pas mon métier, il a su se faire comprendre et rendre intuitive l'alimentation du site (renseignement des Textes). De plus, ayant mon entreprise et étant prise par de nombreuses urgences, il n'a pas hésité à me relancer, afin de pouvoir terminer dans les temps. Je recommande son travail à 200%, vous pouvez lui faire confiance les yeux fermés.",
     testimonialAuthor: 'Laiterie Burdigala'
+  },
+  {
+    title: "Violette Cruse — décoratrice d'intérieur, hôtellerie & lieux de caractère",
+    url: 'https://www.violettecrusedecoration.fr/',
+    description:
+      "Site vitrine bilingue (français / anglais) pour une décoratrice d'intérieur bordelaise spécialisée dans l'hôtellerie et les lieux de caractère, avec portfolio de projets en France et à l'international. Développement sur-mesure sous Angular 18 SSR et WordPress Headless, avec zoning, maquettes Figma et intégration de la charte graphique.",
+    testimonial: null,
+    testimonialAuthor: null
   }
 ];
 

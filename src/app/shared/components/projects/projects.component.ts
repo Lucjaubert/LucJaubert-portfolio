@@ -14,22 +14,29 @@ import {
 } from '@angular/core';
 import { gsap, CSSPlugin, ScrollTrigger } from 'gsap/all';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { ContentSection, GalleryImage, ProjectSeo } from '../../../core/projects-data.service';
 
 gsap.registerPlugin(CSSPlugin, ScrollTrigger);
 
 interface Project {
   name: string;
+  slug: string;
+  category: 'outils-metier' | 'sites-web';
   year: string;
   project: string;
   role: string;
   stacks: string;
   url: string;
+  internalRoute?: string;
   images: string[];
   videos: string[];
   animationType: string;
+  content?: ContentSection[];
+  galleryImages?: GalleryImage[];
+  seo?: ProjectSeo;
   mediaSequence?: { type: 'image' | 'video'; src: string }[];
 }
 
@@ -71,7 +78,8 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     private http: HttpClient,
     private cdr: ChangeDetectorRef,
     private breakpointObserver: BreakpointObserver,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -85,7 +93,8 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
         limagoAnimation: { in: () => this.initProjectAnimation('limago'), out: () => {} },
         maisonAnimation: { in: () => this.initProjectAnimation('maison'), out: () => {} },
         abcAnimation: { in: () => this.initProjectAnimation('abc'), out: () => {} },
-        violetteAnimation: { in: () => this.initProjectAnimation('violette'), out: () => {} }
+        violetteAnimation: { in: () => this.initProjectAnimation('violette'), out: () => {} },
+        armonyAnimation: { in: () => this.initProjectAnimation('armony'), out: () => {} }
       };
 
       this.breakpointObserver.observe(['(min-width: 768px)']).subscribe(state => {
@@ -175,7 +184,40 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
     return mediaSequence.sort(() => Math.random() - 0.5);
   }
 
+  /**
+   * Découpe le titre pour rendre insécable le couple « dernier mot + année ».
+   * head = tout sauf le dernier mot (wrappe normalement) ; tail = dernier mot + " ." (collé à l'année via .title-tail nowrap).
+   */
+  private splitName(rawName: string): { head: string; tail: string } {
+    const name = rawName.replace(' (en cours)', '').trim();
+    const hasDot = / \.$/.test(name);
+    const base = hasDot ? name.replace(/ \.$/, '') : name;
+    const dot = hasDot ? ' .' : '';
+    const idx = base.lastIndexOf(' ');
+    if (idx === -1) {
+      return { head: '', tail: base + dot };
+    }
+    return { head: base.slice(0, idx), tail: base.slice(idx + 1) + dot };
+  }
+
+  titleHead(rawName: string): string {
+    const head = this.splitName(rawName).head;
+    return head ? head + ' ' : '';
+  }
+
+  titleTail(rawName: string): string {
+    return this.splitName(rawName).tail;
+  }
+
   onProjectContainerClick(index: number): void {
+    const project = this.projects[index];
+
+    // Projet à route interne (ex. ARMony) : navigation SPA, même onglet.
+    if (project?.internalRoute) {
+      this.router.navigate([project.internalRoute]);
+      return;
+    }
+
     if (!this.isDesktop) {
       this.toggleMediaPreview(index);
     } else {

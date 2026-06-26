@@ -115,6 +115,13 @@
     opacity: 0.9;
   }
 
+  .hero-cta-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: map-get($spacers, "5");
+  }
+
   .hero-cta {
     color: map-get($theme-colors, "blue");
     text-decoration: none;

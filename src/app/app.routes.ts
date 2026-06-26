@@ -37,6 +37,18 @@ export const routes: Routes = [
   },
 
   {
+    path: 'projets/:category',
+    loadComponent: () =>
+      import('./pages/projets/projets-liste/projets-liste.component').then(m => m.ProjetsListeComponent)
+  },
+
+  {
+    path: 'projets/:category/:slug',
+    loadComponent: () =>
+      import('./pages/projets/projet-detail/projet-detail.component').then(m => m.ProjetDetailComponent)
+  },
+
+  {
     path: '404',
     loadComponent: () =>
       import('./pages/not-found/not-found.component').then(m => m.NotFoundComponent),

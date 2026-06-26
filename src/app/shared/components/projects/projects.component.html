@@ -23,25 +23,12 @@
               (mouseenter)="onProjectHover(project, $event)"
               (mouseleave)="onProjectOut($event)"
             >
-              <div class="project-item" [class.project-item--wrap]="i === 0">
+              <div class="project-item project-item--wrap">
                 <h5
                   [ngClass]="'offset-' + i"
                   class="mb-0"
                   (mousemove)="onProjectHoverMove($event)"
-                >
-                  {{ project.name.replace(' (en cours)', '') }}
-                  <small *ngIf="project.name.includes('(en cours)')">(en cours)</small>
-
-                  <ng-container *ngIf="i === 0; else yearOutside">
-                    <span class="date date-inline">{{ project.year }}</span>
-                  </ng-container>
-
-                  <ng-template #yearOutside></ng-template>
-                </h5>
-
-                <ng-container *ngIf="i !== 0">
-                  <span [ngClass]="'offset-' + i" class="date">{{ project.year }}</span>
-                </ng-container>
+                >{{ titleHead(project.name) }}<span class="title-tail">{{ titleTail(project.name) }}<small *ngIf="project.name.includes('(en cours)')">&#160;(en cours)</small><span class="date date-inline">&#160;{{ project.year }}</span></span></h5>
               </div>
 
 
