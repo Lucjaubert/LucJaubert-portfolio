@@ -1,16 +1,9 @@
 @import "../../../../styles/_variables.scss";
 
 .name-presentation {
-  // Mobile (< 768px) : margin-top proportionnelle à la hauteur RÉELLE du viewport
-  // via dvh (dynamic viewport height, gère les barres Safari iOS). Remplace les
-  // classes utilitaires .mt-30-xs / .mt-35-sm en rem (qui débordaient sur les
-  // écrans courts comme iPhone 11 Pro / SE) et neutralise au passage l'override
-  // @media (max-width: 360px) { margin-top: 26rem } qui aggravait le cas SE.
-  // Le JS d'animation (offsets rem du dot) n'est PAS touché, position du point préservée.
-  // Valeur 45dvh à calibrer à l'œil sur iPhone 12 Pro (rendu de référence).
-  @media (max-width: 767px) {
-    margin-top: 45dvh !important;
-  }
+  // Position verticale : le bloc est calé en bas de l'écran par le conteneur
+  // .full-screen-container de la page d'accueil (justify-content: flex-end).
+  // Plus aucune marge haute ici : elle dépendait de la hauteur d'écran.
 
   /* -------------------------------------------------------
      SEO/A11Y (invisible visuellement, lisible lecteurs d'écran)
@@ -46,6 +39,13 @@
       display: inline-block;
       padding-top: 0.1em;
       margin-bottom: -2.5rem;
+    }
+
+    // Mobile : « Luc » rapproché de « Jaubert. » (écart visuel 26 px → 7 px)
+    @media (max-width: 767.98px) {
+      &.first-name .text-wrapper {
+        margin-bottom: -59px;
+      }
     }
 
     .letter {

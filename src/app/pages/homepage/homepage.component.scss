@@ -1,7 +1,10 @@
 @import "../../../styles/_variables.scss";
 
 .full-screen-container {
-  height: 100vh; 
+  // Le bloc occupe exactement la hauteur visible de l'écran.
+  // svh = hauteur avec la barre d'adresse mobile affichée : le nom ne passe jamais dessous.
+  height: 100vh;
+  height: 100svh;
   display: flex;
   flex-direction: column;
 }
@@ -13,11 +16,15 @@
 .container {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 30px !important;
-  flex: 1; 
+  // padding-inline (et non le raccourci padding) pour ne pas écraser padding-bottom
+  padding-inline: 30px !important;
+  // Le nom est calé en bas : 80 px entre le bas du sous-titre et le bas de l'écran.
+  // Ces valeurs compensent les marges propres du sous-titre (16 px sur mobile, 4 px au-delà).
+  padding-bottom: 42px !important;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: start; 
+  justify-content: flex-end;
 
   .homepage-wrapper {
     display: flex;
@@ -28,19 +35,20 @@
 
 @media (min-width: map-get($breakpoints, "sm")) {
   .container {
-    padding: 0 35px !important;
+    padding-inline: 35px !important;
   }
 }
 
 @media (min-width: map-get($breakpoints, "md")) {
   .container {
-    padding: 0 45px !important;
+    padding-inline: 45px !important;
+    padding-bottom: 60px !important;
   }
 }
 
 @media (min-width: map-get($breakpoints, "lg")) {
   .container {
-    padding: 0 65px !important;
+    padding-inline: 65px !important;
+    padding-bottom: 64px !important;
   }
 }
-

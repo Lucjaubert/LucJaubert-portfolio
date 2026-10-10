@@ -162,3 +162,13 @@ body::-webkit-scrollbar {
 #back-to-top:hover {
     background-color: map-get($theme-colors, "light-blue");
 }
+
+/* Accueil : le menu se superpose au haut de page pour que le bloc plein écran
+   commence tout en haut (sinon il déborde de la hauteur du menu). */
+.app-root:has(app-homepage) > app-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+}
