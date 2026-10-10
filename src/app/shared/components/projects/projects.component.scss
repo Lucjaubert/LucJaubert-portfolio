@@ -602,9 +602,18 @@
 
 /* Mobile : espaces resserrés autour de la liste des projets */
 @media (max-width: 767.98px) {
+  // La grille Bootstrap (.row) déborde de 12 px de chaque côté : on l'annule,
+  // puis 24 px de marge latérale pour que les noms de projets ne touchent plus les bords.
+  .project-presentation .row.project-hover-container {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
   .projects-list {
     padding-top: 48px !important;
     padding-bottom: 48px !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
   }
 }
 
