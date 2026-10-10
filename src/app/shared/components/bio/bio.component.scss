@@ -110,5 +110,15 @@
     .bio-image {
       margin-top: 32px !important;
     }
+
+    // Le bloc n'occupait que 75 % de la largeur (col-9) : pleine largeur,
+    // avec la même marge latérale que la liste des projets (24 px).
+    > .col-9 {
+      flex: 0 0 100%;
+      width: 100%;
+      max-width: 100%;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
   }
 }
