@@ -9,6 +9,7 @@ import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { REVEAL, prefersReducedMotion } from '../../utils/motion';
 
 @Component({
   selector: 'app-bio',
@@ -39,12 +40,17 @@ export class BioComponent implements AfterViewInit, OnDestroy {
       const paragraphs = document.querySelectorAll('.bio-content p');
       const photo = document.querySelector('.bio-image');
 
+      // Mouvement réduit : pas de déplacement, uniquement le fondu
+      if (prefersReducedMotion()) {
+        gsap.set([...Array.from(paragraphs), photo].filter(Boolean), { y: 0 });
+      }
+
       paragraphs.forEach(p => {
         gsap.to(p, {
           opacity: 1,
           y: 0,
-          duration: 1,
-          ease: 'power4.out',
+          duration: REVEAL.duration,
+          ease: REVEAL.ease,
           scrollTrigger: {
             trigger: p,
             start: '80px 70%',
@@ -60,8 +66,8 @@ export class BioComponent implements AfterViewInit, OnDestroy {
           opacity: 1,
           y: 0,
           scale: 1.05,
-          duration: 1.5,
-          ease: 'power4.out',
+          duration: REVEAL.duration,
+          ease: REVEAL.ease,
           scrollTrigger: {
             trigger: lastP,
             start: 'bottom 80%',

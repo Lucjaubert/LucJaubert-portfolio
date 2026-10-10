@@ -10,6 +10,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { REVEAL, prefersReducedMotion } from '../../utils/motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,30 +39,39 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
 
   private initContactAnimations(): void {
     this.gsapContext = gsap.context(() => {
-      gsap.to('.background-contact', {
-        height: '100%',
-        duration: 1.3,
-        ease: 'expoScale',
+      const reduce = prefersReducedMotion();
+
+      // Le fond monte en scaleY (transform, sur la carte graphique) au lieu d'animer height,
+      // et les liens apparaissent en même temps au lieu d'attendre la fin du fond.
+      // GSAP reprend la main sur l'état initial posé en CSS (scaleY(0) au premier rendu SSR)
+      gsap.set('.background-contact', { scaleY: reduce ? 1 : 0, transformOrigin: 'bottom' });
+      if (reduce) {
+        gsap.set('.contact-item, .copyright', { y: 0 });
+      }
+
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: '#contact',
           start: 'top 80%',
           toggleActions: 'play none none none'
-        },
-        onComplete: () => {
-          this.animateContactText();
         }
       });
-    });
-  }
 
-  private animateContactText(): void {
-    gsap.to('.contact-item, .copyright', {
-      opacity: 1,
-      y: 0,
-      delay: 0.1,
-      duration: 0.8,
-      ease: 'power4.out',
-      stagger: 0.2
+      if (!reduce) {
+        tl.to('.background-contact', {
+          scaleY: 1,
+          duration: 0.6,
+          ease: REVEAL.ease
+        });
+      }
+
+      tl.to('.contact-item, .copyright', {
+        opacity: 1,
+        y: 0,
+        duration: REVEAL.duration,
+        ease: REVEAL.ease,
+        stagger: REVEAL.stagger
+      }, reduce ? 0 : 0.1);
     });
   }
 }
