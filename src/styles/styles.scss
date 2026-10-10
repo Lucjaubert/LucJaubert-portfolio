@@ -150,6 +150,9 @@ body::-webkit-scrollbar {
     @media (max-width: map-get($breakpoints, "md")) {
         width: 40px;
         height: 40px;
+        // Le bouton n'apparaît qu'en bas de page : sur mobile, le copyright passe sur deux
+        // lignes et se retrouvait dessous. On remonte le bouton au-dessus du copyright.
+        bottom: 88px;
     }
 }
 
