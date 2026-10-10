@@ -136,3 +136,27 @@
     }
   }
 }
+
+/* Mobile : espaces resserrés */
+@media (max-width: 767.98px) {
+  .offres-home {
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+
+    .offres-eyebrow {
+      margin-bottom: 24px !important;
+    }
+  }
+}
+
+/* Écrans tactiles : un tap déclenche un faux survol, on neutralise le déplacement */
+@media (hover: none) {
+  .offre-card:hover {
+    transform: none;
+    box-shadow: none;
+
+    .offre-cta {
+      transform: none;
+    }
+  }
+}

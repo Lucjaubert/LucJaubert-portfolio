@@ -37,3 +37,17 @@
     line-height: 1.5;
   }
 }
+
+/* Mobile : espaces resserrés (marges pensées pour l'ordinateur) */
+@media (max-width: 767.98px) {
+  .description-section {
+    padding-top: 64px !important;
+    padding-bottom: 24px !important;
+    margin-top: 0;
+    margin-bottom: 0;
+
+    h3 {
+      margin-top: 16px !important;
+    }
+  }
+}

@@ -33,9 +33,10 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 0%;
+    height: 80%;
     background-color: map-get($theme-colors, "black");
     z-index: 0;
+    transform: scaleY(0);
     transform-origin: bottom;
     visibility: visible;
   }
@@ -44,7 +45,7 @@
     opacity: 0;
     transform: translateY(20px);
     color: map-get($theme-colors, "orange");
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: color 0.3s ease; // transform/opacity sont animés par GSAP
 
     &:hover {
       color: map-get($theme-colors, "beige") !important;
@@ -596,5 +597,20 @@
     .project-container .project-item h5 small {
       font-size: 0.75em;
     }
+  }
+}
+
+/* Mobile : espaces resserrés autour de la liste des projets */
+@media (max-width: 767.98px) {
+  .projects-list {
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+  }
+}
+
+/* Écrans tactiles : pas de mise à l'échelle au faux survol déclenché par un tap */
+@media (hover: none) {
+  .project-presentation .project-hover-container .project-container:hover {
+    transform: none;
   }
 }
