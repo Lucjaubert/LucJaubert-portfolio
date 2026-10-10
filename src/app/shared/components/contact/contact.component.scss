@@ -35,9 +35,10 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 0%;
+    height: 100%;
     background-color: map-get($theme-colors, "dark-black");
     z-index: 0;
+    transform: scaleY(0);
     transform-origin: bottom;
     visibility: visible;
   }
@@ -53,7 +54,7 @@
       margin: 1rem 0;
       opacity: 0;
       transform: translateY(20px);
-      transition: transform 0.8s ease-out, opacity 0.8s ease-out, color 0.3s ease;
+      transition: color 0.3s ease; // transform/opacity sont animés par GSAP
       z-index: 1;
 
       &.contact-email a {
@@ -155,6 +156,25 @@
 
     a {
       font-size: map-get($font-size, "65") !important;
+    }
+  }
+}
+
+/* Mobile : section à hauteur de contenu, liens compacts */
+@media (max-width: 767.98px) {
+  .contact-section {
+    height: auto;
+    padding-top: 64px !important;
+    padding-bottom: 64px !important;
+
+    .contact-links {
+      margin-top: 0 !important;
+
+      .contact-item {
+        font-size: 2.5rem !important;
+        line-height: 1.15;
+        margin: 12px 0;
+      }
     }
   }
 }

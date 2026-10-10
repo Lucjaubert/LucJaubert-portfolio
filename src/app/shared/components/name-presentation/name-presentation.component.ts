@@ -23,6 +23,7 @@ export class NamePresentationComponent implements OnInit, OnDestroy, AfterViewIn
 
   currentColor = this.colors[0];
   colorChangeInterval: any;
+  private nameScrollTrigger?: ScrollTrigger;
 
   constructor(@Inject(PLATFORM_ID) private platformId: object) {}
 
@@ -41,6 +42,7 @@ export class NamePresentationComponent implements OnInit, OnDestroy, AfterViewIn
   }
 
   ngOnDestroy(): void {
+    this.nameScrollTrigger?.kill();
     if (this.colorChangeInterval) {
       clearInterval(this.colorChangeInterval);
     }
@@ -175,87 +177,92 @@ export class NamePresentationComponent implements OnInit, OnDestroy, AfterViewIn
     });
   }
 
+  /**
+   * Comportement du nom au défilement.
+   * Avant : un écouteur 'scroll' relançait ces animations GSAP à chaque événement de défilement
+   * (des dizaines par seconde). Désormais, un ScrollTrigger unique ne les déclenche qu'au passage
+   * des 100 px, dans un sens ou dans l'autre. Les animations elles-mêmes sont inchangées.
+   */
   private initDotReturn(): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    let scrollDirection: 'down' | 'up' = 'down';
-    let lastScroll = 0;
+    this.nameScrollTrigger = ScrollTrigger.create({
+      start: 100,
+      onEnter: () => this.hideNameOnScroll(),
+      onLeaveBack: () => this.showNameOnScroll(),
+    });
+  }
 
-    window.addEventListener('scroll', () => {
-      const scrollPosition = window.scrollY;
-      scrollDirection = scrollPosition > lastScroll ? 'down' : 'up';
-      lastScroll = scrollPosition;
+  private hideNameOnScroll(): void {
+    gsap.to('.ml11 .letters-1 .letter', {
+      y: (i: number) => -20 * Math.sin(i * 0.5),
+      duration: 0.6,
+      stagger: 0.05,
+      ease: 'power1.inOut',
+      opacity: 0,
+    });
 
-      if (scrollDirection === 'down' && scrollPosition > 100) {
-        gsap.to('.ml11 .letters-1 .letter', {
-          y: (i: number) => -20 * Math.sin(i * 0.5),
-          duration: 0.6,
-          stagger: 0.05,
-          ease: 'power1.inOut',
-          opacity: 0,
+    gsap.to('.ml11 .letters-2 .letter', {
+      y: (i: number) => -20 * Math.sin(i * 0.7),
+      duration: 0.6,
+      stagger: 0.1,
+      ease: 'power1.inOut',
+      opacity: 0,
+      onComplete: () => {
+        gsap.to('.ml11 .logo-letter, .ml11 .letters-1', {
+          opacity: 1,
+          duration: 0.5,
         });
 
-        gsap.to('.ml11 .letters-2 .letter', {
-          y: (i: number) => -20 * Math.sin(i * 0.7),
-          duration: 0.6,
-          stagger: 0.1,
-          ease: 'power1.inOut',
-          opacity: 0,
-          onComplete: () => {
-            gsap.to('.ml11 .logo-letter, .ml11 .letters-1', {
-              opacity: 1,
+        const dotElement = document.querySelector('.dot') as HTMLElement;
+        if (dotElement) {
+          if (window.matchMedia('(min-width: 769px)').matches) {
+            gsap.to(dotElement, {
               duration: 0.5,
+              left: '-35.7rem',
             });
-
-            const dotElement = document.querySelector('.dot') as HTMLElement;
-            if (dotElement) {
-              if (window.matchMedia('(min-width: 769px)').matches) {
-                gsap.to(dotElement, {
-                  duration: 0.5,
-                  left: '-35.7rem',
-                });
-              } else {
-                gsap.to(dotElement, {
-                  duration: 0.5,
-                  left: '-16.2rem',
-                });
-              }
-            }
+          } else {
+            gsap.to(dotElement, {
+              duration: 0.5,
+              left: '-16.2rem',
+            });
           }
-        });
-      } else if (scrollDirection === 'up' && scrollPosition < 100) {
-        gsap.to('.ml11 .letters-2 .letter', {
-          y: 0,
-          opacity: 1,
-          duration: 0.4,
-          stagger: 0.2,
-          ease: 'power1.inOut',
-          onUpdate: () => {
-            const letters2Width = document.querySelector('.ml11 .letters-2')?.getBoundingClientRect().width || 0;
-            const jElementWidth = document.querySelector('.ml11 .last-name span')?.getBoundingClientRect().width || 0;
-            const totalWidth = letters2Width + jElementWidth;
-
-            const dotElement = document.querySelector('.dot') as HTMLElement;
-            if (dotElement) {
-              gsap.to(dotElement, {
-                x: totalWidth,
-                left: '0',
-                duration: 0.1,
-                stagger: 0.3,
-                ease: 'power1.inOut',
-              });
-            }
-          }
-        });
-
-        gsap.to('.ml11 .letters-1 .letter', {
-          y: 0,
-          opacity: 1,
-          duration: 0.9,
-          stagger: 0.05,
-          ease: 'power1.inOut',
-        });
+        }
       }
+    });
+  }
+
+  private showNameOnScroll(): void {
+    gsap.to('.ml11 .letters-2 .letter', {
+      y: 0,
+      opacity: 1,
+      duration: 0.4,
+      stagger: 0.2,
+      ease: 'power1.inOut',
+      onUpdate: () => {
+        const letters2Width = document.querySelector('.ml11 .letters-2')?.getBoundingClientRect().width || 0;
+        const jElementWidth = document.querySelector('.ml11 .last-name span')?.getBoundingClientRect().width || 0;
+        const totalWidth = letters2Width + jElementWidth;
+
+        const dotElement = document.querySelector('.dot') as HTMLElement;
+        if (dotElement) {
+          gsap.to(dotElement, {
+            x: totalWidth,
+            left: '0',
+            duration: 0.1,
+            stagger: 0.3,
+            ease: 'power1.inOut',
+          });
+        }
+      }
+    });
+
+    gsap.to('.ml11 .letters-1 .letter', {
+      y: 0,
+      opacity: 1,
+      duration: 0.9,
+      stagger: 0.05,
+      ease: 'power1.inOut',
     });
   }
 }

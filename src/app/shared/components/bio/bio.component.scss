@@ -23,7 +23,7 @@
       font-weight: 300;
       opacity: 0;
       transform: translateY(10px);
-      transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+      // Pas de transition CSS : GSAP anime déjà ces propriétés (sinon double lissage)
       color: map-get($theme-colors, "beige");
 
       @media (min-width: map-get($breakpoints, "md")) {
@@ -76,7 +76,7 @@
   .bio-image {
     opacity: 0;
     transform: translateY(10px);
-    transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+    // Pas de transition CSS : GSAP anime déjà ces propriétés
 
     img {
       max-width: 25%;
@@ -87,6 +87,28 @@
       img {
         max-width: 50%;
       }
+    }
+  }
+}
+
+/* Mobile : espaces resserrés (les <br><br> restent actifs sur ordinateur) */
+@media (max-width: 767.98px) {
+  .bio-section {
+    margin-top: 48px !important;
+    margin-bottom: 48px !important;
+
+    .bio-content {
+      br {
+        display: none;
+      }
+
+      p {
+        margin-bottom: 20px;
+      }
+    }
+
+    .bio-image {
+      margin-top: 32px !important;
     }
   }
 }

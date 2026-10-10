@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { gsap, ScrollTrigger } from 'gsap/all';
+import { REVEAL, revealOffset } from '../../utils/motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,6 +35,7 @@ export class OffresHomeComponent implements AfterViewInit, OnDestroy {
       const root = this.sectionRef.nativeElement;
       const eyebrow = root.querySelector('.offres-eyebrow');
       const cards = root.querySelectorAll('.offre-card');
+      const y = revealOffset();
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -46,17 +48,17 @@ export class OffresHomeComponent implements AfterViewInit, OnDestroy {
       if (eyebrow) {
         tl.fromTo(
           eyebrow,
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
+          { opacity: 0, y },
+          { opacity: 1, y: 0, duration: REVEAL.duration, ease: REVEAL.ease }
         );
       }
 
       if (cards.length > 0) {
         tl.fromTo(
           cards,
-          { opacity: 0, y: 50 },
-          { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', stagger: 0.15 },
-          '-=0.2'
+          { opacity: 0, y },
+          { opacity: 1, y: 0, duration: REVEAL.duration, ease: REVEAL.ease, stagger: REVEAL.stagger },
+          0.05
         );
       }
     }, this.sectionRef.nativeElement);

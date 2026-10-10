@@ -13,6 +13,7 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import { gsap, CSSPlugin, ScrollTrigger } from 'gsap/all';
+import { REVEAL, prefersReducedMotion, revealOffset } from '../../utils/motion';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -303,30 +304,44 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.ngZone.runOutsideAngular(() => {
       this.gsapContext = gsap.context(() => {
-        gsap.to('.background-sides', {
-          height: '80%',
-          duration: 1,
-          ease: 'expoScale',
+        const reduce = prefersReducedMotion();
+
+        // Le fond monte en scaleY (transform) au lieu d'animer height, et les noms
+        // de projets apparaissent en même temps au lieu d'attendre la fin du fond.
+        gsap.set('.background-sides', { scaleY: reduce ? 1 : 0, transformOrigin: 'bottom' });
+
+        const tl = gsap.timeline({
           scrollTrigger: {
             trigger: '#projects',
           },
-          onComplete: () => {
-            this.animateTextSlides();
-          },
         });
+
+        if (!reduce) {
+          tl.to('.background-sides', {
+            scaleY: 1,
+            duration: 0.6,
+            ease: REVEAL.ease,
+          });
+        }
+
+        // Appel différé : la liste des projets peut être rendue après l'initialisation,
+        // les .text-slide sont donc recherchés au moment de l'animation, pas avant.
+        tl.call(() => this.animateTextSlides(reduce), [], reduce ? 0 : 0.1);
       });
     });
   }
 
-  private animateTextSlides(): void {
+  private animateTextSlides(reduce: boolean): void {
     this.ngZone.runOutsideAngular(() => {
+      if (reduce) {
+        gsap.set('.text-slide', { y: 0 });
+      }
       gsap.to('.text-slide', {
         opacity: 1,
         y: 0,
-        delay: 0.1,
-        duration: 0.8,
-        ease: 'power4.out',
-        stagger: 0.2,
+        duration: REVEAL.duration,
+        ease: REVEAL.ease,
+        stagger: REVEAL.stagger,
         onComplete: () => {
           this.enableInteractions();
         },
@@ -526,10 +541,10 @@ export class ProjectsComponent implements OnInit, AfterViewInit, OnDestroy {
         },
       }).from(projectItems, {
         opacity: 0,
-        y: 20,
-        duration: 0.8,
-        ease: 'power4.out',
-        stagger: 0.2,
+        y: revealOffset(),
+        duration: REVEAL.duration,
+        ease: REVEAL.ease,
+        stagger: REVEAL.stagger,
       });
     }
   }

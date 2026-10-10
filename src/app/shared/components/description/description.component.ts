@@ -9,6 +9,7 @@ import {
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { REVEAL, revealOffset } from '../../utils/motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -30,8 +31,10 @@ export class DescriptionComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.ctx = gsap.context(() => {
-        const h2 = document.querySelector('.description-section h2');
-        const h3 = document.querySelector('.description-section h3');
+        // Le titre visible (le premier h2 de la section est celui, invisible, destiné au référencement)
+        const h2 = document.querySelector('.description-section > h2:not(.visually-hidden)');
+        const h3 = document.querySelector('.description-section > h3');
+        const y = revealOffset();
 
         if (h2 && h3) {
           gsap.timeline({
@@ -43,19 +46,19 @@ export class DescriptionComponent implements OnInit, AfterViewInit, OnDestroy {
           })
           .from(h2, {
             opacity: 0,
-            y: 50,
-            duration: 1.5,
-            ease: 'power4.out'
+            y,
+            duration: REVEAL.duration,
+            ease: REVEAL.ease
           })
           .from(
             h3,
             {
               opacity: 0,
-              y: 50,
-              duration: 1,
-              ease: 'power4.out'
+              y,
+              duration: REVEAL.duration,
+              ease: REVEAL.ease
             },
-            '+=0.5'
+            0.1
           );
         }
       });
